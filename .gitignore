@@ -85,4 +85,9 @@ platforms/android/out
 
 #Gradle builds
 
-platforms/android/build
+platforms/android/
+platforms/browser/
+.sourcemaps/
+www/build/
+package.json
+
