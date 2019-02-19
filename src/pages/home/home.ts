@@ -33,18 +33,29 @@ export class HomePage {
           lat: myLatLng.lat,
           lng: myLatLng.lng
         },
-        zoom: 18,
-        tilt: 30
+        zoom: 18
       }
     };
     this.map = GoogleMaps.create('map_canvas', mapOptions);
 
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-     // console.log('mapa creado');
-     loading.dismiss();
-      this.addMarker(myLatLng.lat, myLatLng.lng);
+      // console.log('mapa creado');
+      loading.dismiss();
+      //this.addMarker(myLatLng.lat, myLatLng.lng);
     });
 
+  }
+
+  async targetMap() {
+    // const loading = this.loadingCtrl.create();
+    // loading.present();
+    const myLatLng = await this.getLocation();
+    this.map.setCameraTarget(myLatLng);
+    this.map.setCameraZoom(18);
+    
+    // setTimeout(() => {
+    //   loading.dismiss();
+    // }, 1000);
   }
 
   private async getLocation() {
@@ -57,9 +68,6 @@ export class HomePage {
 
   private addMarker(lat: number, lng: number) {
     let marker: Marker = this.map.addMarkerSync({
-      title: 'Ionic',
-      icon: 'blue',
-      animation: 'DROP',
       position: {
         lat,
         lng
