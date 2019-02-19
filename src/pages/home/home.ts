@@ -47,15 +47,9 @@ export class HomePage {
   }
 
   async targetMap() {
-    // const loading = this.loadingCtrl.create();
-    // loading.present();
     const myLatLng = await this.getLocation();
     this.map.setCameraTarget(myLatLng);
     this.map.setCameraZoom(18);
-    
-    // setTimeout(() => {
-    //   loading.dismiss();
-    // }, 1000);
   }
 
   private async getLocation() {
