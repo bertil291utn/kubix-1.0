@@ -91,3 +91,15 @@ platforms/browser/
 www/build/
 package.json
 
+.sourcemaps/main.js.map
+platforms/browser/www/build/main.js
+package.json
+.sourcemaps/main.js.map
+platforms/android/app/src/main/assets/www/build/main.js
+platforms/android/app/src/main/assets/www/build/main.js.map
+platforms/android/app/src/main/assets/www/build/vendor.js.map
+platforms/browser/www/build/main.js.map
+platforms/browser/www/build/vendor.js.map
+www/build/main.js
+www/build/main.js.map
+www/build/vendor.js.map
