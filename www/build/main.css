@@ -25678,3 +25678,22 @@ page-home #map_canvas {
   height: 100%;
   width: 100%;
 }
+
+page-viajes-origen-destino .toolbar-title-md {
+  font-size: 1.8rem !important;
+}
+
+page-viajes-origen-destino .border-bottom {
+  border-bottom: 1px solid rgba(86, 61, 124, 0.1);
+}
+
+page-viajes-origen-destino ion-content {
+  background-image: url("../../assets/imgs/bck_utn.png");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.alert-message, .alert-head {
+  text-align: center !important;
+}

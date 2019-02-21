@@ -3,11 +3,17 @@
 
 <ion-content>
   <div id="map_canvas">
-    <ion-fab right bottom>
-      <button (click)="targetMap()" ion-fab color="vibrant" mini>
-        <ion-icon name="navigate"></ion-icon>
-      </button>
+    <ion-card>
+      <ion-item (click)="optionOrigenDestino()">
+        <ion-icon name="search" color="primary" item-left></ion-icon>
+        <span>¿A d&oacute;nde te diriges?</span>
+      </ion-item>
+    </ion-card>
 
+    <ion-fab right bottom>
+      <button (click)="targetMap()" color="vibrant" ion-fab>
+        <ion-icon name="navigate" style="zoom:1.5;"></ion-icon>
+      </button>
     </ion-fab>
   </div>
 </ion-content>
