@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ViajesOrigenDestinoPage }
-  from '../viajes-origen-destino/viajes-origen-destino';
+import { ViajesOrigenDestinoPage }from '../viajes-origen-destino/viajes-origen-destino';
 
 
 import {

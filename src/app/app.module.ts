@@ -6,6 +6,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import {ViajesOrigenDestinoPage} from '../pages/viajes-origen-destino/viajes-origen-destino';
+import {ViajesOrigenPage} from '../pages/viajes-origen/viajes-origen';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -17,7 +19,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     MyApp,
     HomePage,
     ListPage,
-    ViajesOrigenDestinoPage
+    ViajesOrigenDestinoPage,
+    ViajesOrigenPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     MyApp,
     HomePage,
     ListPage,
-    ViajesOrigenDestinoPage
+    ViajesOrigenDestinoPage,
+    ViajesOrigenPage
   ],
   providers: [
     StatusBar,

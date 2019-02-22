@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import {ViajesOrigenPage} from '../viajes-origen/viajes-origen';
 
 /**
  * Generated class for the ViajesOrigenDestinoPage page.
@@ -29,6 +30,10 @@ export class ViajesOrigenDestinoPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  goToOrigen(){
+    this.navCtrl.push(ViajesOrigenPage);
   }
 
 }
