@@ -1,0 +1,56 @@
+<ion-header>
+
+  <ion-navbar color="danger">
+    <ion-title>Destino UTN</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar color="white">
+    <ion-list>
+      <ion-item no-lines>
+        <ion-icon name="pin" color="iconos" item-start></ion-icon>
+        <ion-card>
+          <ion-item color="destinocard">
+            <span ion-text color="ortext">Seleccione su origen</span>
+
+          </ion-item>
+        </ion-card>
+      </ion-item>
+
+      <ion-item no-lines>
+        <ion-icon name="home" color="iconos" item-start></ion-icon>
+        <ion-card>
+          <ion-item color="origencard">
+            Universidad T&eacute;cnica del Norte
+          </ion-item>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-icon name="locate" color="primary" item-start></ion-icon>
+      Tu ubicaci&oacute;n actual
+    </ion-item>
+    <ion-item [hidden]="tiene_casa===0">
+      <ion-icon name="home" color="iconos" item-start></ion-icon>
+      <h2>Casa</h2>
+      <p ion-text>Av. 17 de Julio</p>
+    </ion-item>
+    <ion-item [hidden]="tiene_casa===1">
+      <ion-icon name="home" color="iconos" item-start></ion-icon>
+      <h2>Casa</h2>
+      <p ion-text color="iconos"> <strong> Anadir direcci&oacute;n</strong></p>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="map" color="iconos" item-start></ion-icon>
+      Seleccionar mapa
+    </ion-item>
+  </ion-list>
+
+</ion-content>

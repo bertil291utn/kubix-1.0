@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { SetHomePage } from '../set-home/set-home';
 /**
  * Generated class for the ViajesOrigenPage page.
  *
@@ -14,6 +14,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'viajes-origen.html',
 })
 export class ViajesOrigenPage {
+  // 1 true 0 false
+  public tiene_casa = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -21,5 +23,8 @@ export class ViajesOrigenPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajesOrigenPage');
   }
+  goToSetHome() {
+    this.navCtrl.push(SetHomePage);
 
+  }
 }

@@ -39793,6 +39793,45 @@ page-home #map_canvas {
   width: 100%;
 }
 
+page-home ion-content ion-fab .icon {
+  zoom: 1.5;
+}
+
+page-set-home .toolbar-title-md {
+  font-size: 1.8rem !important;
+}
+
+page-set-home #map_canvas {
+  height: 100%;
+  width: 100%;
+}
+
+page-set-home #centerMarkerImg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+}
+
+page-viajes-destino .card {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  margin: 0px;
+}
+
+page-viajes-destino .label-md {
+  margin: 0px 0px 0px 0;
+}
+
+page-viajes-destino ion-content .text {
+  font-size: 1rem;
+}
+
 page-viajes-origen .card {
   box-shadow: none;
   -webkit-box-shadow: none;

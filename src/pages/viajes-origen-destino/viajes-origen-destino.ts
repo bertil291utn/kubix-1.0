@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import {ViajesOrigenPage} from '../viajes-origen/viajes-origen';
+import {ViajesDestinoPage} from '../viajes-destino/viajes-destino';
 
 /**
  * Generated class for the ViajesOrigenDestinoPage page.
@@ -26,7 +27,7 @@ export class ViajesOrigenDestinoPage {
   showAlert() {
     const alert = this.alertCtrl.create({
       title: 'Informaci&oacute;n',
-      message: 'Seleccione como origen o destino la universidad, teniendo en cuenta el lugar donde se encuentra.',
+      message: 'La universidad siempre ser&aacute; un punto de partida o de llegada',
       buttons: ['OK']
     });
     alert.present();
@@ -34,6 +35,10 @@ export class ViajesOrigenDestinoPage {
 
   goToOrigen(){
     this.navCtrl.push(ViajesOrigenPage);
+  }
+
+  goToDestino(){
+    this.navCtrl.push(ViajesDestinoPage);
   }
 
 }

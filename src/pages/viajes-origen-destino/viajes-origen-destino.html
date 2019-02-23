@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="danger">
-    <ion-title>Universidad T&eacute;cnica del Norte</ion-title>
+    <ion-title>Comienza el viaje</ion-title>
     <ion-buttons end>
       <button ion-button tappable (click)="showAlert()">
         <ion-icon name="information-circle"></ion-icon>
@@ -14,12 +14,11 @@
   <ion-card>
     <ion-item class="border-bottom" (click)="goToOrigen()">
       <ion-icon name="pin" color="iconos" item-left></ion-icon>
-      <span>Origen</span>
+      <span>Salgo de la universidad</span>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goToDestino()">
       <ion-icon name="home" color="iconos" item-left></ion-icon>
-      <span>Destino</span>
+      <span>Voy a la universidad</span>
     </ion-item>
   </ion-card>
-
 </ion-content>

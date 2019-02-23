@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ViajesOrigenDestinoPage }from '../viajes-origen-destino/viajes-origen-destino';
 
-
 import {
   GoogleMaps, GoogleMap, GoogleMapOptions, Marker, GoogleMapsEvent
 } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LoadingController, NavController } from 'ionic-angular';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -41,9 +41,8 @@ export class HomePage {
     this.map = GoogleMaps.create('map_canvas', mapOptions);
 
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-      // console.log('mapa creado');
       loading.dismiss();
-      this.addMarker(myLatLng.lat, myLatLng.lng);
+      //this.addMarker(myLatLng.lat, myLatLng.lng);
     });
 
   }
@@ -52,7 +51,7 @@ export class HomePage {
     const myLatLng = await this.getLocation();
     this.map.setCameraTarget(myLatLng);
     this.map.setCameraZoom(18);
-    this.addMarker(myLatLng.lat, myLatLng.lng);
+    //this.addMarker(myLatLng.lat, myLatLng.lng);
   }
 
   private async getLocation() {

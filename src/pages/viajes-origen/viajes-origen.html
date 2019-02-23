@@ -29,15 +29,15 @@
 
 <ion-content>
   <ion-list>
-    <ion-item>
+    <ion-item [hidden]="tiene_casa===0">
       <ion-icon name="home" color="iconos" item-start></ion-icon>
       <h2>Casa</h2>
       <p ion-text >Av. 17 de Julio</p>
     </ion-item>
-    <ion-item>
+    <ion-item [hidden]="tiene_casa===1" (click)="goToSetHome()">
       <ion-icon name="home" color="iconos" item-start></ion-icon>
       <h2>Casa</h2>
-      <p ion-text color="iconos"> <strong> Anadir direccion</strong></p>
+      <p ion-text color="iconos"> <strong> Anadir direcci&oacute;n</strong></p>
     </ion-item>
     <ion-item>
       <ion-icon name="time" color="iconos" item-start></ion-icon>
@@ -52,7 +52,7 @@
       Quito
     </ion-item>
     <ion-item>
-      <ion-icon name="pin" color="iconos" item-start></ion-icon>
+      <ion-icon name="map" color="iconos" item-start></ion-icon>
       Seleccionar mapa
     </ion-item>
 

@@ -5,22 +5,27 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import {ViajesOrigenDestinoPage} from '../pages/viajes-origen-destino/viajes-origen-destino';
-import {ViajesOrigenPage} from '../pages/viajes-origen/viajes-origen';
-
+import { ViajesOrigenDestinoPage } from '../pages/viajes-origen-destino/viajes-origen-destino';
+import { ViajesOrigenPage } from '../pages/viajes-origen/viajes-origen';
+import { ViajesDestinoPage } from '../pages/viajes-destino/viajes-destino';
+import { SetHomePage } from '../pages/set-home/set-home'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { Geolocation } from '@ionic-native/geolocation';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
     ViajesOrigenDestinoPage,
-    ViajesOrigenPage
+    ViajesOrigenPage,
+    ViajesDestinoPage,
+    SetHomePage
   ],
   imports: [
     BrowserModule,
@@ -32,14 +37,17 @@ import { Geolocation } from '@ionic-native/geolocation';
     HomePage,
     ListPage,
     ViajesOrigenDestinoPage,
-    ViajesOrigenPage
+    ViajesOrigenPage,
+    ViajesDestinoPage,
+    SetHomePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     GoogleMaps,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    NativeGeocoder,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
