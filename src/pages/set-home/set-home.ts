@@ -4,6 +4,7 @@ import { GoogleMap, Marker, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 declare var google;
+declare var plugin;
 @IonicPage()
 @Component({
 
@@ -13,7 +14,6 @@ declare var google;
 export class SetHomePage {
 
   public direccion;
-  centerPos;
   public map: GoogleMap;
 
   constructor(private geolocation: Geolocation,
@@ -25,13 +25,16 @@ export class SetHomePage {
 
   ionViewDidLoad() {
     this.loadMapa();
-
+    this.reverse_geo_application();
   }
 
   ionViewDidEnter() {
-    this.reverse_geo_application();
-    this.camera_position();
+    setInterval(() => {
+      this.direccion;
+    }, 1000);
   }
+
+
 
   async loadMapa() {
     const loading = this.loadingCtrl.create();
@@ -46,10 +49,14 @@ export class SetHomePage {
         zoom: 18
       }
     };
-    this.map = GoogleMaps.create('map_canvas', mapOptions);
+    this.map = GoogleMaps.create('map_canvas', mapOptions);//aqui le asigno el mapa este mapa se ve 
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
       loading.dismiss();
+      this.camera_position();
+      console.log(this.direccion)
     });
+
+
 
   }
 
@@ -62,18 +69,20 @@ export class SetHomePage {
   }
 
   camera_position() {
-   
-      this.map.addEventListener(GoogleMapsEvent.CAMERA_MOVE_END).subscribe(() => {
-        let target = this.map.getCameraTarget();
-        let latlng = {
-          lat: target.lat,
-          lng: target.lng
-        };
-        this.r_g_no_native(latlng);
-      });
-   
 
-    
+    this.map.on(GoogleMapsEvent.CAMERA_MOVE_END).subscribe((val) => {
+      let target = val[0].target;
+      //  let target=this.map.getCameraTarget();
+
+      let latlng = {
+        lat: target.lat,
+        lng: target.lng
+      };
+      this.r_g_no_native(latlng);
+      //this.reverse_gecodings(target.lat,target.lng);
+      console.log(this.direccion)
+    });
+
   }
 
   r_g_no_native(latlng) {
@@ -100,19 +109,20 @@ export class SetHomePage {
       lng: rta.coords.longitude
     };
     this.r_g_no_native(latlng);
+    // this.reverse_gecodings(rta.coords.latitude,rta.coords.longitude);
+
   }
 
 
   //geocoding stand by por result[0] no devuelve direcciones
-  // reverse_gecodings(pos) {
+  // reverse_gecodings(lat:number,lng:number) {
 
-  //   this.nativeGeocoder.reverseGeocode(pos.coords.latitude, pos.coords.longitude)
+  //   this.nativeGeocoder.reverseGeocode(lat, lng)
   //     .then((result: NativeGeocoderReverseResult[]) => {
-  //       this.direccion = result[0].countryName;
-  //       console.log(JSON.stringify(result[0]));
-
+  //       this.direccion = result[0].locality+', '+result[0].subLocality+', '+result[0].countryName;
   //     }).catch((error: any) => console.log(error));
 
   // }
+
 }
 
