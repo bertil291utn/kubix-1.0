@@ -39824,6 +39824,10 @@ page-home-c-view-ruta .grid {
   margin-bottom: 15px;
 }
 
+page-home-c-view-ruta ion-content .gmnoprint {
+  display: none;
+}
+
 page-set-home-destino .toolbar-title-md {
   font-size: 1.8rem !important;
 }

@@ -733,62 +733,11 @@ var SetMapOrigenPage = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViajesDestinoPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__set_home_destino_set_home_destino__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__set_map_destino_set_map_destino__ = __webpack_require__(106);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var ViajesDestinoPage = (function () {
-    function ViajesDestinoPage(navCtrl, navParams) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        // 1 true 0 false
-        this.tiene_casa = 0;
-    }
-    ViajesDestinoPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad ViajesDestinoPage');
-    };
-    ViajesDestinoPage.prototype.goToSetHome = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__set_home_destino_set_home_destino__["a" /* SetHomeDestinoPage */]);
-    };
-    ViajesDestinoPage.prototype.goToSetMap = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__set_map_destino_set_map_destino__["a" /* SetMapDestinoPage */]);
-    };
-    ViajesDestinoPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-viajes-destino',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-destino\viajes-destino.html"*/'<ion-header>\n  <ion-navbar color="danger">\n  </ion-navbar>\n  <ion-toolbar color="white">\n    <ion-list>\n      <ion-item no-lines>\n        <ion-icon name="pin" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="destinocard">\n            <span ion-text color="ortext">Seleccione su origen</span>\n\n          </ion-item>\n        </ion-card>\n      </ion-item>\n\n      <ion-item no-lines>\n        <ion-icon name="home" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="origencard">\n            Universidad T&eacute;cnica del Norte\n          </ion-item>\n        </ion-card>\n      </ion-item>\n    </ion-list>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-list>\n    <ion-item>\n      <ion-icon name="locate" color="primary" item-start></ion-icon>\n      Tu ubicaci&oacute;n actual\n    </ion-item>\n    <ion-item [hidden]="tiene_casa===0">\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n      <h2>Casa</h2>\n      <p ion-text>Av. 17 de Julio</p>\n    </ion-item>\n    <ion-item [hidden]="tiene_casa===1" (click)="goToSetHome()">\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n      <h2>Casa</h2>\n      <p ion-text color="iconos"> <strong> Anadir direcci&oacute;n</strong></p>\n    </ion-item>\n    <ion-item (click)="goToSetMap()">\n      <ion-icon name="map" color="iconos" item-start></ion-icon>\n      Seleccionar mapa\n    </ion-item>\n  </ion-list>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-destino\viajes-destino.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
-    ], ViajesDestinoPage);
-    return ViajesDestinoPage;
-}());
-
-//# sourceMappingURL=viajes-destino.js.map
-
-/***/ }),
-
-/***/ 109:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViajesOrigenDestinoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__viajes_origen_viajes_origen__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viajes_destino_viajes_destino__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__viajes_origen_viajes_origen__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viajes_destino_viajes_destino__ = __webpack_require__(110);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -844,7 +793,7 @@ var ViajesOrigenDestinoPage = (function () {
 
 /***/ }),
 
-/***/ 110:
+/***/ 109:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -900,6 +849,57 @@ var ViajesOrigenPage = (function () {
 
 /***/ }),
 
+/***/ 110:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViajesDestinoPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__set_home_destino_set_home_destino__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__set_map_destino_set_map_destino__ = __webpack_require__(106);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ViajesDestinoPage = (function () {
+    function ViajesDestinoPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        // 1 true 0 false
+        this.tiene_casa = 0;
+    }
+    ViajesDestinoPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ViajesDestinoPage');
+    };
+    ViajesDestinoPage.prototype.goToSetHome = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__set_home_destino_set_home_destino__["a" /* SetHomeDestinoPage */]);
+    };
+    ViajesDestinoPage.prototype.goToSetMap = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__set_map_destino_set_map_destino__["a" /* SetMapDestinoPage */]);
+    };
+    ViajesDestinoPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-viajes-destino',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-destino\viajes-destino.html"*/'<ion-header>\n  <ion-navbar color="danger">\n  </ion-navbar>\n  <ion-toolbar color="white">\n    <ion-list>\n      <ion-item no-lines>\n        <ion-icon name="pin" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="destinocard">\n            <span ion-text color="ortext">Seleccione su origen</span>\n\n          </ion-item>\n        </ion-card>\n      </ion-item>\n\n      <ion-item no-lines>\n        <ion-icon name="home" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="origencard">\n            Universidad T&eacute;cnica del Norte\n          </ion-item>\n        </ion-card>\n      </ion-item>\n    </ion-list>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-list>\n    <ion-item>\n      <ion-icon name="locate" color="primary" item-start></ion-icon>\n      Tu ubicaci&oacute;n actual\n    </ion-item>\n    <ion-item [hidden]="tiene_casa===0">\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n      <h2>Casa</h2>\n      <p ion-text>Av. 17 de Julio</p>\n    </ion-item>\n    <ion-item [hidden]="tiene_casa===1" (click)="goToSetHome()">\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n      <h2>Casa</h2>\n      <p ion-text color="iconos"> <strong> Anadir direcci&oacute;n</strong></p>\n    </ion-item>\n    <ion-item (click)="goToSetMap()">\n      <ion-icon name="map" color="iconos" item-start></ion-icon>\n      Seleccionar mapa\n    </ion-item>\n  </ion-list>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-destino\viajes-destino.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
+    ], ViajesDestinoPage);
+    return ViajesDestinoPage;
+}());
+
+//# sourceMappingURL=viajes-destino.js.map
+
+/***/ }),
+
 /***/ 121:
 /***/ (function(module, exports) {
 
@@ -942,11 +942,11 @@ var map = {
 		3
 	],
 	"../pages/viajes-destino/viajes-destino.module": [
-		288,
+		289,
 		2
 	],
 	"../pages/viajes-origen-destino/viajes-origen-destino.module": [
-		289,
+		288,
 		1
 	],
 	"../pages/viajes-origen/viajes-origen.module": [
@@ -976,7 +976,7 @@ module.exports = webpackAsyncContext;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__viajes_origen_destino_viajes_origen_destino__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__viajes_origen_destino_viajes_origen_destino__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(12);
@@ -1206,9 +1206,9 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(282);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_list_list__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_viajes_origen_destino_viajes_origen_destino__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_viajes_origen_viajes_origen__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_viajes_destino_viajes_destino__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_viajes_origen_destino_viajes_origen_destino__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_viajes_origen_viajes_origen__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_viajes_destino_viajes_destino__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_set_home_origen_set_home__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_set_map_origen_set_map_origen__ = __webpack_require__(107);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_set_home_destino_set_home_destino__ = __webpack_require__(105);
@@ -1271,8 +1271,8 @@ var AppModule = (function () {
                         { loadChildren: '../pages/set-home-destino/set-home-destino.module#SetHomeDestinoPageModule', name: 'SetHomeDestinoPage', segment: 'set-home-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-destino/set-map-destino.module#SetMapDestinoPageModule', name: 'SetMapDestinoPage', segment: 'set-map-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-origen/set-map-origen.module#SetMapOrigenPageModule', name: 'SetMapOrigenPage', segment: 'set-map-origen', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/viajes-destino/viajes-destino.module#ViajesDestinoPageModule', name: 'ViajesDestinoPage', segment: 'viajes-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-origen-destino/viajes-origen-destino.module#ViajesOrigenDestinoPageModule', name: 'ViajesOrigenDestinoPage', segment: 'viajes-origen-destino', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/viajes-destino/viajes-destino.module#ViajesDestinoPageModule', name: 'ViajesDestinoPage', segment: 'viajes-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-origen/viajes-origen.module#ViajesOrigenPageModule', name: 'ViajesOrigenPage', segment: 'viajes-origen', priority: 'low', defaultHistory: [] }
                     ]
                 }),
@@ -1444,11 +1444,38 @@ var HomeCViewRutaPage = (function () {
         this.nav = nav;
         this.nativeGeocoder = nativeGeocoder;
         this.start = { lat: 0.3581583, lng: -78.112088 };
-        this.end = { lat: -0.0500051, lng: -78.1574179 };
+        this.end = { lat: 0.0412345, lng: -78.1460585 };
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
     }
     HomeCViewRutaPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad HomeCViewRutaPage');
-        //this.loadMapa();
+        this.initMapa();
+    };
+    HomeCViewRutaPage.prototype.initMapa = function () {
+        this.map = new google.maps.Map(this.mapElement.nativeElement, {
+            zoom: 7,
+            center: { lat: 41.85, lng: -87.65 },
+            disableDefaultUI: true
+        });
+        //this.map = GoogleMaps.create(this.mapElement.nativeElement); 
+        this.directionsDisplay.setMap(this.map);
+        this.calculateAndDisplayRoute1();
+    };
+    HomeCViewRutaPage.prototype.calculateAndDisplayRoute1 = function () {
+        var _this = this;
+        this.directionsService.route({
+            origin: this.start,
+            destination: this.end,
+            travelMode: 'DRIVING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                _this.directionsDisplay.setDirections(response);
+            }
+            else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
     };
     HomeCViewRutaPage.prototype.loadMapa = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -1474,6 +1501,7 @@ var HomeCViewRutaPage = (function () {
                         this.map.one(__WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["b" /* GoogleMapsEvent */].MAP_READY).then(function () {
                             loading.dismiss();
                         });
+                        this.calculateAndDisplayRoute();
                         return [2 /*return*/];
                 }
             });
@@ -1500,7 +1528,6 @@ var HomeCViewRutaPage = (function () {
     //   this.calculateAndDisplayRoute(directionsService, directionsDisplay);
     // }
     HomeCViewRutaPage.prototype.calculateAndDisplayRoute = function () {
-        this.loadMapa();
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
         directionsDisplay.setMap(this.map);
@@ -1518,9 +1545,13 @@ var HomeCViewRutaPage = (function () {
             }
         });
     };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('map_canvas'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */])
+    ], HomeCViewRutaPage.prototype, "mapElement", void 0);
     HomeCViewRutaPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home-c-view-ruta',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home-c-view-ruta\home-c-view-ruta.html"*/'<ion-content>\n  <div id="map_canvas">\n      <div padding>\n          <button ion-button color="primary" block (click)="calculateAndDisplayRoute()">Do</button>\n        </div>\n  </div>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar color="white">\n    <ion-list>\n      <ion-item no-lines>\n        <ion-icon name="pin" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="destinocard">\n            Otavalo\n          </ion-item>\n        </ion-card>\n      </ion-item>\n\n      <ion-item no-lines>\n        <ion-icon name="home" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="destinocard">\n            Universidad T&eacute;cnica del Norte\n          </ion-item>\n        </ion-card>\n      </ion-item>\n    </ion-list>\n\n    <ion-grid>\n      <ion-row>\n        <ion-col></ion-col>\n        <ion-col text-center><strong ion-text color="danger">ACEPTAR</strong></ion-col>\n        <ion-col></ion-col>\n        <ion-col text-center><strong ion-text color="danger">CANCELAR</strong></ion-col>\n        <ion-col></ion-col>\n      </ion-row>\n    </ion-grid>\n\n  </ion-toolbar>\n</ion-footer>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home-c-view-ruta\home-c-view-ruta.html"*/,
+            selector: 'page-home-c-view-ruta',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home-c-view-ruta\home-c-view-ruta.html"*/'<ion-header>\n  <ion-navbar color="danger">\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n  <div #map_canvas  id="map_canvas">\n  </div>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar color="white">\n    <ion-list>\n      <ion-item no-lines>\n        <ion-icon name="pin" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="destinocard">\n            Otavalo\n          </ion-item>\n        </ion-card>\n      </ion-item>\n\n      <ion-item no-lines>\n        <ion-icon name="home" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="destinocard">\n            Universidad T&eacute;cnica del Norte\n          </ion-item>\n        </ion-card>\n      </ion-item>\n    </ion-list>\n\n    <ion-grid>\n      <ion-row>\n        <ion-col></ion-col>\n        <ion-col text-center><strong ion-text color="danger">ACEPTAR</strong></ion-col>\n        <ion-col></ion-col>\n        <ion-col text-center><strong ion-text color="danger">CANCELAR</strong></ion-col>\n        <ion-col></ion-col>\n      </ion-row>\n    </ion-grid>\n\n  </ion-toolbar>\n</ion-footer>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home-c-view-ruta\home-c-view-ruta.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
