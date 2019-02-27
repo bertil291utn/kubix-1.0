@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SetHomePage } from '../set-home/set-home';
-/**
- * Generated class for the ViajesOrigenPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SetHomePage } from '../set-home_origen/set-home';
+import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
+import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
+
 
 @IonicPage()
 @Component({
@@ -25,6 +22,13 @@ export class ViajesOrigenPage {
   }
   goToSetHome() {
     this.navCtrl.push(SetHomePage);
+  }
 
+  goToSetMap() {
+    this.navCtrl.push(SetMapOrigenPage);
+  }
+
+  goToViewRoute(){
+    this.navCtrl.push(HomeCViewRutaPage);
   }
 }

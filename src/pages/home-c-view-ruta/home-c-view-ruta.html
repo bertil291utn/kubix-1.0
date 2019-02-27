@@ -1,0 +1,42 @@
+<ion-content>
+  <div id="map_canvas">
+      <div padding>
+          <button ion-button color="primary" block (click)="calculateAndDisplayRoute()">Do</button>
+        </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="white">
+    <ion-list>
+      <ion-item no-lines>
+        <ion-icon name="pin" color="iconos" item-start></ion-icon>
+        <ion-card>
+          <ion-item color="destinocard">
+            Otavalo
+          </ion-item>
+        </ion-card>
+      </ion-item>
+
+      <ion-item no-lines>
+        <ion-icon name="home" color="iconos" item-start></ion-icon>
+        <ion-card>
+          <ion-item color="destinocard">
+            Universidad T&eacute;cnica del Norte
+          </ion-item>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col text-center><strong ion-text color="danger">ACEPTAR</strong></ion-col>
+        <ion-col></ion-col>
+        <ion-col text-center><strong ion-text color="danger">CANCELAR</strong></ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-toolbar>
+</ion-footer>

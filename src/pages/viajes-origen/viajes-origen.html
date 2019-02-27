@@ -1,8 +1,6 @@
 <ion-header>
   <ion-navbar color="danger">
-    <ion-title>Origen UTN</ion-title>
   </ion-navbar>
-
   <ion-toolbar color="white">
     <ion-list>
       <ion-item no-lines>
@@ -13,7 +11,6 @@
           </ion-item>
         </ion-card>
       </ion-item>
-
       <ion-item no-lines>
         <ion-icon name="home" color="iconos" item-start></ion-icon>
         <ion-card>
@@ -29,10 +26,10 @@
 
 <ion-content>
   <ion-list>
-    <ion-item [hidden]="tiene_casa===0">
+    <ion-item [hidden]="tiene_casa===0" (click)="goToViewRoute()">
       <ion-icon name="home" color="iconos" item-start></ion-icon>
       <h2>Casa</h2>
-      <p ion-text >Av. 17 de Julio</p>
+      <p ion-text>Av. 17 de Julio</p>
     </ion-item>
     <ion-item [hidden]="tiene_casa===1" (click)="goToSetHome()">
       <ion-icon name="home" color="iconos" item-start></ion-icon>
@@ -51,7 +48,7 @@
       <ion-icon name="time" color="iconos" item-start></ion-icon>
       Quito
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goToSetMap()">
       <ion-icon name="map" color="iconos" item-start></ion-icon>
       Seleccionar mapa
     </ion-item>

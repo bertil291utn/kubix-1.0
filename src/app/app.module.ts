@@ -8,7 +8,11 @@ import { ListPage } from '../pages/list/list';
 import { ViajesOrigenDestinoPage } from '../pages/viajes-origen-destino/viajes-origen-destino';
 import { ViajesOrigenPage } from '../pages/viajes-origen/viajes-origen';
 import { ViajesDestinoPage } from '../pages/viajes-destino/viajes-destino';
-import { SetHomePage } from '../pages/set-home/set-home'
+import { SetHomePage } from '../pages/set-home_origen/set-home'
+import { SetMapOrigenPage } from '../pages/set-map-origen/set-map-origen';
+import { SetHomeDestinoPage } from '../pages/set-home-destino/set-home-destino';
+import { SetMapDestinoPage } from '../pages/set-map-destino/set-map-destino';
+import { HomeCViewRutaPage } from '../pages/home-c-view-ruta/home-c-view-ruta';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,7 +29,11 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
     ViajesOrigenDestinoPage,
     ViajesOrigenPage,
     ViajesDestinoPage,
-    SetHomePage
+    SetHomePage,
+    SetMapOrigenPage,
+    SetHomeDestinoPage,
+    SetMapDestinoPage,
+    HomeCViewRutaPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +47,11 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
     ViajesOrigenDestinoPage,
     ViajesOrigenPage,
     ViajesDestinoPage,
-    SetHomePage
+    SetHomePage,
+    SetMapOrigenPage,
+    SetHomeDestinoPage,
+    SetMapDestinoPage,
+    HomeCViewRutaPage
   ],
   providers: [
     StatusBar,

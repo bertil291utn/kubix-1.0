@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar color="danger">
+    <ion-title>Seleccionar destino</ion-title>
+    <ion-buttons end>
+      <button ion-button tappable>
+        OK
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div id="map_canvas">
+    <ion-card>
+      <ion-item>
+        <ion-icon name="map" color="iconos" item-left></ion-icon>
+        {{direccion}}
+      </ion-item>
+    </ion-card>
+    <img src="assets/imgs/marker.png" id="centerMarkerImg">
+  </div>
+</ion-content>

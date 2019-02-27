@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { SetHomeDestinoPage } from '../set-home-destino/set-home-destino';
+import { SetMapDestinoPage } from '../set-map-destino/set-map-destino';
 
-/**
- * Generated class for the ViajesDestinoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -15,7 +11,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ViajesDestinoPage {
   // 1 true 0 false
-  public tiene_casa = 1;
+  public tiene_casa = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -24,4 +20,11 @@ export class ViajesDestinoPage {
     console.log('ionViewDidLoad ViajesDestinoPage');
   }
 
+  goToSetHome() {
+    this.navCtrl.push(SetHomeDestinoPage);
+  }
+  goToSetMap() {
+
+    this.navCtrl.push(SetMapDestinoPage);
+  }
 }

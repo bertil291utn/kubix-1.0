@@ -1,9 +1,6 @@
 <ion-header>
-
   <ion-navbar color="danger">
-    <ion-title>Destino UTN</ion-title>
   </ion-navbar>
-
   <ion-toolbar color="white">
     <ion-list>
       <ion-item no-lines>
@@ -26,12 +23,10 @@
       </ion-item>
     </ion-list>
   </ion-toolbar>
-
 </ion-header>
 
 
 <ion-content>
-
   <ion-list>
     <ion-item>
       <ion-icon name="locate" color="primary" item-start></ion-icon>
@@ -42,15 +37,14 @@
       <h2>Casa</h2>
       <p ion-text>Av. 17 de Julio</p>
     </ion-item>
-    <ion-item [hidden]="tiene_casa===1">
+    <ion-item [hidden]="tiene_casa===1" (click)="goToSetHome()">
       <ion-icon name="home" color="iconos" item-start></ion-icon>
       <h2>Casa</h2>
       <p ion-text color="iconos"> <strong> Anadir direcci&oacute;n</strong></p>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="goToSetMap()">
       <ion-icon name="map" color="iconos" item-start></ion-icon>
       Seleccionar mapa
     </ion-item>
   </ion-list>
-
 </ion-content>
