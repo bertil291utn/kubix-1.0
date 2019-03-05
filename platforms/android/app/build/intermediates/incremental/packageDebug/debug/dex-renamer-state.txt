@@ -1,4 +1,4 @@
-#Wed Feb 27 17:09:19 COT 2019
+#Mon Mar 04 19:32:10 COT 2019
 base.0=C\:\\Users\\Bertil\\Downloads\\ionic_project_kubix\\kubix1.1.3\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

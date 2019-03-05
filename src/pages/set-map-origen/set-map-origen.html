@@ -3,7 +3,7 @@
   <ion-navbar color="danger">
     <ion-title>Seleccione destino</ion-title>
     <ion-buttons end>
-      <button ion-button tappable>
+      <button ion-button tappable (click)="goToViewRoute()">
         OK
       </button>
     </ion-buttons>
@@ -12,7 +12,7 @@
 
 
 <ion-content>
-  <div id="map_canvas">
+  <div id="map_canvas6">
     <ion-card>
       <ion-item>
         <ion-icon name="map" color="iconos" item-left></ion-icon>

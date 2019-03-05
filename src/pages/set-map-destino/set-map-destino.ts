@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { GoogleMap, Marker, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
 declare var google;
 
 @IonicPage()
@@ -14,7 +15,8 @@ export class SetMapDestinoPage {
 
   public direccion;
   public map: GoogleMap;
-
+  origenUtn_LatLng;
+  destinoHome_LatLng;
 
   constructor(private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
@@ -22,6 +24,7 @@ export class SetMapDestinoPage {
   }
 
   ionViewDidLoad() {
+    this.destinoHome_LatLng = { lat: 0.3581583, lng: -78.112088 };
     this.loadMapa();
     this.reverse_geo_application();
   }
@@ -32,7 +35,12 @@ export class SetMapDestinoPage {
     }, 1000);
   }
 
-
+  goToViewRoute() {
+    this.nav.push(HomeCViewRutaPage, {
+      origenUtn_LatLngnvp: this.origenUtn_LatLng,
+      destinoHome_LatLngnvp: this.destinoHome_LatLng,
+    });
+  }
 
   async loadMapa() {
     const loading = this.loadingCtrl.create();
@@ -47,7 +55,7 @@ export class SetMapDestinoPage {
         zoom: 18
       }
     };
-    this.map = GoogleMaps.create('map_canvas', mapOptions);//aqui le asigno el mapa este mapa se ve 
+    this.map = GoogleMaps.create('map_canvas5', mapOptions);//aqui le asigno el mapa este mapa se ve 
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
       loading.dismiss();
       this.camera_position();
@@ -77,8 +85,7 @@ export class SetMapDestinoPage {
         lng: target.lng
       };
       this.r_g_no_native(latlng);
-      //this.reverse_gecodings(target.lat,target.lng);
-      console.log(this.direccion)
+      this.origenUtn_LatLng = latlng;
     });
 
   }
@@ -107,7 +114,6 @@ export class SetMapDestinoPage {
       lng: rta.coords.longitude
     };
     this.r_g_no_native(latlng);
-    // this.reverse_gecodings(rta.coords.latitude,rta.coords.longitude);
-
+    this.origenUtn_LatLng = latlng;
   }
 }

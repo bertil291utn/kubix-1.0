@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { GoogleMap, Marker, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
 declare var google;
 @IonicPage()
 @Component({
@@ -12,7 +13,8 @@ declare var google;
 export class SetMapOrigenPage {
   public direccion;
   public map: GoogleMap;
-
+  origenUtn_LatLng;
+  destinoHome_LatLng;
 
   constructor(private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
@@ -20,6 +22,7 @@ export class SetMapOrigenPage {
   }
 
   ionViewDidLoad() {
+    this.origenUtn_LatLng = { lat: 0.3581583, lng: -78.112088 };
     this.loadMapa();
     this.reverse_geo_application();
   }
@@ -30,7 +33,7 @@ export class SetMapOrigenPage {
     }, 1000);
   }
 
-
+  
 
   async loadMapa() {
     const loading = this.loadingCtrl.create();
@@ -45,11 +48,10 @@ export class SetMapOrigenPage {
         zoom: 18
       }
     };
-    this.map = GoogleMaps.create('map_canvas', mapOptions);//aqui le asigno el mapa este mapa se ve 
+    this.map = GoogleMaps.create('map_canvas6', mapOptions);//aqui le asigno el mapa este mapa se ve 
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
       loading.dismiss();
       this.camera_position();
-      console.log(this.direccion)
     });
 
 
@@ -68,15 +70,12 @@ export class SetMapOrigenPage {
 
     this.map.on(GoogleMapsEvent.CAMERA_MOVE_END).subscribe((val) => {
       let target = val[0].target;
-      //  let target=this.map.getCameraTarget();
-
       let latlng = {
         lat: target.lat,
         lng: target.lng
       };
       this.r_g_no_native(latlng);
-      //this.reverse_gecodings(target.lat,target.lng);
-      console.log(this.direccion)
+      this.destinoHome_LatLng = latlng;
     });
 
   }
@@ -105,8 +104,15 @@ export class SetMapOrigenPage {
       lng: rta.coords.longitude
     };
     this.r_g_no_native(latlng);
-    // this.reverse_gecodings(rta.coords.latitude,rta.coords.longitude);
+    this.destinoHome_LatLng = latlng;
 
+  }
+
+  goToViewRoute() {
+    this.nav.push(HomeCViewRutaPage, {
+      origenUtn_LatLngnvp: this.origenUtn_LatLng,
+      destinoHome_LatLngnvp: this.destinoHome_LatLng,
+    });
   }
 
 }

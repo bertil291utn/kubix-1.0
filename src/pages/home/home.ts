@@ -38,7 +38,7 @@ export class HomePage {
         zoom: 18
       }
     };
-    this.map = GoogleMaps.create('map_canvas', mapOptions);
+    this.map = GoogleMaps.create('map_canvas2', mapOptions);
 
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
       loading.dismiss();

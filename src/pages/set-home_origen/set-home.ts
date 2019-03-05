@@ -15,6 +15,10 @@ export class SetHomePage {
 
   public direccion;
   public map: GoogleMap;
+  origen_LatLng;
+  destino_LatLng;
+  origen_direccion;
+  destino_direccion;
 
   constructor(private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
@@ -24,6 +28,8 @@ export class SetHomePage {
 
 
   ionViewDidLoad() {
+    this.origen_LatLng = { lat: 0.3581583, lng: -78.112088 };
+    this.origen_direccion = 'Universidad Tecnica del Norte';
     this.loadMapa();
     this.reverse_geo_application();
   }
@@ -33,25 +39,27 @@ export class SetHomePage {
       this.direccion;
     }, 1000);
   }
+
   goToViewRoute() {
-    this.nav.push(HomeCViewRutaPage);
+    this.nav.push(HomeCViewRutaPage, {
+      origen_LatLngnvp: this.origen_LatLng,
+      destino_LatLngnvp: this.destino_LatLng,
+      origen_direccionnvp: this.origen_direccion,
+      destino_direccionnvp: this.destino_direccion
+    });
   }
 
 
   async loadMapa() {
     const loading = this.loadingCtrl.create();
     loading.present();
-    const myLatLng = await this.getLocation();
     let mapOptions: GoogleMapOptions = {
       camera: {
-        target: {
-          lat: myLatLng.lat,
-          lng: myLatLng.lng
-        },
+        target: await this.getLocation(),
         zoom: 18
       }
     };
-    this.map = GoogleMaps.create('map_canvas', mapOptions); 
+    this.map = GoogleMaps.create('map_canvas3', mapOptions);
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
       loading.dismiss();
       this.camera_position();
@@ -78,8 +86,7 @@ export class SetHomePage {
         lng: target.lng
       };
       this.r_g_no_native(latlng);
-      //this.reverse_gecodings(target.lat,target.lng);
-      console.log(this.direccion)
+      this.destino_LatLng = latlng;
     });
 
   }
@@ -92,7 +99,7 @@ export class SetHomePage {
         if (status === 'OK') {
           if (results[0]) {
             this.direccion = results[0].formatted_address;
-
+            this.destino_direccion = this.direccion;
           }
         }
 
@@ -102,13 +109,8 @@ export class SetHomePage {
 
 
   async reverse_geo_application() {
-    const rta = await this.geolocation.getCurrentPosition();
-    let latlng = {
-      lat: rta.coords.latitude,
-      lng: rta.coords.longitude
-    };
-    this.r_g_no_native(latlng);
-    // this.reverse_gecodings(rta.coords.latitude,rta.coords.longitude);
+    this.r_g_no_native(await this.getLocation());
+    this.destino_LatLng = await this.getLocation();
 
   }
 

@@ -1,11 +1,5 @@
-<ion-header>
-  <ion-navbar color="danger">
-  </ion-navbar>
-</ion-header>
-
-
 <ion-content>
-  <div #map_canvas  id="map_canvas">
+  <div #map_canvas id="map_canvas">
   </div>
 </ion-content>
 
@@ -15,8 +9,8 @@
       <ion-item no-lines>
         <ion-icon name="pin" color="iconos" item-start></ion-icon>
         <ion-card>
-          <ion-item color="destinocard">
-            Otavalo
+          <ion-item color="destinocard" (click)="goToutnDestino()">
+            {{origen_direccion}}
           </ion-item>
         </ion-card>
       </ion-item>
@@ -24,8 +18,8 @@
       <ion-item no-lines>
         <ion-icon name="home" color="iconos" item-start></ion-icon>
         <ion-card>
-          <ion-item color="destinocard">
-            Universidad T&eacute;cnica del Norte
+          <ion-item color="destinocard" (click)="goToutnOrigen()">
+            {{destino_direccion}}
           </ion-item>
         </ion-card>
       </ion-item>
@@ -36,7 +30,7 @@
         <ion-col></ion-col>
         <ion-col text-center><strong ion-text color="danger">ACEPTAR</strong></ion-col>
         <ion-col></ion-col>
-        <ion-col text-center><strong ion-text color="danger">CANCELAR</strong></ion-col>
+        <ion-col text-center (click)="goToCancel()"><strong ion-text color="danger">CANCELAR</strong></ion-col>
         <ion-col></ion-col>
       </ion-row>
     </ion-grid>

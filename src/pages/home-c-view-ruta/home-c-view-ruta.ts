@@ -1,9 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { GoogleMap, Marker, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from '@ionic-native/google-maps';
-import { Geolocation } from '@ionic-native/geolocation';
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
-
+import { ViajesDestinoPage } from '../viajes-destino/viajes-destino';
+import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
+import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
 declare var google;
 
 @IonicPage()
@@ -13,17 +12,19 @@ declare var google;
 })
 export class HomeCViewRutaPage {
   @ViewChild('map_canvas') mapElement: ElementRef;
-  public start = { lat: 0.3581583, lng: -78.112088 };
-  public end = { lat: 0.0412345, lng: -78.1460585 };
   public map: any;
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
+  origen_LatLng;
+  destino_LatLng;
+  origen_direccion;
+  destino_direccion;
 
-  constructor(private geolocation: Geolocation,
-    public loadingCtrl: LoadingController,
-    public nav: NavController,
-    private nativeGeocoder: NativeGeocoder) {
-
+  constructor(public loadingCtrl: LoadingController, public nav: NavController, public navparams: NavParams) {
+    this.origen_LatLng = navparams.get('origen_LatLngnvp');
+    this.destino_LatLng = navparams.get('destino_LatLngnvp');
+    this.destino_direccion = navparams.get('destino_direccionnvp');
+    this.origen_direccion = navparams.get('origen_direccionnvp');
   }
 
   ionViewDidLoad() {
@@ -35,18 +36,17 @@ export class HomeCViewRutaPage {
   initMapa() {
     this.map = new google.maps.Map(this.mapElement.nativeElement, {
       zoom: 7,
-      center: { lat: 41.85, lng: -87.65 },
       disableDefaultUI: true
     });
     //this.map = GoogleMaps.create(this.mapElement.nativeElement); 
     this.directionsDisplay.setMap(this.map);
-    this.calculateAndDisplayRoute1();
+    this.calculateAndDisplayRoute();
   }
 
-  calculateAndDisplayRoute1() {
+  calculateAndDisplayRoute() {
     this.directionsService.route({
-      origin: this.start,
-      destination: this.end,
+      origin: this.origen_LatLng,
+      destination: this.destino_LatLng,
       travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
@@ -58,57 +58,16 @@ export class HomeCViewRutaPage {
   }
 
 
+  goToutnDestino() {
+    this.nav.push(ViajesDestinoPage);
+  }
 
-async loadMapa() {
-  const loading = this.loadingCtrl.create();
-  loading.present();
-  const myLatLng = await this.getLocation();
-  let mapOptions: GoogleMapOptions = {
-    camera: {
-      target: {
-        lat: myLatLng.lat,
-        lng: myLatLng.lng
-      },
-      zoom: 18
-    }
-  };
-  this.map = GoogleMaps.create('map_canvas', mapOptions);
-  this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-    loading.dismiss();
-  });
-  this.calculateAndDisplayRoute();
-}
+  goToutnOrigen() {
+    this.nav.push(ViajesOrigenPage);
+  }
 
-  private async getLocation() {
-  const rta = await this.geolocation.getCurrentPosition();
-  return {
-    lat: rta.coords.latitude,
-    lng: rta.coords.longitude
-  };
-}
-
-  // public display_route() {
-
-  //   directionsDisplay.setMap(this.map);
-  //   this.calculateAndDisplayRoute(directionsService, directionsDisplay);
-  // }
-  public calculateAndDisplayRoute() {
-
-  var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
-  directionsDisplay.setMap(this.map);
-  directionsService.route({
-    origin: this.start,
-    destination: this.end,
-    travelMode: 'DRIVING'
-  }, (response, status) => {
-    if (status === 'OK') {
-      console.log(response);
-      directionsDisplay.setDirections(response);
-    } else {
-      window.alert('Directions request failed due to ' + status);
-    }
-  });
-}
+  goToCancel() {
+    this.nav.push(ViajesOrigenDestinoPage);
+  }
 
 }

@@ -39788,7 +39788,7 @@ ion-navbar.toolbar {
   text-align: center !important;
 }
 
-page-home #map_canvas {
+page-home #map_canvas2 {
   height: 100%;
   width: 100%;
 }
@@ -39832,7 +39832,7 @@ page-set-home-destino .toolbar-title-md {
   font-size: 1.8rem !important;
 }
 
-page-set-home-destino #map_canvas {
+page-set-home-destino #map_canvas4 {
   height: 100%;
   width: 100%;
 }
@@ -39853,7 +39853,7 @@ page-set-home .toolbar-title-md {
   font-size: 1.8rem !important;
 }
 
-page-set-home #map_canvas {
+page-set-home #map_canvas3 {
   height: 100%;
   width: 100%;
 }
@@ -39874,7 +39874,7 @@ page-set-map-destino .toolbar-title-md {
   font-size: 1.8rem !important;
 }
 
-page-set-map-destino #map_canvas {
+page-set-map-destino #map_canvas5 {
   height: 100%;
   width: 100%;
 }
@@ -39895,7 +39895,7 @@ page-set-map-origen .toolbar-title-md {
   font-size: 1.8rem !important;
 }
 
-page-set-map-origen #map_canvas {
+page-set-map-origen #map_canvas6 {
   height: 100%;
   width: 100%;
 }
