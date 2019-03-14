@@ -7,8 +7,8 @@ webpackJsonp([8],{
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SetHomeDestinoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(25);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -69,7 +69,8 @@ var SetHomeDestinoPage = (function () {
         this.nativeGeocoder = nativeGeocoder;
     }
     SetHomeDestinoPage.prototype.ionViewDidLoad = function () {
-        this.destinoHome_LatLng = { lat: 0.3581583, lng: -78.112088 };
+        this.destino_LatLng = { lat: 0.3581583, lng: -78.112088 };
+        this.destino_direccion = 'Universidad Tecnica del Norte';
         this.loadMapa();
         this.reverse_geo_application();
     };
@@ -81,8 +82,10 @@ var SetHomeDestinoPage = (function () {
     };
     SetHomeDestinoPage.prototype.goToViewRoute = function () {
         this.nav.push(__WEBPACK_IMPORTED_MODULE_5__home_c_view_ruta_home_c_view_ruta__["a" /* HomeCViewRutaPage */], {
-            origenUtn_LatLngnvp: this.origenUtn_LatLng,
-            destinoHome_LatLngnvp: this.destinoHome_LatLng,
+            origen_LatLngnvp: this.origen_LatLng,
+            destino_LatLngnvp: this.destino_LatLng,
+            origen_direccionnvp: this.origen_direccion,
+            destino_direccionnvp: this.destino_direccion
         });
     };
     SetHomeDestinoPage.prototype.loadMapa = function () {
@@ -143,7 +146,7 @@ var SetHomeDestinoPage = (function () {
                 lng: target.lng
             };
             _this.r_g_no_native(latlng);
-            _this.origenUtn_LatLng = latlng;
+            _this.origen_LatLng = latlng;
         });
     };
     SetHomeDestinoPage.prototype.r_g_no_native = function (latlng) {
@@ -153,24 +156,25 @@ var SetHomeDestinoPage = (function () {
             if (status === 'OK') {
                 if (results[0]) {
                     _this.direccion = results[0].formatted_address;
+                    _this.origen_direccion = _this.direccion;
                 }
             }
         });
     };
     SetHomeDestinoPage.prototype.reverse_geo_application = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var rta, latlng;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.geolocation.getCurrentPosition()];
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = this.r_g_no_native;
+                        return [4 /*yield*/, this.getLocation()];
                     case 1:
-                        rta = _a.sent();
-                        latlng = {
-                            lat: rta.coords.latitude,
-                            lng: rta.coords.longitude
-                        };
-                        this.r_g_no_native(latlng);
-                        this.origenUtn_LatLng = latlng;
+                        _a.apply(this, [_c.sent()]);
+                        _b = this;
+                        return [4 /*yield*/, this.getLocation()];
+                    case 2:
+                        _b.origen_LatLng = _c.sent();
                         return [2 /*return*/];
                 }
             });
@@ -178,7 +182,7 @@ var SetHomeDestinoPage = (function () {
     };
     SetHomeDestinoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-set-home-destino',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-home-destino\set-home-destino.html"*/'<ion-header>\n\n  <ion-navbar color="danger">\n    <ion-title>Direcci&oacute;n de casa</ion-title>\n    <ion-buttons end>\n      <button ion-button tappable (click)="goToViewRoute()">\n        OK\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n\n</ion-header>\n\n\n<ion-content>\n  <div id="map_canvas4">\n    <ion-card>\n      <ion-item>\n        <ion-icon name="map" color="iconos" item-left></ion-icon>\n        {{direccion}}\n      </ion-item>\n    </ion-card>\n    <img src="assets/imgs/marker.png" id="centerMarkerImg">\n  </div>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-home-destino\set-home-destino.html"*/,
+            selector: 'page-set-home-destino',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-home-destino\set-home-destino.html"*/'<ion-header>\n\n\n\n  <ion-navbar color="danger">\n\n    <ion-title>Direcci&oacute;n de casa</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button tappable (click)="goToViewRoute()">\n\n        OK\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <div id="map_canvas4">\n\n    <ion-card>\n\n      <ion-item>\n\n        <ion-icon name="map" color="iconos" item-left></ion-icon>\n\n        {{direccion}}\n\n      </ion-item>\n\n    </ion-card>\n\n    <img src="assets/imgs/marker.png" id="centerMarkerImg">\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-home-destino\set-home-destino.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
@@ -199,8 +203,8 @@ var SetHomeDestinoPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SetMapDestinoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(25);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -258,7 +262,8 @@ var SetMapDestinoPage = (function () {
         this.nav = nav;
     }
     SetMapDestinoPage.prototype.ionViewDidLoad = function () {
-        this.destinoHome_LatLng = { lat: 0.3581583, lng: -78.112088 };
+        this.destino_LatLng = { lat: 0.3581583, lng: -78.112088 };
+        this.destino_direccion = 'Universidad Tecnica del Norte';
         this.loadMapa();
         this.reverse_geo_application();
     };
@@ -270,8 +275,10 @@ var SetMapDestinoPage = (function () {
     };
     SetMapDestinoPage.prototype.goToViewRoute = function () {
         this.nav.push(__WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__["a" /* HomeCViewRutaPage */], {
-            origenUtn_LatLngnvp: this.origenUtn_LatLng,
-            destinoHome_LatLngnvp: this.destinoHome_LatLng,
+            origen_LatLngnvp: this.origen_LatLng,
+            destino_LatLngnvp: this.destino_LatLng,
+            origen_direccionnvp: this.origen_direccion,
+            destino_direccionnvp: this.destino_direccion
         });
     };
     SetMapDestinoPage.prototype.loadMapa = function () {
@@ -332,7 +339,7 @@ var SetMapDestinoPage = (function () {
                 lng: target.lng
             };
             _this.r_g_no_native(latlng);
-            _this.origenUtn_LatLng = latlng;
+            _this.origen_LatLng = latlng;
         });
     };
     SetMapDestinoPage.prototype.r_g_no_native = function (latlng) {
@@ -342,24 +349,25 @@ var SetMapDestinoPage = (function () {
             if (status === 'OK') {
                 if (results[0]) {
                     _this.direccion = results[0].formatted_address;
+                    _this.origen_direccion = _this.direccion;
                 }
             }
         });
     };
     SetMapDestinoPage.prototype.reverse_geo_application = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var rta, latlng;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.geolocation.getCurrentPosition()];
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = this.r_g_no_native;
+                        return [4 /*yield*/, this.getLocation()];
                     case 1:
-                        rta = _a.sent();
-                        latlng = {
-                            lat: rta.coords.latitude,
-                            lng: rta.coords.longitude
-                        };
-                        this.r_g_no_native(latlng);
-                        this.origenUtn_LatLng = latlng;
+                        _a.apply(this, [_c.sent()]);
+                        _b = this;
+                        return [4 /*yield*/, this.getLocation()];
+                    case 2:
+                        _b.origen_LatLng = _c.sent();
                         return [2 /*return*/];
                 }
             });
@@ -367,7 +375,7 @@ var SetMapDestinoPage = (function () {
     };
     SetMapDestinoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-set-map-destino',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-map-destino\set-map-destino.html"*/'<ion-header>\n\n  <ion-navbar color="danger">\n    <ion-title>Seleccionar destino</ion-title>\n    <ion-buttons end>\n      <button ion-button tappable (click)="goToViewRoute()">\n        OK\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <div id="map_canvas5">\n    <ion-card>\n      <ion-item>\n        <ion-icon name="map" color="iconos" item-left></ion-icon>\n        {{direccion}}\n      </ion-item>\n    </ion-card>\n    <img src="assets/imgs/marker.png" id="centerMarkerImg">\n  </div>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-map-destino\set-map-destino.html"*/,
+            selector: 'page-set-map-destino',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-map-destino\set-map-destino.html"*/'<ion-header>\n\n\n\n  <ion-navbar color="danger">\n\n    <ion-title>Seleccionar origen</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button tappable (click)="goToViewRoute()">\n\n        OK\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <div id="map_canvas5">\n\n    <ion-card>\n\n      <ion-item>\n\n        <ion-icon name="map" color="iconos" item-left></ion-icon>\n\n        {{direccion}}\n\n      </ion-item>\n\n    </ion-card>\n\n    <img src="assets/imgs/marker.png" id="centerMarkerImg">\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-map-destino\set-map-destino.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
@@ -387,8 +395,8 @@ var SetMapDestinoPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SetHomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(25);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -449,7 +457,8 @@ var SetHomePage = (function () {
         this.nativeGeocoder = nativeGeocoder;
     }
     SetHomePage.prototype.ionViewDidLoad = function () {
-        this.origenUtn_LatLng = { lat: 0.3581583, lng: -78.112088 };
+        this.origen_LatLng = { lat: 0.3581583, lng: -78.112088 };
+        this.origen_direccion = 'Universidad Tecnica del Norte';
         this.loadMapa();
         this.reverse_geo_application();
     };
@@ -461,31 +470,29 @@ var SetHomePage = (function () {
     };
     SetHomePage.prototype.goToViewRoute = function () {
         this.nav.push(__WEBPACK_IMPORTED_MODULE_5__home_c_view_ruta_home_c_view_ruta__["a" /* HomeCViewRutaPage */], {
-            origenUtn_LatLngnvp: this.origenUtn_LatLng,
-            destinoHome_LatLngnvp: this.destinoHome_LatLng,
+            origen_LatLngnvp: this.origen_LatLng,
+            destino_LatLngnvp: this.destino_LatLng,
+            origen_direccionnvp: this.origen_direccion,
+            destino_direccionnvp: this.destino_direccion
         });
     };
     SetHomePage.prototype.loadMapa = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var loading, myLatLng, mapOptions;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var loading, mapOptions, _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
                         loading = this.loadingCtrl.create();
                         loading.present();
+                        _a = {};
+                        _b = {};
                         return [4 /*yield*/, this.getLocation()];
                     case 1:
-                        myLatLng = _a.sent();
-                        mapOptions = {
-                            camera: {
-                                target: {
-                                    lat: myLatLng.lat,
-                                    lng: myLatLng.lng
-                                },
-                                zoom: 18
-                            }
-                        };
+                        mapOptions = (_a.camera = (_b.target = _c.sent(),
+                            _b.zoom = 18,
+                            _b),
+                            _a);
                         this.map = __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["a" /* GoogleMaps */].create('map_canvas3', mapOptions);
                         this.map.one(__WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["b" /* GoogleMapsEvent */].MAP_READY).then(function () {
                             loading.dismiss();
@@ -523,7 +530,7 @@ var SetHomePage = (function () {
                 lng: target.lng
             };
             _this.r_g_no_native(latlng);
-            _this.destinoHome_LatLng = latlng;
+            _this.destino_LatLng = latlng;
         });
     };
     SetHomePage.prototype.r_g_no_native = function (latlng) {
@@ -533,24 +540,25 @@ var SetHomePage = (function () {
             if (status === 'OK') {
                 if (results[0]) {
                     _this.direccion = results[0].formatted_address;
+                    _this.destino_direccion = _this.direccion;
                 }
             }
         });
     };
     SetHomePage.prototype.reverse_geo_application = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var rta, latlng;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.geolocation.getCurrentPosition()];
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = this.r_g_no_native;
+                        return [4 /*yield*/, this.getLocation()];
                     case 1:
-                        rta = _a.sent();
-                        latlng = {
-                            lat: rta.coords.latitude,
-                            lng: rta.coords.longitude
-                        };
-                        this.r_g_no_native(latlng);
-                        this.destinoHome_LatLng = latlng;
+                        _a.apply(this, [_c.sent()]);
+                        _b = this;
+                        return [4 /*yield*/, this.getLocation()];
+                    case 2:
+                        _b.destino_LatLng = _c.sent();
                         return [2 /*return*/];
                 }
             });
@@ -558,7 +566,7 @@ var SetHomePage = (function () {
     };
     SetHomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-set-home',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-home_origen\set-home.html"*/'<ion-header>\n  <ion-navbar color="danger">\n    <ion-title>Direcci&oacute;n de casa</ion-title>\n    <ion-buttons end>\n      <button ion-button tappable (click)="goToViewRoute()" >\n        OK\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n  <div id="map_canvas3">\n    <ion-card>\n      <ion-item>\n        <ion-icon name="map" color="iconos" item-left></ion-icon>\n        {{direccion}}\n      </ion-item>\n    </ion-card>\n    <img src="assets/imgs/marker.png" id="centerMarkerImg">\n  </div>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-home_origen\set-home.html"*/,
+            selector: 'page-set-home',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-home_origen\set-home.html"*/'<ion-header>\n\n  <ion-navbar color="danger">\n\n    <ion-title>Direcci&oacute;n de casa</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button tappable (click)="goToViewRoute()" >\n\n        OK\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <div id="map_canvas3">\n\n    <ion-card>\n\n      <ion-item>\n\n        <ion-icon name="map" color="iconos" item-left></ion-icon>\n\n        {{direccion}}\n\n      </ion-item>\n\n    </ion-card>\n\n    <img src="assets/imgs/marker.png" id="centerMarkerImg">\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-home_origen\set-home.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
@@ -579,8 +587,8 @@ var SetHomePage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SetMapOrigenPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(25);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -638,7 +646,8 @@ var SetMapOrigenPage = (function () {
         this.nav = nav;
     }
     SetMapOrigenPage.prototype.ionViewDidLoad = function () {
-        this.origenUtn_LatLng = { lat: 0.3581583, lng: -78.112088 };
+        this.origen_LatLng = { lat: 0.3581583, lng: -78.112088 };
+        this.origen_direccion = 'Universidad Tecnica del Norte';
         this.loadMapa();
         this.reverse_geo_application();
     };
@@ -669,7 +678,7 @@ var SetMapOrigenPage = (function () {
                                 zoom: 18
                             }
                         };
-                        this.map = __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["a" /* GoogleMaps */].create('map_canvas6', mapOptions); //aqui le asigno el mapa este mapa se ve 
+                        this.map = __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["a" /* GoogleMaps */].create('map_canvas6', mapOptions);
                         this.map.one(__WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__["b" /* GoogleMapsEvent */].MAP_READY).then(function () {
                             loading.dismiss();
                             _this.camera_position();
@@ -704,7 +713,7 @@ var SetMapOrigenPage = (function () {
                 lng: target.lng
             };
             _this.r_g_no_native(latlng);
-            _this.destinoHome_LatLng = latlng;
+            _this.destino_LatLng = latlng;
         });
     };
     SetMapOrigenPage.prototype.r_g_no_native = function (latlng) {
@@ -714,24 +723,25 @@ var SetMapOrigenPage = (function () {
             if (status === 'OK') {
                 if (results[0]) {
                     _this.direccion = results[0].formatted_address;
+                    _this.destino_direccion = _this.direccion;
                 }
             }
         });
     };
     SetMapOrigenPage.prototype.reverse_geo_application = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var rta, latlng;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.geolocation.getCurrentPosition()];
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = this.r_g_no_native;
+                        return [4 /*yield*/, this.getLocation()];
                     case 1:
-                        rta = _a.sent();
-                        latlng = {
-                            lat: rta.coords.latitude,
-                            lng: rta.coords.longitude
-                        };
-                        this.r_g_no_native(latlng);
-                        this.destinoHome_LatLng = latlng;
+                        _a.apply(this, [_c.sent()]);
+                        _b = this;
+                        return [4 /*yield*/, this.getLocation()];
+                    case 2:
+                        _b.destino_LatLng = _c.sent();
                         return [2 /*return*/];
                 }
             });
@@ -739,13 +749,15 @@ var SetMapOrigenPage = (function () {
     };
     SetMapOrigenPage.prototype.goToViewRoute = function () {
         this.nav.push(__WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__["a" /* HomeCViewRutaPage */], {
-            origenUtn_LatLngnvp: this.origenUtn_LatLng,
-            destinoHome_LatLngnvp: this.destinoHome_LatLng,
+            origen_LatLngnvp: this.origen_LatLng,
+            destino_LatLngnvp: this.destino_LatLng,
+            origen_direccionnvp: this.origen_direccion,
+            destino_direccionnvp: this.destino_direccion
         });
     };
     SetMapOrigenPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-set-map-origen',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-map-origen\set-map-origen.html"*/'\n<ion-header>\n  <ion-navbar color="danger">\n    <ion-title>Seleccione destino</ion-title>\n    <ion-buttons end>\n      <button ion-button tappable (click)="goToViewRoute()">\n        OK\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n  <div id="map_canvas6">\n    <ion-card>\n      <ion-item>\n        <ion-icon name="map" color="iconos" item-left></ion-icon>\n        {{direccion}}\n      </ion-item>\n    </ion-card>\n    <img src="assets/imgs/marker.png" id="centerMarkerImg">\n  </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-map-origen\set-map-origen.html"*/,
+            selector: 'page-set-map-origen',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-map-origen\set-map-origen.html"*/'\n\n<ion-header>\n\n  <ion-navbar color="danger">\n\n    <ion-title>Seleccione destino</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button tappable (click)="goToViewRoute()">\n\n        OK\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <div id="map_canvas6">\n\n    <ion-card>\n\n      <ion-item>\n\n        <ion-icon name="map" color="iconos" item-left></ion-icon>\n\n        {{direccion}}\n\n      </ion-item>\n\n    </ion-card>\n\n    <img src="assets/imgs/marker.png" id="centerMarkerImg">\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\set-map-origen\set-map-origen.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
@@ -800,11 +812,11 @@ var map = {
 		3
 	],
 	"../pages/viajes-destino/viajes-destino.module": [
-		289,
+		288,
 		2
 	],
 	"../pages/viajes-origen-destino/viajes-origen-destino.module": [
-		288,
+		289,
 		1
 	],
 	"../pages/viajes-origen/viajes-origen.module": [
@@ -835,8 +847,8 @@ module.exports = webpackAsyncContext;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__viajes_origen_destino_viajes_origen_destino__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1058,7 +1070,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(282);
@@ -1074,8 +1086,8 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_status_bar__ = __webpack_require__(204);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_splash_screen__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_google_maps__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_geolocation__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_google_maps__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_geolocation__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ionic_native_native_geocoder__ = __webpack_require__(85);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1129,8 +1141,8 @@ var AppModule = (function () {
                         { loadChildren: '../pages/set-home-destino/set-home-destino.module#SetHomeDestinoPageModule', name: 'SetHomeDestinoPage', segment: 'set-home-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-destino/set-map-destino.module#SetMapDestinoPageModule', name: 'SetMapDestinoPage', segment: 'set-map-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-origen/set-map-origen.module#SetMapOrigenPageModule', name: 'SetMapOrigenPage', segment: 'set-map-origen', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/viajes-origen-destino/viajes-origen-destino.module#ViajesOrigenDestinoPageModule', name: 'ViajesOrigenDestinoPage', segment: 'viajes-origen-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-destino/viajes-destino.module#ViajesDestinoPageModule', name: 'ViajesDestinoPage', segment: 'viajes-destino', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/viajes-origen-destino/viajes-origen-destino.module#ViajesOrigenDestinoPageModule', name: 'ViajesOrigenDestinoPage', segment: 'viajes-origen-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-origen/viajes-origen.module#ViajesOrigenPageModule', name: 'ViajesOrigenPage', segment: 'viajes-origen', priority: 'low', defaultHistory: [] }
                     ]
                 }),
@@ -1197,8 +1209,10 @@ var HomeCViewRutaPage = (function () {
         this.navparams = navparams;
         this.directionsService = new google.maps.DirectionsService;
         this.directionsDisplay = new google.maps.DirectionsRenderer;
-        this.origenUtn_LatLng = navparams.get('origenUtn_LatLngnvp');
-        this.destinoHome_LatLng = navparams.get('destinoHome_LatLngnvp');
+        this.origen_LatLng = navparams.get('origen_LatLngnvp');
+        this.destino_LatLng = navparams.get('destino_LatLngnvp');
+        this.destino_direccion = navparams.get('destino_direccionnvp');
+        this.origen_direccion = navparams.get('origen_direccionnvp');
     }
     HomeCViewRutaPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad HomeCViewRutaPage');
@@ -1207,7 +1221,6 @@ var HomeCViewRutaPage = (function () {
     HomeCViewRutaPage.prototype.initMapa = function () {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
             zoom: 7,
-            center: { lat: 41.85, lng: -87.65 },
             disableDefaultUI: true
         });
         //this.map = GoogleMaps.create(this.mapElement.nativeElement); 
@@ -1217,8 +1230,8 @@ var HomeCViewRutaPage = (function () {
     HomeCViewRutaPage.prototype.calculateAndDisplayRoute = function () {
         var _this = this;
         this.directionsService.route({
-            origin: this.origenUtn_LatLng,
-            destination: this.destinoHome_LatLng,
+            origin: this.origen_LatLng,
+            destination: this.destino_LatLng,
             travelMode: 'DRIVING'
         }, function (response, status) {
             if (status === 'OK') {
@@ -1244,7 +1257,7 @@ var HomeCViewRutaPage = (function () {
     ], HomeCViewRutaPage.prototype, "mapElement", void 0);
     HomeCViewRutaPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home-c-view-ruta',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home-c-view-ruta\home-c-view-ruta.html"*/'\n<ion-content>\n  <div #map_canvas  id="map_canvas">\n  </div>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar color="white">\n    <ion-list>\n      <ion-item no-lines>\n        <ion-icon name="pin" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="destinocard" (click)="goToutnDestino()">\n            Otavalo\n          </ion-item>\n        </ion-card>\n      </ion-item>\n\n      <ion-item no-lines>\n        <ion-icon name="home" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="destinocard" (click)="goToutnOrigen()">\n            Universidad T&eacute;cnica del Norte\n          </ion-item>\n        </ion-card>\n      </ion-item>\n    </ion-list>\n\n    <ion-grid>\n      <ion-row>\n        <ion-col></ion-col>\n        <ion-col text-center><strong ion-text color="danger">ACEPTAR</strong></ion-col>\n        <ion-col></ion-col>\n        <ion-col text-center (click)="goToCancel()"><strong ion-text color="danger">CANCELAR</strong></ion-col>\n        <ion-col></ion-col>\n      </ion-row>\n    </ion-grid>\n\n  </ion-toolbar>\n</ion-footer>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home-c-view-ruta\home-c-view-ruta.html"*/,
+            selector: 'page-home-c-view-ruta',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home-c-view-ruta\home-c-view-ruta.html"*/'<ion-content>\n\n  <div #map_canvas id="map_canvas">\n\n  </div>\n\n</ion-content>\n\n\n\n<ion-footer>\n\n  <ion-toolbar color="white">\n\n    <ion-list>\n\n      <ion-item no-lines>\n\n        <ion-icon name="pin" color="iconos" item-start></ion-icon>\n\n        <ion-card>\n\n          <ion-item color="destinocard" (click)="goToutnDestino()">\n\n            {{origen_direccion}}\n\n          </ion-item>\n\n        </ion-card>\n\n      </ion-item>\n\n\n\n      <ion-item no-lines>\n\n        <ion-icon name="home" color="iconos" item-start></ion-icon>\n\n        <ion-card>\n\n          <ion-item color="destinocard" (click)="goToutnOrigen()">\n\n            {{destino_direccion}}\n\n          </ion-item>\n\n        </ion-card>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col></ion-col>\n\n        <ion-col text-center><strong ion-text color="danger">ACEPTAR</strong></ion-col>\n\n        <ion-col></ion-col>\n\n        <ion-col text-center (click)="goToCancel()"><strong ion-text color="danger">CANCELAR</strong></ion-col>\n\n        <ion-col></ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n\n\n  </ion-toolbar>\n\n</ion-footer>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home-c-view-ruta\home-c-view-ruta.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
     ], HomeCViewRutaPage);
@@ -1335,7 +1348,8 @@ var MyApp = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__set_home_destino_set_home_destino__ = __webpack_require__(107);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__set_map_destino_set_map_destino__ = __webpack_require__(108);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_geolocation__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_geolocation__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_google_maps__ = __webpack_require__(29);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1386,19 +1400,78 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 
 
 
+
 var ViajesDestinoPage = (function () {
-    function ViajesDestinoPage(navCtrl, navParams, geolocation) {
+    function ViajesDestinoPage(navCtrl, navParams, geolocation, plt, loadingCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.geolocation = geolocation;
+        this.plt = plt;
+        this.loadingCtrl = loadingCtrl;
         // 1 true 0 false
         this.tiene_casa = 1;
     }
     ViajesDestinoPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad ViajesDestinoPage');
-        this.destinoHome_LatLng = { lat: 0.3581583, lng: -78.112088 };
-        //llamar api rest  buscando casa de la persona 
-        this.origenUtn_LatLng = { lat: 0.341304, lng: -78.125170 };
+        this.init_values();
+        this.latLngDir();
+    };
+    ViajesDestinoPage.prototype.ionViewDidEnter = function () {
+        var _this = this;
+        setInterval(function () {
+            _this.origen_direccion;
+        }, 1000);
+    };
+    ViajesDestinoPage.prototype.init_values = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                this.destino_LatLng = { lat: 0.3581583, lng: -78.112088 };
+                this.destino_direccion = 'Universidad Tecnica del Norte';
+                //llamar api rest  buscando casa de la persona y la direccion
+                this.origen_LatLng_api = { lat: 0.341304, lng: -78.125170 };
+                this.origen_direccion_api = 'Yacucalle, Ibarra';
+                return [2 /*return*/];
+            });
+        });
+    };
+    ViajesDestinoPage.prototype.latLngDir = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = this.getDireccion;
+                        return [4 /*yield*/, this.getLocation()];
+                    case 1:
+                        _a.apply(this, [_c.sent()]);
+                        _b = this;
+                        return [4 /*yield*/, this.getLocation()];
+                    case 2:
+                        _b.origen_LatLng = _c.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ViajesDestinoPage.prototype.goToViewRoute = function (value) {
+        return __awaiter(this, void 0, void 0, function () {
+            var loading;
+            return __generator(this, function (_a) {
+                loading = this.loadingCtrl.create();
+                loading.present();
+                if (value == 1) {
+                    this.origen_direccion = this.origen_direccion_api;
+                    this.origen_LatLng = this.origen_LatLng_api;
+                }
+                // else {
+                //   this.getDireccion(await this.getLocation());
+                //   this.origen_LatLng = await this.getLocation();
+                // }
+                this.actionListener_goToViewRoute();
+                loading.dismiss();
+                return [2 /*return*/];
+            });
+        });
     };
     ViajesDestinoPage.prototype.goToSetHome = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__set_home_destino_set_home_destino__["a" /* SetHomeDestinoPage */]);
@@ -1406,58 +1479,49 @@ var ViajesDestinoPage = (function () {
     ViajesDestinoPage.prototype.goToSetMap = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__set_map_destino_set_map_destino__["a" /* SetMapDestinoPage */]);
     };
-    ViajesDestinoPage.prototype.goToViewRoute = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__["a" /* HomeCViewRutaPage */], {
-            origenUtn_LatLngnvp: this.origenUtn_LatLng,
-            destinoHome_LatLngnvp: this.destinoHome_LatLng,
-        });
-    };
     ViajesDestinoPage.prototype.getLocation = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var rta;
+            var option, rta;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.geolocation.getCurrentPosition()];
-                    case 1:
-                        rta = _a.sent();
-                        return [2 /*return*/, {
-                                lat: rta.coords.latitude,
-                                lng: rta.coords.longitude
-                            }];
-                }
-            });
-        });
-    };
-    ViajesDestinoPage.prototype.goTo_currentLocation = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var rta, latlng;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.geolocation.getCurrentPosition()];
-                    case 1:
-                        rta = _a.sent();
-                        latlng = {
-                            lat: rta.coords.latitude,
-                            lng: rta.coords.longitude
+                    case 0:
+                        option = {
+                            enableHighAccuracy: true
                         };
-                        this.goToViewRoute_2(latlng);
-                        return [2 /*return*/];
+                        return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_6__ionic_native_google_maps__["c" /* LocationService */].getMyLocation(option)];
+                    case 1:
+                        rta = _a.sent();
+                        //const rta = await this.geolocation.getCurrentPosition();
+                        return [2 /*return*/, rta.latLng];
                 }
             });
         });
     };
-    ViajesDestinoPage.prototype.goToViewRoute_2 = function (latlng) {
+    ViajesDestinoPage.prototype.getDireccion = function (latlng) {
+        var _this = this;
+        var geocoder = new google.maps.Geocoder;
+        geocoder.geocode({ 'location': latlng }, function (results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+                    _this.origen_direccion = results[0].formatted_address;
+                }
+            }
+        });
+    };
+    ViajesDestinoPage.prototype.actionListener_goToViewRoute = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__["a" /* HomeCViewRutaPage */], {
-            origenUtn_LatLngnvp: latlng,
-            destinoHome_LatLngnvp: this.destinoHome_LatLng,
+            origen_LatLngnvp: this.origen_LatLng,
+            destino_LatLngnvp: this.destino_LatLng,
+            origen_direccionnvp: this.origen_direccion,
+            destino_direccionnvp: this.destino_direccion
         });
     };
     ViajesDestinoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-viajes-destino',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-destino\viajes-destino.html"*/'<ion-header>\n  <ion-navbar color="danger">\n  </ion-navbar>\n  <ion-toolbar color="white">\n    <ion-list>\n      <ion-item no-lines>\n        <ion-icon name="pin" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="destinocard">\n            <span ion-text color="ortext">Seleccione su origen</span>\n\n          </ion-item>\n        </ion-card>\n      </ion-item>\n\n      <ion-item no-lines>\n        <ion-icon name="home" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="origencard">\n            Universidad T&eacute;cnica del Norte\n          </ion-item>\n        </ion-card>\n      </ion-item>\n    </ion-list>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-list>\n    <ion-item (click)="goTo_currentLocation()">\n      <ion-icon name="locate" color="primary" item-start></ion-icon>\n      Tu ubicaci&oacute;n actual\n    </ion-item>\n    <ion-item [hidden]="tiene_casa===0" (click)="goToViewRoute()">\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n      <h2>Casa</h2>\n      <p ion-text>Av. 17 de Julio</p>\n    </ion-item>\n    <ion-item [hidden]="tiene_casa===1" (click)="goToSetHome()">\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n      <h2>Casa</h2>\n      <p ion-text color="iconos"> <strong> Anadir direcci&oacute;n</strong></p>\n    </ion-item>\n    <ion-item (click)="goToSetMap()">\n      <ion-icon name="map" color="iconos" item-start></ion-icon>\n      Seleccionar mapa\n    </ion-item>\n  </ion-list>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-destino\viajes-destino.html"*/,
+            selector: 'page-viajes-destino',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-destino\viajes-destino.html"*/'<ion-header>\n\n  <ion-navbar color="danger">\n\n  </ion-navbar>\n\n  <ion-toolbar color="white">\n\n    <ion-list>\n\n      <ion-item no-lines>\n\n        <ion-icon name="pin" color="iconos" item-start></ion-icon>\n\n        <ion-card>\n\n          <ion-item color="destinocard">\n\n            <span ion-text color="ortext">Seleccione su origen</span>\n\n\n\n          </ion-item>\n\n        </ion-card>\n\n      </ion-item>\n\n\n\n      <ion-item no-lines>\n\n        <ion-icon name="home" color="iconos" item-start></ion-icon>\n\n        <ion-card>\n\n          <ion-item color="origencard">\n\n            Universidad T&eacute;cnica del Norte\n\n          </ion-item>\n\n        </ion-card>\n\n      </ion-item>\n\n    </ion-list>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <ion-list>\n\n    <ion-item (click)="goToViewRoute(0)" tappable>\n\n      <ion-icon name="locate" color="primary" item-start></ion-icon>\n\n      Tu ubicaci&oacute;n actual\n\n    </ion-item>\n\n    <ion-item [hidden]="tiene_casa===0" (click)="goToViewRoute(1)">\n\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n\n      <h2>Casa</h2>\n\n      <p ion-text>Av. 17 de Julio</p>\n\n    </ion-item>\n\n    <ion-item [hidden]="tiene_casa===1" (click)="goToSetHome()">\n\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n\n      <h2>Casa</h2>\n\n      <p ion-text color="iconos"> <strong> Anadir direcci&oacute;n</strong></p>\n\n    </ion-item>\n\n    <ion-item (click)="goToSetMap()">\n\n      <ion-icon name="map" color="iconos" item-start></ion-icon>\n\n      Seleccionar mapa\n\n    </ion-item>\n\n  </ion-list>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-destino\viajes-destino.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_5__ionic_native_geolocation__["a" /* Geolocation */]])
+            __WEBPACK_IMPORTED_MODULE_5__ionic_native_geolocation__["a" /* Geolocation */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
     ], ViajesDestinoPage);
     return ViajesDestinoPage;
 }());
@@ -1495,13 +1559,15 @@ var ViajesOrigenPage = (function () {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         // 1 true 0 false
-        this.tiene_casa = 1;
+        this.tiene_casa = 0;
     }
     ViajesOrigenPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad ViajesOrigenPage');
-        this.origenUtn_LatLng = { lat: 0.3581583, lng: -78.112088 };
-        //llamar api rest  buscando casa de la persona 
-        this.destinoHome_LatLng = { lat: 0.341304, lng: -78.125170 };
+        this.origen_LatLng = { lat: 0.3581583, lng: -78.112088 };
+        //llamar api rest  buscando casa de la persona y la direccion
+        this.destino_LatLng = { lat: 0.341304, lng: -78.125170 };
+        this.destino_direccion = 'Yacucalle, Ibarra';
+        this.origen_direccion = 'Universidad Tecnica del Norte';
     };
     ViajesOrigenPage.prototype.goToSetHome = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__set_home_origen_set_home__["a" /* SetHomePage */]);
@@ -1511,13 +1577,15 @@ var ViajesOrigenPage = (function () {
     };
     ViajesOrigenPage.prototype.goToViewRoute = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__["a" /* HomeCViewRutaPage */], {
-            origenUtn_LatLngnvp: this.origenUtn_LatLng,
-            destinoHome_LatLngnvp: this.destinoHome_LatLng,
+            origen_LatLngnvp: this.origen_LatLng,
+            destino_LatLngnvp: this.destino_LatLng,
+            origen_direccionnvp: this.origen_direccion,
+            destino_direccionnvp: this.destino_direccion
         });
     };
     ViajesOrigenPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-viajes-origen',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-origen\viajes-origen.html"*/'<ion-header>\n  <ion-navbar color="danger">\n  </ion-navbar>\n  <ion-toolbar color="white">\n    <ion-list>\n      <ion-item no-lines>\n        <ion-icon name="pin" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="origencard">\n            Universidad T&eacute;cnica del Norte\n          </ion-item>\n        </ion-card>\n      </ion-item>\n      <ion-item no-lines>\n        <ion-icon name="home" color="iconos" item-start></ion-icon>\n        <ion-card>\n          <ion-item color="destinocard">\n            <span ion-text color="ortext">Seleccione su destino</span>\n          </ion-item>\n        </ion-card>\n      </ion-item>\n    </ion-list>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-list>\n    <ion-item [hidden]="tiene_casa===0" (click)="goToViewRoute()">\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n      <h2>Casa</h2>\n      <p ion-text>Av. 17 de Julio</p>\n    </ion-item>\n    <ion-item [hidden]="tiene_casa===1" (click)="goToSetHome()">\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n      <h2>Casa</h2>\n      <p ion-text color="iconos"> <strong> Anadir direcci&oacute;n</strong></p>\n    </ion-item>\n    <ion-item (click)="goToViewRoute()">\n      <ion-icon name="time" color="iconos" item-start></ion-icon>\n      Cayambe\n    </ion-item>\n    <ion-item>\n      <ion-icon name="time" color="iconos" item-start></ion-icon>\n      Otavalo\n    </ion-item>\n    <ion-item>\n      <ion-icon name="time" color="iconos" item-start></ion-icon>\n      Quito\n    </ion-item>\n    <ion-item (click)="goToSetMap()">\n      <ion-icon name="map" color="iconos" item-start></ion-icon>\n      Seleccionar mapa\n    </ion-item>\n\n  </ion-list>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-origen\viajes-origen.html"*/,
+            selector: 'page-viajes-origen',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-origen\viajes-origen.html"*/'<ion-header>\n\n  <ion-navbar color="danger">\n\n  </ion-navbar>\n\n  <ion-toolbar color="white">\n\n    <ion-list>\n\n      <ion-item no-lines>\n\n        <ion-icon name="pin" color="iconos" item-start></ion-icon>\n\n        <ion-card>\n\n          <ion-item color="origencard">\n\n            Universidad T&eacute;cnica del Norte\n\n          </ion-item>\n\n        </ion-card>\n\n      </ion-item>\n\n      <ion-item no-lines>\n\n        <ion-icon name="home" color="iconos" item-start></ion-icon>\n\n        <ion-card>\n\n          <ion-item color="destinocard">\n\n            <span ion-text color="ortext">Seleccione su destino</span>\n\n          </ion-item>\n\n        </ion-card>\n\n      </ion-item>\n\n    </ion-list>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <ion-list>\n\n    <ion-item [hidden]="tiene_casa===0" (click)="goToViewRoute()">\n\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n\n      <h2>Casa</h2>\n\n      <p ion-text>Av. 17 de Julio</p>\n\n    </ion-item>\n\n    <ion-item [hidden]="tiene_casa===1" (click)="goToSetHome()">\n\n      <ion-icon name="home" color="iconos" item-start></ion-icon>\n\n      <h2>Casa</h2>\n\n      <p ion-text color="iconos"> <strong> Anadir direcci&oacute;n</strong></p>\n\n    </ion-item>\n\n    <ion-item (click)="goToViewRoute()">\n\n      <ion-icon name="time" color="iconos" item-start></ion-icon>\n\n      Cayambe\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-icon name="time" color="iconos" item-start></ion-icon>\n\n      Otavalo\n\n    </ion-item>\n\n    <ion-item>\n\n      <ion-icon name="time" color="iconos" item-start></ion-icon>\n\n      Quito\n\n    </ion-item>\n\n    <ion-item (click)="goToSetMap()">\n\n      <ion-icon name="map" color="iconos" item-start></ion-icon>\n\n      Seleccionar mapa\n\n    </ion-item>\n\n\n\n  </ion-list>\n\n\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-origen\viajes-origen.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]])
     ], ViajesOrigenPage);
@@ -1581,7 +1649,7 @@ var ViajesOrigenDestinoPage = (function () {
     };
     ViajesOrigenDestinoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-viajes-origen-destino',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-origen-destino\viajes-origen-destino.html"*/'<ion-header>\n  <ion-navbar color="danger">\n    <ion-title>Comienza el viaje</ion-title>\n    <ion-buttons end>\n      <button ion-button tappable (click)="showAlert()">\n        <ion-icon name="information-circle"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-card>\n    <ion-item class="border-bottom" (click)="goToOrigen()">\n      <ion-icon name="pin" color="iconos" item-left></ion-icon>\n      <span>Salgo de la universidad</span>\n    </ion-item>\n    <ion-item (click)="goToDestino()">\n      <ion-icon name="home" color="iconos" item-left></ion-icon>\n      <span>Voy a la universidad</span>\n    </ion-item>\n  </ion-card>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-origen-destino\viajes-origen-destino.html"*/,
+            selector: 'page-viajes-origen-destino',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-origen-destino\viajes-origen-destino.html"*/'<ion-header>\n\n  <ion-navbar color="danger">\n\n    <ion-title>Comienza el viaje</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button tappable (click)="showAlert()">\n\n        <ion-icon name="information-circle"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <ion-card>\n\n    <ion-item class="border-bottom" (click)="goToOrigen()">\n\n      <ion-icon name="pin" color="iconos" item-left></ion-icon>\n\n      <span>Salgo de la universidad</span>\n\n    </ion-item>\n\n    <ion-item (click)="goToDestino()">\n\n      <ion-icon name="home" color="iconos" item-left></ion-icon>\n\n      <span>Voy a la universidad</span>\n\n    </ion-item>\n\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-origen-destino\viajes-origen-destino.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
     ], ViajesOrigenDestinoPage);

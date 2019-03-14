@@ -28,11 +28,11 @@
 
 <ion-content>
   <ion-list>
-    <ion-item (click)="goTo_currentLocation()">
+    <ion-item (click)="goToViewRoute(0)" tappable>
       <ion-icon name="locate" color="primary" item-start></ion-icon>
       Tu ubicaci&oacute;n actual
     </ion-item>
-    <ion-item [hidden]="tiene_casa===0" (click)="goToViewRoute()">
+    <ion-item [hidden]="tiene_casa===0" (click)="goToViewRoute(1)">
       <ion-icon name="home" color="iconos" item-start></ion-icon>
       <h2>Casa</h2>
       <p ion-text>Av. 17 de Julio</p>

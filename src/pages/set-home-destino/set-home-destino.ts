@@ -14,8 +14,10 @@ declare var google;
 export class SetHomeDestinoPage {
   public direccion;
   public map: GoogleMap;
-  origenUtn_LatLng;
-  destinoHome_LatLng;
+  origen_LatLng;
+  destino_LatLng;
+  origen_direccion;
+  destino_direccion;
 
   constructor(private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
@@ -24,7 +26,8 @@ export class SetHomeDestinoPage {
   }
 
   ionViewDidLoad() {
-    this.destinoHome_LatLng = { lat: 0.3581583, lng: -78.112088 };
+    this.destino_LatLng = { lat: 0.3581583, lng: -78.112088 };
+    this.destino_direccion = 'Universidad Tecnica del Norte';
     this.loadMapa();
     this.reverse_geo_application();
   }
@@ -37,8 +40,10 @@ export class SetHomeDestinoPage {
 
   goToViewRoute() {
     this.nav.push(HomeCViewRutaPage, {
-      origenUtn_LatLngnvp: this.origenUtn_LatLng,
-      destinoHome_LatLngnvp: this.destinoHome_LatLng,
+      origen_LatLngnvp: this.origen_LatLng,
+      destino_LatLngnvp: this.destino_LatLng,
+      origen_direccionnvp: this.origen_direccion,
+      destino_direccionnvp: this.destino_direccion
     });
   }
 
@@ -88,7 +93,7 @@ export class SetHomeDestinoPage {
         lng: target.lng
       };
       this.r_g_no_native(latlng);
-      this.origenUtn_LatLng = latlng;
+      this.origen_LatLng = latlng;
     });
 
   }
@@ -101,7 +106,7 @@ export class SetHomeDestinoPage {
         if (status === 'OK') {
           if (results[0]) {
             this.direccion = results[0].formatted_address;
-
+            this.origen_direccion = this.direccion;
           }
         }
 
@@ -111,13 +116,9 @@ export class SetHomeDestinoPage {
 
 
   async reverse_geo_application() {
-    const rta = await this.geolocation.getCurrentPosition();
-    let latlng = {
-      lat: rta.coords.latitude,
-      lng: rta.coords.longitude
-    };
-    this.r_g_no_native(latlng);
-    this.origenUtn_LatLng = latlng;
+    this.r_g_no_native(await this.getLocation());
+    this.origen_LatLng = await this.getLocation();
+
   }
 
 }
