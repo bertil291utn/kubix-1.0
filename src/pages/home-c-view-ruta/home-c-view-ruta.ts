@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { ViajesDestinoPage } from '../viajes-destino/viajes-destino';
 import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
 import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
+import { ViajesConductorPage } from '../viajes-conductor/viajes-conductor';
 declare var google;
 
 @IonicPage()
@@ -69,5 +70,11 @@ export class HomeCViewRutaPage {
   goToCancel() {
     this.nav.push(ViajesOrigenDestinoPage);
   }
+
+  goToAceptar() {
+    this.nav.push(ViajesConductorPage);
+  }
+
+  
 
 }

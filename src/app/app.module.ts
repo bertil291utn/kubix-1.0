@@ -13,6 +13,7 @@ import { SetMapOrigenPage } from '../pages/set-map-origen/set-map-origen';
 import { SetHomeDestinoPage } from '../pages/set-home-destino/set-home-destino';
 import { SetMapDestinoPage } from '../pages/set-map-destino/set-map-destino';
 import { HomeCViewRutaPage } from '../pages/home-c-view-ruta/home-c-view-ruta';
+import { ViajesConductorPage } from '../pages/viajes-conductor/viajes-conductor';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,7 +34,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
     SetMapOrigenPage,
     SetHomeDestinoPage,
     SetMapDestinoPage,
-    HomeCViewRutaPage
+    HomeCViewRutaPage,
+    ViajesConductorPage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
     SetMapOrigenPage,
     SetHomeDestinoPage,
     SetMapDestinoPage,
-    HomeCViewRutaPage
+    HomeCViewRutaPage,
+    ViajesConductorPage
   ],
   providers: [
     StatusBar,

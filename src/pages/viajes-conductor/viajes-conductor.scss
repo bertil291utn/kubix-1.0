@@ -1,0 +1,22 @@
+page-viajes-conductor {
+  .back-button.show-back-button {
+    position: absolute !important;
+    z-index: 5;
+  }
+
+  ion-content ion-select.select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  ion-content .item {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  ion-content h5 {
+    padding-left: 25px;
+  }
+  ion-segment {
+    padding: 15px 0;
+  }
+}

@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-navbar color="danger" text-center>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-buttons left>
+            <button ion-button icon-only clear>
+              <ion-icon name="car"></ion-icon>
+              <ion-title>VIAJES</ion-title>
+            </button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment color="danger" [(ngModel)]="proceso">
+    <ion-segment-button value="horario">
+      HORARIO DE SALIDA
+    </ion-segment-button>
+    <ion-segment-button value="vehiculo">
+      VEHICULO
+    </ion-segment-button>
+    <ion-segment-button value="adicional">
+      ADICIONAL
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="proceso">
+
+    <ion-grid *ngSwitchCase="'horario'" padding>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+              <ion-icon name="calendar" color="iconos" item-left></ion-icon>
+            <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="dia">
+              <ion-option value="1">Lunes</ion-option>
+              <ion-option value="2">Martes</ion-option>
+              <ion-option value="3">Mi&eacute;rcoles</ion-option>
+              <ion-option value="4">Jueves</ion-option>
+              <ion-option value="5">Viernes</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+              <ion-icon name="time" color="iconos" item-left></ion-icon>
+              <ion-datetime displayFormat="HH:mm" [(ngModel)]="hora"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <h5>Repetir</h5>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+              <ion-icon name="repeat" color="iconos" item-left></ion-icon>
+            <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="repeat">
+              <ion-option value="1">Si</ion-option>
+              <ion-option value="2">No</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'vehiculo'" padding>
+      otra cosa
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'adicional'" padding>
+
+      otro adicional
+    </ion-grid>
+
+  </div>
+
+
+
+</ion-content>

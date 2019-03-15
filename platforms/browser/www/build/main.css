@@ -39788,6 +39788,15 @@ ion-navbar.toolbar {
   text-align: center !important;
 }
 
+.action-sheet-cancel span.button-inner {
+  color: red !important;
+  font-weight: bold !important;
+}
+
+.picker-wrapper .picker-button, .picker-opt.picker-opt-selected {
+  color: red !important;
+}
+
 page-home #map_canvas2 {
   height: 100%;
   width: 100%;
@@ -39910,6 +39919,29 @@ page-set-map-origen #centerMarkerImg {
   width: 40px;
   height: 40px;
   z-index: 1;
+}
+
+page-viajes-conductor .back-button.show-back-button {
+  position: absolute !important;
+  z-index: 5;
+}
+
+page-viajes-conductor ion-content ion-select.select {
+  width: 100%;
+  max-width: 100%;
+}
+
+page-viajes-conductor ion-content .item {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+page-viajes-conductor ion-content h5 {
+  padding-left: 25px;
+}
+
+page-viajes-conductor ion-segment {
+  padding: 15px 0;
 }
 
 page-viajes-destino .card {
