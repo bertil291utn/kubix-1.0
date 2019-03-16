@@ -4,7 +4,7 @@ page-viajes-conductor {
     z-index: 5;
   }
 
-  ion-content ion-select.select {
+  ion-content ion-select.select:not(#extra) {
     width: 100%;
     max-width: 100%;
   }
@@ -18,5 +18,43 @@ page-viajes-conductor {
   }
   ion-segment {
     padding: 15px 0;
+  }
+
+  ion-content h5.text {
+    margin-top: 30%;
+  }
+  ion-content ion-col#auto {
+    text-align: center;
+  }
+  ion-content #centerImg {
+    width: 100% !important;
+    height: auto !important;
+    padding: 5% 10%;
+  }
+
+  .text#subtxt {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #bdbdbd;
+    font-weight: normal;
+  }
+
+  .label#pasajero,
+  .label#partida {
+    color: black;
+    font-weight: bold;
+  }
+
+  .label#descripcion {
+    color: black;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  textarea.text-input {
+    font-size: 1.5rem;
+  }
+  ion-content button.button {
+    margin: 50% 20% 0;
   }
 }

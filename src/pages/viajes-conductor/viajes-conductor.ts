@@ -13,8 +13,17 @@ export class ViajesConductorPage {
   repeat = 2
   dia = new Date().getDay()
   hora
-
+  pasajero = 1
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.setHour();
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ViajesConductorPage');
+
+  }
+
+  private setHour() {
     this.hora = this.calculateTime('-5');
     // If it is Daylight Savings Time
     if (this.dst(new Date())) {
@@ -22,10 +31,15 @@ export class ViajesConductorPage {
     }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ViajesConductorPage');
 
+  goToVehicule() {
+    this.proceso = 'vehiculo'
   }
+
+  goToAdicional() {
+    this.proceso = 'adicional'
+  }
+
 
 
 
@@ -40,17 +54,12 @@ export class ViajesConductorPage {
     return nd.toISOString();
   }
 
-
-
-
-
   // Determine if the client uses DST
   stdTimezoneOffset(today: any) {
     let jan = new Date(today.getFullYear(), 0, 1);
     let jul = new Date(today.getFullYear(), 6, 1);
     return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
   }
-
 
   dst(today: any) {
     return today.getTimezoneOffset() < this.stdTimezoneOffset(today);

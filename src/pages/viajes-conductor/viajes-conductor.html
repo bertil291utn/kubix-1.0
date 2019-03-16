@@ -29,12 +29,11 @@
   </ion-segment>
 
   <div [ngSwitch]="proceso">
-
     <ion-grid *ngSwitchCase="'horario'" padding>
       <ion-row>
         <ion-col>
           <ion-item>
-              <ion-icon name="calendar" color="iconos" item-left></ion-icon>
+            <ion-icon name="calendar" color="iconos" item-left></ion-icon>
             <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="dia">
               <ion-option value="1">Lunes</ion-option>
               <ion-option value="2">Martes</ion-option>
@@ -49,8 +48,8 @@
       <ion-row>
         <ion-col>
           <ion-item>
-              <ion-icon name="time" color="iconos" item-left></ion-icon>
-              <ion-datetime displayFormat="HH:mm" [(ngModel)]="hora"></ion-datetime>
+            <ion-icon name="time" color="iconos" item-left></ion-icon>
+            <ion-datetime displayFormat="HH:mm" [(ngModel)]="hora"></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -59,7 +58,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-              <ion-icon name="repeat" color="iconos" item-left></ion-icon>
+            <ion-icon name="repeat" color="iconos" item-left></ion-icon>
             <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="repeat">
               <ion-option value="1">Si</ion-option>
               <ion-option value="2">No</ion-option>
@@ -67,21 +66,69 @@
           </ion-item>
         </ion-col>
       </ion-row>
-
-
+      <ion-row>
+        <ion-col>
+        </ion-col>
+      </ion-row>
+      <h5 color="danger" ion-text text-center (click)="goToVehicule()">SIGUIENTE</h5>
     </ion-grid>
+
 
     <ion-grid *ngSwitchCase="'vehiculo'" padding>
-      otra cosa
+      <h6 ion-text text-center>Autom&oacute;vil designado</h6>
+      <ion-row align-items-center>
+        <ion-col id="auto">
+          <img src="assets/imgs/01.png" id="centerImg">
+        </ion-col>
+      </ion-row>
+
+      <h6 ion-text text-center>SEAT IBIZA</h6>
+      <span ion-text text-center>Negro</span>
+      <h5 color="danger" ion-text text-center (click)="goToAdicional()">SIGUIENTE</h5>
     </ion-grid>
+
 
     <ion-grid *ngSwitchCase="'adicional'" padding>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label id="pasajero">No. pasajeros</ion-label>
+            <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="pasajero" id="extra">
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-      otro adicional
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label id="partida">Punto de partida<br>
+              <span ion-text id="subtxt">Establezca un punto de partida en el mapa</span>
+            </ion-label>
+            <ion-icon name="pin" color="iconos" item-right></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label id="descripcion" stacked>Descripci&oacute;n adicional</ion-label>
+            <ion-textarea rows="6" cols="20" color="danger"
+              placeholder="Referencia de donde sale , si va a hacer paradas, hora de salida">
+            </ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <button ion-button round color="danger" large>Publicar</button>
+
     </ion-grid>
 
+
   </div>
-
-
-
 </ion-content>

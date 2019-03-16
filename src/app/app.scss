@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -15,20 +14,17 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-.alert-message, .alert-head{      
-    text-align: center !important;
+.alert-message,
+.alert-head {
+  text-align: center !important;
 }
 
 .action-sheet-cancel span.button-inner {
-    color: red !important;
-    font-weight: bold !important;
-  }
-
- 
-
- 
-.picker-wrapper .picker-button, .picker-opt.picker-opt-selected {
-    color: red !important;
-
+  color: red !important;
+  font-weight: bold !important;
 }
 
+.picker-wrapper .picker-button,
+.picker-opt.picker-opt-selected {
+  color: red !important;
+}

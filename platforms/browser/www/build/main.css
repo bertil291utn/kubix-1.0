@@ -39784,7 +39784,8 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
-.alert-message, .alert-head {
+.alert-message,
+.alert-head {
   text-align: center !important;
 }
 
@@ -39793,7 +39794,8 @@ ion-navbar.toolbar {
   font-weight: bold !important;
 }
 
-.picker-wrapper .picker-button, .picker-opt.picker-opt-selected {
+.picker-wrapper .picker-button,
+.picker-opt.picker-opt-selected {
   color: red !important;
 }
 
@@ -39926,7 +39928,7 @@ page-viajes-conductor .back-button.show-back-button {
   z-index: 5;
 }
 
-page-viajes-conductor ion-content ion-select.select {
+page-viajes-conductor ion-content ion-select.select:not(#extra) {
   width: 100%;
   max-width: 100%;
 }
@@ -39942,6 +39944,47 @@ page-viajes-conductor ion-content h5 {
 
 page-viajes-conductor ion-segment {
   padding: 15px 0;
+}
+
+page-viajes-conductor ion-content h5.text {
+  margin-top: 30%;
+}
+
+page-viajes-conductor ion-content ion-col#auto {
+  text-align: center;
+}
+
+page-viajes-conductor ion-content #centerImg {
+  width: 100% !important;
+  height: auto !important;
+  padding: 5% 10%;
+}
+
+page-viajes-conductor .text#subtxt {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #bdbdbd;
+  font-weight: normal;
+}
+
+page-viajes-conductor .label#pasajero,
+page-viajes-conductor .label#partida {
+  color: black;
+  font-weight: bold;
+}
+
+page-viajes-conductor .label#descripcion {
+  color: black;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+page-viajes-conductor textarea.text-input {
+  font-size: 1.5rem;
+}
+
+page-viajes-conductor ion-content button.button {
+  margin: 50% 20% 0;
 }
 
 page-viajes-destino .card {
