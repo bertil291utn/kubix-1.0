@@ -1,0 +1,22 @@
+page-set-map-pto {
+    .toolbar-title-md {
+        font-size: 1.8rem !important; // Default should be 2.0rem
+    }
+
+    #map_canvas6 {
+        height: 100%;
+        width: 100%;
+      }
+
+      #centerMarkerImg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom:0;
+        margin: auto;
+        width: 40px; // image width
+        height: 40px; // image height
+        z-index: 1;
+      }
+}

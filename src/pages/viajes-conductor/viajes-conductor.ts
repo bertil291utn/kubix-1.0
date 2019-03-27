@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { SetMapPtoPage } from '../set-map-pto/set-map-pto';
+import { ViajesPubCPage } from '../viajes-pub-c/viajes-pub-c';
 
 
 
@@ -14,12 +16,48 @@ export class ViajesConductorPage {
   dia = new Date().getDay()
   hora
   pasajero = 1
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  punto_LatLng;
+
+  callback = data => {
+    this.punto_LatLng = data;
+    console.log('data received from other page', this.punto_LatLng);
+  };
+
+  constructor(public navparams: NavParams, public navCtrl: NavController,
+    public navParams: NavParams, public alertCtrl: AlertController) {
     this.setHour();
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajesConductorPage');
+
+  }
+
+  showAlert() {
+    this.createAlert();
+    //guardar en BD los datos de la ruta 
+  }
+
+
+  private createAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Viaje publicado',
+      message: 'Su viaje se ha publicado con &eacute;xito. Solo espere a que los pasajeros hagan la reserva.',
+      buttons: [{
+        text: 'Ver',
+        handler: () => {
+          this.navCtrl.push(ViajesPubCPage);
+        }
+      }]
+    })
+    alert.present()
+  }
+
+  goToMap() {
+    this.navCtrl.push(SetMapPtoPage, {
+      callback: this.callback
+    });
 
   }
 
@@ -41,10 +79,6 @@ export class ViajesConductorPage {
   }
 
 
-
-
-
-
   calculateTime(offset: any) {
     // create Date object for current location
     let d = new Date();
@@ -64,7 +98,5 @@ export class ViajesConductorPage {
   dst(today: any) {
     return today.getTimezoneOffset() < this.stdTimezoneOffset(today);
   }
-
-
 
 }

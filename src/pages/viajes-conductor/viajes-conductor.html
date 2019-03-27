@@ -105,9 +105,9 @@
 
       <ion-row>
         <ion-col>
-          <ion-item>
-            <ion-label id="partida">Punto de partida<br>
-              <span ion-text id="subtxt">Establezca un punto de partida en el mapa</span>
+          <ion-item (click)="goToMap()">
+            <ion-label id="partida">Punto de encuentro<br>
+              <span ion-text id="subtxt">Ubique en el mapa</span>
             </ion-label>
             <ion-icon name="pin" color="iconos" item-right></ion-icon>
           </ion-item>
@@ -125,7 +125,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <button ion-button round color="danger" large>Publicar</button>
+      <button ion-button round color="danger" large (click)="showAlert()">Publicar</button>
 
     </ion-grid>
 

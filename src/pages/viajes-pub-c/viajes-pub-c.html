@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar color="danger" text-center>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-buttons left>
+            <button ion-button icon-only clear>
+              <ion-icon name="car"></ion-icon>
+              <ion-title>Viajes publicados</ion-title>
+            </button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let item of viajes_pub">
+    <ion-card-content text-center>
+      <ion-card-title>
+        <ion-row>
+          <ion-col>
+            {{item.origen}}
+          </ion-col>
+          <ion-col col-1>
+            <ion-icon name="arrow-round-forward" id="arrow" color="iconos"></ion-icon>
+          </ion-col>
+          <ion-col>
+            {{item.destino}}
+          </ion-col>
+        </ion-row>
+      </ion-card-title>
+      <p>
+        {{item.hora}} &nbsp;&nbsp;&nbsp; <strong>{{item.fecha}}</strong>
+      </p>
+    </ion-card-content>
+
+    <ion-row id="foot">
+      <ion-col text-right>
+        <button ion-button clear color="iconos" icon-start>
+          <ion-icon name='create'></ion-icon>
+          Editar
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button ion-button clear color="iconos" icon-start>
+          <ion-icon name='trash'></ion-icon>
+          Eliminar
+        </button>
+      </ion-col>
+      <ion-col text-left>
+        <button ion-button clear color="iconos" icon-start (click)="goToDetails(item.id)">
+          <ion-icon name='list-box'></ion-icon>
+          Detalles
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+
+  
+
+</ion-content>

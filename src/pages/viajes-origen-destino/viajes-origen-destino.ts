@@ -3,13 +3,6 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import {ViajesOrigenPage} from '../viajes-origen/viajes-origen';
 import {ViajesDestinoPage} from '../viajes-destino/viajes-destino';
 
-/**
- * Generated class for the ViajesOrigenDestinoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-viajes-origen-destino',
@@ -17,7 +10,8 @@ import {ViajesDestinoPage} from '../viajes-destino/viajes-destino';
 })
 export class ViajesOrigenDestinoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+    public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
