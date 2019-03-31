@@ -23,6 +23,54 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-segment color="danger" [(ngModel)]="proceso_v">
+    <ion-segment-button value="descripcion">
+      DESCRIPCION
+    </ion-segment-button>
+    <ion-segment-button value="vehiculo">
+      VEHICULO
+    </ion-segment-button>
+    <ion-segment-button value="ubicacion">
+      UBICACION
+    </ion-segment-button>
+    <ion-segment-button value="ruta">
+      RUTA
+    </ion-segment-button>
+    <ion-segment-button value="solicitud">
+      SOLICITUDES
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <div [ngSwitch]="proceso_v">
+    <ion-grid *ngSwitchCase="'descripcion'">
+      <h5>Descripci&oacute;n del viaje</h5><br>
+      <ion-row>
+        <ion-col>
+          {{descripcion}}
+          Voy a salir desde mi casa en Caranqui para pasar por los Ceibos y llegar a la universidad por la victoria.
+          Quien sea que este por esa ruta reserve el viaje. Tengo dos asientos disponibles salgo a las 7 de mi casa.
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'vehiculo'">
+      <ion-row align-items-center>
+        <ion-col id="auto">
+          <img src="assets/imgs/01.png" id="centerImg">
+        </ion-col>
+      </ion-row>
+      <h6 ion-text text-center>{{placa}}PCC0629</h6>
+      <h6 ion-text text-center>{{marca}} {{modelo}}SEAT IBIZA</h6>
+      <span ion-text text-center>{{color}}Negro</span>
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'ubicacion'">
+
+    </ion-grid>
+
+
+  </div>
 
 </ion-content>

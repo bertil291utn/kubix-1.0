@@ -8,6 +8,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'det-ruta-c.html',
 })
 export class DetRutaCPage {
+  public proceso_v = 'descripcion'
   origen
   destino
   constructor(public navCtrl: NavController, public navParams: NavParams) {

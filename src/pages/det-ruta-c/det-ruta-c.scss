@@ -1,3 +1,14 @@
 page-det-ruta-c {
+  ion-segment {
+    padding: 15px 0;
+  }
+  ion-content .grid {
+    padding: 2% 10%;
+  }
 
+  ion-content #centerImg {
+    width: 100% !important;
+    height: auto !important;
+    padding: 5% 10%;
+  }
 }
