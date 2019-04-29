@@ -4,6 +4,7 @@ import { GoogleMap, Marker, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { ViajesConductorPage } from '../viajes-conductor/viajes-conductor';
+import html2canvas from 'html2canvas'
 
 declare var google;
 @IonicPage()
@@ -17,6 +18,7 @@ export class SetMapPtoPage {
   public map: GoogleMap;
   punto_LatLng;
   callback
+  dataUrl
 
   constructor(private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
@@ -35,6 +37,20 @@ export class SetMapPtoPage {
       this.direccion;
     }, 1000);
   }
+
+  public saveMapToDataUrl(element) {
+    html2canvas(element, {
+      useCORS: true,
+      onrendered: (canvas) => {
+        let img=canvas.toDataURL("image/png").replace('data:image/png;base64,', '')
+        let finalImgSrc= 'data:image/png;base64,' + img
+        
+      }
+    });
+
+
+  }
+
 
 
 
@@ -106,6 +122,9 @@ export class SetMapPtoPage {
   }
 
   goToViewConductor() {
+
+    let element = document.getElementById("map_canvas6")
+    this.saveMapToDataUrl(element)
     this.nav.pop().then(() => {
       this.navparams.get('callback')(this.punto_LatLng);
     });

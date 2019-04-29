@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-
+declare var html2canvas;
 @IonicPage()
 @Component({
   selector: 'page-det-ruta-c',
@@ -9,11 +9,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DetRutaCPage {
   public proceso_v = 'descripcion'
-  origen
-  destino
+  viajedet
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.origen = navParams.get('origenvp')
-    this.destino = navParams.get('destinonvp')
+    this.viajedet = navParams.get('datos')
+
   }
 
   ionViewDidLoad() {

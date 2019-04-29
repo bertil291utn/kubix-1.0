@@ -21,7 +21,7 @@ export class HomePage {
 
 
   ionViewDidLoad() {
-    this.loadMapa();
+    console.log('ionViewDidLoad HomePage');
   }
 
 

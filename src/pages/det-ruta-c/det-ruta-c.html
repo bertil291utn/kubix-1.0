@@ -6,7 +6,7 @@
           <ion-icon name="pin" color="light" small></ion-icon>
         </ion-col>
         <ion-col text-left>
-          <ion-title color="light">{{origen}}</ion-title>
+          <ion-title color="light">{{viajedet.origen}}</ion-title>
         </ion-col>
       </ion-row>
 
@@ -15,7 +15,7 @@
           <ion-icon name="pin" color="light" small></ion-icon>
         </ion-col>
         <ion-col text-left>
-          <ion-title color="light">{{destino}}</ion-title>
+          <ion-title color="light">{{viajedet.destino}}</ion-title>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -48,9 +48,8 @@
       <h5>Descripci&oacute;n del viaje</h5><br>
       <ion-row>
         <ion-col>
-          {{descripcion}}
-          Voy a salir desde mi casa en Caranqui para pasar por los Ceibos y llegar a la universidad por la victoria.
-          Quien sea que este por esa ruta reserve el viaje. Tengo dos asientos disponibles salgo a las 7 de mi casa.
+          {{viajedet.descripcion}}
+          
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -58,15 +57,23 @@
     <ion-grid *ngSwitchCase="'vehiculo'">
       <ion-row align-items-center>
         <ion-col id="auto">
-          <img src="assets/imgs/01.png" id="centerImg">
+          <img src="{{viajedet.auto.imagen}}" id="centerImg">
         </ion-col>
       </ion-row>
-      <h6 ion-text text-center>{{placa}}PCC0629</h6>
-      <h6 ion-text text-center>{{marca}} {{modelo}}SEAT IBIZA</h6>
-      <span ion-text text-center>{{color}}Negro</span>
+      <h6 ion-text text-center>{{viajedet.auto.placa}}</h6>
+      <h6 ion-text text-center>{{viajedet.auto.marca}} {{viajedet.auto.modelo}}</h6>
+      <span ion-text text-center>{{viajedet.auto.color}}</span>
     </ion-grid>
 
     <ion-grid *ngSwitchCase="'ubicacion'">
+
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'ruta'">
+
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'solicitud'">
 
     </ion-grid>
 
