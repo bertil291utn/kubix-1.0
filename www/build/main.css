@@ -43440,13 +43440,72 @@ ion-icon[class*="custom-rectangle-icon"] {
   color: red !important;
 }
 
-page-home #map_canvas2 {
-  height: 100%;
-  width: 100%;
+page-det-ruta-c ion-segment {
+  padding-top: 15px;
 }
 
-page-home ion-content ion-fab .icon {
-  zoom: 1.5;
+page-det-ruta-c .grid#descripcion,
+page-det-ruta-c .grid#auto {
+  padding: 8% 10%;
+}
+
+page-det-ruta-c ion-content #centerImg {
+  width: 100% !important;
+  height: auto !important;
+  padding: 5% 10%;
+}
+
+page-det-ruta-c .card {
+  width: 100%;
+  margin: 0px 0px 5% 0px;
+}
+
+page-det-ruta-c .row#foot {
+  border-top: 1px solid #ececec;
+}
+
+page-det-ruta-c .grid#request {
+  background-color: #d5cdcb;
+  padding: 0px !important;
+}
+
+page-det-ruta-c .grid#ubicacion,
+page-det-ruta-c .grid#ruta {
+  padding: 0px !important;
+}
+
+page-det-ruta-c .relative {
+  position: relative;
+  width: 600px;
+}
+
+page-det-ruta-c .absolute-text {
+  position: absolute;
+  bottom: 0;
+  font-size: 15px;
+  background: white;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+page-det-ruta-c .absolute-text a {
+  font-size: 16px;
+}
+
+page-det-ruta-c div.user-avatar {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+page-det-ruta-c img#fotografia {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
 }
 
 page-home-c-view-ruta #map_canvas {
@@ -43661,6 +43720,15 @@ page-viajes-destino .label-md {
 
 page-viajes-destino ion-content .text {
   font-size: 1rem;
+}
+
+page-viajes-main-c #map_canvas2 {
+  height: 100%;
+  width: 100%;
+}
+
+page-viajes-main-c ion-content ion-fab .icon {
+  zoom: 1.5;
 }
 
 page-viajes-origen .card {

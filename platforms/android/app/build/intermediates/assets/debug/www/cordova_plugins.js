@@ -275,6 +275,14 @@ module.exports = [
     "clobbers": [
       "nativegeocoder"
     ]
+  },
+  {
+    "id": "cordova-sqlite-storage.SQLitePlugin",
+    "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+    "pluginId": "cordova-sqlite-storage",
+    "clobbers": [
+      "SQLitePlugin"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -287,7 +295,8 @@ module.exports.metadata =
   "cordova-plugin-ionic-webview": "1.2.1",
   "cordova-plugin-googlemaps": "2.5.0",
   "cordova-plugin-geolocation": "4.0.1",
-  "cordova-plugin-nativegeocoder": "3.1.3"
+  "cordova-plugin-nativegeocoder": "3.1.3",
+  "cordova-sqlite-storage": "3.2.0"
 };
 // BOTTOM OF METADATA
 });

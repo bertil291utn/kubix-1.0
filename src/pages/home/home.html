@@ -1,19 +1,12 @@
 <ion-header>
+  <ion-navbar color="danger">
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+  </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <!-- <div id="map_canvas2"> -->
-    <ion-card>
-      <ion-item (click)="optionOrigenDestino()">
-        <ion-icon name="search" color="iconos" item-left></ion-icon>
-        <span>¿A d&oacute;nde te diriges?</span>
-      </ion-item>
-    </ion-card>
-
-    <!-- <ion-fab right bottom>
-      <button (click)="targetMap()" color="white" ion-fab>
-        <ion-icon name="navigate" color="primary"></ion-icon>
-      </button>
-    </ion-fab>
-  </div> -->
+<ion-content padding>
+  <button ion-button (click)="goToDriver()" color="danger"> A donde te diriges</button>
+  <button ion-button color="danger"> Encuentra tu aventon</button>
 </ion-content>

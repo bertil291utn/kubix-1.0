@@ -26,7 +26,7 @@
     "@ionic-native/native-geocoder": "^4.20.0",
     "@ionic-native/splash-screen": "4.3.2",
     "@ionic-native/status-bar": "4.3.2",
-    "@ionic/storage": "2.1.3",
+    "@ionic/storage": "^2.1.3",
     "cordova-android": "7.1.4",
     "cordova-browser": "5.0.4",
     "cordova-plugin-device": "^1.1.4",
@@ -36,6 +36,8 @@
     "cordova-plugin-nativegeocoder": "3.1.3",
     "cordova-plugin-splashscreen": "^4.0.3",
     "cordova-plugin-whitelist": "^1.3.1",
+    "cordova-sqlite-storage": "3.2.0",
+    "html2canvas": "^1.0.0-rc.1",
     "ionic-angular": "3.9.2",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "3.0.0",
@@ -64,7 +66,8 @@
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
       },
-      "cordova-plugin-nativegeocoder": {}
+      "cordova-plugin-nativegeocoder": {},
+      "cordova-sqlite-storage": {}
     },
     "platforms": [
       "android",

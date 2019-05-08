@@ -44,17 +44,16 @@
 
 
   <div [ngSwitch]="proceso_v">
-    <ion-grid *ngSwitchCase="'descripcion'">
+    <ion-grid id="descripcion" *ngSwitchCase="'descripcion'">
       <h5>Descripci&oacute;n del viaje</h5><br>
       <ion-row>
         <ion-col>
           {{viajedet.descripcion}}
-          
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <ion-grid *ngSwitchCase="'vehiculo'">
+    <ion-grid id="vehiculo" *ngSwitchCase="'vehiculo'">
       <ion-row align-items-center>
         <ion-col id="auto">
           <img src="{{viajedet.auto.imagen}}" id="centerImg">
@@ -65,15 +64,58 @@
       <span ion-text text-center>{{viajedet.auto.color}}</span>
     </ion-grid>
 
-    <ion-grid *ngSwitchCase="'ubicacion'">
+    <ion-grid id="ubicacion" *ngSwitchCase="'ubicacion'">
+      <div class="relative">
+        <img src="{{viajedet.ubicacion}}" />
+        <p class="absolute-text">{{viajedet.textoubicacion}}</p>
+      </div>
+    </ion-grid>
+
+    <ion-grid id="ruta" *ngSwitchCase="'ruta'">
+      <img src="{{viajedet.ruta}}" />
 
     </ion-grid>
 
-    <ion-grid *ngSwitchCase="'ruta'">
+    <ion-grid id="request" *ngSwitchCase="'solicitud'">
 
-    </ion-grid>
+      <ion-card *ngFor="let item of viajedet.solicitud">
+        <ion-card-content>
+          <ion-row>
+            <ion-col col-4>
+              <div class="user-avatar">
+                <img id="fotografia" src="{{item.fotografia}}">
+              </div>
+            </ion-col>
+            <ion-col>
+              <strong>{{item.nombre}}</strong><br>
+              <strong>{{item.apellido}}</strong> <br>
+              <strong>{{item.genero}}</strong>
+            </ion-col>
+            <ion-col>
+              <strong>{{item.facultad}}</strong><br>
+              <strong>{{item.carrera}}</strong>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
 
-    <ion-grid *ngSwitchCase="'solicitud'">
+        <ion-row id="foot">
+          <ion-col text-center>
+            <button ion-button clear color="iconos" icon-start>
+              <ion-icon name='checkmark'></ion-icon>
+              aceptar
+            </button>
+          </ion-col>
+
+          <ion-col text-center>
+            <button ion-button clear color="iconos" icon-start>
+              <ion-icon name='close'></ion-icon>
+              rechazar
+            </button>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+
 
     </ion-grid>
 

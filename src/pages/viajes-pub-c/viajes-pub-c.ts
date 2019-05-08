@@ -10,7 +10,10 @@ import { DetRutaCPage } from '../det-ruta-c/det-ruta-c';
 
 export class ViajesPubCPage {
   viajes_pub
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
 
   }
 
@@ -45,8 +48,25 @@ export class ViajesPubCPage {
         color: "Negro",
         imagen: "assets/imgs/01.png"
       },
-      ubicacion: "",
-      ruta: ""
+      ubicacion: "http://www.elclarinete.com.mx/wp-content/uploads/2017/12/google-maps.png",
+      textoubicacion: "Av, 17 de Julio. Ibarra . Imbabura, Universidad Tecnica del Norte",
+      ruta: "http://www.samtrans.com/Assets/SamTrans/Timetables/RB121/Maps/Route+61_2016_08-07.png",
+      solicitud: [{
+        nombre: "Pepito Adolfo",
+        apellido: "Perez Hitler",
+        fotografia: "assets/imgs/profileOK.jpg",
+        facultad: "FICA",
+        carrera: "Sistemas",
+        genero: "Masculino"
+      },
+      {
+        nombre: "Maria",
+        apellido: "Juana Cabrera",
+        fotografia: "https://media.metrolatam.com/2018/08/23/mujer1-234853dc0e0619b7be7317871413304c-1200x800.jpg",
+        facultad: "FCCSS",
+        carrera: "Enfermeria",
+        genero: "Femenino"
+      }]
 
     },
     {
@@ -63,8 +83,26 @@ export class ViajesPubCPage {
         marca: "CHEVROLET",
         imagen: "assets/imgs/01.png"
       },
-      ubicacion: "",
-      ruta: ""
+      ubicacion: "http://www.elclarinete.com.mx/wp-content/uploads/2017/12/google-maps.png",
+      textoubicacion: "Otavalo, Av  Bolivar, Plaza de ponchos",
+      ruta: "http://www.samtrans.com/Assets/SamTrans/Timetables/RB121/Maps/Route+61_2016_08-07.png",
+      solicitud: [
+        {
+          nombre: "Maria Jane",
+          apellido: "Juana Parker",
+          fotografia: "https://media.metrolatam.com/2018/08/23/mujer1-234853dc0e0619b7be7317871413304c-1200x800.jpg",
+          facultad: "FCCSS",
+          carrera: "Enfermeria",
+          genero: "Femenino"
+        },
+        {
+          nombre: "Pepito Adolf",
+          apellido: "Perez Saenz",
+          fotografia: "https://ep01.epimg.net/elpais/imagenes/2018/11/06/gente/1541494541_621304_1541494790_noticia_normal.jpg",
+          facultad: "FICA",
+          carrera: "Sistemas",
+          genero: "Masculino"
+        }]
     }]
   }
 

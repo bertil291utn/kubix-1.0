@@ -1,14 +1,100 @@
 page-det-ruta-c {
   ion-segment {
-    padding: 15px 0;
+    padding-top: 15px;
   }
-  ion-content .grid {
-    padding: 2% 10%;
+  .grid#descripcion,
+  .grid#auto {
+    padding: 8% 10%;
   }
 
   ion-content #centerImg {
     width: 100% !important;
     height: auto !important;
     padding: 5% 10%;
+  }
+  .card {
+    width: 100%;
+    margin: 0px 0px 5% 0px;
+  }
+
+  .row#foot {
+    border-top: 1px solid #ececec;
+  }
+  .grid#request {
+    background-color: #d5cdcb;
+    padding: 0px !important;
+  }
+  .grid#ubicacion,
+  .grid#ruta {
+    padding: 0px !important;
+  }
+
+  .relative {
+    position: relative;
+    width: 600px;
+  }
+  .absolute-text {
+    position: absolute;
+    bottom: 0;
+    font-size: 15px;
+    background: white;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+  }
+  .absolute-text a {
+    font-size: 16px;
+    //color: #b92b27;
+  }
+
+  // .user-avatar {
+  //   width: 68px;
+  //   height: 68px;
+  //   display: inline-block;
+  //   border-radius: 50%;
+  //   box-shadow: inset 0 0 10rem rgba(0,0,0,.25), 0 0 4rem rgba(255,255,255,.45);
+  //   img {
+  //     border-radius: 50%;
+  //   }
+  // }
+
+  // div.user-avatar {
+  //   position: relative;
+  //   display: inline-block;
+  //   border-radius: 100%;
+  //   height: 100px;
+  //   width: 100px;
+
+  //   margin-left: 5px;
+  //   margin-top: 5px;
+  //   text-align: center;
+
+  // }
+
+  // img {
+  //   height: 100px;
+  //   width: 100px;
+  //   border-radius: 100%;
+  // }
+
+  // img#fotografia {
+  //   height: 100px;
+  //   width: 100px;
+  //   border-radius: 50%;
+  // }
+
+  div.user-avatar {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  img#fotografia {
+    display: inline;
+    margin: 0 auto;
+    //margin-left: -25%; //centers the image
+    height: 100%;
+    width: auto;
   }
 }

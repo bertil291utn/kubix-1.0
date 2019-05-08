@@ -17,6 +17,7 @@ export class ViajesConductorPage {
   hora
   pasajero = 1
   punto_LatLng;
+  
 
   callback = data => {
     this.punto_LatLng = data;
@@ -25,6 +26,7 @@ export class ViajesConductorPage {
 
   constructor(public navparams: NavParams, public navCtrl: NavController,
     public navParams: NavParams, public alertCtrl: AlertController) {
+    
     this.setHour();
 
   }

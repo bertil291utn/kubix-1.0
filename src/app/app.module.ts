@@ -17,6 +17,7 @@ import { ViajesConductorPage } from '../pages/viajes-conductor/viajes-conductor'
 import { SetMapPtoPage } from '../pages/set-map-pto/set-map-pto'
 import { ViajesPubCPage } from '../pages/viajes-pub-c/viajes-pub-c'
 import { DetRutaCPage } from '../pages/det-ruta-c/det-ruta-c'
+import { ViajesMainCPage } from '../pages/viajes-main-c/viajes-main-c'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,6 +25,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -41,11 +43,13 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
     ViajesConductorPage,
     SetMapPtoPage,
     ViajesPubCPage,
-    DetRutaCPage
+    DetRutaCPage,
+    ViajesMainCPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -63,7 +67,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
     ViajesConductorPage,
     SetMapPtoPage,
     ViajesPubCPage,
-    DetRutaCPage
+    DetRutaCPage,
+    ViajesMainCPage
   ],
   providers: [
     StatusBar,

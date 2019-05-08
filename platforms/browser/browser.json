@@ -41,6 +41,9 @@
     },
     "cordova-plugin-nativegeocoder": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {},
@@ -402,6 +405,14 @@
       "clobbers": [
         "nativegeocoder"
       ]
+    },
+    {
+      "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+      "id": "cordova-sqlite-storage.SQLitePlugin",
+      "pluginId": "cordova-sqlite-storage",
+      "clobbers": [
+        "SQLitePlugin"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -412,6 +423,7 @@
     "cordova-plugin-whitelist": "1.3.1",
     "ionic-plugin-keyboard": "2.2.1",
     "cordova-plugin-geolocation": "4.0.1",
-    "cordova-plugin-nativegeocoder": "3.1.3"
+    "cordova-plugin-nativegeocoder": "3.1.3",
+    "cordova-sqlite-storage": "3.2.0"
   }
 }

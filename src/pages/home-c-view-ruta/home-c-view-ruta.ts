@@ -4,7 +4,9 @@ import { ViajesDestinoPage } from '../viajes-destino/viajes-destino';
 import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
 import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
 import { ViajesConductorPage } from '../viajes-conductor/viajes-conductor';
+import { Storage } from '@ionic/storage';
 declare var google;
+declare var html2canvas;
 
 @IonicPage()
 @Component({
@@ -14,23 +16,28 @@ declare var google;
 export class HomeCViewRutaPage {
   @ViewChild('map_canvas') mapElement: ElementRef;
   public map: any;
-  directionsService = new google.maps.DirectionsService;
-  directionsDisplay = new google.maps.DirectionsRenderer;
+  // directionsService = new google.maps.DirectionsService;
+  // directionsDisplay = new google.maps.DirectionsRenderer;
   origen_LatLng;
   destino_LatLng;
   origen_direccion;
   destino_direccion;
+  image
 
-  constructor(public loadingCtrl: LoadingController, public nav: NavController, public navparams: NavParams) {
+  constructor(private storage: Storage,public loadingCtrl: LoadingController, public nav: NavController, public navparams: NavParams) {
     this.origen_LatLng = navparams.get('origen_LatLngnvp');
     this.destino_LatLng = navparams.get('destino_LatLngnvp');
     this.destino_direccion = navparams.get('destino_direccionnvp');
     this.origen_direccion = navparams.get('origen_direccionnvp');
+   
+
   }
 
   ionViewDidLoad() {
+
     console.log('ionViewDidLoad HomeCViewRutaPage');
-    this.initMapa();
+    //this.initMapa();
+
 
   }
 
@@ -39,7 +46,7 @@ export class HomeCViewRutaPage {
       zoom: 7,
       disableDefaultUI: true
     });
-    //this.map = GoogleMaps.create(this.mapElement.nativeElement); 
+    this.map = GoogleMaps.create(this.mapElement.nativeElement); 
     this.directionsDisplay.setMap(this.map);
     this.calculateAndDisplayRoute();
   }
@@ -72,9 +79,40 @@ export class HomeCViewRutaPage {
   }
 
   goToAceptar() {
+    let elem = document.getElementById('map_canvas')
+    this.capImagen(elem)
+
+    
+    //guardar en base de datos la imgen de rutas
     this.nav.push(ViajesConductorPage);
+
   }
 
-  
+  capImagen(elem) {
+    
+
+    html2canvas(elem, {
+      optimized: false, allowTaint: false,
+      useCORS: true, onrendered: (canvas) => {
+        canvas.toBlob((blob) => {
+          let URLObj = window.URL || (window as any).webkitURL;
+          let image =URLObj.createObjectURL(blob)
+          this.storage.set('imageurl',image)
+          console.log('imageurl: ',image)
+          // return image
+          //document.getElementById('imgout').setAttribute("src", image)
+
+        })
+
+      }
+    })
+
+  }
+
+
+
+
 
 }
+
+

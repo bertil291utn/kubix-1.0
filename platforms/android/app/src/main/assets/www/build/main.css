@@ -43440,6 +43440,20 @@ ion-icon[class*="custom-rectangle-icon"] {
   color: red !important;
 }
 
+page-det-ruta-c ion-segment {
+  padding: 15px 0;
+}
+
+page-det-ruta-c ion-content .grid {
+  padding: 2% 10%;
+}
+
+page-det-ruta-c ion-content #centerImg {
+  width: 100% !important;
+  height: auto !important;
+  padding: 5% 10%;
+}
+
 page-home #map_canvas2 {
   height: 100%;
   width: 100%;

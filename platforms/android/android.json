@@ -87,6 +87,10 @@
             {
               "xml": "<feature name=\"NativeGeocoder\"><param name=\"android-package\" value=\"cordova.plugin.nativegeocoder.NativeGeocoder\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"SQLitePlugin\"><param name=\"android-package\" value=\"io.sqlc.SQLitePlugin\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -207,6 +211,9 @@
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-nativegeocoder": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-sqlite-storage": {
       "PACKAGE_NAME": "io.ionic.starter"
     }
   },
@@ -487,6 +494,14 @@
       "clobbers": [
         "nativegeocoder"
       ]
+    },
+    {
+      "id": "cordova-sqlite-storage.SQLitePlugin",
+      "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+      "pluginId": "cordova-sqlite-storage",
+      "clobbers": [
+        "SQLitePlugin"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -497,6 +512,7 @@
     "cordova-plugin-ionic-webview": "1.2.1",
     "cordova-plugin-googlemaps": "2.5.0",
     "cordova-plugin-geolocation": "4.0.1",
-    "cordova-plugin-nativegeocoder": "3.1.3"
+    "cordova-plugin-nativegeocoder": "3.1.3",
+    "cordova-sqlite-storage": "3.2.0"
   }
 }
