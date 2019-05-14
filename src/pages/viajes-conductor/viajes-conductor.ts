@@ -47,7 +47,7 @@ export class ViajesConductorPage {
       title: 'Viaje publicado',
       message: 'Su viaje se ha publicado con &eacute;xito. Solo espere a que los pasajeros hagan la reserva.',
       buttons: [{
-        text: 'Ver',
+        text: 'Aceptar',
         handler: () => {
           this.navCtrl.push(ViajesPubCPage);
         }

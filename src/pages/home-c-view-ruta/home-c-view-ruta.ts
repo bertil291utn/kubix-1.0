@@ -5,6 +5,8 @@ import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
 import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
 import { ViajesConductorPage } from '../viajes-conductor/viajes-conductor';
 import { Storage } from '@ionic/storage';
+import { HomePage } from '../home/home';
+
 declare var google;
 declare var html2canvas;
 
@@ -24,12 +26,12 @@ export class HomeCViewRutaPage {
   destino_direccion;
   image
 
-  constructor(private storage: Storage,public loadingCtrl: LoadingController, public nav: NavController, public navparams: NavParams) {
+  constructor(private storage: Storage, public loadingCtrl: LoadingController, public nav: NavController, public navparams: NavParams) {
     this.origen_LatLng = navparams.get('origen_LatLngnvp');
     this.destino_LatLng = navparams.get('destino_LatLngnvp');
     this.destino_direccion = navparams.get('destino_direccionnvp');
     this.origen_direccion = navparams.get('origen_direccionnvp');
-   
+
 
   }
 
@@ -46,7 +48,7 @@ export class HomeCViewRutaPage {
       zoom: 7,
       disableDefaultUI: true
     });
-    this.map = GoogleMaps.create(this.mapElement.nativeElement); 
+    this.map = GoogleMaps.create(this.mapElement.nativeElement);
     this.directionsDisplay.setMap(this.map);
     this.calculateAndDisplayRoute();
   }
@@ -67,50 +69,42 @@ export class HomeCViewRutaPage {
 
 
   goToutnDestino() {
-    this.nav.push(ViajesDestinoPage);
+    this.nav.popTo(ViajesDestinoPage);
   }
 
   goToutnOrigen() {
-    this.nav.push(ViajesOrigenPage);
+    this.nav.popTo(ViajesOrigenPage);
   }
 
   goToCancel() {
-    this.nav.push(ViajesOrigenDestinoPage);
+    this.nav.setRoot(HomePage);
   }
 
   goToAceptar() {
     let elem = document.getElementById('map_canvas')
-    this.capImagen(elem)
+    //this.capImagen(elem)
 
-    
+
     //guardar en base de datos la imgen de rutas
     this.nav.push(ViajesConductorPage);
 
   }
 
   capImagen(elem) {
-    
-
     html2canvas(elem, {
       optimized: false, allowTaint: false,
       useCORS: true, onrendered: (canvas) => {
         canvas.toBlob((blob) => {
           let URLObj = window.URL || (window as any).webkitURL;
-          let image =URLObj.createObjectURL(blob)
-          this.storage.set('imageurl',image)
-          console.log('imageurl: ',image)
+          let image = URLObj.createObjectURL(blob)
+          this.storage.set('imageurl', image)
+          console.log('imageurl: ', image)
           // return image
           //document.getElementById('imgout').setAttribute("src", image)
-
         })
-
       }
     })
-
   }
-
-
-
 
 
 }

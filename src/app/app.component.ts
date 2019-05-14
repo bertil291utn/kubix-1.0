@@ -1,30 +1,53 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, AlertController, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { ViajesPubCPage } from '../pages/viajes-pub-c/viajes-pub-c';
+import { HomeServiceProvider } from '../providers/home-service/home-service';
 
 @Component({
+  selector: 'page-menu',
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
+  evento;
+  radiobtn;
+  pasajero: boolean = true;
+  conductor: boolean = false;
   rootPage: any = HomePage;
+  pages: Array<{ title: string, component: any, icono: string }>;
+  pages_pas: Array<{ title: string, component: any, icono: string }>;
 
-  pages: Array<{ title: string, component: any }>;
-
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar,
+    public splashScreen: SplashScreen, public myservices: HomeServiceProvider,
+    public alertCtrl: AlertController,
+    public menu: MenuController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
-    ];
+    this.pageslist();
+    this.myservices.pasajero = this.pasajero
+    this.myservices.conductor = this.conductor
 
+  }
+
+  private pageslist() {
+    this.pages = [
+      { title: 'Home', component: HomePage, icono: "home" },
+      { title: 'Solicitudes de viajes', component: ViajesPubCPage, icono: "chatbubbles" },
+      { title: 'Viajes publicados', component: ViajesPubCPage, icono: "car" },
+      { title: 'Perfil', component: '', icono: "contact" }
+    ];
+    this.pages_pas = [
+      { title: 'Home', component: HomePage, icono: "home" },
+      { title: 'Ver rutas', component: '', icono: "car" },
+      { title: 'Viajes reservados', component: '', icono: "walk" },
+      { title: 'Perfil', component: '', icono: "contact" }
+    ];
   }
 
   initializeApp() {
@@ -40,6 +63,64 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(page);
   }
+
+  gotoLogin() {
+
+    //this.nav.setRoot(login)
+    //close to all sessions
+  }
+
+  activatechangeMode(event) {
+    console.log(event)
+    this.evento = event;
+    this.createAlert();
+    //this.nav.setRoot(homepasajero);
+
+  }
+
+  private createAlert() {
+    let text_msg;
+    if (this.evento) {
+      text_msg = "activar"
+    } else {
+      text_msg = "desactivar"
+    }
+
+    const alert = this.alertCtrl.create({
+      title: 'Modo conductor',
+      message: '¿Est&aacute; seguro de ' + text_msg + ' el modo conductor?',
+      buttons: [{
+        text: 'Si',
+        handler: () => {
+          this.actionChangeMode();
+        }
+      },
+      { text: 'No', handler: () => { this.radiobtn = false; } }]
+    })
+    alert.present();
+  }
+
+
+  private actionChangeMode() {
+    if (this.evento) {
+      this.pasajero = false;
+      this.conductor = true;
+      this.myservices.pasajero = this.pasajero;
+      this.myservices.conductor = this.conductor;
+      console.log("modo conductor activo");
+    }
+    else {
+      this.pasajero = true;
+      this.conductor = false;
+      console.log("modo conductor inactivo");
+      this.myservices.pasajero = this.pasajero;
+      this.myservices.conductor = this.conductor;
+    }
+    this.openPage(HomePage);
+    this.menu.close();
+  }
+
+  
 }

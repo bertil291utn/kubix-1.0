@@ -6,7 +6,32 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <button ion-button (click)="goToDriver()" color="danger"> A donde te diriges</button>
-  <button ion-button color="danger"> Encuentra tu aventon</button>
+<ion-content>
+  <div *ngIf="conductor">
+    <div class="relative">
+      <img id="imgbck" src="assets/imgs/car.png">
+      <button large round class="absolute-text" ion-button (click)="goToDriver()" color="danger">
+        A donde te diriges</button>
+    </div>
+    <div class="home-text">
+      <h2>¿Vas a salir con tu coche?</h2>
+      <h6 ion-text>Dale un avent&oacute;n a alguien que dejo su coche en casa<br>
+        Ayuda a que la congestion vehicular en la comunidad unversitaria se minimice
+      </h6>
+    </div>
+  </div>
+  <div *ngIf="pasajero">
+    <div class="relative">
+      <img id="imgbck" src="assets/imgs/car2.png">
+      <button large round class="absolute-text" ion-button (click)="goToPass()" color="danger">
+        Encuentra un avent&oacute;n</button>
+    </div>
+    <div class="home-text">
+      <h2>¿Te queda cerca?</h2>
+      <h6 ion-text>Es una buena idea compartir tu viaje con tu amigo <br>
+        universitario. Se parte del cambio cultural
+      </h6>
+    </div>
+  </div>
+  <!-- <button ion-button color="danger"> Encuentra tu aventon</button> -->
 </ion-content>

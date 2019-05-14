@@ -1,14 +1,32 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar padding>
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+  <ion-content padding id="content-menu">
+    <ion-list no-lines>
+      <div *ngIf="conductor">
+        <button id="item-button" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p.component)">
+          <ion-icon [name]="p.icono" item-start></ion-icon>
+          {{p.title}}
+        </button>
+      </div>
+      <div *ngIf="pasajero">
+        <button id="item-button" menuClose ion-item *ngFor="let p of pages_pas" (click)="openPage(p.component)">
+          <ion-icon [name]="p.icono" item-start></ion-icon>
+          {{p.title}}
+        </button>
+      </div>
+      <button id="item-button" ion-item>
+        <ion-icon name="person" item-start></ion-icon>
+        <ion-label>Conductor</ion-label>
+        <ion-toggle [(ngModel)]="radiobtn" color="danger" (ngModelChange)="activatechangeMode($event)"></ion-toggle>
+      </button>
+      <button id="item-button" menuClose ion-item (click)="gotoLogin()">
+        <ion-icon name="exit" item-start></ion-icon>
+        Salir
       </button>
     </ion-list>
   </ion-content>
@@ -16,4 +34,4 @@
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="rootPage" #content></ion-nav>

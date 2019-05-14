@@ -15,6 +15,8 @@ export class DetRutaCPage {
   
   constructor(private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private sanitizer: DomSanitizer) {
     this.viajedet = navParams.get('datos')
+    console.log(this.viajedet)
+    
 
   }
 

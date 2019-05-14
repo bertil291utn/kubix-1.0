@@ -43440,6 +43440,20 @@ ion-icon[class*="custom-rectangle-icon"] {
   color: red !important;
 }
 
+page-menu #toolbar-back,
+page-menu #item-button,
+page-menu #content-menu {
+  background-color: #D5CDCB;
+}
+
+page-menu .toolbar-title {
+  color: black;
+}
+
+page-menu .toolbar-background {
+  background: #D5CDCB;
+}
+
 page-det-ruta-c ion-segment {
   padding-top: 15px;
 }
@@ -43506,6 +43520,44 @@ page-det-ruta-c img#fotografia {
   margin: 0 auto;
   height: 100%;
   width: auto;
+}
+
+page-home .relative {
+  position: relative;
+}
+
+page-home .absolute-text {
+  position: absolute;
+  bottom: 0;
+  font-size: 18px;
+  padding: 10px;
+  width: 50%;
+  margin: 0 25% 6%;
+}
+
+page-home #imgbck {
+  width: 100%;
+  display: block;
+  height: auto;
+  border: 0;
+  padding-bottom: 10%;
+}
+
+page-home .absolute-text a {
+  font-size: 16px;
+}
+
+page-home .content {
+  background-color: #d5cdcb;
+}
+
+page-home .home-text {
+  margin: 0 10%;
+  text-align: center;
+}
+
+page-home .text {
+  font-weight: 300;
 }
 
 page-home-c-view-ruta #map_canvas {

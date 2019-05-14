@@ -29,3 +29,18 @@
 .picker-opt.picker-opt-selected {
   color: red !important;
 }
+
+page-menu {
+  #toolbar-back,
+  #item-button,
+  #content-menu {
+    background-color: #D5CDCB;
+  }
+
+  .toolbar-title {
+    color: black;
+  }
+  .toolbar-background {
+    background: #D5CDCB;
+  }
+}
