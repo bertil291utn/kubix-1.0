@@ -38,7 +38,7 @@ export class HomeCViewRutaPage {
   ionViewDidLoad() {
 
     console.log('ionViewDidLoad HomeCViewRutaPage');
-    //this.initMapa();
+    this.initMapa();
 
 
   }

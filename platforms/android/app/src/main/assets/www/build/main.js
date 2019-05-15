@@ -4,65 +4,12 @@ webpackJsonp([13],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetRutaCPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__(27);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var DetRutaCPage = (function () {
-    function DetRutaCPage(storage, navCtrl, navParams, sanitizer) {
-        this.storage = storage;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.sanitizer = sanitizer;
-        this.proceso_v = 'descripcion';
-        this.viajedet = navParams.get('datos');
-        console.log(this.viajedet);
-    }
-    DetRutaCPage.prototype.ionViewDidLoad = function () {
-        //this.url = "blob:http://localhost:8100/b95c7e2b-a3b4-4ac8-b51e-a9af526f3788"
-        console.log('ionViewDidLoad DetRutaCPage');
-        //this.storage.get('imageurl').then((val) => { this.url = this.getUrlVideo(val); console.log('url: ', this.url) })
-    };
-    DetRutaCPage.prototype.getUrlVideo = function (videoURL) {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(videoURL);
-    };
-    DetRutaCPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-det-ruta-c',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\det-ruta-c\det-ruta-c.html"*/'<ion-header>\n  <ion-navbar color="danger" text-center>\n    <ion-grid>\n      <ion-row>\n        <ion-col text-left col-1>\n          <ion-icon name="pin" color="light" small></ion-icon>\n        </ion-col>\n        <ion-col text-left>\n          <ion-title color="light">{{viajedet.origen}}</ion-title>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col text-left col-1>\n          <ion-icon name="pin" color="light" small></ion-icon>\n        </ion-col>\n        <ion-col text-left>\n          <ion-title color="light">{{viajedet.destino}}</ion-title>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-segment color="danger" [(ngModel)]="proceso_v">\n    <ion-segment-button value="descripcion">\n      DESCRIPCION\n    </ion-segment-button>\n    <ion-segment-button value="vehiculo">\n      VEHICULO\n    </ion-segment-button>\n    <ion-segment-button value="ubicacion">\n      UBICACION\n    </ion-segment-button>\n    <ion-segment-button value="ruta">\n      RUTA\n    </ion-segment-button>\n    <ion-segment-button value="solicitud">\n      SOLICITUDES\n    </ion-segment-button>\n  </ion-segment>\n\n\n  <div [ngSwitch]="proceso_v">\n    <ion-grid id="descripcion" *ngSwitchCase="\'descripcion\'">\n      <h5>Descripci&oacute;n del viaje</h5><br>\n      <ion-row>\n        <ion-col>\n          {{viajedet.descripcion}}\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n    <ion-grid id="vehiculo" *ngSwitchCase="\'vehiculo\'">\n      <ion-row align-items-center>\n        <ion-col id="auto">\n          <img src="{{viajedet.auto.imagen}}" id="centerImg">\n        </ion-col>\n      </ion-row>\n      <h6 ion-text text-center>{{viajedet.auto.placa}}</h6>\n      <h6 ion-text text-center>{{viajedet.auto.marca}} {{viajedet.auto.modelo}}</h6>\n      <span ion-text text-center>{{viajedet.auto.color}}</span>\n    </ion-grid>\n\n    <ion-grid id="ubicacion" *ngSwitchCase="\'ubicacion\'">\n      <div class="relative">\n        <img src="{{viajedet.ubicacion}}" />\n        <p class="absolute-text">{{viajedet.textoubicacion}}</p>\n      </div>\n    </ion-grid>\n\n    <ion-grid id="ruta" *ngSwitchCase="\'ruta\'">\n      <img src="{{viajedet.ruta}}" />\n\n    </ion-grid>\n\n    <ion-grid id="request" *ngSwitchCase="\'solicitud\'">\n\n      <ion-card *ngFor="let item of viajedet.solicitud">\n        <ion-card-content>\n          <ion-row>\n            <ion-col col-4>\n              <div class="user-avatar">\n                <img id="fotografia" src="{{item.fotografia}}">\n              </div>\n            </ion-col>\n            <ion-col>\n              <strong>{{item.nombre}}</strong><br>\n              <strong>{{item.apellido}}</strong> <br>\n              <strong>{{item.genero}}</strong>\n            </ion-col>\n            <ion-col>\n              <strong>{{item.facultad}}</strong><br>\n              <strong>{{item.carrera}}</strong>\n            </ion-col>\n          </ion-row>\n        </ion-card-content>\n\n        <ion-row id="foot">\n          <ion-col text-center>\n            <button ion-button clear color="iconos" icon-start>\n              <ion-icon name=\'checkmark\'></ion-icon>\n              aceptar\n            </button>\n          </ion-col>\n\n          <ion-col text-center>\n            <button ion-button clear color="iconos" icon-start>\n              <ion-icon name=\'close\'></ion-icon>\n              rechazar\n            </button>\n          </ion-col>\n        </ion-row>\n\n      </ion-card>\n\n\n    </ion-grid>\n\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\det-ruta-c\det-ruta-c.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["c" /* DomSanitizer */]])
-    ], DetRutaCPage);
-    return DetRutaCPage;
-}());
-
-//# sourceMappingURL=det-ruta-c.js.map
-
-/***/ }),
-
-/***/ 112:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SetHomeDestinoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(25);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -249,7 +196,7 @@ var SetHomeDestinoPage = (function () {
 
 /***/ }),
 
-/***/ 113:
+/***/ 112:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -441,7 +388,7 @@ var SetMapDestinoPage = (function () {
 
 /***/ }),
 
-/***/ 114:
+/***/ 113:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -450,7 +397,7 @@ var SetMapDestinoPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(25);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -633,7 +580,7 @@ var SetHomePage = (function () {
 
 /***/ }),
 
-/***/ 115:
+/***/ 114:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -823,14 +770,14 @@ var SetMapOrigenPage = (function () {
 
 /***/ }),
 
-/***/ 116:
+/***/ 115:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViajesConductorPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__set_map_pto_set_map_pto__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__set_map_pto_set_map_pto__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viajes_pub_c_viajes_pub_c__ = __webpack_require__(56);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -932,7 +879,7 @@ var ViajesConductorPage = (function () {
 
 /***/ }),
 
-/***/ 117:
+/***/ 116:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -941,7 +888,7 @@ var ViajesConductorPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_html2canvas__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_html2canvas__ = __webpack_require__(271);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_html2canvas___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_html2canvas__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1131,6 +1078,59 @@ var SetMapPtoPage = (function () {
 
 /***/ }),
 
+/***/ 117:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetRutaCPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__(27);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var DetRutaCPage = (function () {
+    function DetRutaCPage(storage, navCtrl, navParams, sanitizer) {
+        this.storage = storage;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.sanitizer = sanitizer;
+        this.proceso_v = 'descripcion';
+        this.viajedet = navParams.get('datos');
+        console.log(this.viajedet);
+    }
+    DetRutaCPage.prototype.ionViewDidLoad = function () {
+        //this.url = "blob:http://localhost:8100/b95c7e2b-a3b4-4ac8-b51e-a9af526f3788"
+        console.log('ionViewDidLoad DetRutaCPage');
+        //this.storage.get('imageurl').then((val) => { this.url = this.getUrlVideo(val); console.log('url: ', this.url) })
+    };
+    DetRutaCPage.prototype.getUrlVideo = function (videoURL) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(videoURL);
+    };
+    DetRutaCPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-det-ruta-c',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\det-ruta-c\det-ruta-c.html"*/'<ion-header>\n  <ion-navbar color="danger" text-center>\n    <ion-grid>\n      <ion-row>\n        <ion-col text-left col-1>\n          <ion-icon name="pin" color="light" small></ion-icon>\n        </ion-col>\n        <ion-col text-left>\n          <ion-title color="light">{{viajedet.origen}}</ion-title>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col text-left col-1>\n          <ion-icon name="pin" color="light" small></ion-icon>\n        </ion-col>\n        <ion-col text-left>\n          <ion-title color="light">{{viajedet.destino}}</ion-title>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-segment color="danger" [(ngModel)]="proceso_v">\n    <ion-segment-button value="descripcion">\n      DESCRIPCION\n    </ion-segment-button>\n    <ion-segment-button value="vehiculo">\n      VEHICULO\n    </ion-segment-button>\n    <ion-segment-button value="ubicacion">\n      UBICACION\n    </ion-segment-button>\n    <ion-segment-button value="ruta">\n      RUTA\n    </ion-segment-button>\n    <ion-segment-button value="solicitud">\n      SOLICITUDES\n    </ion-segment-button>\n  </ion-segment>\n\n\n  <div [ngSwitch]="proceso_v">\n    <ion-grid id="descripcion" *ngSwitchCase="\'descripcion\'">\n      <h5>Descripci&oacute;n del viaje</h5><br>\n      <ion-row>\n        <ion-col>\n          {{viajedet.descripcion}}\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n    <ion-grid id="vehiculo" *ngSwitchCase="\'vehiculo\'">\n      <ion-row align-items-center>\n        <ion-col id="auto">\n          <img src="{{viajedet.auto.imagen}}" id="centerImg">\n        </ion-col>\n      </ion-row>\n      <h6 ion-text text-center>{{viajedet.auto.placa}}</h6>\n      <h6 ion-text text-center>{{viajedet.auto.marca}} {{viajedet.auto.modelo}}</h6>\n      <span ion-text text-center>{{viajedet.auto.color}}</span>\n    </ion-grid>\n\n    <ion-grid id="ubicacion" *ngSwitchCase="\'ubicacion\'">\n      <div class="relative">\n        <img src="{{viajedet.ubicacion}}" />\n        <p class="absolute-text">{{viajedet.textoubicacion}}</p>\n      </div>\n    </ion-grid>\n\n    <ion-grid id="ruta" *ngSwitchCase="\'ruta\'">\n      <img src="{{viajedet.ruta}}" />\n\n    </ion-grid>\n\n    <ion-grid id="request" *ngSwitchCase="\'solicitud\'">\n\n      <ion-card *ngFor="let item of viajedet.solicitud">\n        <ion-card-content>\n          <ion-row>\n            <ion-col col-4>\n              <div class="user-avatar">\n                <img id="fotografia" src="{{item.fotografia}}">\n              </div>\n            </ion-col>\n            <ion-col>\n              <strong>{{item.nombre}}</strong><br>\n              <strong>{{item.apellido}}</strong> <br>\n              <strong>{{item.genero}}</strong>\n            </ion-col>\n            <ion-col>\n              <strong>{{item.facultad}}</strong><br>\n              <strong>{{item.carrera}}</strong>\n            </ion-col>\n          </ion-row>\n        </ion-card-content>\n\n        <ion-row id="foot">\n          <ion-col text-center>\n            <button ion-button clear color="iconos" icon-start>\n              <ion-icon name=\'checkmark\'></ion-icon>\n              aceptar\n            </button>\n          </ion-col>\n\n          <ion-col text-center>\n            <button ion-button clear color="iconos" icon-start>\n              <ion-icon name=\'close\'></ion-icon>\n              rechazar\n            </button>\n          </ion-col>\n        </ion-row>\n\n      </ion-card>\n\n\n    </ion-grid>\n\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\det-ruta-c\det-ruta-c.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["c" /* DomSanitizer */]])
+    ], DetRutaCPage);
+    return DetRutaCPage;
+}());
+
+//# sourceMappingURL=det-ruta-c.js.map
+
+/***/ }),
+
 /***/ 118:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1256,19 +1256,19 @@ webpackEmptyAsyncContext.id = 129;
 
 var map = {
 	"../pages/det-ruta-c/det-ruta-c.module": [
-		294,
+		295,
 		12
 	],
 	"../pages/home-c-view-ruta/home-c-view-ruta.module": [
-		295,
+		294,
 		11
 	],
 	"../pages/set-home-destino/set-home-destino.module": [
-		296,
+		297,
 		10
 	],
 	"../pages/set-home_origen/set-home.module": [
-		297,
+		296,
 		9
 	],
 	"../pages/set-map-destino/set-map-destino.module": [
@@ -1276,11 +1276,11 @@ var map = {
 		8
 	],
 	"../pages/set-map-origen/set-map-origen.module": [
-		300,
+		299,
 		7
 	],
 	"../pages/set-map-pto/set-map-pto.module": [
-		299,
+		300,
 		6
 	],
 	"../pages/viajes-conductor/viajes-conductor.module": [
@@ -1288,23 +1288,23 @@ var map = {
 		5
 	],
 	"../pages/viajes-destino/viajes-destino.module": [
-		302,
+		303,
 		4
 	],
 	"../pages/viajes-main-c/viajes-main-c.module": [
-		304,
+		302,
 		3
 	],
 	"../pages/viajes-origen-destino/viajes-origen-destino.module": [
-		303,
+		304,
 		2
 	],
 	"../pages/viajes-origen/viajes-origen.module": [
-		306,
+		305,
 		1
 	],
 	"../pages/viajes-pub-c/viajes-pub-c.module": [
-		305,
+		306,
 		0
 	]
 };
@@ -1352,22 +1352,22 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_viajes_origen_destino_viajes_origen_destino__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_viajes_origen_viajes_origen__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_viajes_destino_viajes_destino__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_set_home_origen_set_home__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_set_map_origen_set_map_origen__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_set_home_destino_set_home_destino__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_set_map_destino_set_map_destino__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_set_home_origen_set_home__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_set_map_origen_set_map_origen__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_set_home_destino_set_home_destino__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_set_map_destino_set_map_destino__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_viajes_conductor_viajes_conductor__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_set_map_pto_set_map_pto__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_viajes_conductor_viajes_conductor__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_set_map_pto_set_map_pto__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_viajes_pub_c_viajes_pub_c__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_det_ruta_c_det_ruta_c__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_det_ruta_c_det_ruta_c__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_viajes_main_c_viajes_main_c__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_status_bar__ = __webpack_require__(212);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_splash_screen__ = __webpack_require__(213);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_google_maps__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_geolocation__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_native_geocoder__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_storage__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_native_geocoder__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_storage__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_home_service_home_service__ = __webpack_require__(89);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1428,19 +1428,19 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
-                        { loadChildren: '../pages/det-ruta-c/det-ruta-c.module#DetRutaCPageModule', name: 'DetRutaCPage', segment: 'det-ruta-c', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/home-c-view-ruta/home-c-view-ruta.module#HomeCViewRutaPageModule', name: 'HomeCViewRutaPage', segment: 'home-c-view-ruta', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/set-home-destino/set-home-destino.module#SetHomeDestinoPageModule', name: 'SetHomeDestinoPage', segment: 'set-home-destino', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/det-ruta-c/det-ruta-c.module#DetRutaCPageModule', name: 'DetRutaCPage', segment: 'det-ruta-c', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-home_origen/set-home.module#SetHomePageModule', name: 'SetHomePage', segment: 'set-home', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/set-home-destino/set-home-destino.module#SetHomeDestinoPageModule', name: 'SetHomeDestinoPage', segment: 'set-home-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-destino/set-map-destino.module#SetMapDestinoPageModule', name: 'SetMapDestinoPage', segment: 'set-map-destino', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/set-map-pto/set-map-pto.module#SetMapPtoPageModule', name: 'SetMapPtoPage', segment: 'set-map-pto', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-origen/set-map-origen.module#SetMapOrigenPageModule', name: 'SetMapOrigenPage', segment: 'set-map-origen', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/set-map-pto/set-map-pto.module#SetMapPtoPageModule', name: 'SetMapPtoPage', segment: 'set-map-pto', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-conductor/viajes-conductor.module#ViajesConductorPageModule', name: 'ViajesConductorPage', segment: 'viajes-conductor', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/viajes-main-c/viajes-main-c.module#ViajesMainCPageModule', name: 'ViajesMainCPage', segment: 'viajes-main-c', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-destino/viajes-destino.module#ViajesDestinoPageModule', name: 'ViajesDestinoPage', segment: 'viajes-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-origen-destino/viajes-origen-destino.module#ViajesOrigenDestinoPageModule', name: 'ViajesOrigenDestinoPage', segment: 'viajes-origen-destino', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/viajes-main-c/viajes-main-c.module#ViajesMainCPageModule', name: 'ViajesMainCPage', segment: 'viajes-main-c', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/viajes-pub-c/viajes-pub-c.module#ViajesPubCPageModule', name: 'ViajesPubCPage', segment: 'viajes-pub-c', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/viajes-origen/viajes-origen.module#ViajesOrigenPageModule', name: 'ViajesOrigenPage', segment: 'viajes-origen', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/viajes-origen/viajes-origen.module#ViajesOrigenPageModule', name: 'ViajesOrigenPage', segment: 'viajes-origen', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/viajes-pub-c/viajes-pub-c.module#ViajesPubCPageModule', name: 'ViajesPubCPage', segment: 'viajes-pub-c', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_24__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
@@ -1491,8 +1491,8 @@ var AppModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__viajes_destino_viajes_destino__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viajes_origen_viajes_origen__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__viajes_conductor_viajes_conductor__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__viajes_conductor_viajes_conductor__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__home_home__ = __webpack_require__(88);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1525,7 +1525,7 @@ var HomeCViewRutaPage = (function () {
     }
     HomeCViewRutaPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad HomeCViewRutaPage');
-        //this.initMapa();
+        this.initMapa();
     };
     HomeCViewRutaPage.prototype.initMapa = function () {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
@@ -1817,8 +1817,8 @@ var ListPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViajesDestinoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__set_home_destino_set_home_destino__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__set_map_destino_set_map_destino__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__set_home_destino_set_home_destino__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__set_map_destino_set_map_destino__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_geolocation__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_google_maps__ = __webpack_require__(30);
@@ -2009,8 +2009,8 @@ var ViajesDestinoPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViajesOrigenPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__set_home_origen_set_home__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__set_map_origen_set_map_origen__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__set_home_origen_set_home__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__set_map_origen_set_map_origen__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(25);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2075,7 +2075,7 @@ var ViajesOrigenPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViajesPubCPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__det_ruta_c_det_ruta_c__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__det_ruta_c_det_ruta_c__ = __webpack_require__(117);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);

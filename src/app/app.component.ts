@@ -99,7 +99,7 @@ export class MyApp {
       },
       {
         text: 'No', handler: () => {
-          this.newMethod();
+          this.rdbnReturn();
         }
       }]
     })
@@ -107,7 +107,7 @@ export class MyApp {
   }
 
 
-  private newMethod() {
+  private rdbnReturn() {
     if (this.evento)
       this.radiobtn = false;
     else

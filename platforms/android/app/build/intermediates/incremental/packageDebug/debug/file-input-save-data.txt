@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue May 14 20:25:03 COT 2019
+#Tue May 14 21:12:23 COT 2019
 2.path=www/assets/imgs/Rectangle 1295.svg
 14.set=ASSET
 107.baseType=DIRECTORY
