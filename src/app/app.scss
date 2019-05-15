@@ -43,4 +43,23 @@ page-menu {
   .toolbar-background {
     background: #D5CDCB;
   }
+
+  #circular {
+    position:relative;
+    overflow:hidden;
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+}
+  
+
+  #circular img {
+    position:absolute;
+    height: auto;
+    width: auto;    
+    max-width:100%;
+    top:50%;
+    transform:translateY(-50%);
+  //margin-left: -50px;
+  }
 }

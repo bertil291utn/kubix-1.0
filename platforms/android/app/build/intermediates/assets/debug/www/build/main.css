@@ -43440,12 +43440,45 @@ ion-icon[class*="custom-rectangle-icon"] {
   color: red !important;
 }
 
-page-det-ruta-c ion-segment {
-  padding: 15px 0;
+page-menu #toolbar-back,
+page-menu #item-button,
+page-menu #content-menu {
+  background-color: #D5CDCB;
 }
 
-page-det-ruta-c ion-content .grid {
-  padding: 2% 10%;
+page-menu .toolbar-title {
+  color: black;
+}
+
+page-menu .toolbar-background {
+  background: #D5CDCB;
+}
+
+page-menu #circular {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
+
+page-menu #circular img {
+  position: absolute;
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+page-det-ruta-c ion-segment {
+  padding-top: 15px;
+}
+
+page-det-ruta-c .grid#descripcion,
+page-det-ruta-c .grid#auto {
+  padding: 8% 10%;
 }
 
 page-det-ruta-c ion-content #centerImg {
@@ -43454,13 +43487,103 @@ page-det-ruta-c ion-content #centerImg {
   padding: 5% 10%;
 }
 
-page-home #map_canvas2 {
-  height: 100%;
+page-det-ruta-c .card {
   width: 100%;
+  margin: 0px 0px 5% 0px;
 }
 
-page-home ion-content ion-fab .icon {
-  zoom: 1.5;
+page-det-ruta-c .row#foot {
+  border-top: 1px solid #ececec;
+}
+
+page-det-ruta-c .grid#request {
+  background-color: #d5cdcb;
+  padding: 0px !important;
+}
+
+page-det-ruta-c .grid#ubicacion,
+page-det-ruta-c .grid#ruta {
+  padding: 0px !important;
+}
+
+page-det-ruta-c .relative {
+  position: relative;
+  width: 600px;
+}
+
+page-det-ruta-c .absolute-text {
+  position: absolute;
+  bottom: 0;
+  font-size: 15px;
+  background: white;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+page-det-ruta-c .absolute-text a {
+  font-size: 16px;
+}
+
+page-det-ruta-c div.user-avatar {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+page-det-ruta-c img#fotografia {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+}
+
+page-home .relative {
+  position: relative;
+}
+
+page-home .absolute-text {
+  position: absolute;
+  bottom: 0;
+  font-size: 18px;
+  padding: 10px;
+  width: 55%;
+  margin: 0 25% 6%;
+}
+
+page-home #absolute-text {
+  position: absolute;
+  font-size: 30px;
+  padding: 30px;
+  background-color: rgba(158, 158, 158, 0);
+  color: red;
+}
+
+page-home #imgbck {
+  width: 100%;
+  display: block;
+  height: auto;
+  border: 0;
+  padding-bottom: 10%;
+}
+
+page-home .absolute-text a {
+  font-size: 16px;
+}
+
+page-home .content {
+  background-color: #d5cdcb;
+}
+
+page-home .home-text {
+  margin: 0 10%;
+  text-align: center;
+}
+
+page-home .text {
+  font-weight: 300;
 }
 
 page-home-c-view-ruta #map_canvas {
@@ -43675,6 +43798,15 @@ page-viajes-destino .label-md {
 
 page-viajes-destino ion-content .text {
   font-size: 1rem;
+}
+
+page-viajes-main-c #map_canvas2 {
+  height: 100%;
+  width: 100%;
+}
+
+page-viajes-main-c ion-content ion-fab .icon {
+  zoom: 1.5;
 }
 
 page-viajes-origen .card {

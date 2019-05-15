@@ -7,8 +7,16 @@ page-home {
     bottom: 0;
     font-size: 18px;
     padding: 10px;
-    width: 50%;
+    width: 55%;
     margin: 0 25% 6%;
+  }
+
+  #absolute-text {
+    position: absolute;
+    font-size: 30px;
+    padding: 30px;
+    background-color: rgba(158, 158, 158, 0);
+    color:red;
   }
 
   #imgbck {

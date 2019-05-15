@@ -90,18 +90,29 @@ export class MyApp {
 
     const alert = this.alertCtrl.create({
       title: 'Modo conductor',
-      message: '¿Est&aacute; seguro de ' + text_msg + ' el modo conductor?',
+      message: '¿Est&aacute; seguro de querer ' + text_msg + ' el modo conductor?',
       buttons: [{
         text: 'Si',
         handler: () => {
           this.actionChangeMode();
         }
       },
-      { text: 'No', handler: () => { this.radiobtn = false; } }]
+      {
+        text: 'No', handler: () => {
+          this.newMethod();
+        }
+      }]
     })
     alert.present();
   }
 
+
+  private newMethod() {
+    if (this.evento)
+      this.radiobtn = false;
+    else
+      this.radiobtn = true;
+  }
 
   private actionChangeMode() {
     if (this.evento) {
@@ -122,5 +133,5 @@ export class MyApp {
     this.menu.close();
   }
 
-  
+
 }

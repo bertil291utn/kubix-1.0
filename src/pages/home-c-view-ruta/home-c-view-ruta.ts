@@ -18,8 +18,8 @@ declare var html2canvas;
 export class HomeCViewRutaPage {
   @ViewChild('map_canvas') mapElement: ElementRef;
   public map: any;
-  // directionsService = new google.maps.DirectionsService;
-  // directionsDisplay = new google.maps.DirectionsRenderer;
+  directionsService = new google.maps.DirectionsService;
+  directionsDisplay = new google.maps.DirectionsRenderer;
   origen_LatLng;
   destino_LatLng;
   origen_direccion;
@@ -48,7 +48,7 @@ export class HomeCViewRutaPage {
       zoom: 7,
       disableDefaultUI: true
     });
-    this.map = GoogleMaps.create(this.mapElement.nativeElement);
+    //this.map = GoogleMaps.create(this.mapElement.nativeElement);
     this.directionsDisplay.setMap(this.map);
     this.calculateAndDisplayRoute();
   }

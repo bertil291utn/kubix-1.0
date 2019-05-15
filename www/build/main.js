@@ -922,10 +922,10 @@ var ViajesConductorPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-viajes-conductor',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-conductor\viajes-conductor.html"*/'<ion-header>\n  <ion-navbar color="danger" text-center>\n    <ion-grid>\n      <ion-row>\n        <ion-col>\n          <ion-buttons left>\n            <button ion-button icon-only clear>\n              <ion-icon name="car"></ion-icon>\n              <ion-title>VIAJES</ion-title>\n            </button>\n          </ion-buttons>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-segment color="danger" [(ngModel)]="proceso">\n    <ion-segment-button value="horario">\n      HORARIO DE SALIDA\n    </ion-segment-button>\n    <ion-segment-button value="vehiculo">\n      VEHICULO\n    </ion-segment-button>\n    <ion-segment-button value="adicional">\n      ADICIONAL\n    </ion-segment-button>\n  </ion-segment>\n\n  <div [ngSwitch]="proceso">\n    <ion-grid *ngSwitchCase="\'horario\'" padding>\n      <ion-row>\n        <ion-col>\n          <ion-item>\n            <ion-icon name="calendar" color="iconos" item-left></ion-icon>\n            <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="dia">\n              <ion-option value="1">Lunes</ion-option>\n              <ion-option value="2">Martes</ion-option>\n              <ion-option value="3">Mi&eacute;rcoles</ion-option>\n              <ion-option value="4">Jueves</ion-option>\n              <ion-option value="5">Viernes</ion-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-item>\n            <ion-icon name="time" color="iconos" item-left></ion-icon>\n            <ion-datetime displayFormat="HH:mm" [(ngModel)]="hora"></ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <h5>Repetir</h5>\n      <ion-row>\n        <ion-col>\n          <ion-item>\n            <ion-icon name="repeat" color="iconos" item-left></ion-icon>\n            <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="repeat">\n              <ion-option value="1">Si</ion-option>\n              <ion-option value="2">No</ion-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col>\n        </ion-col>\n      </ion-row>\n      <h5 color="danger" ion-text text-center (click)="goToVehicule()">SIGUIENTE</h5>\n    </ion-grid>\n\n\n    <ion-grid *ngSwitchCase="\'vehiculo\'" padding>\n      <h6 ion-text text-center>Autom&oacute;vil designado</h6>\n      <ion-row align-items-center>\n        <ion-col id="auto">\n          <img src="assets/imgs/01.png" id="centerImg">\n        </ion-col>\n      </ion-row>\n\n      <h6 ion-text text-center>SEAT IBIZA</h6>\n      <span ion-text text-center>Negro</span>\n      <h5 color="danger" ion-text text-center (click)="goToAdicional()">SIGUIENTE</h5>\n    </ion-grid>\n\n\n    <ion-grid *ngSwitchCase="\'adicional\'" padding>\n      <ion-row>\n        <ion-col>\n          <ion-item>\n            <ion-label id="pasajero">No. pasajeros</ion-label>\n            <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="pasajero" id="extra">\n              <ion-option value="1">1</ion-option>\n              <ion-option value="2">2</ion-option>\n              <ion-option value="3">3</ion-option>\n              <ion-option value="4">4</ion-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col>\n          <ion-item (click)="goToMap()">\n            <ion-label id="partida">Punto de encuentro<br>\n              <span ion-text id="subtxt">Ubique en el mapa</span>\n            </ion-label>\n            <ion-icon name="pin" color="iconos" item-right></ion-icon>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n\n      <ion-row>\n        <ion-col>\n          <ion-item>\n            <ion-label id="descripcion" stacked>Descripci&oacute;n adicional</ion-label>\n            <ion-textarea rows="6" cols="20" color="danger"\n              placeholder="Referencia de donde sale , si va a hacer paradas, hora de salida">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n      <button ion-button round color="danger" large (click)="showAlert()">Publicar</button>\n\n    </ion-grid>\n\n\n  </div>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\viajes-conductor\viajes-conductor.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
     ], ViajesConductorPage);
     return ViajesConductorPage;
-    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=viajes-conductor.js.map
@@ -1264,11 +1264,11 @@ var map = {
 		11
 	],
 	"../pages/set-home-destino/set-home-destino.module": [
-		297,
+		296,
 		10
 	],
 	"../pages/set-home_origen/set-home.module": [
-		296,
+		297,
 		9
 	],
 	"../pages/set-map-destino/set-map-destino.module": [
@@ -1430,8 +1430,8 @@ var AppModule = (function () {
                     links: [
                         { loadChildren: '../pages/det-ruta-c/det-ruta-c.module#DetRutaCPageModule', name: 'DetRutaCPage', segment: 'det-ruta-c', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/home-c-view-ruta/home-c-view-ruta.module#HomeCViewRutaPageModule', name: 'HomeCViewRutaPage', segment: 'home-c-view-ruta', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/set-home_origen/set-home.module#SetHomePageModule', name: 'SetHomePage', segment: 'set-home', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-home-destino/set-home-destino.module#SetHomeDestinoPageModule', name: 'SetHomeDestinoPage', segment: 'set-home-destino', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/set-home_origen/set-home.module#SetHomePageModule', name: 'SetHomePage', segment: 'set-home', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-destino/set-map-destino.module#SetMapDestinoPageModule', name: 'SetMapDestinoPage', segment: 'set-map-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-pto/set-map-pto.module#SetMapPtoPageModule', name: 'SetMapPtoPage', segment: 'set-map-pto', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-origen/set-map-origen.module#SetMapOrigenPageModule', name: 'SetMapOrigenPage', segment: 'set-map-origen', priority: 'low', defaultHistory: [] },
@@ -1516,6 +1516,8 @@ var HomeCViewRutaPage = (function () {
         this.loadingCtrl = loadingCtrl;
         this.nav = nav;
         this.navparams = navparams;
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
         this.origen_LatLng = navparams.get('origen_LatLngnvp');
         this.destino_LatLng = navparams.get('destino_LatLngnvp');
         this.destino_direccion = navparams.get('destino_direccionnvp');
@@ -1530,7 +1532,7 @@ var HomeCViewRutaPage = (function () {
             zoom: 7,
             disableDefaultUI: true
         });
-        this.map = GoogleMaps.create(this.mapElement.nativeElement);
+        //this.map = GoogleMaps.create(this.mapElement.nativeElement);
         this.directionsDisplay.setMap(this.map);
         this.calculateAndDisplayRoute();
     };
@@ -1582,16 +1584,15 @@ var HomeCViewRutaPage = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('map_canvas'),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */]) === "function" && _a || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */])
     ], HomeCViewRutaPage.prototype, "mapElement", void 0);
     HomeCViewRutaPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home-c-view-ruta',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home-c-view-ruta\home-c-view-ruta.html"*/'<ion-content>\n\n  \n\n    <div #map_canvas id="map_canvas">\n\n    </div>\n\n  \n\n</ion-content>\n\n\n\n<ion-footer>\n\n  <ion-toolbar color="white">\n\n    <ion-list>\n\n      <ion-item no-lines>\n\n        <ion-icon name="pin" color="iconos" item-start></ion-icon>\n\n        <ion-card>\n\n          <ion-item color="destinocard" (click)="goToutnDestino()">\n\n            {{origen_direccion}}\n\n          </ion-item>\n\n        </ion-card>\n\n      </ion-item>\n\n\n\n      <ion-item no-lines>\n\n        <ion-icon name="home" color="iconos" item-start></ion-icon>\n\n        <ion-card>\n\n          <ion-item color="destinocard" (click)="goToutnOrigen()">\n\n            {{destino_direccion}}\n\n          </ion-item>\n\n        </ion-card>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <ion-grid>\n\n      <ion-row>\n\n        <ion-col></ion-col>\n\n        <ion-col text-center (click)="goToAceptar()"><strong ion-text color="danger">ACEPTAR</strong></ion-col>\n\n        <ion-col></ion-col>\n\n        <ion-col text-center (click)="goToCancel()"><strong ion-text color="danger">CANCELAR</strong></ion-col>\n\n        <ion-col></ion-col>\n\n      </ion-row>\n\n    </ion-grid>\n\n\n\n  </ion-toolbar>\n\n</ion-footer>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home-c-view-ruta\home-c-view-ruta.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _e || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
     ], HomeCViewRutaPage);
     return HomeCViewRutaPage;
-    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=home-c-view-ruta.js.map
@@ -1693,16 +1694,26 @@ var MyApp = (function () {
         }
         var alert = this.alertCtrl.create({
             title: 'Modo conductor',
-            message: '¿Est&aacute; seguro de ' + text_msg + ' el modo conductor?',
+            message: '¿Est&aacute; seguro de querer ' + text_msg + ' el modo conductor?',
             buttons: [{
                     text: 'Si',
                     handler: function () {
                         _this.actionChangeMode();
                     }
                 },
-                { text: 'No', handler: function () { _this.radiobtn = false; } }]
+                {
+                    text: 'No', handler: function () {
+                        _this.newMethod();
+                    }
+                }]
         });
         alert.present();
+    };
+    MyApp.prototype.newMethod = function () {
+        if (this.evento)
+            this.radiobtn = false;
+        else
+            this.radiobtn = true;
     };
     MyApp.prototype.actionChangeMode = function () {
         if (this.evento) {
@@ -1724,16 +1735,18 @@ var MyApp = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */]),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */]) === "function" && _a || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-menu',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\app\app.html"*/'<ion-menu [content]="content">\n  <ion-header>\n    <ion-toolbar padding>\n      <ion-title>Menu</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content padding id="content-menu">\n    <ion-list no-lines>\n      <div *ngIf="conductor">\n        <button id="item-button" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p.component)">\n          <ion-icon [name]="p.icono" item-start></ion-icon>\n          {{p.title}}\n        </button>\n      </div>\n      <div *ngIf="pasajero">\n        <button id="item-button" menuClose ion-item *ngFor="let p of pages_pas" (click)="openPage(p.component)">\n          <ion-icon [name]="p.icono" item-start></ion-icon>\n          {{p.title}}\n        </button>\n      </div>\n      <button id="item-button" ion-item>\n        <ion-icon name="person" item-start></ion-icon>\n        <ion-label>Conductor</ion-label>\n        <ion-toggle [(ngModel)]="radiobtn" color="danger" (ngModelChange)="activatechangeMode($event)"></ion-toggle>\n      </button>\n      <button id="item-button" menuClose ion-item (click)="gotoLogin()">\n        <ion-icon name="exit" item-start></ion-icon>\n        Salir\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content></ion-nav>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\app\app.html"*/
+            selector: 'page-menu',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\app\app.html"*/'<ion-menu [content]="content">\n  <ion-header>\n    <ion-toolbar style="padding:0 16px 0;">\n      <ion-grid>\n        <ion-row>\n          <ion-col col-5>\n            <div id="circular">\n              <img src="assets/imgs/1.png">\n            </div>\n          </ion-col> \n          <ion-col>\n            <h5 ion-text style="margin: 10% 0;">{{PrimerNombre}}Bertil</h5>\n            <h5 ion-text>{{SegundoNombre}}Tandayamo</h5>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content padding id="content-menu">\n    <ion-list no-lines>\n      <div *ngIf="conductor">\n        <button id="item-button" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p.component)">\n          <ion-icon [name]="p.icono" item-start></ion-icon>\n          {{p.title}}\n        </button>\n      </div>\n      <div *ngIf="pasajero">\n        <button id="item-button" menuClose ion-item *ngFor="let p of pages_pas" (click)="openPage(p.component)">\n          <ion-icon [name]="p.icono" item-start></ion-icon>\n          {{p.title}}\n        </button>\n      </div>\n      <button id="item-button" ion-item>\n        <ion-icon name="person" item-start></ion-icon>\n        <ion-label>Conductor</ion-label>\n        <ion-toggle [(ngModel)]="radiobtn" color="danger" (ngModelChange)="activatechangeMode($event)"></ion-toggle>\n      </button>\n      <button id="item-button" menuClose ion-item (click)="gotoLogin()">\n        <ion-icon name="exit" item-start></ion-icon>\n        Salir\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content></ion-nav>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\app\app.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__providers_home_service_home_service__["a" /* HomeServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__providers_home_service_home_service__["a" /* HomeServiceProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */]) === "function" && _g || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_6__providers_home_service_home_service__["a" /* HomeServiceProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */]])
     ], MyApp);
     return MyApp;
-    var _a, _b, _c, _d, _e, _f, _g;
 }());
 
 //# sourceMappingURL=app.component.js.map
@@ -2227,12 +2240,12 @@ var HomePage = (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar color="danger">\n\n    <button ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <div *ngIf="conductor">\n\n    <div class="relative">\n\n      <img id="imgbck" src="assets/imgs/car.png">\n\n      <button large round class="absolute-text" ion-button (click)="goToDriver()" color="danger">\n\n        A donde te diriges</button>\n\n    </div>\n\n    <div class="home-text">\n\n      <h2>¿Vas a salir con tu coche?</h2>\n\n      <h6 ion-text>Dale un avent&oacute;n a alguien que dejo su coche en casa<br>\n\n        Ayuda a que la congestion vehicular en la comunidad unversitaria se minimice\n\n      </h6>\n\n    </div>\n\n  </div>\n\n  <div *ngIf="pasajero">\n\n    <div class="relative">\n\n      <img id="imgbck" src="assets/imgs/car2.png">\n\n      <button large round class="absolute-text" ion-button (click)="goToPass()" color="danger">\n\n        Encuentra un avent&oacute;n</button>\n\n    </div>\n\n    <div class="home-text">\n\n      <h2>¿Te queda cerca?</h2>\n\n      <h6 ion-text>Es una buena idea compartir tu viaje con tu amigo <br>\n\n        universitario. Se parte del cambio cultural\n\n      </h6>\n\n    </div>\n\n  </div>\n\n  <!-- <button ion-button color="danger"> Encuentra tu aventon</button> -->\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home\home.html"*/'<!-- <ion-header>\n\n  <ion-navbar color="danger">\n\n    <button ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n  </ion-navbar>\n\n</ion-header> -->\n\n\n\n\n\n<ion-content>\n\n\n\n  <div *ngIf="conductor">\n\n    <div class="relative">\n\n        <ion-icon menuToggle name=\'menu\' id="absolute-text"></ion-icon>\n\n      <img id="imgbck" src="assets/imgs/car.png">\n\n      <button large round class="absolute-text" ion-button (click)="goToDriver()" color="danger">\n\n        A donde te diriges</button>\n\n    </div>\n\n    <div class="home-text">\n\n      <h2>¿Vas a salir con tu coche?</h2>\n\n      <h6 ion-text>Dale un avent&oacute;n a alguien que dejo su coche en casa<br>\n\n        Ayuda a que la congestion vehicular en la comunidad unversitaria se minimice\n\n      </h6>\n\n    </div>\n\n  </div>\n\n  <div *ngIf="pasajero">\n\n    <div class="relative">\n\n      <ion-icon menuToggle name=\'menu\' id="absolute-text"></ion-icon>\n\n      <img id="imgbck" src="assets/imgs/car2.png">\n\n      <button large round class="absolute-text" ion-button (click)="goToPass()" color="danger">\n\n        Encuentra un avent&oacute;n</button>\n\n    </div>\n\n    <div class="home-text">\n\n      <h2>¿Te queda cerca?</h2>\n\n      <h6 ion-text>Es una buena idea compartir tu viaje con tu amigo <br>\n\n        universitario. Se parte del cambio cultural\n\n      </h6>\n\n    </div>\n\n  </div>\n\n  <!-- <button ion-button color="danger"> Encuentra tu aventon</button> -->\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__providers_home_service_home_service__["a" /* HomeServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_home_service_home_service__["a" /* HomeServiceProvider */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_home_service_home_service__["a" /* HomeServiceProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]])
     ], HomePage);
     return HomePage;
-    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=home.js.map

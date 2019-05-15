@@ -1,14 +1,17 @@
-<ion-header>
+<!-- <ion-header>
   <ion-navbar color="danger">
     <button ion-button menuToggle icon-only>
       <ion-icon name='menu'></ion-icon>
     </button>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
+
 
 <ion-content>
+
   <div *ngIf="conductor">
     <div class="relative">
+        <ion-icon menuToggle name='menu' id="absolute-text"></ion-icon>
       <img id="imgbck" src="assets/imgs/car.png">
       <button large round class="absolute-text" ion-button (click)="goToDriver()" color="danger">
         A donde te diriges</button>
@@ -22,6 +25,7 @@
   </div>
   <div *ngIf="pasajero">
     <div class="relative">
+      <ion-icon menuToggle name='menu' id="absolute-text"></ion-icon>
       <img id="imgbck" src="assets/imgs/car2.png">
       <button large round class="absolute-text" ion-button (click)="goToPass()" color="danger">
         Encuentra un avent&oacute;n</button>

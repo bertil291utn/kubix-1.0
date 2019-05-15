@@ -1,7 +1,19 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar padding>
-      <ion-title>Menu</ion-title>
+    <ion-toolbar style="padding:0 16px 0;">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <div id="circular">
+              <img src="assets/imgs/1.png">
+            </div>
+          </ion-col> 
+          <ion-col>
+            <h5 ion-text style="margin: 10% 0;">{{PrimerNombre}}Bertil</h5>
+            <h5 ion-text>{{SegundoNombre}}Tandayamo</h5>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-toolbar>
   </ion-header>
 

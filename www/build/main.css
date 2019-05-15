@@ -43454,6 +43454,24 @@ page-menu .toolbar-background {
   background: #D5CDCB;
 }
 
+page-menu #circular {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
+
+page-menu #circular img {
+  position: absolute;
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 page-det-ruta-c ion-segment {
   padding-top: 15px;
 }
@@ -43531,8 +43549,16 @@ page-home .absolute-text {
   bottom: 0;
   font-size: 18px;
   padding: 10px;
-  width: 50%;
+  width: 55%;
   margin: 0 25% 6%;
+}
+
+page-home #absolute-text {
+  position: absolute;
+  font-size: 30px;
+  padding: 30px;
+  background-color: rgba(158, 158, 158, 0);
+  color: red;
 }
 
 page-home #imgbck {
