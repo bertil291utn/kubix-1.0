@@ -1,0 +1,47 @@
+page-viajes-pasajero {
+  .card {
+    width: 100%;
+    margin: 0px 0px 5% 0px;
+  }
+
+  ion-icon#arrow {
+    font-size: 35px;
+  }
+
+  .row#foot {
+    border-top: 1px solid #ececec;
+  }
+  .content {
+    background-color: #d5cdcb;
+  }
+
+  #circular {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    margin-top: 10%;
+  }
+
+  #circular img {
+    position: absolute;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  strong {
+    font-size: 1.8rem;
+  }
+
+  .card-title {
+    display: block;
+    font-size: 2.4rem;
+    line-height: 1.5;
+    color: #222;
+    /* margin: 2px 0; */
+    /* padding: 8px 0; */
+  }
+}

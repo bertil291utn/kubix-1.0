@@ -1,0 +1,66 @@
+<ion-header>
+
+  <ion-navbar color="danger" text-center>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-buttons left>
+            <button ion-button icon-only clear>
+              <ion-icon name="time"></ion-icon>
+              &nbsp;&nbsp;&nbsp;{{dia_string}} {{dia_number}} {{mes}}
+            </button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-card *ngFor="let item of lista_viaje">
+    <ion-card-content text-center>
+      <ion-card-title>
+        <ion-row>
+          <ion-col>
+            {{item.origen}}
+          </ion-col>
+          <ion-col col-1>
+            <ion-icon name="arrow-round-forward" id="arrow" color="iconos"></ion-icon>
+          </ion-col>
+          <ion-col>
+            {{item.destino}}
+          </ion-col>
+        </ion-row>
+      </ion-card-title>
+      <p>
+        <strong>{{item.hora}}</strong>
+      </p>
+    </ion-card-content>
+
+    <div (click)="goToDetails(item.id)">
+      <ion-row id="foot" style="padding: 2% 10%;">
+        <ion-col>
+          <strong>Conductor</strong> <br>
+          <div id="circular">
+            <img src="{{item.conductor.fotografia}}">
+          </div>
+        </ion-col>
+        <ion-col>
+          <br><br>
+          <p>{{item.conductor.nombre}}</p>
+          <p>{{item.conductor.apellido}}</p>
+        </ion-col>
+        <ion-col text-right>
+          <br>
+          <strong style="font-size: 2rem;">{{item.asientos}}</strong>
+          <p> Asientos disponibles</p>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-card>
+</ion-content>

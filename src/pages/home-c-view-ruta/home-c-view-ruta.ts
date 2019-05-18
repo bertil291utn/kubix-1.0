@@ -18,8 +18,8 @@ declare var html2canvas;
 export class HomeCViewRutaPage {
   @ViewChild('map_canvas') mapElement: ElementRef;
   public map: any;
-  directionsService = new google.maps.DirectionsService;
-  directionsDisplay = new google.maps.DirectionsRenderer;
+  // directionsService = new google.maps.DirectionsService;
+  // directionsDisplay = new google.maps.DirectionsRenderer;
   origen_LatLng;
   destino_LatLng;
   origen_direccion;
@@ -38,7 +38,7 @@ export class HomeCViewRutaPage {
   ionViewDidLoad() {
 
     console.log('ionViewDidLoad HomeCViewRutaPage');
-    this.initMapa();
+    //this.initMapa();
 
 
   }

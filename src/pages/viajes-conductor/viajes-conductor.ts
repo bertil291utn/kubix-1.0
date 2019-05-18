@@ -49,7 +49,7 @@ export class ViajesConductorPage {
       buttons: [{
         text: 'Aceptar',
         handler: () => {
-          this.navCtrl.push(ViajesPubCPage);
+          this.navCtrl.setRoot(ViajesPubCPage);
         }
       }]
     })

@@ -27,6 +27,9 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { IonicStorageModule } from '@ionic/storage';
 import { HomeServiceProvider } from '../providers/home-service/home-service';
+import { ViajesPasajeroPage } from '../pages/viajes-pasajero/viajes-pasajero';
+import { DatesFormatProvider } from '../providers/dates-format/dates-format';
+import { ViajesPasajeroDetailPage } from '../pages/viajes-pasajero-detail/viajes-pasajero-detail';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,9 @@ import { HomeServiceProvider } from '../providers/home-service/home-service';
     SetMapPtoPage,
     ViajesPubCPage,
     DetRutaCPage,
-    ViajesMainCPage
+    ViajesMainCPage,
+    ViajesPasajeroPage,
+    ViajesPasajeroDetailPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +74,9 @@ import { HomeServiceProvider } from '../providers/home-service/home-service';
     SetMapPtoPage,
     ViajesPubCPage,
     DetRutaCPage,
-    ViajesMainCPage
+    ViajesMainCPage,
+    ViajesPasajeroPage,
+    ViajesPasajeroDetailPage
   ],
   providers: [
     StatusBar,
@@ -78,7 +85,8 @@ import { HomeServiceProvider } from '../providers/home-service/home-service';
     Geolocation,
     NativeGeocoder,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    HomeServiceProvider
+    HomeServiceProvider,
+    DatesFormatProvider
   ]
 })
 export class AppModule { }

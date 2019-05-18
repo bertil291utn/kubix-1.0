@@ -22,7 +22,7 @@ export class HomePage {
     setInterval(() => {
       this.pasajero = this.myservices.pasajero;
       this.conductor = this.myservices.conductor;
-      console.log('this.pasajero: ', this.pasajero, ' this.conductor: ', this.conductor)
+      //console.log('this.pasajero: ', this.pasajero, ' this.conductor: ', this.conductor)
     }, 1000);
   }
 

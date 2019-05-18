@@ -1,0 +1,37 @@
+<ion-header>
+
+  <ion-toolbar color="danger" text-center>
+    <ion-buttons end style="margin-right: 2%;">
+      <button ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-grid style="padding-left: 10%;">
+      <ion-row>
+        <ion-col text-right col-1>
+          <ion-icon name="pin" color="light" small></ion-icon>
+        </ion-col>
+        <ion-col text-left>
+          <ion-title color="light">{{viajedet.origen}}</ion-title>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col text-right col-1>
+          <ion-icon name="pin" color="light" small></ion-icon>
+        </ion-col>
+        <ion-col text-left>
+          <ion-title color="light">{{viajedet.destino}}</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-toolbar>
+
+
+</ion-header>
+
+
+<ion-content padding>
+  hello fron the otherside
+</ion-content>
