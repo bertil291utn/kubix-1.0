@@ -1,3 +1,16 @@
 page-viajes-pasajero-detail {
+  .toolbar-title {
+    font-size: 1.9rem;
+  }
 
+  .grid#ruta {
+    padding: 0px !important;
+  }
+
+  .grid#descripcion {
+    padding: 8% 10%;
+  }
+  ion-content button.button {
+    margin: 50% 20% 0;
+  }
 }

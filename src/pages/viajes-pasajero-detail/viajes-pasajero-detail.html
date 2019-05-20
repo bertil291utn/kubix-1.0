@@ -1,6 +1,5 @@
 <ion-header>
-
-  <ion-toolbar color="danger" text-center>
+  <ion-navbar color="danger" text-center>
     <ion-buttons end style="margin-right: 2%;">
       <button ion-button (click)="dismiss()">
         <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
@@ -12,7 +11,10 @@
           <ion-icon name="pin" color="light" small></ion-icon>
         </ion-col>
         <ion-col text-left>
-          <ion-title color="light">{{viajedet.origen}}</ion-title>
+          <ion-title>{{viajedet.origen}}</ion-title>
+        </ion-col>
+        <ion-col>
+          <ion-title>{{viajedet.hora}}</ion-title>
         </ion-col>
       </ion-row>
 
@@ -23,15 +25,48 @@
         <ion-col text-left>
           <ion-title color="light">{{viajedet.destino}}</ion-title>
         </ion-col>
+        <ion-col text-left>
+          <ion-title>{{fechamsg}}</ion-title>
+        </ion-col>
       </ion-row>
     </ion-grid>
 
-  </ion-toolbar>
-
-
+  </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-  hello fron the otherside
+<ion-content>
+  <ion-segment color="danger" [(ngModel)]="detalle">
+    <ion-segment-button value="ruta">
+      RUTA
+    </ion-segment-button>
+    <ion-segment-button value="descripcion">
+      DESCRIPCION
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="detalle">
+    <ion-grid id="ruta" *ngSwitchCase="'ruta'">
+      <img src="{{viajedet.ruta}}" />
+    </ion-grid>
+    <ion-grid id="descripcion" *ngSwitchCase="'descripcion'">
+      <h5>Descripci&oacute;n del viaje</h5><br>
+      <ion-row>
+        <ion-col>
+          {{viajedet.descripcion}}
+        </ion-col>
+      </ion-row>
+      <br><br>
+      <ion-row>
+        <ion-col col-1>
+          <ion-checkbox [(ngModel)]="terminos" color="danger" (ngModelChange)="verificar($event)"></ion-checkbox>
+        </ion-col>
+        <ion-col>
+          Acepto t&eacute;rminos y condiciones <br><br>
+          <div *ngIf="mensaje" ion-text color="danger">Marque esta casilla</div>
+        </ion-col>
+      </ion-row>
+      <button ion-button round color="danger" large (click)="showAlert()">reservar</button>
+    </ion-grid>
+  </div>
 </ion-content>

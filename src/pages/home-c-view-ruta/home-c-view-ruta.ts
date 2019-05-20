@@ -43,29 +43,29 @@ export class HomeCViewRutaPage {
 
   }
 
-  initMapa() {
-    this.map = new google.maps.Map(this.mapElement.nativeElement, {
-      zoom: 7,
-      disableDefaultUI: true
-    });
-    //this.map = GoogleMaps.create(this.mapElement.nativeElement);
-    this.directionsDisplay.setMap(this.map);
-    this.calculateAndDisplayRoute();
-  }
+  // initMapa() {
+  //   this.map = new google.maps.Map(this.mapElement.nativeElement, {
+  //     zoom: 7,
+  //     disableDefaultUI: true
+  //   });
+  //   //this.map = GoogleMaps.create(this.mapElement.nativeElement);
+  //   this.directionsDisplay.setMap(this.map);
+  //   this.calculateAndDisplayRoute();
+  // }
 
-  calculateAndDisplayRoute() {
-    this.directionsService.route({
-      origin: this.origen_LatLng,
-      destination: this.destino_LatLng,
-      travelMode: 'DRIVING'
-    }, (response, status) => {
-      if (status === 'OK') {
-        this.directionsDisplay.setDirections(response);
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-    });
-  }
+  // calculateAndDisplayRoute() {
+  //   this.directionsService.route({
+  //     origin: this.origen_LatLng,
+  //     destination: this.destino_LatLng,
+  //     travelMode: 'DRIVING'
+  //   }, (response, status) => {
+  //     if (status === 'OK') {
+  //       this.directionsDisplay.setDirections(response);
+  //     } else {
+  //       window.alert('Directions request failed due to ' + status);
+  //     }
+  //   });
+  // }
 
 
   goToutnDestino() {

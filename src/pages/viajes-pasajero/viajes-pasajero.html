@@ -1,19 +1,20 @@
 <ion-header>
-
   <ion-navbar color="danger" text-center>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-grid>
       <ion-row>
+        <ion-col col-3></ion-col>
         <ion-col>
           <ion-buttons left>
             <button ion-button icon-only clear>
               <ion-icon name="time"></ion-icon>
-              &nbsp;&nbsp;&nbsp;{{dia_string}} {{dia_number}} {{mes}}
+              &nbsp;&nbsp;&nbsp;{{fechamsg}}
             </button>
           </ion-buttons>
         </ion-col>
+        <ion-col></ion-col>
       </ion-row>
     </ion-grid>
   </ion-navbar>

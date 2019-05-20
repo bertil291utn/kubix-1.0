@@ -10,7 +10,7 @@ export class DatesFormatProvider {
   }
 
   actionGetMonth(month) {
-    let month_string;
+    let month_string="";
     switch (month) {
       case 1: {
         month_string = "ene.";
@@ -66,7 +66,7 @@ export class DatesFormatProvider {
   }
 
   actionGetDay(day) {
-    let day_string;
+    let day_string="";
     switch (day) {
       case 1: {
         day_string = "Lunes";
@@ -77,7 +77,7 @@ export class DatesFormatProvider {
         break;
       }
       case 3: {
-        day_string = "Mi&eacute;rcoles";
+        day_string = "Miercoles";
         break;
       }
       case 4: {
@@ -86,6 +86,14 @@ export class DatesFormatProvider {
       }
       case 5: {
         day_string = "Viernes";
+        break;
+      }
+      case 6: {
+        day_string = "sabado";
+        break;
+      }
+      case 7: {
+        day_string = "domingo";
         break;
       }
       

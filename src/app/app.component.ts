@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { ViajesPubCPage } from '../pages/viajes-pub-c/viajes-pub-c';
 import { HomeServiceProvider } from '../providers/home-service/home-service';
 import { ViajesPasajeroPage } from '../pages/viajes-pasajero/viajes-pasajero';
+import { ViajesReserPasajeroPage } from '../pages/viajes-reser-pasajero/viajes-reser-pasajero';
 
 @Component({
   selector: 'page-menu',
@@ -46,7 +47,7 @@ export class MyApp {
     this.pages_pas = [
       { title: 'Home', component: HomePage, icono: "home" },
       { title: 'Ver rutas', component: ViajesPasajeroPage, icono: "car" },
-      { title: 'Viajes reservados', component: '', icono: "walk" },
+      { title: 'Viajes reservados', component: ViajesReserPasajeroPage, icono: "walk" },
       { title: 'Perfil', component: '', icono: "contact" }
     ];
   }

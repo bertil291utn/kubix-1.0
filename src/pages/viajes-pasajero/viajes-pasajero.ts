@@ -15,6 +15,8 @@ export class ViajesPasajeroPage {
   dia_string: string;
   dia_number: number;
   mes: string;
+  fechamsg: string;
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public dateformat: DatesFormatProvider,
@@ -25,14 +27,26 @@ export class ViajesPasajeroPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajesPasajeroPage');
+    this.initVariables();
+  }
+
+  private initVariables() {
     this.lista_viaje = this.viajes_disponibles();
     this.dia_string = this.dateformat.actionGetDay(new Date().getDay());
+    console.log('this.dia_string: ', this.dia_string)
     this.dia_number = new Date().getDate();
     this.mes = this.dateformat.actionGetMonth(new Date().getMonth() + 1);
+    if (this.dia_string != "") {
+      //listar solo cuando esta dentro de orario 06:30 - 21:10
+     // this.lista_viaje = this.viajes_disponibles();
+      this.fechamsg = "   " + this.dia_string + ' ' + this.dia_number + ' ' + this.mes;
+    } else
+      this.fechamsg = 'Fuera de horario';
+
   }
 
   goToDetails(itemid) {
-    let contactModal = this.modalCtrl.create(ViajesPasajeroDetailPage, { datos: this.lista_viaje[itemid - 1] });
+    let contactModal = this.modalCtrl.create(ViajesPasajeroDetailPage, { datos: this.lista_viaje[itemid - 1], fecha: this.fechamsg });
     contactModal.present();
 
   }

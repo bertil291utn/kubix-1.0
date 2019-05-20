@@ -30,6 +30,7 @@ import { HomeServiceProvider } from '../providers/home-service/home-service';
 import { ViajesPasajeroPage } from '../pages/viajes-pasajero/viajes-pasajero';
 import { DatesFormatProvider } from '../providers/dates-format/dates-format';
 import { ViajesPasajeroDetailPage } from '../pages/viajes-pasajero-detail/viajes-pasajero-detail';
+import { ViajesReserPasajeroPage } from '../pages/viajes-reser-pasajero/viajes-reser-pasajero';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ViajesPasajeroDetailPage } from '../pages/viajes-pasajero-detail/viajes
     DetRutaCPage,
     ViajesMainCPage,
     ViajesPasajeroPage,
-    ViajesPasajeroDetailPage
+    ViajesPasajeroDetailPage,
+    ViajesReserPasajeroPage
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,8 @@ import { ViajesPasajeroDetailPage } from '../pages/viajes-pasajero-detail/viajes
     DetRutaCPage,
     ViajesMainCPage,
     ViajesPasajeroPage,
-    ViajesPasajeroDetailPage
+    ViajesPasajeroDetailPage,
+    ViajesReserPasajeroPage
   ],
   providers: [
     StatusBar,
