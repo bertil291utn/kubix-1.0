@@ -1,0 +1,53 @@
+page-viajes-reserv-detalles {
+  .toolbar-title {
+    font-size: 1.9rem;
+  }
+
+  .grid#ruta {
+    padding: 0px !important;
+  }
+
+  .grid#descripcion {
+    padding: 8% 10%;
+  }
+
+  .relative {
+    position: relative;
+    width: 600px;
+  }
+  .absolute-text {
+    position: absolute;
+    bottom: 0;
+    font-size: 15px;
+    background: white;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+  }
+
+  #centerImg {
+    width: 100% !important;
+    height: auto !important;
+    padding: 5% 10%;
+  }
+
+  #circular {
+    position:relative;
+    overflow:hidden;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    margin-left: 35%;
+}
+  
+
+  #circular img {
+    position:absolute;
+    height: auto;
+    width: auto;    
+    max-width:100%;
+    top:50%;
+    transform:translateY(-50%);
+  //margin-left: -50px;
+  }
+}

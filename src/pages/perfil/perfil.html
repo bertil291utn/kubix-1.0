@@ -1,0 +1,113 @@
+<ion-header>
+
+  <ion-navbar color="danger" text-center>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-buttons left>
+            <button ion-button icon-only clear>
+              <ion-icon name="contact"></ion-icon>
+              <ion-title>Perfil</ion-title>
+            </button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content *ngIf="conductor">
+  <ion-segment color="danger" [(ngModel)]="detalle">
+    <ion-segment-button value="datos">
+      DATOS
+    </ion-segment-button>
+    <ion-segment-button value="academico">
+      ACADEMICO
+    </ion-segment-button>
+    <ion-segment-button value="automovil">
+      AUTOMOVIL
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="detalle">
+    <ion-grid id="descripcion" *ngSwitchCase="'datos'">
+      <div id="circular">
+        <img src="{{perfil_val.fotografia}}">
+      </div>
+      <h4 ion-text text-center>{{perfil_val.nombre}}</h4><br>
+      <h5>Informaci&oacute;n personal</h5><br>
+      <ion-row>
+        <ion-col>
+          {{perfil_val.informacion}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngSwitchCase="'academico'" style="padding: 8% 10%;">
+      <ion-row>
+        <ion-col col-4>
+          <p><strong>Ocupaci&oacute;n</strong></p>
+          <p><strong>Facultad</strong></p>
+          <p><strong>Carrera</strong></p>
+        </ion-col>
+        <ion-col>
+          <p> {{perfil_val.ocupacion}}</p>
+          <p> {{perfil_val.facultad}}</p>
+          <p> {{perfil_val.carrera}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-icon start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
+        <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngSwitchCase="'automovil'" style="padding: 8% 10%;">
+      <h6 ion-text text-center>Autom&oacute;vil designado</h6>
+      <ion-row align-items-center>
+        <ion-col id="auto">
+          <img src="{{perfil_val.auto.imagen}}" id="centerImg">
+        </ion-col>
+      </ion-row>
+      <h6 ion-text text-center>{{perfil_val.auto.marca}} {{perfil_val.auto.modelo}}</h6>
+      <span ion-text text-center>{{perfil_val.auto.color}}</span>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="!conductor">
+  <div id="descripcion">
+    <div id="circular">
+      <img src="{{perfil_val.fotografia}}">
+    </div>
+    <h4 ion-text text-center>{{perfil_val.nombre}}</h4><br>
+    <h5>Informaci&oacute;n personal</h5><br>
+    <ion-row>
+      <ion-col>
+        {{perfil_val.informacion}}
+      </ion-col>
+    </ion-row>
+  </div>
+  <div style="padding: 0 10%;">
+    <ion-row>
+      <ion-col col-4>
+        <p><strong>Ocupaci&oacute;n</strong></p>
+        <p><strong>Facultad</strong></p>
+        <p><strong>Carrera</strong></p>
+      </ion-col>
+      <ion-col>
+        <p> {{perfil_val.ocupacion}}</p>
+        <p> {{perfil_val.facultad}}</p>
+        <p> {{perfil_val.carrera}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-icon start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
+      <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>
+    </ion-row>
+  </div>
+
+</ion-content>

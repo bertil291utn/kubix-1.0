@@ -1,0 +1,151 @@
+<ion-header>
+  <ion-navbar *ngIf="conductor" color="danger" text-center>
+    <ion-buttons end style="margin-right: 2%;">
+      <button ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-buttons left>
+            <button ion-button icon-only clear>
+              <ion-icon name="person"></ion-icon>
+              <ion-title>conductor</ion-title>
+            </button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+  <ion-navbar *ngIf="!conductor" color="danger" text-center>
+    <ion-buttons end style="margin-right: 2%;">
+      <button ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-grid style="padding-left: 10%;">
+      <ion-row>
+        <ion-col text-right col-1>
+          <ion-icon name="pin" color="light" small></ion-icon>
+        </ion-col>
+        <ion-col text-left>
+          <ion-title>{{viajedet.origen}}</ion-title>
+        </ion-col>
+        <ion-col>
+          <ion-title>{{viajedet.hora}}</ion-title>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col text-right col-1>
+          <ion-icon name="pin" color="light" small></ion-icon>
+        </ion-col>
+        <ion-col text-left>
+          <ion-title color="light">{{viajedet.destino}}</ion-title>
+        </ion-col>
+        <ion-col text-left>
+          <ion-title>{{viajedet.fecha}}</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content *ngIf="!conductor">
+
+  <ion-segment color="danger" [(ngModel)]="detalle">
+    <ion-segment-button value="descripcion">
+      DESCRIPCION
+    </ion-segment-button>
+    <ion-segment-button value="ruta">
+      RUTA
+    </ion-segment-button>
+    <ion-segment-button value="ubicacion">
+      UBICACION
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="detalle">
+
+    <ion-grid id="descripcion" *ngSwitchCase="'descripcion'">
+      <h5>Descripci&oacute;n del viaje</h5><br>
+      <ion-row>
+        <ion-col>
+          {{viajedet.detalles.descripcion}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid id="ruta" *ngSwitchCase="'ruta'">
+      <img src="{{viajedet.detalles.ruta}}" />
+    </ion-grid>
+    <ion-grid id="ubicacion" *ngSwitchCase="'ubicacion'">
+      <div class="relative">
+        <img src="{{viajedet.detalles.ubicacion}}" />
+        <p class="absolute-text">{{viajedet.detalles.textoubicacion}}</p>
+      </div>
+    </ion-grid>
+  </div>
+
+</ion-content>
+
+<ion-content *ngIf="conductor">
+  <ion-segment color="danger" [(ngModel)]="detalle">
+    <ion-segment-button value="datos">
+      DATOS
+    </ion-segment-button>
+    <ion-segment-button value="academico">
+      ACADEMICO
+    </ion-segment-button>
+    <ion-segment-button value="automovil">
+      AUTOMOVIL
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="detalle">
+    <ion-grid id="descripcion" *ngSwitchCase="'datos'">
+      <div id="circular">
+        <img src="{{viajedet.conductor.fotografia}}">
+      </div>
+      <h4 ion-text text-center>{{viajedet.conductor.nombre}}</h4><br>
+      <h5>Informaci&oacute;n personal</h5><br>
+      <ion-row>
+        <ion-col>
+          {{viajedet.conductor.informacion}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngSwitchCase="'academico'" style="padding: 8% 10%;">
+      <ion-row>
+        <ion-col col-4>
+          <p><strong>Ocupaci&oacute;n</strong></p>
+          <p><strong>Facultad</strong></p>
+          <p><strong>Carrera</strong></p>
+        </ion-col>
+        <ion-col>
+          <p> {{viajedet.conductor.ocupacion}}</p>
+          <p> {{viajedet.conductor.facultad}}</p>
+          <p> {{viajedet.conductor.carrera}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-icon start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
+        <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{viajedet.conductor.telefono}}</strong>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngSwitchCase="'automovil'" style="padding: 8% 10%;">
+      <h6 ion-text text-center>Autom&oacute;vil designado</h6>
+      <ion-row align-items-center>
+        <ion-col id="auto">
+          <img src="{{viajedet.conductor.auto.imagen}}" id="centerImg">
+        </ion-col>
+      </ion-row>
+      <h6 ion-text text-center>{{viajedet.conductor.auto.marca}} {{viajedet.conductor.auto.modelo}}</h6>
+      <span ion-text text-center>{{viajedet.conductor.auto.color}}</span>
+    </ion-grid>
+  </div>
+
+</ion-content>

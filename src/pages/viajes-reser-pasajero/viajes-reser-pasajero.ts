@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { ViajesReservDetallesPage } from '../viajes-reserv-detalles/viajes-reserv-detalles';
 
 
 @IonicPage()
@@ -11,9 +12,12 @@ export class ViajesReserPasajeroPage {
   viajes_reservados;
   estado: string;
   color: string;
+  conductor: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController) {
+
   }
 
   ionViewDidLoad() {
@@ -22,10 +26,17 @@ export class ViajesReserPasajeroPage {
   }
 
   goToDetails(itemid) {
+
     console.log('ir detalles de viajes reservados ');
-    // this.navCtrl.push(DetRutaCPage, {
-    //   datos: this.viajes_pub[itemid - 1]
-    // })
+    let contactModal = this.modalCtrl.create(ViajesReservDetallesPage, { datos: this.viajes_reservados[itemid - 1], conductor: this.conductor });
+    contactModal.present();
+  }
+
+  goToDriver(itemid) {
+    this.conductor = true;
+    let contactModal = this.modalCtrl.create(ViajesReservDetallesPage, { datos: this.viajes_reservados[itemid - 1], conductor: this.conductor });
+    contactModal.present();
+    this.conductor = false;
   }
 
   returnestado(estado) {
@@ -41,9 +52,6 @@ export class ViajesReserPasajeroPage {
       this.color = "espera";
       return 'En espera';
     }
-
-    // console.log('this,color: ', this.color)
-    // return color;
   }
 
 

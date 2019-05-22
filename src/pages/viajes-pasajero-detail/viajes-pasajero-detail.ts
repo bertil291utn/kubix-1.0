@@ -20,8 +20,8 @@ export class ViajesPasajeroDetailPage {
     public viewCtrl: ViewController,
     public alertCtrl: AlertController,
     private app: App) {
-    this.viajedet = navParams.get('datos')
-    this.fechamsg = navParams.get('fecha')
+    this.viajedet = navParams.get('datos');
+    this.fechamsg = navParams.get('fecha');
   }
 
   ionViewDidLoad() {

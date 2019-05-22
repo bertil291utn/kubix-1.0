@@ -1,0 +1,28 @@
+page-perfil {
+  #circular {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    margin-left: 35%;
+  }
+
+  #circular img {
+    position: absolute;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    //margin-left: -50px;
+  }
+  #centerImg {
+    width: 100% !important;
+    height: auto !important;
+    padding: 5% 10%;
+  }
+  #descripcion {
+    padding: 8% 10%;
+  }
+}
