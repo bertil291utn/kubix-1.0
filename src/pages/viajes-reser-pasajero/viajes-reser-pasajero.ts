@@ -11,7 +11,7 @@ import { ViajesReservDetallesPage } from '../viajes-reserv-detalles/viajes-reser
 export class ViajesReserPasajeroPage {
   viajes_reservados;
   estado: string;
-  color: string;
+  cola: string = "primary";
   conductor: boolean = false;
 
   constructor(public navCtrl: NavController,
@@ -39,20 +39,7 @@ export class ViajesReserPasajeroPage {
     this.conductor = false;
   }
 
-  returnestado(estado) {
-    if (estado === 1) {
-      this.color = "aprobado";
-      return 'Aprobado';
-    }
-    else if (estado === 0) {
-      this.color = "danger";
-      return 'No aprobado';
-    }
-    else {
-      this.color = "espera";
-      return 'En espera';
-    }
-  }
+
 
 
   private array_viajes() {
@@ -86,7 +73,7 @@ export class ViajesReserPasajeroPage {
         telefono: '09999999',
         informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio'
       },
-      estado: 1
+      estado: 0
 
     },
     {
@@ -119,7 +106,7 @@ export class ViajesReserPasajeroPage {
         telefono: '0888888',
         informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio'
       },
-      estado: 2
+      estado: 1
 
     }]
   }

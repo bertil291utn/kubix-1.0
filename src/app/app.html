@@ -20,13 +20,13 @@
   <ion-content padding id="content-menu">
     <ion-list no-lines>
       <div *ngIf="conductor">
-        <button id="item-button" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p.component)">
+        <button id="item-button" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
           <ion-icon [name]="p.icono" item-start></ion-icon>
           {{p.title}}
         </button>
       </div>
       <div *ngIf="pasajero">
-        <button id="item-button" menuClose ion-item *ngFor="let p of pages_pas" (click)="openPage(p.component)">
+        <button id="item-button" menuClose ion-item *ngFor="let p of pages_pas" (click)="openPage(p)">
           <ion-icon [name]="p.icono" item-start></ion-icon>
           {{p.title}}
         </button>

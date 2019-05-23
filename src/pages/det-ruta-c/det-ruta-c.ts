@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DomSanitizer } from '@angular/platform-browser';
+import { InfoPasajeroSolPage } from '../info-pasajero-sol/info-pasajero-sol';
+import { HomeServiceProvider } from '../../providers/home-service/home-service';
 
 declare var html2canvas;
 @IonicPage()
@@ -10,22 +12,37 @@ declare var html2canvas;
   templateUrl: 'det-ruta-c.html',
 })
 export class DetRutaCPage {
-  public proceso_v = 'descripcion'
+  public proceso_v: string;
   viajedet
-  
-  constructor(private storage: Storage, public navCtrl: NavController, public navParams: NavParams, private sanitizer: DomSanitizer) {
+
+  constructor(private storage: Storage,
+    public myservices: HomeServiceProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private sanitizer: DomSanitizer,
+    public modalCtrl: ModalController) {
     this.viajedet = navParams.get('datos')
     console.log(this.viajedet)
-    
+
 
   }
 
   ionViewDidLoad() {
+    this.proceso_v = 'descripcion'
+    // if (this.myservices.solicitud) {
+    //   this.proceso_v = 'solicitud'
+    // }
     //this.url = "blob:http://localhost:8100/b95c7e2b-a3b4-4ac8-b51e-a9af526f3788"
     console.log('ionViewDidLoad DetRutaCPage');
     //this.storage.get('imageurl').then((val) => { this.url = this.getUrlVideo(val); console.log('url: ', this.url) })
   }
 
+
+  gotoInfo() {
+    let contactModal = this.modalCtrl.create(InfoPasajeroSolPage);
+    contactModal.present();
+
+  }
   getUrlVideo(videoURL: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(videoURL);
   }

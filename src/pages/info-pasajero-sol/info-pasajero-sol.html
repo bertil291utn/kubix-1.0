@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar color="danger" text-center>
+    <ion-buttons end style="margin-right: 2%;">
+      <button ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-buttons left>
+            <button ion-button icon-only clear>
+              <ion-icon name="person"></ion-icon>
+              <ion-title>informaci&oacute;n pasajero</ion-title>
+            </button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div id="descripcion">
+    <div id="circular">
+      <img src="{{perfil_val.fotografia}}">
+    </div>
+    <h4 ion-text text-center>{{perfil_val.nombre}}</h4><br>
+    <h5>Informaci&oacute;n personal</h5><br>
+    <ion-row>
+      <ion-col>
+        {{perfil_val.informacion}}
+      </ion-col>
+    </ion-row>
+  </div>
+  <div style="padding: 0 10%;">
+    <ion-row>
+      <ion-col col-4>
+        <p><strong>Ocupaci&oacute;n</strong></p>
+        <p><strong>Facultad</strong></p>
+        <p><strong>Carrera</strong></p>
+      </ion-col>
+      <ion-col>
+        <p> {{perfil_val.ocupacion}}</p>
+        <p> {{perfil_val.facultad}}</p>
+        <p> {{perfil_val.carrera}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-icon start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
+      <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>
+    </ion-row>
+  </div>
+</ion-content>

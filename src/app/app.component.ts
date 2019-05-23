@@ -10,6 +10,7 @@ import { HomeServiceProvider } from '../providers/home-service/home-service';
 import { ViajesPasajeroPage } from '../pages/viajes-pasajero/viajes-pasajero';
 import { ViajesReserPasajeroPage } from '../pages/viajes-reser-pasajero/viajes-reser-pasajero';
 import { PerfilPage } from '../pages/perfil/perfil';
+import { CompileMetadataResolver } from '@angular/compiler';
 
 @Component({
   selector: 'page-menu',
@@ -21,6 +22,7 @@ export class MyApp {
   radiobtn;
   pasajero: boolean = true;
   conductor: boolean = false;
+  //solicitud: boolean = false;
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any, icono: string }>;
   pages_pas: Array<{ title: string, component: any, icono: string }>;
@@ -35,13 +37,14 @@ export class MyApp {
     this.pageslist();
     this.myservices.pasajero = this.pasajero
     this.myservices.conductor = this.conductor
+    //this.myservices.solicitud = this.solicitud
 
   }
 
   private pageslist() {
     this.pages = [
       { title: 'Home', component: HomePage, icono: "home" },
-      { title: 'Solicitudes de viajes', component: ViajesPubCPage, icono: "chatbubbles" },
+      //{ title: 'Solicitudes de viajes', component: ViajesPubCPage, icono: "chatbubbles" },
       { title: 'Viajes publicados', component: ViajesPubCPage, icono: "car" },
       { title: 'Perfil', component: PerfilPage, icono: "contact" }
     ];
@@ -64,9 +67,8 @@ export class MyApp {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page);
+    this.nav.setRoot(page.component);
+
   }
 
   gotoLogin() {
@@ -101,10 +103,12 @@ export class MyApp {
         }
       },
       {
-        text: 'No', handler: () => {
+        text: 'No',
+        handler: () => {
           this.rdbnReturn();
         }
-      }]
+      }],
+      enableBackdropDismiss: false
     })
     alert.present();
   }
@@ -132,7 +136,7 @@ export class MyApp {
       this.myservices.pasajero = this.pasajero;
       this.myservices.conductor = this.conductor;
     }
-    this.openPage(HomePage);
+    this.nav.setRoot(HomePage);
     this.menu.close();
   }
 

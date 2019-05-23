@@ -38,7 +38,10 @@
       <p>
         {{item.hora}} &nbsp;&nbsp;&nbsp; <strong>{{item.fecha}}</strong>
       </p>
-      <strong ion-text color="black">{{returnestado(item.estado)}}</strong>
+      <ion-badge *ngIf="item.estado === 1" color="aprobado">Aprobado</ion-badge>
+      <ion-badge *ngIf="item.estado === 0" color="danger">No aprobado</ion-badge>
+      <ion-badge *ngIf="item.estado >1" color="espera">En espera</ion-badge>
+      <!-- <strong ion-text color="black">{{returnestado(item.estado)}}</strong> -->
     </ion-card-content>
     <div id="foot">
       <ion-row>

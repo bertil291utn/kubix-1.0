@@ -8,6 +8,9 @@
         <ion-col text-left>
           <ion-title color="light">{{viajedet.origen}}</ion-title>
         </ion-col>
+        <ion-col>
+          <ion-title>{{viajedet.hora}}</ion-title>
+        </ion-col>
       </ion-row>
 
       <ion-row>
@@ -16,6 +19,9 @@
         </ion-col>
         <ion-col text-left>
           <ion-title color="light">{{viajedet.destino}}</ion-title>
+        </ion-col>
+        <ion-col text-left>
+          <ion-title>{{viajedet.fecha}}</ion-title>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -79,7 +85,7 @@
     <ion-grid id="request" *ngSwitchCase="'solicitud'">
 
       <ion-card *ngFor="let item of viajedet.solicitud">
-        <ion-card-content>
+        <ion-card-content (click)="gotoInfo()">
           <ion-row>
             <ion-col col-4>
               <div id="circular">

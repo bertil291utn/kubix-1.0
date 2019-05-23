@@ -33,6 +33,7 @@ import { ViajesPasajeroDetailPage } from '../pages/viajes-pasajero-detail/viajes
 import { ViajesReserPasajeroPage } from '../pages/viajes-reser-pasajero/viajes-reser-pasajero';
 import { ViajesReservDetallesPage } from '../pages/viajes-reserv-detalles/viajes-reserv-detalles';
 import { PerfilPage } from '../pages/perfil/perfil';
+import { InfoPasajeroSolPage } from '../pages/info-pasajero-sol/info-pasajero-sol';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { PerfilPage } from '../pages/perfil/perfil';
     ViajesPasajeroDetailPage,
     ViajesReserPasajeroPage,
     ViajesReservDetallesPage,
-    PerfilPage
+    PerfilPage,
+    InfoPasajeroSolPage
   ],
   imports: [
     BrowserModule,
@@ -85,7 +87,8 @@ import { PerfilPage } from '../pages/perfil/perfil';
     ViajesPasajeroDetailPage,
     ViajesReserPasajeroPage,
     ViajesReservDetallesPage,
-    PerfilPage
+    PerfilPage,
+    InfoPasajeroSolPage
   ],
   providers: [
     StatusBar,
