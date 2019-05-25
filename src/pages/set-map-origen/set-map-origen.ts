@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ViewController } from 'ionic-angular';
 import { GoogleMap, Marker, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
+import { RutaProvider } from '../../providers/ruta/ruta';
 declare var google;
 @IonicPage()
 @Component({
@@ -13,30 +14,35 @@ declare var google;
 export class SetMapOrigenPage {
   public direccion;
   public map: GoogleMap;
-  origen_LatLng;
-  destino_LatLng;
-  origen_direccion;
-  destino_direccion;
+  varLatLng;
+  varDir;
+  setmap: boolean;
+  utnOrigen: boolean;
 
   constructor(private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
-    public nav: NavController) {
+    public nav: NavController,
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public routeCreate: RutaProvider) {
+    this.setmap = navParams.get('setmap');
+    this.utnOrigen = navParams.get('utnOrigen');
   }
 
   ionViewDidLoad() {
-    this.origen_LatLng = { lat: 0.3581583, lng: -78.112088 };
-    this.origen_direccion = 'Universidad Tecnica del Norte';
     this.loadMapa();
     this.reverse_geo_application();
+    this.ActionGetLocation();
   }
 
   ionViewDidEnter() {
     setInterval(() => {
       this.direccion;
+      this.varLatLng;
     }, 1000);
   }
 
-  
+
 
   async loadMapa() {
     const loading = this.loadingCtrl.create();
@@ -77,21 +83,21 @@ export class SetMapOrigenPage {
         lat: target.lat,
         lng: target.lng
       };
-      this.r_g_no_native(latlng);
-      this.destino_LatLng = latlng;
+      this.geoDecoder(latlng);
+      this.varLatLng = latlng;
     });
 
   }
 
-  r_g_no_native(latlng) {
-
+  geoDecoder(latlng) {
+    //geodecorder javascript api 
     let geocoder = new google.maps.Geocoder;
     geocoder.geocode({ 'location': latlng }
       , (results, status) => {
         if (status === 'OK') {
           if (results[0]) {
             this.direccion = results[0].formatted_address;
-            this.destino_direccion = this.direccion;
+            this.varDir = this.direccion;
           }
         }
 
@@ -101,17 +107,59 @@ export class SetMapOrigenPage {
 
 
   async reverse_geo_application() {
-    this.r_g_no_native(await this.getLocation());
-    this.destino_LatLng = await this.getLocation();
+    this.geoDecoder(await this.getLocation());
+
   }
 
-  goToViewRoute() {
-    this.nav.push(HomeCViewRutaPage, {
-      origen_LatLngnvp: this.origen_LatLng,
-      destino_LatLngnvp: this.destino_LatLng,
-      origen_direccionnvp: this.origen_direccion,
-      destino_direccionnvp: this.destino_direccion
-    });
+  async ActionGetLocation() {
+    this.varLatLng = await this.getLocation();
+  }
+
+  saveValues() {
+    if (this.utnOrigen)
+      //utn es origen
+      if (this.setmap)
+        //utilzo funcion selecconar mapa
+        //se guardan las variable de latitud y ongitud y direccion en el provider destino dir y dir latlng
+        //se hace dismiss del controller y se direcciona al home view ruta
+        this.viewCtrl.dismiss().then(() => {
+          this.routeCreate.destinoLatLng = this.varLatLng;
+          this.routeCreate.destinoDir = this.varDir;
+          this.nav.push(HomeCViewRutaPage);
+        });
+      else {
+        //utilizo funcion setear casa, por lo tanto se debe
+        //guardar valores en casa base enviar por api a guardar 
+        //this.varDir ;this.varLatLng
+        this.returnValues();
+      }
+    else
+      //utn es destino
+      if (this.setmap)
+        //utilzo funcion selecconar mapa
+        //se guardan las variable de latitud y ongitud y direccion en el provider origen dir y dir latlng
+        //se hace dismiss del controller y se direcciona al home view ruta
+        this.viewCtrl.dismiss().then(() => {
+          this.routeCreate.origenLatLng = this.varLatLng;
+          this.routeCreate.origenDir = this.varDir;
+          this.nav.push(HomeCViewRutaPage);
+        });
+      else {
+        //utilizo funcion setear casa, por lo tanto se debe
+        //guardar valores en casa base enviar por api a guardar 
+        //this.varDir ;this.varLatLng
+        this.returnValues();
+      }
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+  returnValues() {
+    let data = { casa: true };
+    this.viewCtrl.dismiss(data);
+
   }
 
 }

@@ -11,6 +11,13 @@ page-viajes-reserv-detalles {
     padding: 8% 10%;
   }
 
+  #absoluto_title {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 8%;
+    background: white;
+  }
+
   .relative {
     position: relative;
     width: 600px;
@@ -32,22 +39,21 @@ page-viajes-reserv-detalles {
   }
 
   #circular {
-    position:relative;
-    overflow:hidden;
+    position: relative;
+    overflow: hidden;
     border-radius: 50%;
     height: 120px;
     width: 120px;
     margin-left: 35%;
-}
-  
+  }
 
   #circular img {
-    position:absolute;
+    position: absolute;
     height: auto;
-    width: auto;    
-    max-width:100%;
-    top:50%;
-    transform:translateY(-50%);
-  //margin-left: -50px;
+    width: auto;
+    max-width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    //margin-left: -50px;
   }
 }

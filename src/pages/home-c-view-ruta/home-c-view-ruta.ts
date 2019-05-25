@@ -6,6 +6,7 @@ import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-
 import { ViajesConductorPage } from '../viajes-conductor/viajes-conductor';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
+import { RutaProvider } from '../../providers/ruta/ruta';
 
 declare var google;
 declare var html2canvas;
@@ -20,18 +21,27 @@ export class HomeCViewRutaPage {
   public map: any;
   // directionsService = new google.maps.DirectionsService;
   // directionsDisplay = new google.maps.DirectionsRenderer;
-  origen_LatLng;
-  destino_LatLng;
-  origen_direccion;
-  destino_direccion;
-  image
+  origenLatLng;
+  destinoLatLng;
+  origenDir;
+  destinoDir;
+  image;
 
-  constructor(private storage: Storage, public loadingCtrl: LoadingController, public nav: NavController, public navparams: NavParams) {
-    this.origen_LatLng = navparams.get('origen_LatLngnvp');
-    this.destino_LatLng = navparams.get('destino_LatLngnvp');
-    this.destino_direccion = navparams.get('destino_direccionnvp');
-    this.origen_direccion = navparams.get('origen_direccionnvp');
+  constructor(private storage: Storage,
+    public loadingCtrl: LoadingController,
+    public nav: NavController,
+    public navparams: NavParams,
+    public routeCreate: RutaProvider) {
 
+    this.origenLatLng = routeCreate.origenLatLng;
+    this.destinoLatLng = routeCreate.destinoLatLng;
+    this.origenDir = routeCreate.origenDir;
+    this.destinoDir = routeCreate.destinoDir;
+
+    console.log('this.origenLatLng: ', this.origenLatLng,
+    'this.origenDir: ', this.origenDir,
+      'this.destinoLatLng: ', this.destinoLatLng,
+      'this.destinoDir: ', this.destinoDir)
 
   }
 
@@ -55,8 +65,8 @@ export class HomeCViewRutaPage {
 
   // calculateAndDisplayRoute() {
   //   this.directionsService.route({
-  //     origin: this.origen_LatLng,
-  //     destination: this.destino_LatLng,
+  //     origin: this.origenLatLng,
+  //     destination: this.destinoLatLng,
   //     travelMode: 'DRIVING'
   //   }, (response, status) => {
   //     if (status === 'OK') {
@@ -67,9 +77,10 @@ export class HomeCViewRutaPage {
   //   });
   // }
 
-
   goToutnDestino() {
-    this.nav.popTo(ViajesDestinoPage);
+
+    this.nav.popTo('ViajesDestinoPage');
+
   }
 
   goToutnOrigen() {

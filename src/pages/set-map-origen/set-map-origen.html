@@ -1,12 +1,17 @@
-
 <ion-header>
   <ion-navbar color="danger">
-    <ion-title>Seleccione destino</ion-title>
-    <ion-buttons end>
-      <button ion-button tappable (click)="goToViewRoute()">
+    <ion-buttons end style="margin-right: 2%;">
+      <button ion-button tappable (click)="saveValues()">
         OK
       </button>
+      <button ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
+      </button>
     </ion-buttons>
+    <ion-title>Seleccione destino</ion-title>
+    <!-- <ion-buttons end>
+
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 

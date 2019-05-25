@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { LoadingController, NavController } from 'ionic-angular';
 import { ViajesMainCPage } from '../viajes-main-c/viajes-main-c';
 import { HomeServiceProvider } from '../../providers/home-service/home-service';
+import { ViajesPasajeroPage } from '../viajes-pasajero/viajes-pasajero';
+import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
 
 @Component({
   selector: 'page-home',
@@ -13,7 +15,8 @@ export class HomePage {
 
   constructor(
     public myservices: HomeServiceProvider,
-    public loadingCtrl: LoadingController, public nav: NavController) {
+    public loadingCtrl: LoadingController, 
+    public nav: NavController) {
     this.pasajero = myservices.pasajero;
     this.conductor = myservices.conductor;
 
@@ -30,14 +33,14 @@ export class HomePage {
     console.log('ionViewDidLoad HomePage');
   }
   goToDriver() {
-    this.nav.push(ViajesMainCPage)
+    this.nav.push(ViajesOrigenDestinoPage)
     //this.nav.setRoot(pagina)
   }
 
   goToPass() {
     console.log("ir a pasajero")
     //this.nav.push(ViajesMainCPage)
-    //this.nav.setRoot(pagina)
+    this.nav.setRoot(ViajesPasajeroPage)
   }
 
 

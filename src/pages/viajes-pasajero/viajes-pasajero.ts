@@ -46,7 +46,10 @@ export class ViajesPasajeroPage {
   }
 
   goToDetails(itemid) {
-    let contactModal = this.modalCtrl.create(ViajesPasajeroDetailPage, { datos: this.lista_viaje[itemid - 1], fecha: this.fechamsg });
+    let contactModal = this.modalCtrl.create(ViajesPasajeroDetailPage, { 
+      datos: this.lista_viaje[itemid - 1], 
+      fecha: this.fechamsg 
+    });
     contactModal.present();
 
   }

@@ -34,6 +34,7 @@ import { ViajesReserPasajeroPage } from '../pages/viajes-reser-pasajero/viajes-r
 import { ViajesReservDetallesPage } from '../pages/viajes-reserv-detalles/viajes-reserv-detalles';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { InfoPasajeroSolPage } from '../pages/info-pasajero-sol/info-pasajero-sol';
+import { RutaProvider } from '../providers/ruta/ruta';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { InfoPasajeroSolPage } from '../pages/info-pasajero-sol/info-pasajero-so
     NativeGeocoder,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HomeServiceProvider,
-    DatesFormatProvider
+    DatesFormatProvider,
+    RutaProvider
   ]
 })
 export class AppModule { }

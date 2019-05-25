@@ -6,6 +6,7 @@
     </button>
     <ion-grid>
       <ion-row>
+        <ion-col col-3></ion-col>
         <ion-col>
           <ion-buttons left>
             <button ion-button icon-only clear>
@@ -14,6 +15,7 @@
             </button>
           </ion-buttons>
         </ion-col>
+        <ion-col></ion-col>
       </ion-row>
     </ion-grid>
   </ion-navbar>
@@ -36,9 +38,11 @@
 
   <div [ngSwitch]="detalle">
     <ion-grid id="descripcion" *ngSwitchCase="'datos'">
-      <div id="circular">
-        <img src="{{perfil_val.fotografia}}">
-      </div>
+      
+          <div id="circular">
+            <img src="{{perfil_val.fotografia}}">
+          </div>
+       
       <h4 ion-text text-center>{{perfil_val.nombre}}</h4><br>
       <h5>Informaci&oacute;n personal</h5><br>
       <ion-row>

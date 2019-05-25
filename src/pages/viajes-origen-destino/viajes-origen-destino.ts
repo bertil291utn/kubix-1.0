@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import {ViajesOrigenPage} from '../viajes-origen/viajes-origen';
-import {ViajesDestinoPage} from '../viajes-destino/viajes-destino';
+import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
+import { ViajesDestinoPage } from '../viajes-destino/viajes-destino';
 
 @IonicPage()
 @Component({
@@ -10,7 +10,7 @@ import {ViajesDestinoPage} from '../viajes-destino/viajes-destino';
 })
 export class ViajesOrigenDestinoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
+  constructor(public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl: AlertController) {
   }
 
@@ -27,12 +27,14 @@ export class ViajesOrigenDestinoPage {
     alert.present();
   }
 
-  goToOrigen(){
-    this.navCtrl.push(ViajesOrigenPage);
+  goToSeleccion(val:boolean) {
+    //unversidad_origen=true;
+    this.navCtrl.push(ViajesOrigenPage, { universidad_origen: val });
   }
 
-  goToDestino(){
-    this.navCtrl.push(ViajesDestinoPage);
-  }
+  // goToDestino() {
+  //   //unversidad_origen=false;
+  //   this.navCtrl.push(ViajesOrigenPage, { universidad_origen: false });
+  // }
 
 }

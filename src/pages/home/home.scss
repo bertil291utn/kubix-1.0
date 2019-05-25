@@ -5,7 +5,7 @@ page-home {
   .absolute-text {
     position: absolute;
     bottom: 0;
-    font-size: 18px;
+    font-size: 4vw;
     padding: 10px;
     width: 55%;
     margin: 0 25% 6%;
@@ -13,7 +13,7 @@ page-home {
 
   #absolute-text {
     position: absolute;
-    font-size: 30px;
+    font-size: 6vw;
     padding: 30px;
     background-color: rgba(158, 158, 158, 0);
     color:red;
@@ -40,5 +40,14 @@ page-home {
   }
   .text {
     font-weight: 300;
+  }
+
+  .subtitle_{
+    font-size: 3vw;
+  }
+
+  .title_{
+    font-size: 5vw;
+
   }
 }

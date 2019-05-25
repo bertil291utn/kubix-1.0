@@ -33,6 +33,13 @@ page-det-ruta-c {
     position: relative;
     width: 600px;
   }
+
+  #absoluto_title {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 8%;
+    background: white;
+  }
   .absolute-text {
     position: absolute;
     bottom: 0;
@@ -63,22 +70,21 @@ page-det-ruta-c {
   }
 
   #circular {
-    position:relative;
-    overflow:hidden;
+    position: relative;
+    overflow: hidden;
     border-radius: 50%;
     height: 80px;
     width: 80px;
     margin-left: 20%;
-}
-  
+  }
 
   #circular img {
-    position:absolute;
+    position: absolute;
     height: auto;
-    width: auto;    
-    max-width:100%;
-    top:50%;
-    transform:translateY(-50%);
-  //margin-left: -50px;
+    width: auto;
+    max-width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    //margin-left: -50px;
   }
 }
