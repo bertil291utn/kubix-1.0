@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { SetMapPtoPage } from '../set-map-pto/set-map-pto';
 import { ViajesPubCPage } from '../viajes-pub-c/viajes-pub-c';
+import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
 
 
 
@@ -17,16 +18,17 @@ export class ViajesConductorPage {
   hora
   pasajero = 1
   punto_LatLng;
-  
+  ubicacion;
 
-  callback = data => {
-    this.punto_LatLng = data;
-    console.log('data received from other page', this.punto_LatLng);
-  };
+  // callback = data => {
+  //   this.punto_LatLng = data;
+  //   console.log('data received from other page', this.punto_LatLng);
+  // };
 
   constructor(public navparams: NavParams, public navCtrl: NavController,
-    public navParams: NavParams, public alertCtrl: AlertController) {
-    
+    public navParams: NavParams, public alertCtrl: AlertController,
+    public modalCtrl: ModalController) {
+
     this.setHour();
 
   }
@@ -57,10 +59,18 @@ export class ViajesConductorPage {
   }
 
   goToMap() {
-    this.navCtrl.push(SetMapPtoPage, {
-      callback: this.callback
-    });
+    // this.navCtrl.push(SetMapPtoPage, {
+    //   callback: this.callback
+    // });
+    let contactModal = this.modalCtrl.create(SetMapOrigenPage, { ubicacion: true });
 
+    contactModal.onDidDismiss(data => {
+      console.log('data es despues de dismis: ', data);
+      if (data != undefined)
+        this.ubicacion = data;
+      console.log('this.ubicacion: ', this.ubicacion)
+    });
+    contactModal.present();
   }
 
   private setHour() {

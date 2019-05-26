@@ -18,6 +18,7 @@ export class SetMapOrigenPage {
   varDir;
   setmap: boolean;
   utnOrigen: boolean;
+  ubicacion: boolean;
 
   constructor(private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
@@ -27,6 +28,7 @@ export class SetMapOrigenPage {
     public routeCreate: RutaProvider) {
     this.setmap = navParams.get('setmap');
     this.utnOrigen = navParams.get('utnOrigen');
+    this.ubicacion = navParams.get('ubicacion');
   }
 
   ionViewDidLoad() {
@@ -40,6 +42,13 @@ export class SetMapOrigenPage {
       this.direccion;
       this.varLatLng;
     }, 1000);
+  }
+
+  ionViewWillLeave() {
+    const nodeList = document.querySelectorAll('._gmaps_cdv_');
+    for (let k = 0; k < nodeList.length; ++k) {
+      nodeList.item(k).classList.remove('_gmaps_cdv_');
+    }
   }
 
 
@@ -150,6 +159,13 @@ export class SetMapOrigenPage {
         //this.varDir ;this.varLatLng
         this.returnValues();
       }
+
+    if (this.ubicacion) {
+      let data = { ubicacionLatLng: this.varLatLng };
+      this.viewCtrl.dismiss(data);
+    }
+
+
   }
 
   dismiss() {

@@ -14,7 +14,7 @@ declare var google;
 })
 export class ViajesOrigenPage {
 
-  casa: boolean = false;
+  casa: boolean = true;
   utnLatLng;
   casaLatLng;
   utnDir: string;
@@ -39,12 +39,18 @@ export class ViajesOrigenPage {
     this.casaLatLng = { lat: 0.341304, lng: -78.125170 };
     this.casaDir = 'Yacucalle, Ibarra';
     this.latLngDir();
+    this.ActionGetLocation();
   }
 
   ionViewDidEnter() {
     setInterval(() => {
       this.ubicacionActualDir;
-    }, 1000);
+      this.ubicacionActualLatLng;
+    }, 300);
+  }
+
+  async ActionGetLocation() {
+    this.ubicacionActualLatLng = await this.getLocation();
   }
 
 

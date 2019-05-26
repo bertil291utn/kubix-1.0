@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar color="danger" text-center>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-buttons left>
+            <button ion-button icon-only clear>
+              <ion-icon name="car"></ion-icon>
+              <ion-title>Automovil</ion-title>
+            </button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-segment color="danger" [(ngModel)]="proceso">
+    <ion-segment-button value="datos">
+      DATOS
+    </ion-segment-button>
+    <ion-segment-button value="imagen">
+      IMAGEN
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="proceso">
+    <ion-grid *ngSwitchCase="'datos'" padding>
+      <ion-list>
+        <ion-item>
+          <ion-label color="danger" floating>Ingrese n&uacute;mero de placa</ion-label>
+          <ion-input [(ngModel)]="placa"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Marca</ion-label>
+          <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="marca">
+            <ion-option value="chevrolet">Chevrolet</ion-option>
+          </ion-select>
+
+        </ion-item>
+      </ion-list>
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'imagen'" padding>
+    </ion-grid>
+  </div>
+</ion-content>
