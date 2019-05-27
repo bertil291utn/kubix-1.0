@@ -25,24 +25,24 @@
 
 <ion-content *ngIf="conductor">
   <ion-segment color="danger" [(ngModel)]="detalle">
-    <ion-segment-button value="datos">
+    <ion-segment-button value="datos" class="segmento">
       DATOS
     </ion-segment-button>
-    <ion-segment-button value="academico">
+    <ion-segment-button value="academico" class="segmento">
       ACADEMICO
     </ion-segment-button>
-    <ion-segment-button value="automovil">
+    <ion-segment-button value="automovil" class="segmento">
       AUTOMOVIL
     </ion-segment-button>
   </ion-segment>
 
   <div [ngSwitch]="detalle">
     <ion-grid id="descripcion" *ngSwitchCase="'datos'">
-      
-          <div id="circular">
-            <img src="{{perfil_val.fotografia}}">
-          </div>
-       
+
+      <div id="circular">
+        <img src="{{perfil_val.fotografia}}">
+      </div>
+
       <h4 ion-text text-center>{{perfil_val.nombre}}</h4><br>
       <h5>Informaci&oacute;n personal</h5><br>
       <ion-row>
@@ -70,14 +70,23 @@
       </ion-row>
     </ion-grid>
     <ion-grid *ngSwitchCase="'automovil'" style="padding: 8% 10%;">
-      <h6 ion-text text-center>Autom&oacute;vil designado</h6>
-      <ion-row align-items-center>
-        <ion-col id="auto">
-          <img src="{{perfil_val.auto.imagen}}" id="centerImg">
-        </ion-col>
-      </ion-row>
-      <h6 ion-text text-center>{{perfil_val.auto.marca}} {{perfil_val.auto.modelo}}</h6>
-      <span ion-text text-center>{{perfil_val.auto.color}}</span>
+      <div *ngIf="addautomovil" text-center>
+        <h6 ion-text>Autom&oacute;vil designado</h6>
+        <ion-row align-items-center>
+          <ion-col id="auto">
+            <img src="{{perfil_val.auto.imagen}}" id="centerImg">
+          </ion-col>
+        </ion-row>
+        <h6 ion-text>{{perfil_val.auto.marca}} {{perfil_val.auto.modelo}}</h6>
+        <span ion-text>{{perfil_val.auto.color}}</span>
+      </div>
+      <div *ngIf="!addautomovil" ion-text text-center>
+        <div (click)="goToAuto()">
+          <ion-icon name="add-circle" id="camara"></ion-icon>
+          <ion-label style="color:#e5e5e5;font-size: 3vw;">A&ntilde;adir los datos de su autom&oacute;vil
+          </ion-label>
+        </div>
+      </div>
     </ion-grid>
   </div>
 </ion-content>

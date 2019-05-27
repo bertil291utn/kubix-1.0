@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { HomeServiceProvider } from '../../providers/home-service/home-service';
+import { CarPage } from '../car/car';
 
 @IonicPage()
 @Component({
@@ -11,10 +12,12 @@ export class PerfilPage {
   perfil_val;
   detalle: string = 'datos';
   conductor: boolean;
+  addautomovil: boolean = false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public myservices: HomeServiceProvider) {
+    public myservices: HomeServiceProvider,
+    public modalCtrl: ModalController) {
 
     this.perfil_val = this.perfil();
   }
@@ -24,6 +27,14 @@ export class PerfilPage {
 
     console.log('ionViewDidLoad PerfilPage');
   }
+
+  goToAuto() {
+    let contactModal = this.modalCtrl.create(CarPage);
+    contactModal.present();
+  }
+  
+ 
+
 
   private perfil() {
     return {

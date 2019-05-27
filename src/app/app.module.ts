@@ -35,6 +35,8 @@ import { ViajesReservDetallesPage } from '../pages/viajes-reserv-detalles/viajes
 import { PerfilPage } from '../pages/perfil/perfil';
 import { InfoPasajeroSolPage } from '../pages/info-pasajero-sol/info-pasajero-sol';
 import { RutaProvider } from '../providers/ruta/ruta';
+import { CarPage } from '../pages/car/car';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { RutaProvider } from '../providers/ruta/ruta';
     ViajesReserPasajeroPage,
     ViajesReservDetallesPage,
     PerfilPage,
-    InfoPasajeroSolPage
+    InfoPasajeroSolPage,
+    CarPage
   ],
   imports: [
     BrowserModule,
@@ -89,7 +92,8 @@ import { RutaProvider } from '../providers/ruta/ruta';
     ViajesReserPasajeroPage,
     ViajesReservDetallesPage,
     PerfilPage,
-    InfoPasajeroSolPage
+    InfoPasajeroSolPage,
+    CarPage
   ],
   providers: [
     StatusBar,
@@ -97,6 +101,7 @@ import { RutaProvider } from '../providers/ruta/ruta';
     GoogleMaps,
     Geolocation,
     NativeGeocoder,
+    Camera, 
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HomeServiceProvider,
     DatesFormatProvider,

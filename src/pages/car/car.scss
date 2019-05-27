@@ -1,3 +1,38 @@
 page-car {
+  h5 {
+    padding-left: 25px;
+  }
+
+  #centerImg {
+    width: 100% !important;
+    height: auto !important;
+    padding: 5% 10%;
+  }
+  .item {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  ion-select.select:not(#extra) {
+    width: 100%;
+    max-width: 100%;
+  }
+  h5.text {
+    margin-top: 30%;
+  }
+
+  ion-col#auto {
+    text-align: center;
+  }
+  button.button {
+    margin: 30% 20% 0;
+  }
+
+  #camara {
+    color: #e5e5e5;
+    font-size: 30vw;
+    margin-top: 30%;
+  }
+
 
 }

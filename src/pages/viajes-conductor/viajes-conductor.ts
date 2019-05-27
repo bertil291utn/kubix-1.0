@@ -14,9 +14,9 @@ import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
 export class ViajesConductorPage {
   public proceso = 'horario';
   repeat = 2
-  dia = new Date().getDay()
-  hora
-  pasajero = 1
+  dia = new Date().getDay();
+  hora;
+  pasajero = 1;
   punto_LatLng;
   ubicacion;
 

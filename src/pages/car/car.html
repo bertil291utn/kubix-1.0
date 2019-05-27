@@ -1,15 +1,22 @@
 <ion-header>
   <ion-navbar color="danger" text-center>
+    <ion-buttons end style="margin-right: 2%;">
+      <button ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-grid>
       <ion-row>
+        <ion-col></ion-col>
         <ion-col>
           <ion-buttons left>
             <button ion-button icon-only clear>
               <ion-icon name="car"></ion-icon>
-              <ion-title>Automovil</ion-title>
+              <ion-title>Autom&oacute;vil</ion-title>
             </button>
           </ion-buttons>
         </ion-col>
+        <ion-col></ion-col>
       </ion-row>
     </ion-grid>
   </ion-navbar>
@@ -30,20 +37,51 @@
     <ion-grid *ngSwitchCase="'datos'" padding>
       <ion-list>
         <ion-item>
-          <ion-label color="danger" floating>Ingrese n&uacute;mero de placa</ion-label>
-          <ion-input [(ngModel)]="placa"></ion-input>
+          <!-- <ion-label color="danger" floating>Ingrese n&uacute;mero de placa</ion-label> -->
+          <ion-input [(ngModel)]="placa" color="danger" placeholder="PCC0123" clearInput></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Marca</ion-label>
-          <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="marca">
+
+          <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="marca">
             <ion-option value="chevrolet">Chevrolet</ion-option>
           </ion-select>
+        </ion-item>
+        <ion-item>
 
+          <ion-select placeholder="Modelo" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="modelo">
+            <ion-option value="s1">S1</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+
+          <ion-select placeholder="Color" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="color">
+            <ion-option value="azul">Azul</ion-option>
+            <ion-option value="negro">Negro</ion-option>
+          </ion-select>
         </ion-item>
       </ion-list>
+      <h5 color="danger" ion-text text-center (click)="goToImage()">SIGUIENTE</h5>
     </ion-grid>
 
     <ion-grid *ngSwitchCase="'imagen'" padding>
+      <div *ngIf="editAutomovil">
+        <ion-row align-items-center>
+          <ion-col id="auto">
+            <img src="assets/imgs/01.png" id="centerImg">
+          </ion-col>
+        </ion-row>
+      </div>
+      <div *ngIf="!editAutomovil" ion-text text-center>
+        <div *ngIf="!preview" (click)="goToCamera()">
+          <ion-icon name="camera" id="camara"></ion-icon>
+          <ion-label style="color:#e5e5e5;font-size: 3vw;">A&ntilde;adir una fotograf&iacute;a de su autom&oacute;vil
+          </ion-label>
+        </div>
+        <div *ngIf="preview">
+          <img [src]="previewimg">
+        </div>
+      </div>
+      <button *ngIf="editAutomovil||preview" ion-button round color="danger" large (click)="addAuto()">guardar</button>
     </ion-grid>
   </div>
 </ion-content>

@@ -5,7 +5,7 @@ page-perfil {
     border-radius: 50%;
     height: 120px;
     width: 120px;
-    margin:auto;
+    margin: auto;
   }
 
   #circular img {
@@ -24,5 +24,14 @@ page-perfil {
   }
   #descripcion {
     padding: 8% 10%;
+  }
+
+  #camara {
+    color: #e5e5e5;
+    font-size: 20vw;
+    margin-top: 30%;
+  }
+  .segmento{
+    font-size: 2vw;
   }
 }
