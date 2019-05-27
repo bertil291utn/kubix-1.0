@@ -87,12 +87,10 @@ export class CarPage {
         console.log('imgurl: ', imgUrl)
         if (imgUrl != undefined) {
           this.preview = true;
-          this.previewimg = 'data:image/png;base64,' + imgUrl;
-
-        }
-      });
-
+          this.previewimg = 'data:image/png;base64,' + imgUrl;}
+        });
     });
+
   }
 
 

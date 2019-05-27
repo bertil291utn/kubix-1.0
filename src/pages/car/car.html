@@ -74,11 +74,11 @@
       <div *ngIf="!editAutomovil" ion-text text-center>
         <div *ngIf="!preview" (click)="goToCamera()">
           <ion-icon name="camera" id="camara"></ion-icon>
-          <ion-label style="color:#e5e5e5;font-size: 3vw;">A&ntilde;adir una fotograf&iacute;a de su autom&oacute;vil
+          <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir una fotograf&iacute;a de su autom&oacute;vil
           </ion-label>
         </div>
         <div *ngIf="preview">
-          <img [src]="previewimg">
+          <img [src]="previewimg" (click)="goToCamera()">
         </div>
       </div>
       <button *ngIf="editAutomovil||preview" ion-button round color="danger" large (click)="addAuto()">guardar</button>
