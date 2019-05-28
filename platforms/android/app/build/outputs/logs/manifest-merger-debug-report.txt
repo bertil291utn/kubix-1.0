@@ -1,9 +1,20 @@
 -- Merging decision tree log ---
+provider#org.apache.cordova.camera.FileProvider
+INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:15:9-17:20
+	android:grantUriPermissions
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:15:92-126
+	android:authorities
+		INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:15:19-66
+	android:exported
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:15:67-91
+	android:name
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:15:127-180
 manifest
-ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-23:12
-INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-23:12
-INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-23:12
-INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-23:12
+ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-27:12
+INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-27:12
+INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-27:12
+INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-27:12
 MERGED from [:tbxml-android:] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\tbxml-android.aar\00b675f9729278980ab82929a321fb2d\AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\30063706c3d81b0f781afa49eafad370\AndroidManifest.xml:17:1-32:12
 MERGED from [com.google.android.gms:play-services-location:15.0.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\play-services-location-15.0.1.aar\0766a91a4d4f3808490ea6af271287c6\AndroidManifest.xml:2:1-9:12
@@ -19,9 +30,9 @@ MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\Bertil\.g
 MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\support-core-ui-26.1.0.aar\7f12d02bee52054226fcb3aaa30045f4\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\30ebd498f7dc0c5deb12ab173beaf175\AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\2c283b1aa82fe09af321a84a3f09d7df\AndroidManifest.xml:17:1-22:12
-INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-23:12
-INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-23:12
-INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-27:12
+INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-27:12
+INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:1-27:12
 	package
 		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:2:98-124
 		INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml
@@ -59,7 +70,7 @@ MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\Bertil\.
 	android:name
 		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:4:22-64
 application
-ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:5:5-15:19
+ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:5:5-18:19
 MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\30063706c3d81b0f781afa49eafad370\AndroidManifest.xml:30:5-20
 MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\30063706c3d81b0f781afa49eafad370\AndroidManifest.xml:30:5-20
 MERGED from [com.google.android.gms:play-services-location:15.0.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\play-services-location-15.0.1.aar\0766a91a4d4f3808490ea6af271287c6\AndroidManifest.xml:7:5-20
@@ -135,8 +146,8 @@ ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\an
 	android:name
 		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:14:23-60
 uses-sdk
-ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:16:5-74
-INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:16:5-74
+ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:19:5-74
+INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:19:5-74
 MERGED from [:tbxml-android:] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\tbxml-android.aar\00b675f9729278980ab82929a321fb2d\AndroidManifest.xml:7:5-9:41
 MERGED from [:tbxml-android:] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\tbxml-android.aar\00b675f9729278980ab82929a321fb2d\AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\30063706c3d81b0f781afa49eafad370\AndroidManifest.xml:20:5-44
@@ -167,45 +178,55 @@ MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Bertil\.gradle\
 MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\30ebd498f7dc0c5deb12ab173beaf175\AndroidManifest.xml:20:5-44
 MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\2c283b1aa82fe09af321a84a3f09d7df\AndroidManifest.xml:20:5-44
 MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\2c283b1aa82fe09af321a84a3f09d7df\AndroidManifest.xml:20:5-44
-INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:16:5-74
+INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:19:5-74
 	tools:overrideLibrary
 		ADDED from [com.android.support:support-v4:26.1.0] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\745ff51ce81f5da2a6e5b37cf843e4a9\AndroidManifest.xml:23:9-51
 	android:targetSdkVersion
-		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:16:42-71
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:19:42-71
 	android:minSdkVersion
-		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:16:15-41
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:19:15-41
 		INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:17:5-79
+ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:20:5-79
 MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\30063706c3d81b0f781afa49eafad370\AndroidManifest.xml:23:5-79
 MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\30063706c3d81b0f781afa49eafad370\AndroidManifest.xml:23:5-79
 	android:name
-		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:17:22-76
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:20:22-76
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:18:5-81
+ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:21:5-81
 	android:name
-		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:18:22-78
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:21:22-78
 uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:19:5-79
+ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:22:5-79
 	android:name
-		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:19:22-76
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:22:22-76
 uses-feature#0x00020000
-ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:20:5-78
+ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:23:5-78
 MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\30063706c3d81b0f781afa49eafad370\AndroidManifest.xml:26:5-28:35
 MERGED from [com.google.android.gms:play-services-maps:15.0.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\play-services-maps-15.0.1.aar\30063706c3d81b0f781afa49eafad370\AndroidManifest.xml:26:5-28:35
 	android:glEsVersion
-		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:20:19-51
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:23:19-51
 	android:required
-		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:20:52-75
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:23:52-75
 uses-feature#android.hardware.location
-ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:21:5-62
+ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:24:5-62
 	android:name
-		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:21:19-59
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:24:19-59
 uses-feature#android.hardware.location.gps
-ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:22:5-66
+ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:25:5-66
 	android:name
-		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:22:19-63
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:25:19-63
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:26:5-81
+	android:name
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:26:22-78
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:16:13-123
+	android:resource
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:16:75-120
+	android:name
+		ADDED from C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\platforms\android\app\src\main\AndroidManifest.xml:16:24-74
 activity#com.google.android.gms.common.api.GoogleApiActivity
 ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Bertil\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\8c46324f43226208871612598ae5fc54\AndroidManifest.xml:23:9-26:75
 	android:exported

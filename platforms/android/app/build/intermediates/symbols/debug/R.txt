@@ -271,4 +271,5 @@ int[] styleable SignInButton { 0x7f010001, 0x7f01000a, 0x7f01001c }
 int styleable SignInButton_buttonSize 0
 int styleable SignInButton_colorScheme 1
 int styleable SignInButton_scopeUris 2
-int xml config 0x7f0d0000
+int xml camera_provider_paths 0x7f0d0000
+int xml config 0x7f0d0001

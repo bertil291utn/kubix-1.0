@@ -269,6 +269,7 @@ dependencies {
     compile "com.google.android.gms:play-services-maps:15.0.1"
     compile "com.google.android.gms:play-services-location:15.0.1"
     compile "com.android.support:support-core-utils:27.+"
+    compile "com.android.support:support-v4:24.1.1+"
     // SUB-PROJECT DEPENDENCIES END
 }
 

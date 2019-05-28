@@ -11,7 +11,7 @@ export class CarPage {
   marca: string;
   modelo: string;
   color: string;
-  editAutomovil: boolean = false;
+  hayAutomovil: boolean = true;
   proceso = 'datos';
   previewimg: string;
   preview: boolean = false;
@@ -79,7 +79,10 @@ export class CarPage {
         encodingType: this.camera.EncodingType.JPEG,
         targetWidth: 500,
         targetHeight: 500,
-        saveToPhotoAlbum: false
+        saveToPhotoAlbum: false,
+        allowEdit: true,
+        correctOrientation: true,
+        cameraDirection: 0
       };
 
       /* get picture */
@@ -87,8 +90,9 @@ export class CarPage {
         console.log('imgurl: ', imgUrl)
         if (imgUrl != undefined) {
           this.preview = true;
-          this.previewimg = 'data:image/png;base64,' + imgUrl;}
-        });
+          this.previewimg = 'data:image/png;base64,' + imgUrl;
+        }
+      });
     });
 
   }

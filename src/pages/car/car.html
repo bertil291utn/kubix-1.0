@@ -64,14 +64,14 @@
     </ion-grid>
 
     <ion-grid *ngSwitchCase="'imagen'" padding>
-      <div *ngIf="editAutomovil">
+      <div *ngIf="hayAutomovil">
         <ion-row align-items-center>
           <ion-col id="auto">
             <img src="assets/imgs/01.png" id="centerImg">
           </ion-col>
         </ion-row>
       </div>
-      <div *ngIf="!editAutomovil" ion-text text-center>
+      <div *ngIf="!hayAutomovil" ion-text text-center>
         <div *ngIf="!preview" (click)="goToCamera()">
           <ion-icon name="camera" id="camara"></ion-icon>
           <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir una fotograf&iacute;a de su autom&oacute;vil
@@ -81,7 +81,7 @@
           <img [src]="previewimg" (click)="goToCamera()">
         </div>
       </div>
-      <button *ngIf="editAutomovil||preview" ion-button round color="danger" large (click)="addAuto()">guardar</button>
+      <button *ngIf="hayAutomovil||preview" ion-button round color="danger" large (click)="addAuto()">guardar</button>
     </ion-grid>
   </div>
 </ion-content>

@@ -51478,8 +51478,8 @@ page-menu #circular {
   position: relative;
   overflow: hidden;
   border-radius: 50%;
-  height: 80px;
-  width: 80px;
+  height: 50px;
+  width: 50px;
 }
 
 page-menu #circular img {
@@ -51490,6 +51490,44 @@ page-menu #circular img {
   top: 50%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+
+page-car h5 {
+  padding-left: 25px;
+}
+
+page-car #centerImg {
+  width: 100% !important;
+  height: auto !important;
+  padding: 5% 10%;
+}
+
+page-car .item {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+page-car ion-select.select:not(#extra) {
+  width: 100%;
+  max-width: 100%;
+}
+
+page-car h5.text {
+  margin-top: 30%;
+}
+
+page-car ion-col#auto {
+  text-align: center;
+}
+
+page-car button.button {
+  margin: 10% 20% 0;
+}
+
+page-car #camara {
+  color: #e5e5e5;
+  font-size: 30vw;
+  margin-top: 30%;
 }
 
 page-det-ruta-c ion-segment {
@@ -51529,6 +51567,13 @@ page-det-ruta-c .grid#ruta {
 page-det-ruta-c .relative {
   position: relative;
   width: 600px;
+}
+
+page-det-ruta-c #absoluto_title {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 8%;
+  background: white;
 }
 
 page-det-ruta-c .absolute-text {
@@ -51586,7 +51631,7 @@ page-home .relative {
 page-home .absolute-text {
   position: absolute;
   bottom: 0;
-  font-size: 18px;
+  font-size: 4vw;
   padding: 10px;
   width: 55%;
   margin: 0 25% 6%;
@@ -51594,7 +51639,7 @@ page-home .absolute-text {
 
 page-home #absolute-text {
   position: absolute;
-  font-size: 30px;
+  font-size: 6vw;
   padding: 30px;
   background-color: rgba(158, 158, 158, 0);
   color: red;
@@ -51623,6 +51668,14 @@ page-home .home-text {
 
 page-home .text {
   font-weight: 300;
+}
+
+page-home .subtitle_ {
+  font-size: 3vw;
+}
+
+page-home .title_ {
+  font-size: 5vw;
 }
 
 page-home-c-view-ruta #map_canvas {
@@ -51654,6 +51707,68 @@ page-home-c-view-ruta .grid {
 
 page-home-c-view-ruta ion-content .gmnoprint {
   display: none;
+}
+
+page-info-pasajero-sol #circular {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  margin-left: 35%;
+}
+
+page-info-pasajero-sol #circular img {
+  position: absolute;
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+page-info-pasajero-sol #descripcion {
+  padding: 8% 10%;
+}
+
+page-perfil #circular {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  margin: auto;
+}
+
+page-perfil #circular img {
+  position: absolute;
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+page-perfil #centerImg {
+  width: 100% !important;
+  height: auto !important;
+  padding: 5% 10%;
+}
+
+page-perfil #descripcion {
+  padding: 8% 10%;
+}
+
+page-perfil #camara {
+  color: #e5e5e5;
+  font-size: 20vw;
+  margin-top: 30%;
+}
+
+page-perfil .segmento {
+  font-size: 2vw;
 }
 
 page-set-home-destino .toolbar-title-md {
@@ -51738,6 +51853,11 @@ page-set-map-origen #centerMarkerImg {
   width: 40px;
   height: 40px;
   z-index: 1;
+}
+
+ion-app._gmaps_cdv_ .ion-page:not(._gmaps_cdv_),
+ion-app._gmaps_cdv_ ion-modal:not(._gmaps_cdv_) {
+  display: none;
 }
 
 page-set-map-pto .toolbar-title-md {
@@ -51974,4 +52094,63 @@ page-viajes-reser-pasajero #foot {
 
 page-viajes-reser-pasajero .content {
   background-color: #d5cdcb;
+}
+
+page-viajes-reserv-detalles .toolbar-title {
+  font-size: 1.9rem;
+}
+
+page-viajes-reserv-detalles .grid#ruta {
+  padding: 0px !important;
+}
+
+page-viajes-reserv-detalles .grid#descripcion {
+  padding: 8% 10%;
+}
+
+page-viajes-reserv-detalles #absoluto_title {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 8%;
+  background: white;
+}
+
+page-viajes-reserv-detalles .relative {
+  position: relative;
+  width: 600px;
+}
+
+page-viajes-reserv-detalles .absolute-text {
+  position: absolute;
+  bottom: 0;
+  font-size: 15px;
+  background: white;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+page-viajes-reserv-detalles #centerImg {
+  width: 100% !important;
+  height: auto !important;
+  padding: 5% 10%;
+}
+
+page-viajes-reserv-detalles #circular {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  margin-left: 35%;
+}
+
+page-viajes-reserv-detalles #circular img {
+  position: absolute;
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
