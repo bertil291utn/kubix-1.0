@@ -31,7 +31,6 @@ page-det-ruta-c {
 
   .relative {
     position: relative;
-    width: 600px;
   }
 
   #absoluto_title {
@@ -86,5 +85,17 @@ page-det-ruta-c {
     top: 50%;
     transform: translateY(-50%);
     //margin-left: -50px;
+  }
+
+  .imgbck {
+    width: 100%;
+    display: block;
+    height: auto;
+    border: 0;
+  }
+
+  .fotoRelative {
+    width: 100% !important;
+    height: 100% !important;
   }
 }

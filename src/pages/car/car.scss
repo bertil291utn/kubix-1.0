@@ -31,8 +31,28 @@ page-car {
   #camara {
     color: #e5e5e5;
     font-size: 30vw;
-    margin-top: 30%;
+    margin-top: 10vw;
   }
 
+  .relative {
+    position: relative;
+    text-align: center;
+  }
 
+  .top-right {
+    font-size: 3rem;
+    background: white;
+    position: absolute;
+    bottom: 0px;
+    right: -2%;
+    padding: 2%;
+  }
+
+  #imgbck {
+    width: 100%;
+    display: block;
+    height: auto;
+    border: 0;
+
+  }
 }

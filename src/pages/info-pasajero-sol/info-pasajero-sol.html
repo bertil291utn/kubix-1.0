@@ -33,8 +33,22 @@
       <ion-col>
         {{perfil_val.informacion}}
       </ion-col>
+    </ion-row><br><br>
+    <ion-row>
+      <ion-col col-3>
+        <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>
+      </ion-col>
+      <ion-col col-3>
+        <ion-icon item-start name="logo-whatsapp" color="iconos" style="font-size: 1.6em;"></ion-icon>
+        &nbsp;&nbsp;&nbsp;WhatsApp
+      </ion-col>
+      <ion-col>
+        <ion-icon item-start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
+        &nbsp;&nbsp;&nbsp;Llamar
+      </ion-col>
     </ion-row>
   </div>
+
   <div style="padding: 0 10%;">
     <ion-row>
       <ion-col col-4>
@@ -48,9 +62,6 @@
         <p> {{perfil_val.carrera}}</p>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-icon start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
-      <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>
-    </ion-row>
+
   </div>
 </ion-content>

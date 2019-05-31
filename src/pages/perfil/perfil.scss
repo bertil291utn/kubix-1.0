@@ -23,15 +23,43 @@ page-perfil {
     padding: 5% 10%;
   }
   #descripcion {
-    padding: 8% 10%;
+    padding: 4% 10%;
   }
 
   #camara {
     color: #e5e5e5;
     font-size: 20vw;
-    margin-top: 30%;
+    margin-top: 10vw;
   }
-  .segmento{
+  .segmento {
     font-size: 2vw;
+  }
+
+  .relative {
+    position: relative;
+    text-align: center;
+  }
+
+  .top-right {
+    font-size: 3rem;
+    background: white;
+    position: absolute;
+    bottom: 0px;
+    right: -2%;
+    padding: 2%;
+  }
+
+  .imgbck {
+    width: 100%;
+    display: block;
+    height: auto;
+    border: 0;
+  }
+
+  #subtitle {
+    font-size: 1.5rem;
+    margin: auto;
+    text-transform: initial;
+    font-weight: normal;
   }
 }

@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController, ModalController }
 import { SetMapPtoPage } from '../set-map-pto/set-map-pto';
 import { ViajesPubCPage } from '../viajes-pub-c/viajes-pub-c';
 import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
+import { HomeServiceProvider } from '../../providers/home-service/home-service';
+import { CarPage } from '../car/car';
 
 
 
@@ -19,7 +21,8 @@ export class ViajesConductorPage {
   pasajero = 1;
   punto_LatLng;
   ubicacion;
-
+  carExists: boolean;
+  varInterval;
   // callback = data => {
   //   this.punto_LatLng = data;
   //   console.log('data received from other page', this.punto_LatLng);
@@ -27,13 +30,26 @@ export class ViajesConductorPage {
 
   constructor(public navparams: NavParams, public navCtrl: NavController,
     public navParams: NavParams, public alertCtrl: AlertController,
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController, public myservices: HomeServiceProvider) {
 
     this.setHour();
 
   }
 
+  ionViewDidEnter() {
+    this.varInterval = setInterval(() => {
+      this.carExists = this.myservices.carExists;
+    }, 1000);
+  }
+
+  ionViewDidLeave() {
+    //pararla funcion de busqueda el momento que haya dejado el page
+    clearInterval(this.varInterval);
+  }
+
   ionViewDidLoad() {
+
+    this.carExists = this.myservices.carExists;
     console.log('ionViewDidLoad ViajesConductorPage');
 
   }
@@ -88,6 +104,11 @@ export class ViajesConductorPage {
 
   goToAdicional() {
     this.proceso = 'adicional'
+  }
+
+  addAuto() {
+    let contactModal = this.modalCtrl.create(CarPage);
+    contactModal.present();
   }
 
 

@@ -64,24 +64,32 @@
     </ion-grid>
 
     <ion-grid *ngSwitchCase="'imagen'" padding>
-      <div *ngIf="hayAutomovil">
-        <ion-row align-items-center>
-          <ion-col id="auto">
-            <img src="assets/imgs/01.png" id="centerImg">
-          </ion-col>
+      <div *ngIf="carExists">
+
+        <!-- <div class="relative">
+          <img id="imgbck" src="assets/imgs/01.png">
+          <ion-icon class="top-right" name="camera" color="iconos" (click)="goToCamera()"></ion-icon>
+        </div> -->
+        <img id="imgbck" src="assets/imgs/01.png"><br>
+        <ion-row>
+          <button small ion-button round color="primary" clear style="font-size:1.1rem;margin:auto;"
+            (click)="goToCamera()">Cambiar imagen autom&oacute;vil</button>
         </ion-row>
       </div>
-      <div *ngIf="!hayAutomovil" ion-text text-center>
-        <div *ngIf="!preview" (click)="goToCamera()">
-          <ion-icon name="camera" id="camara"></ion-icon>
+      <div *ngIf="!carExists" ion-text text-center>
+        <div *ngIf="!preview">
+          <ion-icon name="camera" id="camara" (click)="goToCamera()"></ion-icon>
           <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir una fotograf&iacute;a de su autom&oacute;vil
           </ion-label>
         </div>
-        <div *ngIf="preview">
-          <img [src]="previewimg" (click)="goToCamera()">
+      </div>
+      <div *ngIf="preview">
+        <div class="relative">
+          <img id="imgbck" [src]="previewimg">
+          <ion-icon class="top-right" name="camera" color="iconos" (click)="goToCamera()"></ion-icon>
         </div>
       </div>
-      <button *ngIf="hayAutomovil||preview" ion-button round color="danger" large (click)="addAuto()">guardar</button>
+      <button *ngIf="preview" ion-button round color="danger" large (click)="addAuto()">guardar</button>
     </ion-grid>
   </div>
 </ion-content>

@@ -12,24 +12,34 @@ import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-
 export class HomePage {
   pasajero: boolean;
   conductor: boolean;
+  varInterval;
 
   constructor(
     public myservices: HomeServiceProvider,
-    public loadingCtrl: LoadingController, 
+    public loadingCtrl: LoadingController,
     public nav: NavController) {
     this.pasajero = myservices.pasajero;
     this.conductor = myservices.conductor;
 
   }
   ionViewDidEnter() {
-    setInterval(() => {
+    this.varInterval = setInterval(() => {
       this.pasajero = this.myservices.pasajero;
       this.conductor = this.myservices.conductor;
-      //console.log('this.pasajero: ', this.pasajero, ' this.conductor: ', this.conductor)
+      console.log('this.pasajero: ', this.pasajero, ' this.conductor: ', this.conductor)
     }, 1000);
   }
 
+
+  ionViewDidLeave() {
+    //pararla funcion de busqueda el momento que haya dejado el page
+    clearInterval(this.varInterval);
+  }
+
   ionViewDidLoad() {
+    //revisar en la base de datos si existe o no el campo de automovil  y el campo perfil(telfono e informacion personal)
+    this.myservices.carExists = false;
+    this.myservices.profileExists = false;
     console.log('ionViewDidLoad HomePage');
   }
   goToDriver() {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { HomeServiceProvider } from '../../providers/home-service/home-service';
 
 @IonicPage()
 @Component({
@@ -11,18 +12,19 @@ export class CarPage {
   marca: string;
   modelo: string;
   color: string;
-  hayAutomovil: boolean = true;
+  carExists: boolean;
   proceso = 'datos';
   previewimg: string;
   preview: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, public alertController: AlertController,
-    private camera: Camera, private platform: Platform) {
+    private camera: Camera, public myservices: HomeServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CarPage');
+    this.carExists = this.myservices.carExists;
     //cargar marca y modelo de auto desde base de datos 
   }
 
@@ -64,36 +66,36 @@ export class CarPage {
     // Toma la imagen desde la camara o de la galeria
     // 1 = Galeria
     // 2 = Camara
-    this.platform.ready().then(() => {
-      let type: number;
-      let rootsource = this.camera.PictureSourceType;
-      if (selection === 1)
-        type = rootsource.PHOTOLIBRARY;
-      else if (selection === 2)
-        type = rootsource.CAMERA;
 
-      options = {
-        quality: 100,
-        destinationType: this.camera.DestinationType.DATA_URL,
-        sourceType: type,
-        encodingType: this.camera.EncodingType.JPEG,
-        targetWidth: 500,
-        targetHeight: 500,
-        saveToPhotoAlbum: false,
-        allowEdit: true,
-        correctOrientation: true,
-        cameraDirection: 0
-      };
+    let type: number;
+    let rootsource = this.camera.PictureSourceType;
+    if (selection === 1)
+      type = rootsource.PHOTOLIBRARY;
+    else if (selection === 2)
+      type = rootsource.CAMERA;
 
-      /* get picture */
-      this.camera.getPicture(options).then((imgUrl) => {
-        console.log('imgurl: ', imgUrl)
-        if (imgUrl != undefined) {
-          this.preview = true;
-          this.previewimg = 'data:image/png;base64,' + imgUrl;
-        }
-      });
+    options = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: type,
+      encodingType: this.camera.EncodingType.JPEG,
+      targetWidth: 500,
+      targetHeight: 500,
+      allowEdit: true,
+      correctOrientation: true,
+      cameraDirection: 0
+    };
+
+    /* get picture */
+    this.camera.getPicture(options).then((imgUrl) => {
+      console.log('imgurl: ', imgUrl)
+      if (imgUrl != undefined) {
+        this.preview = true;
+        this.carExists = false;
+        this.previewimg = 'data:image/png;base64,' + imgUrl;
+      }
     });
+
 
   }
 
@@ -101,7 +103,9 @@ export class CarPage {
   addAuto() {
     //enviar a bas e datos los datos del automovil de esta persona 
     console.log('enviar a bas e datos los datos del automovil de esta persona ')
-
+    //let var =exists base de datos = revisar en la base de datos si existe automovil
+    //if(var)
+       this.myservices.carExists = true;
   }
 
   dismiss() {

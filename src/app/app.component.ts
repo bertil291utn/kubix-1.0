@@ -20,8 +20,8 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   evento;
   radiobtn;
-  pasajero: boolean = true;
-  conductor: boolean = false;
+  pasajero: boolean = false;
+  conductor: boolean = true;
   //solicitud: boolean = false;
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any, icono: string }>;
@@ -35,10 +35,16 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pageslist();
-    this.myservices.pasajero = this.pasajero
-    this.myservices.conductor = this.conductor
+    this.valConductorPasajero();
     //this.myservices.solicitud = this.solicitud
 
+  }
+
+  private valConductorPasajero() {
+    this.myservices.pasajero = this.pasajero;
+    this.myservices.conductor = this.conductor;
+    if (this.conductor)
+      this.radiobtn = true;
   }
 
   private pageslist() {

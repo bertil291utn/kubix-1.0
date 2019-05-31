@@ -26,6 +26,22 @@ export class HomeServiceProvider {
     this._conductor = value;
   }
 
+  private _carExists: boolean;
+  public get carExists(): boolean {
+    return this._carExists;
+  }
+  public set carExists(value: boolean) {
+    this._carExists = value;
+  }
+
+  private _profileExists: boolean;
+  public get profileExists(): boolean {
+    return this._profileExists;
+  }
+  public set profileExists(value: boolean) {
+    this._profileExists = value;
+  }
+
   constructor() {
     console.log('Hello HomeServiceProvider Provider');
   }

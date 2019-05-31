@@ -19,6 +19,7 @@ export class SetMapOrigenPage {
   setmap: boolean;
   utnOrigen: boolean;
   ubicacion: boolean;
+  varInterval;
 
   constructor(private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
@@ -38,10 +39,15 @@ export class SetMapOrigenPage {
   }
 
   ionViewDidEnter() {
-    setInterval(() => {
+    this.varInterval = setInterval(() => {
       this.direccion;
       this.varLatLng;
     }, 1000);
+  }
+
+  ionViewDidLeave() {
+    //pararla funcion de busqueda el momento que haya dejado el page
+    clearInterval(this.varInterval);
   }
 
   ionViewWillLeave() {

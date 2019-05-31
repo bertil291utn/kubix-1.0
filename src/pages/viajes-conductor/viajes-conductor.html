@@ -68,22 +68,30 @@
           </ion-item>
         </ion-col>
       </ion-row> -->
-      
+
       <h5 color="danger" ion-text text-center (click)="goToVehicule()">SIGUIENTE</h5>
     </ion-grid>
 
 
     <ion-grid *ngSwitchCase="'vehiculo'" padding>
-      <h6 ion-text text-center>Autom&oacute;vil designado</h6>
-      <ion-row align-items-center>
-        <ion-col id="auto">
-          <img src="assets/imgs/01.png" id="centerImg">
-        </ion-col>
-      </ion-row>
-
-      <h6 ion-text text-center>SEAT IBIZA</h6>
-      <span ion-text text-center>Negro</span>
-      <h5 color="danger" ion-text text-center (click)="goToAdicional()">SIGUIENTE</h5>
+      <div *ngIf="carExists" text-center>
+        <h6 ion-text text-center>Autom&oacute;vil designado</h6>
+        <ion-row align-items-center>
+          <ion-col id="auto">
+            <img src="assets/imgs/01.png" id="centerImg">
+          </ion-col>
+        </ion-row>
+        <h6 ion-text text-center>SEAT IBIZA</h6>
+        <span ion-text text-center>Negro</span>
+      </div>
+      <div *ngIf="!carExists" ion-text text-center>
+        <div (click)="addAuto()">
+          <ion-icon name="add-circle" id="camara"></ion-icon>
+          <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir los datos de su autom&oacute;vil
+          </ion-label>
+        </div>
+      </div>
+      <h5 *ngIf="carExists" color="danger" ion-text text-center (click)="goToAdicional()">SIGUIENTE</h5>
     </ion-grid>
 
 
@@ -124,7 +132,8 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <button ion-button round color="danger" large (click)="showAlert()">Publicar</button>
+
+      <button *ngIf="carExists" ion-button round color="danger" large (click)="showAlert()">Publicar</button>
 
     </ion-grid>
 

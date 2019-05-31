@@ -30,36 +30,43 @@
   color: red !important;
 }
 
+.alert-md .alert-button {
+  color: #424242;
+  font-weight: none !important;
+  text-transform: none;
+  font-weight: none;
+  font-size: 17px;
+}
+
 page-menu {
   #toolbar-back,
   #item-button,
   #content-menu {
-    background-color: #D5CDCB;
+    background-color: #d5cdcb;
   }
 
   .toolbar-title {
     color: black;
   }
   .toolbar-background {
-    background: #D5CDCB;
+    background: #d5cdcb;
   }
 
   #circular {
-    position:relative;
-    overflow:hidden;
+    position: relative;
+    overflow: hidden;
     border-radius: 50%;
     height: 50px;
     width: 50px;
-}
-  
+  }
 
   #circular img {
-    position:absolute;
+    position: absolute;
     height: auto;
-    width: auto;    
-    max-width:100%;
-    top:50%;
-    transform:translateY(-50%);
-  //margin-left: -50px;
+    width: auto;
+    max-width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    //margin-left: -50px;
   }
 }

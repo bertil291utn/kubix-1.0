@@ -98,9 +98,6 @@
     <ion-segment-button value="datos">
       DATOS
     </ion-segment-button>
-    <ion-segment-button value="academico">
-      ACADEMICO
-    </ion-segment-button>
     <ion-segment-button value="automovil">
       AUTOMOVIL
     </ion-segment-button>
@@ -118,25 +115,38 @@
           {{viajedet.conductor.informacion}}
         </ion-col>
       </ion-row>
-    </ion-grid>
-    <ion-grid *ngSwitchCase="'academico'" style="padding: 8% 10%;">
+      <br><br>
       <ion-row>
-        <ion-col col-4>
-          <p><strong>Ocupaci&oacute;n</strong></p>
-          <p><strong>Facultad</strong></p>
-          <p><strong>Carrera</strong></p>
+        <ion-col col-3>
+          <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{viajedet.conductor.telefono}}</strong>
+        </ion-col>
+        <ion-col col-3>
+          <ion-icon item-start name="logo-whatsapp" color="iconos" style="font-size: 1.6em;"></ion-icon>
+          &nbsp;&nbsp;&nbsp;WhatsApp
         </ion-col>
         <ion-col>
-          <p> {{viajedet.conductor.ocupacion}}</p>
-          <p> {{viajedet.conductor.facultad}}</p>
-          <p> {{viajedet.conductor.carrera}}</p>
+          <ion-icon item-start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
+          &nbsp;&nbsp;&nbsp;Llamar
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-icon start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
-        <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{viajedet.conductor.telefono}}</strong>
-      </ion-row>
+
+      <div>
+        <ion-row>
+          <ion-col col-4>
+            <p><strong>Ocupaci&oacute;n</strong></p>
+            <p><strong>Facultad</strong></p>
+            <p><strong>Carrera</strong></p>
+          </ion-col>
+          <ion-col>
+            <p> {{viajedet.conductor.ocupacion}}</p>
+            <p> {{viajedet.conductor.facultad}}</p>
+            <p> {{viajedet.conductor.carrera}}</p>
+          </ion-col>
+        </ion-row>
+
+      </div>
     </ion-grid>
+
     <ion-grid *ngSwitchCase="'automovil'" style="padding: 8% 10%;">
       <h6 ion-text text-center>Autom&oacute;vil designado</h6>
       <ion-row align-items-center>
