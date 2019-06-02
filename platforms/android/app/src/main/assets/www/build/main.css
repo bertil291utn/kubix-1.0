@@ -51521,7 +51521,7 @@ page-car ion-col#auto {
 }
 
 page-car button.button {
-  margin: auto;
+  margin: 10% 20% 0;
 }
 
 page-car #camara {

@@ -28,7 +28,7 @@ var CarPage = (function () {
         this.alertController = alertController;
         this.camera = camera;
         this.platform = platform;
-        this.editAutomovil = false;
+        this.hayAutomovil = true;
         this.proceso = 'datos';
         this.preview = false;
     }
@@ -83,8 +83,11 @@ var CarPage = (function () {
                 sourceType: type,
                 encodingType: _this.camera.EncodingType.JPEG,
                 targetWidth: 500,
-                targetHeight: 800,
-                saveToPhotoAlbum: false
+                targetHeight: 500,
+                saveToPhotoAlbum: false,
+                allowEdit: true,
+                correctOrientation: true,
+                cameraDirection: 0
             };
             /* get picture */
             _this.camera.getPicture(options).then(function (imgUrl) {
@@ -105,13 +108,12 @@ var CarPage = (function () {
     };
     CarPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-car',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\car\car.html"*/'<ion-header>\n  <ion-navbar color="danger" text-center>\n    <ion-buttons end style="margin-right: 2%;">\n      <button ion-button (click)="dismiss()">\n        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-grid>\n      <ion-row>\n        <ion-col></ion-col>\n        <ion-col>\n          <ion-buttons left>\n            <button ion-button icon-only clear>\n              <ion-icon name="car"></ion-icon>\n              <ion-title>Autom&oacute;vil</ion-title>\n            </button>\n          </ion-buttons>\n        </ion-col>\n        <ion-col></ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-segment color="danger" [(ngModel)]="proceso">\n    <ion-segment-button value="datos">\n      DATOS\n    </ion-segment-button>\n    <ion-segment-button value="imagen">\n      IMAGEN\n    </ion-segment-button>\n  </ion-segment>\n\n  <div [ngSwitch]="proceso">\n    <ion-grid *ngSwitchCase="\'datos\'" padding>\n      <ion-list>\n        <ion-item>\n          <!-- <ion-label color="danger" floating>Ingrese n&uacute;mero de placa</ion-label> -->\n          <ion-input [(ngModel)]="placa" color="danger" placeholder="PCC0123" clearInput></ion-input>\n        </ion-item>\n        <ion-item>\n\n          <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="marca">\n            <ion-option value="chevrolet">Chevrolet</ion-option>\n          </ion-select>\n        </ion-item>\n        <ion-item>\n\n          <ion-select placeholder="Modelo" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="modelo">\n            <ion-option value="s1">S1</ion-option>\n          </ion-select>\n        </ion-item>\n        <ion-item>\n\n          <ion-select placeholder="Color" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="color">\n            <ion-option value="azul">Azul</ion-option>\n            <ion-option value="negro">Negro</ion-option>\n          </ion-select>\n        </ion-item>\n      </ion-list>\n      <h5 color="danger" ion-text text-center (click)="goToImage()">SIGUIENTE</h5>\n    </ion-grid>\n\n    <ion-grid *ngSwitchCase="\'imagen\'" padding>\n      <div *ngIf="editAutomovil">\n        <ion-row align-items-center>\n          <ion-col id="auto">\n            <img src="assets/imgs/01.png" id="centerImg">\n          </ion-col>\n        </ion-row>\n      </div>\n      <div *ngIf="!editAutomovil" ion-text text-center>\n        <div *ngIf="!preview" (click)="goToCamera()">\n          <ion-icon name="camera" id="camara"></ion-icon>\n          <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir una fotograf&iacute;a de su autom&oacute;vil\n          </ion-label>\n        </div>\n        <div *ngIf="preview">\n          <img [src]="previewimg" (click)="goToCamera()">\n        </div>\n      </div>\n    \n        <button *ngIf="editAutomovil||preview" ion-button round color="danger" large\n          (click)="addAuto()">guardar</button>\n      \n    </ion-grid>\n  </div>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\car\car.html"*/,
+            selector: 'page-car',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\car\car.html"*/'<ion-header>\n  <ion-navbar color="danger" text-center>\n    <ion-buttons end style="margin-right: 2%;">\n      <button ion-button (click)="dismiss()">\n        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-grid>\n      <ion-row>\n        <ion-col></ion-col>\n        <ion-col>\n          <ion-buttons left>\n            <button ion-button icon-only clear>\n              <ion-icon name="car"></ion-icon>\n              <ion-title>Autom&oacute;vil</ion-title>\n            </button>\n          </ion-buttons>\n        </ion-col>\n        <ion-col></ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-segment color="danger" [(ngModel)]="proceso">\n    <ion-segment-button value="datos">\n      DATOS\n    </ion-segment-button>\n    <ion-segment-button value="imagen">\n      IMAGEN\n    </ion-segment-button>\n  </ion-segment>\n\n  <div [ngSwitch]="proceso">\n    <ion-grid *ngSwitchCase="\'datos\'" padding>\n      <ion-list>\n        <ion-item>\n          <!-- <ion-label color="danger" floating>Ingrese n&uacute;mero de placa</ion-label> -->\n          <ion-input [(ngModel)]="placa" color="danger" placeholder="PCC0123" clearInput></ion-input>\n        </ion-item>\n        <ion-item>\n\n          <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="marca">\n            <ion-option value="chevrolet">Chevrolet</ion-option>\n          </ion-select>\n        </ion-item>\n        <ion-item>\n\n          <ion-select placeholder="Modelo" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="modelo">\n            <ion-option value="s1">S1</ion-option>\n          </ion-select>\n        </ion-item>\n        <ion-item>\n\n          <ion-select placeholder="Color" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="color">\n            <ion-option value="azul">Azul</ion-option>\n            <ion-option value="negro">Negro</ion-option>\n          </ion-select>\n        </ion-item>\n      </ion-list>\n      <h5 color="danger" ion-text text-center (click)="goToImage()">SIGUIENTE</h5>\n    </ion-grid>\n\n    <ion-grid *ngSwitchCase="\'imagen\'" padding>\n      <div *ngIf="hayAutomovil">\n        <ion-row align-items-center>\n          <ion-col id="auto">\n            <img src="assets/imgs/01.png" id="centerImg">\n          </ion-col>\n        </ion-row>\n      </div>\n      <div *ngIf="!hayAutomovil" ion-text text-center>\n        <div *ngIf="!preview" (click)="goToCamera()">\n          <ion-icon name="camera" id="camara"></ion-icon>\n          <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir una fotograf&iacute;a de su autom&oacute;vil\n          </ion-label>\n        </div>\n        <div *ngIf="preview">\n          <img [src]="previewimg" (click)="goToCamera()">\n        </div>\n      </div>\n      <button *ngIf="hayAutomovil||preview" ion-button round color="danger" large (click)="addAuto()">guardar</button>\n    </ion-grid>\n  </div>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\car\car.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */]) === "function" && _f || Object])
     ], CarPage);
     return CarPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=car.js.map
@@ -119,6 +121,144 @@ var CarPage = (function () {
 /***/ }),
 
 /***/ 116:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetRutaCPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__info_pasajero_sol_info_pasajero_sol__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_home_service_home_service__ = __webpack_require__(44);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var DetRutaCPage = (function () {
+    function DetRutaCPage(storage, myservices, navCtrl, navParams, sanitizer, modalCtrl) {
+        this.storage = storage;
+        this.myservices = myservices;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.sanitizer = sanitizer;
+        this.modalCtrl = modalCtrl;
+        this.viajedet = navParams.get('datos');
+        console.log(this.viajedet);
+    }
+    DetRutaCPage.prototype.ionViewDidLoad = function () {
+        this.proceso_v = 'descripcion';
+        // if (this.myservices.solicitud) {
+        //   this.proceso_v = 'solicitud'
+        // }
+        //this.url = "blob:http://localhost:8100/b95c7e2b-a3b4-4ac8-b51e-a9af526f3788"
+        console.log('ionViewDidLoad DetRutaCPage');
+        //this.storage.get('imageurl').then((val) => { this.url = this.getUrlVideo(val); console.log('url: ', this.url) })
+    };
+    DetRutaCPage.prototype.gotoInfo = function () {
+        var contactModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_4__info_pasajero_sol_info_pasajero_sol__["a" /* InfoPasajeroSolPage */]);
+        contactModal.present();
+    };
+    DetRutaCPage.prototype.getUrlVideo = function (videoURL) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(videoURL);
+    };
+    DetRutaCPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-det-ruta-c',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\det-ruta-c\det-ruta-c.html"*/'<ion-header>\n  <ion-navbar color="danger" text-center>\n    <ion-grid>\n      <ion-row>\n        <ion-col text-left col-1>\n          <ion-icon name="pin" color="light" small></ion-icon>\n        </ion-col>\n        <ion-col text-left>\n          <ion-title color="light">{{viajedet.origen}}</ion-title>\n        </ion-col>\n        <ion-col>\n          <ion-title>{{viajedet.hora}}</ion-title>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col text-left col-1>\n          <ion-icon name="pin" color="light" small></ion-icon>\n        </ion-col>\n        <ion-col text-left>\n          <ion-title color="light">{{viajedet.destino}}</ion-title>\n        </ion-col>\n        <ion-col text-left>\n          <ion-title>{{viajedet.fecha}}</ion-title>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-segment color="danger" [(ngModel)]="proceso_v">\n    <ion-segment-button value="descripcion">\n      DESCRIPCION\n    </ion-segment-button>\n    <ion-segment-button value="vehiculo">\n      VEHICULO\n    </ion-segment-button>\n    <ion-segment-button value="ubicacion">\n      UBICACION\n    </ion-segment-button>\n    <ion-segment-button value="ruta">\n      RUTA\n    </ion-segment-button>\n    <ion-segment-button value="solicitud">\n      SOLICITUDES\n    </ion-segment-button>\n  </ion-segment>\n\n\n  <div [ngSwitch]="proceso_v">\n    <ion-grid id="descripcion" *ngSwitchCase="\'descripcion\'">\n      <h5>Descripci&oacute;n del viaje</h5><br>\n      <ion-row>\n        <ion-col>\n          {{viajedet.descripcion}}\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n    <ion-grid id="vehiculo" *ngSwitchCase="\'vehiculo\'">\n      <ion-row align-items-center>\n        <ion-col id="auto">\n          <img src="{{viajedet.auto.imagen}}" id="centerImg">\n        </ion-col>\n      </ion-row>\n      <h6 ion-text text-center>{{viajedet.auto.placa}}</h6>\n      <h6 ion-text text-center>{{viajedet.auto.marca}} {{viajedet.auto.modelo}}</h6>\n      <span ion-text text-center>{{viajedet.auto.color}}</span>\n    </ion-grid>\n\n    <ion-grid id="ubicacion" *ngSwitchCase="\'ubicacion\'">\n      \n      <div class="relative">\n        <img src="{{viajedet.ubicacion}}" />\n        <h6 id="absoluto_title" ion-text text-center>LUGAR DE SALIDA</h6>\n        <p class="absolute-text">{{viajedet.textoubicacion}}</p>\n      </div>\n    </ion-grid>\n\n    <ion-grid id="ruta" *ngSwitchCase="\'ruta\'">\n      <img src="{{viajedet.ruta}}" />\n\n    </ion-grid>\n\n    <ion-grid id="request" *ngSwitchCase="\'solicitud\'">\n\n      <ion-card *ngFor="let item of viajedet.solicitud">\n        <ion-card-content (click)="gotoInfo()">\n          <ion-row>\n            <ion-col col-4>\n              <div id="circular">\n                <img src="{{item.fotografia}}">\n              </div>\n            </ion-col>\n            <ion-col>\n              <strong>{{item.nombre}}</strong><br>\n              <strong>{{item.apellido}}</strong> <br>\n              <strong>{{item.genero}}</strong>\n            </ion-col>\n            <ion-col>\n              <strong>{{item.facultad}}</strong><br>\n              <strong>{{item.carrera}}</strong>\n            </ion-col>\n          </ion-row>\n        </ion-card-content>\n\n        <ion-row id="foot">\n          <ion-col text-center>\n            <button ion-button clear color="iconos" icon-start>\n              <ion-icon name=\'checkmark\'></ion-icon>\n              aceptar\n            </button>\n          </ion-col>\n\n          <ion-col text-center>\n            <button ion-button clear color="iconos" icon-start>\n              <ion-icon name=\'close\'></ion-icon>\n              rechazar\n            </button>\n          </ion-col>\n        </ion-row>\n\n      </ion-card>\n\n\n    </ion-grid>\n\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\det-ruta-c\det-ruta-c.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_5__providers_home_service_home_service__["a" /* HomeServiceProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["c" /* DomSanitizer */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]])
+    ], DetRutaCPage);
+    return DetRutaCPage;
+}());
+
+//# sourceMappingURL=det-ruta-c.js.map
+
+/***/ }),
+
+/***/ 117:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InfoPasajeroSolPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var InfoPasajeroSolPage = (function () {
+    function InfoPasajeroSolPage(navCtrl, navParams, viewCtrl) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.viewCtrl = viewCtrl;
+        this.perfil_val = this.perfil();
+    }
+    InfoPasajeroSolPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad InfoPasajeroSolPage');
+    };
+    InfoPasajeroSolPage.prototype.perfil = function () {
+        return {
+            id: 1,
+            nombre: "Pepito Adolfo",
+            apellido: "Perez Hitler",
+            fotografia: "assets/imgs/profileOK.jpg",
+            ocupacion: 'Docente',
+            facultad: "FICA",
+            carrera: "Sistemas",
+            genero: "Masculino",
+            telefono: '09999999',
+            informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio',
+            auto: {
+                placa: "PCC0629",
+                modelo: "IBIZA",
+                marca: "SEAT",
+                color: "Negro",
+                imagen: "assets/imgs/01.png"
+            }
+        };
+    };
+    InfoPasajeroSolPage.prototype.dismiss = function () {
+        this.viewCtrl.dismiss();
+    };
+    InfoPasajeroSolPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-info-pasajero-sol',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\info-pasajero-sol\info-pasajero-sol.html"*/'<ion-header>\n  <ion-navbar color="danger" text-center>\n    <ion-buttons end style="margin-right: 2%;">\n      <button ion-button (click)="dismiss()">\n        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-grid>\n      <ion-row>\n        <ion-col>\n          <ion-buttons left>\n            <button ion-button icon-only clear>\n              <ion-icon name="person"></ion-icon>\n              <ion-title>informaci&oacute;n pasajero</ion-title>\n            </button>\n          </ion-buttons>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <div id="descripcion">\n    <div id="circular">\n      <img src="{{perfil_val.fotografia}}">\n    </div>\n    <h4 ion-text text-center>{{perfil_val.nombre}}</h4><br>\n    <h5>Informaci&oacute;n personal</h5><br>\n    <ion-row>\n      <ion-col>\n        {{perfil_val.informacion}}\n      </ion-col>\n    </ion-row>\n  </div>\n  <div style="padding: 0 10%;">\n    <ion-row>\n      <ion-col col-4>\n        <p><strong>Ocupaci&oacute;n</strong></p>\n        <p><strong>Facultad</strong></p>\n        <p><strong>Carrera</strong></p>\n      </ion-col>\n      <ion-col>\n        <p> {{perfil_val.ocupacion}}</p>\n        <p> {{perfil_val.facultad}}</p>\n        <p> {{perfil_val.carrera}}</p>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-icon start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>\n      <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>\n    </ion-row>\n  </div>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\info-pasajero-sol\info-pasajero-sol.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */]])
+    ], InfoPasajeroSolPage);
+    return InfoPasajeroSolPage;
+}());
+
+//# sourceMappingURL=info-pasajero-sol.js.map
+
+/***/ }),
+
+/***/ 118:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -234,144 +374,6 @@ var ViajesConductorPage = (function () {
 }());
 
 //# sourceMappingURL=viajes-conductor.js.map
-
-/***/ }),
-
-/***/ 117:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetRutaCPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__info_pasajero_sol_info_pasajero_sol__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_home_service_home_service__ = __webpack_require__(44);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-var DetRutaCPage = (function () {
-    function DetRutaCPage(storage, myservices, navCtrl, navParams, sanitizer, modalCtrl) {
-        this.storage = storage;
-        this.myservices = myservices;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.sanitizer = sanitizer;
-        this.modalCtrl = modalCtrl;
-        this.viajedet = navParams.get('datos');
-        console.log(this.viajedet);
-    }
-    DetRutaCPage.prototype.ionViewDidLoad = function () {
-        this.proceso_v = 'descripcion';
-        // if (this.myservices.solicitud) {
-        //   this.proceso_v = 'solicitud'
-        // }
-        //this.url = "blob:http://localhost:8100/b95c7e2b-a3b4-4ac8-b51e-a9af526f3788"
-        console.log('ionViewDidLoad DetRutaCPage');
-        //this.storage.get('imageurl').then((val) => { this.url = this.getUrlVideo(val); console.log('url: ', this.url) })
-    };
-    DetRutaCPage.prototype.gotoInfo = function () {
-        var contactModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_4__info_pasajero_sol_info_pasajero_sol__["a" /* InfoPasajeroSolPage */]);
-        contactModal.present();
-    };
-    DetRutaCPage.prototype.getUrlVideo = function (videoURL) {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(videoURL);
-    };
-    DetRutaCPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-det-ruta-c',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\det-ruta-c\det-ruta-c.html"*/'<ion-header>\n  <ion-navbar color="danger" text-center>\n    <ion-grid>\n      <ion-row>\n        <ion-col text-left col-1>\n          <ion-icon name="pin" color="light" small></ion-icon>\n        </ion-col>\n        <ion-col text-left>\n          <ion-title color="light">{{viajedet.origen}}</ion-title>\n        </ion-col>\n        <ion-col>\n          <ion-title>{{viajedet.hora}}</ion-title>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col text-left col-1>\n          <ion-icon name="pin" color="light" small></ion-icon>\n        </ion-col>\n        <ion-col text-left>\n          <ion-title color="light">{{viajedet.destino}}</ion-title>\n        </ion-col>\n        <ion-col text-left>\n          <ion-title>{{viajedet.fecha}}</ion-title>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n  <ion-segment color="danger" [(ngModel)]="proceso_v">\n    <ion-segment-button value="descripcion">\n      DESCRIPCION\n    </ion-segment-button>\n    <ion-segment-button value="vehiculo">\n      VEHICULO\n    </ion-segment-button>\n    <ion-segment-button value="ubicacion">\n      UBICACION\n    </ion-segment-button>\n    <ion-segment-button value="ruta">\n      RUTA\n    </ion-segment-button>\n    <ion-segment-button value="solicitud">\n      SOLICITUDES\n    </ion-segment-button>\n  </ion-segment>\n\n\n  <div [ngSwitch]="proceso_v">\n    <ion-grid id="descripcion" *ngSwitchCase="\'descripcion\'">\n      <h5>Descripci&oacute;n del viaje</h5><br>\n      <ion-row>\n        <ion-col>\n          {{viajedet.descripcion}}\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n\n    <ion-grid id="vehiculo" *ngSwitchCase="\'vehiculo\'">\n      <ion-row align-items-center>\n        <ion-col id="auto">\n          <img src="{{viajedet.auto.imagen}}" id="centerImg">\n        </ion-col>\n      </ion-row>\n      <h6 ion-text text-center>{{viajedet.auto.placa}}</h6>\n      <h6 ion-text text-center>{{viajedet.auto.marca}} {{viajedet.auto.modelo}}</h6>\n      <span ion-text text-center>{{viajedet.auto.color}}</span>\n    </ion-grid>\n\n    <ion-grid id="ubicacion" *ngSwitchCase="\'ubicacion\'">\n      \n      <div class="relative">\n        <img src="{{viajedet.ubicacion}}" />\n        <h6 id="absoluto_title" ion-text text-center>LUGAR DE SALIDA</h6>\n        <p class="absolute-text">{{viajedet.textoubicacion}}</p>\n      </div>\n    </ion-grid>\n\n    <ion-grid id="ruta" *ngSwitchCase="\'ruta\'">\n      <img src="{{viajedet.ruta}}" />\n\n    </ion-grid>\n\n    <ion-grid id="request" *ngSwitchCase="\'solicitud\'">\n\n      <ion-card *ngFor="let item of viajedet.solicitud">\n        <ion-card-content (click)="gotoInfo()">\n          <ion-row>\n            <ion-col col-4>\n              <div id="circular">\n                <img src="{{item.fotografia}}">\n              </div>\n            </ion-col>\n            <ion-col>\n              <strong>{{item.nombre}}</strong><br>\n              <strong>{{item.apellido}}</strong> <br>\n              <strong>{{item.genero}}</strong>\n            </ion-col>\n            <ion-col>\n              <strong>{{item.facultad}}</strong><br>\n              <strong>{{item.carrera}}</strong>\n            </ion-col>\n          </ion-row>\n        </ion-card-content>\n\n        <ion-row id="foot">\n          <ion-col text-center>\n            <button ion-button clear color="iconos" icon-start>\n              <ion-icon name=\'checkmark\'></ion-icon>\n              aceptar\n            </button>\n          </ion-col>\n\n          <ion-col text-center>\n            <button ion-button clear color="iconos" icon-start>\n              <ion-icon name=\'close\'></ion-icon>\n              rechazar\n            </button>\n          </ion-col>\n        </ion-row>\n\n      </ion-card>\n\n\n    </ion-grid>\n\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\det-ruta-c\det-ruta-c.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_5__providers_home_service_home_service__["a" /* HomeServiceProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["c" /* DomSanitizer */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]])
-    ], DetRutaCPage);
-    return DetRutaCPage;
-}());
-
-//# sourceMappingURL=det-ruta-c.js.map
-
-/***/ }),
-
-/***/ 118:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InfoPasajeroSolPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var InfoPasajeroSolPage = (function () {
-    function InfoPasajeroSolPage(navCtrl, navParams, viewCtrl) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.viewCtrl = viewCtrl;
-        this.perfil_val = this.perfil();
-    }
-    InfoPasajeroSolPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad InfoPasajeroSolPage');
-    };
-    InfoPasajeroSolPage.prototype.perfil = function () {
-        return {
-            id: 1,
-            nombre: "Pepito Adolfo",
-            apellido: "Perez Hitler",
-            fotografia: "assets/imgs/profileOK.jpg",
-            ocupacion: 'Docente',
-            facultad: "FICA",
-            carrera: "Sistemas",
-            genero: "Masculino",
-            telefono: '09999999',
-            informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio',
-            auto: {
-                placa: "PCC0629",
-                modelo: "IBIZA",
-                marca: "SEAT",
-                color: "Negro",
-                imagen: "assets/imgs/01.png"
-            }
-        };
-    };
-    InfoPasajeroSolPage.prototype.dismiss = function () {
-        this.viewCtrl.dismiss();
-    };
-    InfoPasajeroSolPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-info-pasajero-sol',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\info-pasajero-sol\info-pasajero-sol.html"*/'<ion-header>\n  <ion-navbar color="danger" text-center>\n    <ion-buttons end style="margin-right: 2%;">\n      <button ion-button (click)="dismiss()">\n        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-grid>\n      <ion-row>\n        <ion-col>\n          <ion-buttons left>\n            <button ion-button icon-only clear>\n              <ion-icon name="person"></ion-icon>\n              <ion-title>informaci&oacute;n pasajero</ion-title>\n            </button>\n          </ion-buttons>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <div id="descripcion">\n    <div id="circular">\n      <img src="{{perfil_val.fotografia}}">\n    </div>\n    <h4 ion-text text-center>{{perfil_val.nombre}}</h4><br>\n    <h5>Informaci&oacute;n personal</h5><br>\n    <ion-row>\n      <ion-col>\n        {{perfil_val.informacion}}\n      </ion-col>\n    </ion-row>\n  </div>\n  <div style="padding: 0 10%;">\n    <ion-row>\n      <ion-col col-4>\n        <p><strong>Ocupaci&oacute;n</strong></p>\n        <p><strong>Facultad</strong></p>\n        <p><strong>Carrera</strong></p>\n      </ion-col>\n      <ion-col>\n        <p> {{perfil_val.ocupacion}}</p>\n        <p> {{perfil_val.facultad}}</p>\n        <p> {{perfil_val.carrera}}</p>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-icon start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>\n      <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>\n    </ion-row>\n  </div>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\info-pasajero-sol\info-pasajero-sol.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */]])
-    ], InfoPasajeroSolPage);
-    return InfoPasajeroSolPage;
-}());
-
-//# sourceMappingURL=info-pasajero-sol.js.map
 
 /***/ }),
 
@@ -1005,11 +1007,11 @@ var map = {
 		19
 	],
 	"../pages/det-ruta-c/det-ruta-c.module": [
-		306,
+		305,
 		18
 	],
 	"../pages/home-c-view-ruta/home-c-view-ruta.module": [
-		305,
+		306,
 		17
 	],
 	"../pages/info-pasajero-sol/info-pasajero-sol.module": [
@@ -1033,11 +1035,11 @@ var map = {
 		12
 	],
 	"../pages/set-map-origen/set-map-origen.module": [
-		313,
+		312,
 		11
 	],
 	"../pages/set-map-pto/set-map-pto.module": [
-		312,
+		313,
 		10
 	],
 	"../pages/viajes-conductor/viajes-conductor.module": [
@@ -1876,10 +1878,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_set_home_destino_set_home_destino__ = __webpack_require__(122);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_set_map_destino_set_map_destino__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_viajes_conductor_viajes_conductor__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_viajes_conductor_viajes_conductor__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_set_map_pto_set_map_pto__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_viajes_pub_c_viajes_pub_c__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_det_ruta_c_det_ruta_c__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_det_ruta_c_det_ruta_c__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_viajes_main_c_viajes_main_c__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_status_bar__ = __webpack_require__(218);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_splash_screen__ = __webpack_require__(219);
@@ -1894,7 +1896,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_viajes_reser_pasajero_viajes_reser_pasajero__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_viajes_reserv_detalles_viajes_reserv_detalles__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_perfil_perfil__ = __webpack_require__(121);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_info_pasajero_sol_info_pasajero_sol__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_info_pasajero_sol_info_pasajero_sol__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__providers_ruta_ruta__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_car_car__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__ionic_native_camera__ = __webpack_require__(175);
@@ -1975,15 +1977,15 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/car/car.module#CarPageModule', name: 'CarPage', segment: 'car', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/home-c-view-ruta/home-c-view-ruta.module#HomeCViewRutaPageModule', name: 'HomeCViewRutaPage', segment: 'home-c-view-ruta', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/det-ruta-c/det-ruta-c.module#DetRutaCPageModule', name: 'DetRutaCPage', segment: 'det-ruta-c', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/home-c-view-ruta/home-c-view-ruta.module#HomeCViewRutaPageModule', name: 'HomeCViewRutaPage', segment: 'home-c-view-ruta', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/info-pasajero-sol/info-pasajero-sol.module#InfoPasajeroSolPageModule', name: 'InfoPasajeroSolPage', segment: 'info-pasajero-sol', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/perfil/perfil.module#PerfilPageModule', name: 'PerfilPage', segment: 'perfil', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-home_origen/set-home.module#SetHomePageModule', name: 'SetHomePage', segment: 'set-home', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-home-destino/set-home-destino.module#SetHomeDestinoPageModule', name: 'SetHomeDestinoPage', segment: 'set-home-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-destino/set-map-destino.module#SetMapDestinoPageModule', name: 'SetMapDestinoPage', segment: 'set-map-destino', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/set-map-pto/set-map-pto.module#SetMapPtoPageModule', name: 'SetMapPtoPage', segment: 'set-map-pto', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-origen/set-map-origen.module#SetMapOrigenPageModule', name: 'SetMapOrigenPage', segment: 'set-map-origen', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/set-map-pto/set-map-pto.module#SetMapPtoPageModule', name: 'SetMapPtoPage', segment: 'set-map-pto', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-conductor/viajes-conductor.module#ViajesConductorPageModule', name: 'ViajesConductorPage', segment: 'viajes-conductor', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-destino/viajes-destino.module#ViajesDestinoPageModule', name: 'ViajesDestinoPage', segment: 'viajes-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-main-c/viajes-main-c.module#ViajesMainCPageModule', name: 'ViajesMainCPage', segment: 'viajes-main-c', priority: 'low', defaultHistory: [] },
@@ -2053,7 +2055,7 @@ var AppModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__viajes_origen_viajes_origen__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viajes_conductor_viajes_conductor__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viajes_conductor_viajes_conductor__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_home__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_ruta_ruta__ = __webpack_require__(51);
@@ -3001,7 +3003,7 @@ var SetMapOrigenPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViajesPubCPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__det_ruta_c_det_ruta_c__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__det_ruta_c_det_ruta_c__ = __webpack_require__(116);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);

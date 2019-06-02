@@ -37,6 +37,7 @@ import { InfoPasajeroSolPage } from '../pages/info-pasajero-sol/info-pasajero-so
 import { RutaProvider } from '../providers/ruta/ruta';
 import { CarPage } from '../pages/car/car';
 import { Camera } from '@ionic-native/camera';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { Camera } from '@ionic-native/camera';
     GoogleMaps,
     Geolocation,
     NativeGeocoder,
-    Camera, 
+    Camera,
+    SocialSharing, 
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HomeServiceProvider,
     DatesFormatProvider,
