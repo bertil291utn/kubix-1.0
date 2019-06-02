@@ -35,10 +35,10 @@
       </ion-col>
     </ion-row><br><br>
     <ion-row>
-      <ion-col col-3>
+      <ion-col>
         <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>
       </ion-col>
-      <ion-col col-3>
+      <ion-col (click)="sendWhatsapp(perfil_val.telefono)">
         <ion-icon item-start name="logo-whatsapp" color="iconos" style="font-size: 1.6em;"></ion-icon>
         &nbsp;&nbsp;&nbsp;WhatsApp
       </ion-col>

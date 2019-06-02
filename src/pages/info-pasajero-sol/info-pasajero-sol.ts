@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 
 
@@ -10,9 +11,10 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class InfoPasajeroSolPage {
   perfil_val;
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public viewCtrl: ViewController) {
+    public viewCtrl: ViewController,
+    private socialSharing: SocialSharing) {
     this.perfil_val = this.perfil();
   }
 
@@ -30,7 +32,7 @@ export class InfoPasajeroSolPage {
       facultad: "FICA",
       carrera: "Sistemas",
       genero: "Masculino",
-      telefono: '09999999',
+      telefono: '0984807620',
       informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio',
       auto: {
         placa: "PCC0629",
@@ -45,6 +47,25 @@ export class InfoPasajeroSolPage {
 
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  actionListenerSendWhatsapp(receiver: string, message: string) {
+    return this.socialSharing.shareViaWhatsAppToReceiver(receiver, message);
+  }
+
+  sendWhatsapp(receiver: string) {
+    //anadir nombres y apellidos
+    //traer los datos del usuario  de como esta logeado
+    let user = "Bertil Tandayamo";
+    let message: string = "Hola " + this.perfil_val.nombre +
+      "\nUsted habia solicitado compartir el viaje desde la aplicacion KUBIX-UTN" +
+      "\n*Atentamente:* " + user + "\n*PSD. Estoy estacionado por:* ";
+    receiver = receiver.replace('0', '593');
+    this.actionListenerSendWhatsapp(receiver, message).then((resp) => {
+      console.log('aplicacion abierta: ', resp);
+    }).catch((e) => {
+      console.log('error de envio: ', e);
+    });
   }
 
 }
