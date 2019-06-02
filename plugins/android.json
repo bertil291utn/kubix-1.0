@@ -43,6 +43,9 @@
     "cordova-plugin-x-socialsharing": {
       "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {

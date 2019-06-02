@@ -74,6 +74,9 @@
     <feature name="SocialSharing">
         <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
     </feature>
+    <feature name="CallNumber">
+        <param name="android-package" value="mx.ferreyra.callnumber.CFCallNumber" />
+    </feature>
     <name>Kubix</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>

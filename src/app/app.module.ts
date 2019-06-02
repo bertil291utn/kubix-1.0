@@ -38,6 +38,7 @@ import { RutaProvider } from '../providers/ruta/ruta';
 import { CarPage } from '../pages/car/car';
 import { Camera } from '@ionic-native/camera';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     Geolocation,
     NativeGeocoder,
     Camera,
-    SocialSharing, 
+    SocialSharing,
+    CallNumber, 
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HomeServiceProvider,
     DatesFormatProvider,

@@ -99,6 +99,10 @@
             {
               "xml": "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"CallNumber\"><param name=\"android-package\" value=\"mx.ferreyra.callnumber.CFCallNumber\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -195,6 +199,14 @@
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
               "count": 2
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.CALL_PHONE\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-feature android:name=\"android.hardware.telephony\" android:required=\"false\" />",
+              "count": 1
             }
           ],
           "application": [
@@ -252,6 +264,9 @@
     },
     "cordova-plugin-x-socialsharing": {
       "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "mx.ferreyra.callnumber": {
       "PACKAGE_NAME": "io.ionic.starter"
     }
   },
@@ -586,6 +601,14 @@
       "clobbers": [
         "window.plugins.socialsharing"
       ]
+    },
+    {
+      "id": "mx.ferreyra.callnumber.CallNumber",
+      "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
+      "pluginId": "mx.ferreyra.callnumber",
+      "clobbers": [
+        "call"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -600,6 +623,7 @@
     "cordova-sqlite-storage": "3.2.0",
     "cordova-plugin-camera": "4.0.3",
     "es6-promise-plugin": "4.2.2",
-    "cordova-plugin-x-socialsharing": "5.4.4"
+    "cordova-plugin-x-socialsharing": "5.4.4",
+    "mx.ferreyra.callnumber": "0.0.2"
   }
 }

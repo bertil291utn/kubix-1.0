@@ -10,7 +10,7 @@ webpackJsonp([20],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(93);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__info_pasajero_sol_info_pasajero_sol__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_home_service_home_service__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_home_service_home_service__ = __webpack_require__(32);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -78,6 +78,8 @@ var DetRutaCPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InfoPasajeroSolPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_social_sharing__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_call_number__ = __webpack_require__(325);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -89,11 +91,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
 var InfoPasajeroSolPage = (function () {
-    function InfoPasajeroSolPage(navCtrl, navParams, viewCtrl) {
+    function InfoPasajeroSolPage(navCtrl, navParams, viewCtrl, socialSharing, callNumber) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.viewCtrl = viewCtrl;
+        this.socialSharing = socialSharing;
+        this.callNumber = callNumber;
         this.perfil_val = this.perfil();
     }
     InfoPasajeroSolPage.prototype.ionViewDidLoad = function () {
@@ -109,7 +115,7 @@ var InfoPasajeroSolPage = (function () {
             facultad: "FICA",
             carrera: "Sistemas",
             genero: "Masculino",
-            telefono: '09999999',
+            telefono: '0984807620',
             informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio',
             auto: {
                 placa: "PCC0629",
@@ -123,15 +129,40 @@ var InfoPasajeroSolPage = (function () {
     InfoPasajeroSolPage.prototype.dismiss = function () {
         this.viewCtrl.dismiss();
     };
+    InfoPasajeroSolPage.prototype.actionListenerSendWhatsapp = function (receiver, message) {
+        return this.socialSharing.shareViaWhatsAppToReceiver(receiver, message);
+    };
+    InfoPasajeroSolPage.prototype.sendWhatsapp = function (receiver) {
+        //anadir nombres y apellidos
+        //traer los datos del usuario  de como esta logeado
+        var user = "Bertil Tandayamo";
+        var message = "Hola " + this.perfil_val.nombre +
+            "\nUsted habia solicitado compartir el viaje desde la aplicacion KUBIX-UTN" +
+            "\n*Atentamente:* " + user + "\n*PSD. Estoy estacionado por:* ";
+        receiver = receiver.replace('0', '593');
+        this.actionListenerSendWhatsapp(receiver, message).then(function (resp) {
+            console.log('aplicacion abierta: ', resp);
+        }).catch(function (e) {
+            console.log('error de envio: ', e);
+        });
+    };
+    InfoPasajeroSolPage.prototype.actionListenerCallNumber = function (numberToCall, bypassAppChooser) {
+        return this.callNumber.callNumber(numberToCall, bypassAppChooser);
+    };
+    InfoPasajeroSolPage.prototype.call_Number = function (numberToCall) {
+        numberToCall = numberToCall.replace('0', '593');
+        this.actionListenerCallNumber(numberToCall, true)
+            .then(function (res) { return console.log('Launched dialer!', res); })
+            .catch(function (err) { return console.log('Error launching dialer', err); });
+    };
     InfoPasajeroSolPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-info-pasajero-sol',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\info-pasajero-sol\info-pasajero-sol.html"*/'<ion-header>\n  <ion-navbar color="danger" text-center>\n    <ion-buttons end style="margin-right: 2%;">\n      <button ion-button (click)="dismiss()">\n        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-grid>\n      <ion-row>\n        <ion-col>\n          <ion-buttons left>\n            <button ion-button icon-only clear>\n              <ion-icon name="person"></ion-icon>\n              <ion-title>informaci&oacute;n pasajero</ion-title>\n            </button>\n          </ion-buttons>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <div id="descripcion">\n    <div id="circular">\n      <img src="{{perfil_val.fotografia}}">\n    </div>\n    <h4 ion-text text-center>{{perfil_val.nombre}}</h4><br>\n    <h5>Informaci&oacute;n personal</h5><br>\n    <ion-row>\n      <ion-col>\n        {{perfil_val.informacion}}\n      </ion-col>\n    </ion-row><br><br>\n    <ion-row>\n      <ion-col col-3>\n        <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>\n      </ion-col>\n      <ion-col col-3>\n        <ion-icon item-start name="logo-whatsapp" color="iconos" style="font-size: 1.6em;"></ion-icon>\n        &nbsp;&nbsp;&nbsp;WhatsApp\n      </ion-col>\n      <ion-col>\n        <ion-icon item-start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>\n        &nbsp;&nbsp;&nbsp;Llamar\n      </ion-col>\n    </ion-row>\n  </div>\n\n  <div style="padding: 0 10%;">\n    <ion-row>\n      <ion-col col-4>\n        <p><strong>Ocupaci&oacute;n</strong></p>\n        <p><strong>Facultad</strong></p>\n        <p><strong>Carrera</strong></p>\n      </ion-col>\n      <ion-col>\n        <p> {{perfil_val.ocupacion}}</p>\n        <p> {{perfil_val.facultad}}</p>\n        <p> {{perfil_val.carrera}}</p>\n      </ion-col>\n    </ion-row>\n\n  </div>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\info-pasajero-sol\info-pasajero-sol.html"*/,
+            selector: 'page-info-pasajero-sol',template:/*ion-inline-start:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\info-pasajero-sol\info-pasajero-sol.html"*/'<ion-header>\n  <ion-navbar color="danger" text-center>\n    <ion-buttons end style="margin-right: 2%;">\n      <button ion-button (click)="dismiss()">\n        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-grid>\n      <ion-row>\n        <ion-col>\n          <ion-buttons left>\n            <button ion-button icon-only clear>\n              <ion-icon name="person"></ion-icon>\n              <ion-title>informaci&oacute;n pasajero</ion-title>\n            </button>\n          </ion-buttons>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <div id="descripcion">\n    <div id="circular">\n      <img src="{{perfil_val.fotografia}}">\n    </div>\n    <h4 ion-text text-center>{{perfil_val.nombre}}</h4><br>\n    <h5>Informaci&oacute;n personal</h5><br>\n    <ion-row>\n      <ion-col>\n        {{perfil_val.informacion}}\n      </ion-col>\n    </ion-row><br><br>\n    <ion-row>\n      <ion-col>\n        <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>\n      </ion-col>\n      <ion-col (click)="sendWhatsapp(perfil_val.telefono)">\n        <ion-icon item-start name="logo-whatsapp" color="iconos" style="font-size: 1.6em;"></ion-icon>\n        &nbsp;&nbsp;&nbsp;WhatsApp\n      </ion-col>\n      <ion-col (click)="call_Number(perfil_val.telefono)">\n        <ion-icon item-start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>\n        &nbsp;&nbsp;&nbsp;Llamar\n      </ion-col>\n    </ion-row>\n  </div>\n\n  <div style="padding: 0 10%;">\n    <ion-row>\n      <ion-col col-4>\n        <p><strong>Ocupaci&oacute;n</strong></p>\n        <p><strong>Facultad</strong></p>\n        <p><strong>Carrera</strong></p>\n      </ion-col>\n      <ion-col>\n        <p> {{perfil_val.ocupacion}}</p>\n        <p> {{perfil_val.facultad}}</p>\n        <p> {{perfil_val.carrera}}</p>\n      </ion-col>\n    </ion-row>\n\n  </div>\n</ion-content>'/*ion-inline-end:"C:\Users\Bertil\Downloads\ionic_project_kubix\kubix1.1.3\src\pages\info-pasajero-sol\info-pasajero-sol.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_social_sharing__["a" /* SocialSharing */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_social_sharing__["a" /* SocialSharing */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_call_number__["a" /* CallNumber */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_call_number__["a" /* CallNumber */]) === "function" && _e || Object])
     ], InfoPasajeroSolPage);
     return InfoPasajeroSolPage;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=info-pasajero-sol.js.map
@@ -147,7 +178,7 @@ var InfoPasajeroSolPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__viajes_pub_c_viajes_pub_c__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__set_map_origen_set_map_origen__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_home_service_home_service__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_home_service_home_service__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__car_car__ = __webpack_require__(56);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -423,7 +454,7 @@ var ViajesReservDetallesPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PerfilPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_home_service_home_service__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_home_service_home_service__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__car_car__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_camera__ = __webpack_require__(91);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -611,7 +642,7 @@ var PerfilPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(26);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -807,7 +838,7 @@ var SetHomeDestinoPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(26);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1013,31 +1044,31 @@ webpackEmptyAsyncContext.id = 134;
 
 var map = {
 	"../pages/car/car.module": [
-		304,
+		305,
 		19
 	],
 	"../pages/det-ruta-c/det-ruta-c.module": [
-		305,
+		306,
 		18
 	],
 	"../pages/home-c-view-ruta/home-c-view-ruta.module": [
-		306,
+		307,
 		17
 	],
 	"../pages/info-pasajero-sol/info-pasajero-sol.module": [
-		307,
+		308,
 		16
 	],
 	"../pages/perfil/perfil.module": [
-		308,
+		309,
 		15
 	],
 	"../pages/set-home-destino/set-home-destino.module": [
-		310,
+		311,
 		14
 	],
 	"../pages/set-home_origen/set-home.module": [
-		309,
+		310,
 		13
 	],
 	"../pages/set-map-destino/set-map-destino.module": [
@@ -1045,15 +1076,15 @@ var map = {
 		12
 	],
 	"../pages/set-map-origen/set-map-origen.module": [
-		311,
+		313,
 		11
 	],
 	"../pages/set-map-pto/set-map-pto.module": [
-		313,
+		314,
 		10
 	],
 	"../pages/viajes-conductor/viajes-conductor.module": [
-		314,
+		316,
 		9
 	],
 	"../pages/viajes-destino/viajes-destino.module": [
@@ -1061,35 +1092,35 @@ var map = {
 		8
 	],
 	"../pages/viajes-main-c/viajes-main-c.module": [
-		316,
+		317,
 		7
 	],
 	"../pages/viajes-origen-destino/viajes-origen-destino.module": [
-		317,
+		318,
 		6
 	],
 	"../pages/viajes-origen/viajes-origen.module": [
-		318,
+		319,
 		5
 	],
 	"../pages/viajes-pasajero-detail/viajes-pasajero-detail.module": [
-		319,
+		320,
 		4
 	],
 	"../pages/viajes-pasajero/viajes-pasajero.module": [
-		320,
+		321,
 		3
 	],
 	"../pages/viajes-pub-c/viajes-pub-c.module": [
-		321,
+		322,
 		2
 	],
 	"../pages/viajes-reser-pasajero/viajes-reser-pasajero.module": [
-		322,
+		323,
 		1
 	],
 	"../pages/viajes-reserv-detalles/viajes-reserv-detalles.module": [
-		323,
+		324,
 		0
 	]
 };
@@ -1109,7 +1140,7 @@ module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 178:
+/***/ 179:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1228,7 +1259,7 @@ var DatesFormatProvider = (function () {
 
 /***/ }),
 
-/***/ 220:
+/***/ 221:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1236,7 +1267,7 @@ var DatesFormatProvider = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(26);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1420,7 +1451,7 @@ var SetHomePage = (function () {
 
 /***/ }),
 
-/***/ 221:
+/***/ 222:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1428,8 +1459,8 @@ var SetHomePage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_html2canvas__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_html2canvas__ = __webpack_require__(285);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_html2canvas___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_html2canvas__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1619,7 +1650,7 @@ var SetMapPtoPage = (function () {
 
 /***/ }),
 
-/***/ 222:
+/***/ 223:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1629,7 +1660,7 @@ var SetMapPtoPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__set_home_destino_set_home_destino__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__set_map_destino_set_map_destino__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_geolocation__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_geolocation__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_google_maps__ = __webpack_require__(25);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1811,7 +1842,7 @@ var ViajesDestinoPage = (function () {
 
 /***/ }),
 
-/***/ 223:
+/***/ 224:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1855,13 +1886,13 @@ var ViajesMainCPage = (function () {
 
 /***/ }),
 
-/***/ 224:
+/***/ 225:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(248);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(249);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1869,7 +1900,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 248:
+/***/ 249:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1877,31 +1908,31 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(302);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_list_list__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_list_list__ = __webpack_require__(304);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_viajes_origen_destino_viajes_origen_destino__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_viajes_origen_viajes_origen__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_viajes_destino_viajes_destino__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_set_home_origen_set_home__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_viajes_destino_viajes_destino__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_set_home_origen_set_home__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_set_map_origen_set_map_origen__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_set_home_destino_set_home_destino__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_set_map_destino_set_map_destino__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_viajes_conductor_viajes_conductor__ = __webpack_require__(119);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_set_map_pto_set_map_pto__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_set_map_pto_set_map_pto__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_viajes_pub_c_viajes_pub_c__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_det_ruta_c_det_ruta_c__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_viajes_main_c_viajes_main_c__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_status_bar__ = __webpack_require__(218);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_splash_screen__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_viajes_main_c_viajes_main_c__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_status_bar__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_splash_screen__ = __webpack_require__(220);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_google_maps__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_geolocation__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_geolocation__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_native_geocoder__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_storage__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_home_service_home_service__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_home_service_home_service__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_viajes_pasajero_viajes_pasajero__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__providers_dates_format_dates_format__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__providers_dates_format_dates_format__ = __webpack_require__(179);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_viajes_pasajero_detail_viajes_pasajero_detail__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_viajes_reser_pasajero_viajes_reser_pasajero__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_viajes_reserv_detalles_viajes_reserv_detalles__ = __webpack_require__(121);
@@ -1910,13 +1941,15 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__providers_ruta_ruta__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_car_car__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__ionic_native_camera__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_social_sharing__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_social_sharing__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__ionic_native_call_number__ = __webpack_require__(325);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1995,11 +2028,11 @@ var AppModule = (function () {
                         { loadChildren: '../pages/perfil/perfil.module#PerfilPageModule', name: 'PerfilPage', segment: 'perfil', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-home_origen/set-home.module#SetHomePageModule', name: 'SetHomePage', segment: 'set-home', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-home-destino/set-home-destino.module#SetHomeDestinoPageModule', name: 'SetHomeDestinoPage', segment: 'set-home-destino', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/set-map-origen/set-map-origen.module#SetMapOrigenPageModule', name: 'SetMapOrigenPage', segment: 'set-map-origen', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-destino/set-map-destino.module#SetMapDestinoPageModule', name: 'SetMapDestinoPage', segment: 'set-map-destino', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/set-map-origen/set-map-origen.module#SetMapOrigenPageModule', name: 'SetMapOrigenPage', segment: 'set-map-origen', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/set-map-pto/set-map-pto.module#SetMapPtoPageModule', name: 'SetMapPtoPage', segment: 'set-map-pto', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/viajes-conductor/viajes-conductor.module#ViajesConductorPageModule', name: 'ViajesConductorPage', segment: 'viajes-conductor', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-destino/viajes-destino.module#ViajesDestinoPageModule', name: 'ViajesDestinoPage', segment: 'viajes-destino', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/viajes-conductor/viajes-conductor.module#ViajesConductorPageModule', name: 'ViajesConductorPage', segment: 'viajes-conductor', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-main-c/viajes-main-c.module#ViajesMainCPageModule', name: 'ViajesMainCPage', segment: 'viajes-main-c', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-origen-destino/viajes-origen-destino.module#ViajesOrigenDestinoPageModule', name: 'ViajesOrigenDestinoPage', segment: 'viajes-origen-destino', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viajes-origen/viajes-origen.module#ViajesOrigenPageModule', name: 'ViajesOrigenPage', segment: 'viajes-origen', priority: 'low', defaultHistory: [] },
@@ -2046,6 +2079,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_23__ionic_native_native_geocoder__["a" /* NativeGeocoder */],
                 __WEBPACK_IMPORTED_MODULE_35__ionic_native_camera__["a" /* Camera */],
                 __WEBPACK_IMPORTED_MODULE_36__ionic_native_social_sharing__["a" /* SocialSharing */],
+                __WEBPACK_IMPORTED_MODULE_37__ionic_native_call_number__["a" /* CallNumber */],
                 { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicErrorHandler */] },
                 __WEBPACK_IMPORTED_MODULE_25__providers_home_service_home_service__["a" /* HomeServiceProvider */],
                 __WEBPACK_IMPORTED_MODULE_27__providers_dates_format_dates_format__["a" /* DatesFormatProvider */],
@@ -2179,18 +2213,18 @@ var HomeCViewRutaPage = (function () {
 
 /***/ }),
 
-/***/ 302:
+/***/ 303:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(218);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(220);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_viajes_pub_c_viajes_pub_c__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_home_service_home_service__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_home_service_home_service__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_viajes_pasajero_viajes_pasajero__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_viajes_reser_pasajero_viajes_reser_pasajero__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_perfil_perfil__ = __webpack_require__(122);
@@ -2346,7 +2380,7 @@ var MyApp = (function () {
 
 /***/ }),
 
-/***/ 303:
+/***/ 304:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2403,7 +2437,7 @@ var ListPage = (function () {
 
 /***/ }),
 
-/***/ 31:
+/***/ 32:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2563,7 +2597,7 @@ var RutaProvider = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_home_service_home_service__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_home_service_home_service__ = __webpack_require__(32);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2923,7 +2957,7 @@ var ViajesOrigenPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_google_maps__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_c_view_ruta_home_c_view_ruta__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_ruta_ruta__ = __webpack_require__(51);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3307,7 +3341,7 @@ var ViajesPubCPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViajesPasajeroPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_dates_format_dates_format__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_dates_format_dates_format__ = __webpack_require__(179);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viajes_pasajero_detail_viajes_pasajero_detail__ = __webpack_require__(120);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3610,7 +3644,7 @@ var ViajesOrigenDestinoPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_home_service_home_service__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_home_service_home_service__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__viajes_pasajero_viajes_pasajero__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__viajes_origen_destino_viajes_origen_destino__ = __webpack_require__(62);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3677,5 +3711,5 @@ var HomePage = (function () {
 
 /***/ })
 
-},[224]);
+},[225]);
 //# sourceMappingURL=main.js.map

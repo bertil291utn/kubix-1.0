@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { CallNumber } from '@ionic-native/call-number';
 
 
 
@@ -14,7 +15,8 @@ export class InfoPasajeroSolPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    private socialSharing: SocialSharing) {
+    private socialSharing: SocialSharing,
+    private callNumber: CallNumber) {
     this.perfil_val = this.perfil();
   }
 
@@ -66,6 +68,17 @@ export class InfoPasajeroSolPage {
     }).catch((e) => {
       console.log('error de envio: ', e);
     });
+  }
+
+  actionListenerCallNumber(numberToCall: string, bypassAppChooser: boolean) {
+    return this.callNumber.callNumber(numberToCall, bypassAppChooser);
+  }
+
+  call_Number(numberToCall: string) {
+    numberToCall = numberToCall.replace('0', '593');
+    this.actionListenerCallNumber(numberToCall, true)
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
   }
 
 }

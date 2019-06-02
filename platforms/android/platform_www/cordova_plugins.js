@@ -329,6 +329,14 @@ module.exports = [
     "clobbers": [
       "window.plugins.socialsharing"
     ]
+  },
+  {
+    "id": "mx.ferreyra.callnumber.CallNumber",
+    "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
+    "pluginId": "mx.ferreyra.callnumber",
+    "clobbers": [
+      "call"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -345,7 +353,8 @@ module.exports.metadata =
   "cordova-sqlite-storage": "3.2.0",
   "cordova-plugin-camera": "4.0.3",
   "es6-promise-plugin": "4.2.2",
-  "cordova-plugin-x-socialsharing": "5.4.4"
+  "cordova-plugin-x-socialsharing": "5.4.4",
+  "mx.ferreyra.callnumber": "0.0.2"
 };
 // BOTTOM OF METADATA
 });

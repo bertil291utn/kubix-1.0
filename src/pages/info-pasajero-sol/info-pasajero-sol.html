@@ -42,7 +42,7 @@
         <ion-icon item-start name="logo-whatsapp" color="iconos" style="font-size: 1.6em;"></ion-icon>
         &nbsp;&nbsp;&nbsp;WhatsApp
       </ion-col>
-      <ion-col>
+      <ion-col (click)="call_Number(perfil_val.telefono)">
         <ion-icon item-start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
         &nbsp;&nbsp;&nbsp;Llamar
       </ion-col>

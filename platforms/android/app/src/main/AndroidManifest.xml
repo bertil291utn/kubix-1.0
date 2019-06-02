@@ -32,4 +32,6 @@
     <uses-feature android:name="android.hardware.location" />
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
 </manifest>
