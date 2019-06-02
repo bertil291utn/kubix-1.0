@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ItemSliding } from 'ionic-angular';
 import { SetHomePage } from '../set-home_origen/set-home';
 import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
@@ -64,7 +64,7 @@ export class ViajesOrigenPage {
       this.routeCreate.origenDir = this.utnDir;
       console.log(' setmap this.routeCreate.origenLatLng: ', this.routeCreate.origenLatLng)
       console.log(' setmap this.routeCreate.origenDir: ', this.routeCreate.origenDir)
-      
+
     } else {
       this.routeCreate.destinoLatLng = this.utnLatLng;
       this.routeCreate.destinoDir = this.utnDir;
@@ -84,6 +84,24 @@ export class ViajesOrigenPage {
     });
     contactModal.present();
 
+
+  }
+
+  editHome(setmap: boolean, slidingItem: ItemSliding) {
+    let contactModal = this.modalCtrl.create(SetMapOrigenPage, {
+      setmap: setmap,
+      utnOrigen: this.utnOrigen
+    });
+
+    contactModal.onDidDismiss(data => {
+      console.log('data es despues de dismis: ', data);
+      if (data != undefined)
+        this.casa = data;
+    });
+    //se abre la pagina set to map
+    contactModal.present();
+    //se cierra el sliding de editar casa
+    slidingItem.close();
 
   }
 
@@ -114,7 +132,7 @@ export class ViajesOrigenPage {
   }
 
 
-  goToViewRoute(casa:boolean) {
+  goToViewRoute(casa: boolean) {
     //Cuando utn es origen 
     if (this.utnOrigen)
       // if (casa)

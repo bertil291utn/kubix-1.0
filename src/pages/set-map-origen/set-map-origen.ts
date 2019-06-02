@@ -165,7 +165,7 @@ export class SetMapOrigenPage {
         //this.varDir ;this.varLatLng
         this.returnValues();
       }
-
+    //this ubicacion viene cunado el conductor establece punto de encuentro viaje-conductor page 
     if (this.ubicacion) {
       let data = { ubicacionLatLng: this.varLatLng };
       this.viewCtrl.dismiss(data);
@@ -179,7 +179,8 @@ export class SetMapOrigenPage {
   }
 
   returnValues() {
-    let data = { casa: true };
+    //casa verdadero para que el template se visualice en viaje-origen page
+    let data = { casa: true, ubicacionLatLng: this.varLatLng };
     this.viewCtrl.dismiss(data);
 
   }

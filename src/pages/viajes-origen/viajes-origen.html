@@ -24,10 +24,10 @@
           </ion-item>
         </ion-card>
         <ion-card *ngIf="!utnOrigen">
-            <ion-item color="origencard">
-              Universidad T&eacute;cnica del Norte
-            </ion-item>
-          </ion-card>
+          <ion-item color="origencard">
+            Universidad T&eacute;cnica del Norte
+          </ion-item>
+        </ion-card>
       </ion-item>
     </ion-list>
   </ion-toolbar>
@@ -36,11 +36,19 @@
 
 <ion-content>
   <ion-list *ngIf="utnOrigen">
-    <ion-item *ngIf="casa" (click)="goToViewRoute(true)">
-      <ion-icon name="home" color="iconos" item-start></ion-icon>
-      <h2>Casa</h2>
-      <p ion-text>Av. 17 de Julio</p>
-    </ion-item>
+    <ion-item-sliding #slidingItem>
+      <ion-item *ngIf="casa" (click)="goToViewRoute(true)">
+        <ion-icon name="home" color="iconos" item-start></ion-icon>
+        <h2>Casa</h2>
+        <p ion-text>Av. 17 de Julio</p>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="editHome(false,slidingItem)">
+          <ion-icon name="create"></ion-icon>
+          cambiar
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
     <ion-item *ngIf="!casa" (click)="goToSetMap(false)">
       <ion-icon name="home" color="iconos" item-start></ion-icon>
       <h2>Casa</h2>
@@ -65,24 +73,32 @@
   </ion-list>
 
   <ion-list *ngIf="!utnOrigen">
-      <ion-item (click)="goToViewRoute(false)" tappable>
-        <ion-icon name="locate" color="primary" item-start></ion-icon>
-        Tu ubicaci&oacute;n actual
-      </ion-item>
+    <ion-item (click)="goToViewRoute(false)" tappable>
+      <ion-icon name="locate" color="primary" item-start></ion-icon>
+      Tu ubicaci&oacute;n actual
+    </ion-item>
+    <ion-item-sliding #slidingItem>
       <ion-item *ngIf="casa" (click)="goToViewRoute(true)">
         <ion-icon name="home" color="iconos" item-start></ion-icon>
         <h2>Casa</h2>
         <p ion-text>Av. 17 de Julio</p>
       </ion-item>
-      <ion-item *ngIf="!casa" (click)="goToSetMap(false)">
-        <ion-icon name="home" color="iconos" item-start></ion-icon>
-        <h2>Casa</h2>
-        <p ion-text color="iconos"> <strong> Anadir direcci&oacute;n</strong></p>
-      </ion-item>
-      <ion-item (click)="goToSetMap(true)">
-        <ion-icon name="map" color="iconos" item-start></ion-icon>
-        Seleccionar mapa
-      </ion-item>
-    </ion-list>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="editHome(false,slidingItem)">
+          <ion-icon name="create"></ion-icon>
+          cambiar
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item *ngIf="!casa" (click)="goToSetMap(false)">
+      <ion-icon name="home" color="iconos" item-start></ion-icon>
+      <h2>Casa</h2>
+      <p ion-text color="iconos"> <strong> Anadir direcci&oacute;n</strong></p>
+    </ion-item>
+    <ion-item (click)="goToSetMap(true)">
+      <ion-icon name="map" color="iconos" item-start></ion-icon>
+      Seleccionar mapa
+    </ion-item>
+  </ion-list>
 
 </ion-content>
