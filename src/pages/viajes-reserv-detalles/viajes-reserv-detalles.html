@@ -117,16 +117,18 @@
       </ion-row>
       <br><br>
       <ion-row>
-        <ion-col col-3>
+        <ion-col>
           <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{viajedet.conductor.telefono}}</strong>
         </ion-col>
-        <ion-col col-3>
+        <ion-col (click)="sendWhatsapp(viajedet.conductor.telefono)">
           <ion-icon item-start name="logo-whatsapp" color="iconos" style="font-size: 1.6em;"></ion-icon>
           &nbsp;&nbsp;&nbsp;WhatsApp
         </ion-col>
         <ion-col>
-          <ion-icon item-start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
+          <a [href]="'tel:'+viajedet.conductor.telefono" style="text-decoration:none;color: black;">
+          <ion-icon item-start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon> 
           &nbsp;&nbsp;&nbsp;Llamar
+        </a>
         </ion-col>
       </ion-row>
 

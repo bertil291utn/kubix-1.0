@@ -70,7 +70,7 @@ export class ViajesReserPasajeroPage {
         facultad: "FICA",
         carrera: "Sistemas",
         genero: "Masculino",
-        telefono: '09999999',
+        telefono: '0984807620',
         informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio'
       },
       estado: 0
@@ -103,7 +103,7 @@ export class ViajesReserPasajeroPage {
         facultad: "FCCSS",
         carrera: "Enfermeria",
         genero: "Femenino",
-        telefono: '0888888',
+        telefono: '0984807620',
         informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio'
       },
       estado: 1

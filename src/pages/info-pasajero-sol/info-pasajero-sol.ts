@@ -12,6 +12,7 @@ import { CallNumber } from '@ionic-native/call-number';
 })
 export class InfoPasajeroSolPage {
   perfil_val;
+  //telefono: string;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
@@ -21,6 +22,7 @@ export class InfoPasajeroSolPage {
   }
 
   ionViewDidLoad() {
+    //this.telefono = "tel:" + this.perfil_val.telefono;
     console.log('ionViewDidLoad InfoPasajeroSolPage');
   }
 
@@ -75,8 +77,7 @@ export class InfoPasajeroSolPage {
   }
 
   call_Number(numberToCall: string) {
-    numberToCall = numberToCall.replace('0', '593');
-    this.actionListenerCallNumber(numberToCall, true)
+    this.actionListenerCallNumber(numberToCall, false)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
   }

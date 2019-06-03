@@ -79,7 +79,7 @@
             <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>
           </ion-col>
           <ion-col *ngIf="editarBoton" style="background-color: #ebebeb;" col-5>
-            <ion-input type="number" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
+            <ion-input type="tel" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
             </ion-input>
           </ion-col>
         </ion-row>
@@ -96,7 +96,7 @@
         <ion-row>
           <ion-icon slot="icon-only" name="call" style="font-size: 1.8em;" color="iconos"></ion-icon>
           <ion-col style="background-color: #ebebeb;" col-5>
-            <ion-input type="number" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
+            <ion-input type="tel" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
             </ion-input>
           </ion-col>
         </ion-row>
