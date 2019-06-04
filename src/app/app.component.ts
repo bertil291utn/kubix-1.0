@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController, MenuController } from 'ionic-angular';
+import { Nav, Platform, AlertController, MenuController, Slides } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -11,6 +11,7 @@ import { ViajesPasajeroPage } from '../pages/viajes-pasajero/viajes-pasajero';
 import { ViajesReserPasajeroPage } from '../pages/viajes-reser-pasajero/viajes-reser-pasajero';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { CompileMetadataResolver } from '@angular/compiler';
+import { SlidesPage } from '../pages/slides/slides';
 
 @Component({
   selector: 'page-menu',
@@ -23,7 +24,7 @@ export class MyApp {
   pasajero: boolean = false;
   conductor: boolean = true;
   //solicitud: boolean = false;
-  rootPage: any = HomePage;
+  rootPage: any = SlidesPage;
   pages: Array<{ title: string, component: any, icono: string }>;
   pages_pas: Array<{ title: string, component: any, icono: string }>;
 

@@ -39,6 +39,7 @@ import { CarPage } from '../pages/car/car';
 import { Camera } from '@ionic-native/camera';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { CallNumber } from '@ionic-native/call-number';
+import { SlidesPage } from '../pages/slides/slides';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { CallNumber } from '@ionic-native/call-number';
     ViajesReservDetallesPage,
     PerfilPage,
     InfoPasajeroSolPage,
-    CarPage
+    CarPage,
+    SlidesPage
   ],
   imports: [
     BrowserModule,
@@ -95,7 +97,8 @@ import { CallNumber } from '@ionic-native/call-number';
     ViajesReservDetallesPage,
     PerfilPage,
     InfoPasajeroSolPage,
-    CarPage
+    CarPage,
+    SlidesPage
   ],
   providers: [
     StatusBar,
