@@ -84,7 +84,7 @@ export class PerfilPage {
       this.addBoton = false;
     }
 
-    //volver a traer datos desde base de datos para ver el autmovil editado o guardado
+    //volver a traer datos desde base de datos para ver el autmovil editado o guardado REFRESH
 
   }
 

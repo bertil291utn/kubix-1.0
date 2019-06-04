@@ -88,8 +88,7 @@
         <br>
         <h5>Informaci&oacute;n personal</h5><br>
         <ion-row>
-          <ion-textarea style="background-color: #ebebeb;" rows="4" cols="20"
-            [(ngModel)]="personalData" color="danger"
+          <ion-textarea style="background-color: #ebebeb;" rows="4" cols="20" [(ngModel)]="personalData" color="danger"
             placeholder="Ingrese informacion personal. Ej. Me gusta la puntulidad, no me gusta..., no se permite fumar ">
           </ion-textarea>
         </ion-row><br><br>
@@ -226,53 +225,89 @@
 </ion-content>
 
 <ion-content *ngIf="!conductor">
-  <div style="box-shadow: 0 4px 2px -2px #e0e0e0;" padding>
+  <div *ngIf="editarBoton||addBoton" style="box-shadow: 0 4px 2px -2px #e0e0e0;" padding>
     <ion-row>
       <ion-col col-2>
-        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
+        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;" (click)="closeDialogEditSave()">
+        </ion-icon>
       </ion-col>
-      <ion-col><strong style="font-size: 1.7rem;">Editar perfil</strong></ion-col>
+      <ion-col><strong style="font-size: 1.7rem;">
+          <div *ngIf="editarBoton">Editar perfil</div>
+          <div *ngIf="addBoton||!profileExists">Guardar perfil</div>
+        </strong></ion-col>
       <ion-col text-right>
-        <ion-icon slot="icon-only" color="primary" name="checkmark" style="font-size: 1.8em;"></ion-icon>
+        <ion-icon slot="icon-only" color="primary" name="checkmark" style="font-size: 1.8em;" (click)="saveAndEdit()">
+        </ion-icon>
       </ion-col>
     </ion-row>
   </div>
-  <div id="descripcion">
+
+  <ion-grid id="descripcion">
     <div id="circular">
-      <img src="{{perfil_val.fotografia}}">
+      <img class="imgbck" src="{{perfil_val.fotografia}}">
     </div>
+
     <h4 style="margin-bottom: 1%;" ion-text text-center>{{perfil_val.nombre}}</h4>
-    <ion-row>
-      <button small ion-button round color="danger" outline style="font-size:1.1rem;margin:auto;">Editar
-        perfil</button>
-    </ion-row><br>
-    <h5>Informaci&oacute;n personal</h5><br>
-    <ion-row>
-      <ion-col>
-        {{perfil_val.informacion}}
-      </ion-col>
+    <div *ngIf="profileExists">
+      <ion-row>
+        <button (click)="actionEditButton()" *ngIf="!editarBoton" small ion-button round color="danger" outline
+          style="font-size:1.1rem;margin:auto;">Editar perfil</button>
+      </ion-row>
 
-    </ion-row><br><br>
-    <ion-row>
-      <ion-col>
-        <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>
-      </ion-col>
-    </ion-row>
-  </div>
-  <div style="padding: 0 10%;">
-    <ion-row>
-      <ion-col col-4>
-        <p><strong>Ocupaci&oacute;n</strong></p>
-        <p><strong>Facultad</strong></p>
-        <p><strong>Carrera</strong></p>
-      </ion-col>
-      <ion-col>
-        <p> {{perfil_val.ocupacion}}</p>
-        <p> {{perfil_val.facultad}}</p>
-        <p> {{perfil_val.carrera}}</p>
-      </ion-col>
-    </ion-row>
+      <br>
+      <h5>Informaci&oacute;n personal</h5><br>
+      <ion-row>
+        <ion-col *ngIf="!editarBoton">
+          {{perfil_val.informacion}}
+        </ion-col>
+        <ion-textarea style="background-color: #ebebeb;" *ngIf="editarBoton" rows="4" cols="20"
+          [(ngModel)]="personalData" color="danger"
+          placeholder="Ingrese informacion reeveante acerca de usted con respecto a un viaje Ej. Me gusta, no me gusta, no se permite fumar  ">
+        </ion-textarea>
+      </ion-row><br><br>
+      <ion-row>
+        <ion-icon slot="icon-only" name="call" style="font-size: 1.8em;" color="iconos"></ion-icon>
+        <ion-col *ngIf="!editarBoton">
+          <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>
+        </ion-col>
+        <ion-col *ngIf="editarBoton" style="background-color: #ebebeb;" col-5>
+          <ion-input type="tel" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
+          </ion-input>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="!profileExists">
+      <br>
+      <h5>Informaci&oacute;n personal</h5><br>
+      <ion-row>
+        <ion-textarea style="background-color: #ebebeb;" rows="4" cols="20" [(ngModel)]="personalData" color="danger"
+          placeholder="Ingrese informacion personal. Ej. Me gusta la puntulidad, no me gusta..., no se permite fumar ">
+        </ion-textarea>
+      </ion-row><br><br>
+      <ion-row>
+        <ion-icon slot="icon-only" name="call" style="font-size: 1.8em;" color="iconos"></ion-icon>
+        <ion-col style="background-color: #ebebeb;" col-5>
+          <ion-input type="tel" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
+          </ion-input>
+        </ion-col>
+      </ion-row>
 
-  </div>
+    </div>
+    <h5>Informaci&oacute;n acad&eacute;mica</h5>
+    <div>
+      <ion-row>
+        <ion-col col-4>
+          <p><strong>Ocupaci&oacute;n</strong></p>
+          <p><strong>Facultad</strong></p>
+          <p><strong>Carrera</strong></p>
+        </ion-col>
+        <ion-col>
+          <p> {{perfil_val.ocupacion}}</p>
+          <p> {{perfil_val.facultad}}</p>
+          <p> {{perfil_val.carrera}}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
 
 </ion-content>

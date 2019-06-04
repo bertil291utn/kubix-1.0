@@ -21,8 +21,8 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   evento;
   radiobtn;
-  pasajero: boolean = false;
-  conductor: boolean = true;
+  pasajero: boolean = true;
+  conductor: boolean = false;
   //solicitud: boolean = false;
   rootPage: any = SlidesPage;
   pages: Array<{ title: string, component: any, icono: string }>;
