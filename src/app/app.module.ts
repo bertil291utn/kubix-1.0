@@ -40,6 +40,7 @@ import { Camera } from '@ionic-native/camera';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { CallNumber } from '@ionic-native/call-number';
 import { SlidesPage } from '../pages/slides/slides';
+import { LoginPage } from '../pages/login/login';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { SlidesPage } from '../pages/slides/slides';
     PerfilPage,
     InfoPasajeroSolPage,
     CarPage,
-    SlidesPage
+    SlidesPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -98,7 +100,8 @@ import { SlidesPage } from '../pages/slides/slides';
     PerfilPage,
     InfoPasajeroSolPage,
     CarPage,
-    SlidesPage
+    SlidesPage,
+    LoginPage
   ],
   providers: [
     StatusBar,

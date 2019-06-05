@@ -1,0 +1,31 @@
+<ion-content>
+  <br><br><br><br><br>
+  <img class="center" src="assets/imgs/loginImg.svg">
+  <br><br><br>
+  <div style="padding: 0 40px;">
+    <ion-row>
+      <ion-col>
+        <ion-item no-lines style="border: 1.5px solid #898989;background-color: #ffffffbd;">
+          <!-- <ion-icon name="person" color="iconos" item-start></ion-icon> -->
+          <ion-input placeholder="ID/Passport" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item no-lines style="border: 1.5px solid #898989;background-color: #ffffffbd;">
+          <!-- <ion-icon name="key" color="iconos" item-start></ion-icon> -->
+          <ion-input type="password" placeholder="Contrasena" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-right>
+        <ion-label color="iconos">Olvidaste tu contrase&ntilde;a?</ion-label>
+      </ion-col>
+    </ion-row>
+    <br>
+    <button full ion-button color="danger" (click)="goToHome()">ingresar</button>
+  </div>
+
+</ion-content>

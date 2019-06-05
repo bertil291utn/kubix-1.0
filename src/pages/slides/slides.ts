@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, Nav } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
 
 
 @IonicPage()
@@ -23,7 +24,7 @@ export class SlidesPage {
 
   reachedEnd() {
 
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.setRoot(LoginPage);
   }
 
 

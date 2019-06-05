@@ -1,0 +1,41 @@
+page-login {
+  .content {
+    background-color: #d5cdcb;
+    text-align: center;
+  }
+
+  .subcontent {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .card {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    margin: 0px;
+  }
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  ion-item {
+    border-radius: 15px;
+  }
+  .button {
+    border-radius: 10px;
+  }
+
+  .lineaBorder {
+    border: 1.5px solid #424242a1;
+  }
+
+  .text-input {
+    font-weight: bold;
+  }
+}
