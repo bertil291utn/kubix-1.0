@@ -34,6 +34,7 @@ export class ViajesPasajeroDetailPage {
   }
 
   showAlert() {
+    //revisar si acepta los terminos est marcado
     if (this.evento)
       this.createAlert();
     else

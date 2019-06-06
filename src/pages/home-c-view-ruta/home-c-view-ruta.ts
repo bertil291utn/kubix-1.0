@@ -19,8 +19,8 @@ declare var html2canvas;
 export class HomeCViewRutaPage {
   @ViewChild('map_canvas') mapElement: ElementRef;
   public map: any;
-  // directionsService = new google.maps.DirectionsService;
-  // directionsDisplay = new google.maps.DirectionsRenderer;
+  directionsService = new google.maps.DirectionsService;
+  directionsDisplay = new google.maps.DirectionsRenderer;
   origenLatLng;
   destinoLatLng;
   origenDir;
@@ -48,34 +48,34 @@ export class HomeCViewRutaPage {
   ionViewDidLoad() {
 
     console.log('ionViewDidLoad HomeCViewRutaPage');
-    //this.initMapa();
+    this.initMapa();
 
 
   }
 
-  // initMapa() {
-  //   this.map = new google.maps.Map(this.mapElement.nativeElement, {
-  //     zoom: 7,
-  //     disableDefaultUI: true
-  //   });
-  //   //this.map = GoogleMaps.create(this.mapElement.nativeElement);
-  //   this.directionsDisplay.setMap(this.map);
-  //   this.calculateAndDisplayRoute();
-  // }
+  initMapa() {
+    this.map = new google.maps.Map(this.mapElement.nativeElement, {
+      zoom: 7,
+      disableDefaultUI: true
+    });
+    //this.map = GoogleMaps.create(this.mapElement.nativeElement);
+    this.directionsDisplay.setMap(this.map);
+    this.calculateAndDisplayRoute();
+  }
 
-  // calculateAndDisplayRoute() {
-  //   this.directionsService.route({
-  //     origin: this.origenLatLng,
-  //     destination: this.destinoLatLng,
-  //     travelMode: 'DRIVING'
-  //   }, (response, status) => {
-  //     if (status === 'OK') {
-  //       this.directionsDisplay.setDirections(response);
-  //     } else {
-  //       window.alert('Directions request failed due to ' + status);
-  //     }
-  //   });
-  // }
+  calculateAndDisplayRoute() {
+    this.directionsService.route({
+      origin: this.origenLatLng,
+      destination: this.destinoLatLng,
+      travelMode: 'DRIVING'
+    }, (response, status) => {
+      if (status === 'OK') {
+        this.directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
 
   goToutnDestino() {
 

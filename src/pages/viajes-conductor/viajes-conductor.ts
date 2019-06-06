@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController, App } from 'ionic-angular';
 import { SetMapPtoPage } from '../set-map-pto/set-map-pto';
 import { ViajesPubCPage } from '../viajes-pub-c/viajes-pub-c';
 import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
@@ -14,6 +14,7 @@ import { CarPage } from '../car/car';
   templateUrl: 'viajes-conductor.html',
 })
 export class ViajesConductorPage {
+
   public proceso = 'horario';
   repeat = 2
   dia = new Date().getDay();
@@ -30,9 +31,13 @@ export class ViajesConductorPage {
 
   constructor(public navparams: NavParams, public navCtrl: NavController,
     public navParams: NavParams, public alertCtrl: AlertController,
-    public modalCtrl: ModalController, public myservices: HomeServiceProvider) {
+    public modalCtrl: ModalController, public myservices: HomeServiceProvider, private app: App) {
 
     this.setHour();
+    let p = app.getActiveNavs();
+    console.log('navigation app: ', p)
+    let q=navCtrl.getViews();
+    console.log('navigation navctrl: ', q)
 
   }
 
@@ -67,6 +72,8 @@ export class ViajesConductorPage {
       buttons: [{
         text: 'Aceptar',
         handler: () => {
+          // this.navCtrl.insert(0, ViajesPubCPage);
+          // this.navCtrl.popToRoot();
           this.navCtrl.setRoot(ViajesPubCPage);
         }
       }]

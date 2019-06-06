@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ViewController, App } from 'ionic-angular';
 import { GoogleMap, Marker, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
@@ -26,7 +26,8 @@ export class SetMapOrigenPage {
     public nav: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    public routeCreate: RutaProvider) {
+    public routeCreate: RutaProvider,
+    public appCtrl: App) {
     this.setmap = navParams.get('setmap');
     this.utnOrigen = navParams.get('utnOrigen');
     this.ubicacion = navParams.get('ubicacion');
@@ -133,16 +134,17 @@ export class SetMapOrigenPage {
   saveValues() {
     if (this.utnOrigen)
       //utn es origen
-      if (this.setmap)
+      if (this.setmap) {
         //utilzo funcion selecconar mapa
         //se guardan las variable de latitud y ongitud y direccion en el provider destino dir y dir latlng
         //se hace dismiss del controller y se direcciona al home view ruta
-        this.viewCtrl.dismiss().then(() => {
-          this.routeCreate.destinoLatLng = this.varLatLng;
-          this.routeCreate.destinoDir = this.varDir;
-          this.nav.push(HomeCViewRutaPage);
-        });
-      else {
+        this.viewCtrl.dismiss();
+        this.routeCreate.destinoLatLng = this.varLatLng;
+        this.routeCreate.destinoDir = this.varDir;
+        // this.nav.push(HomeCViewRutaPage);
+        this.appCtrl.getRootNav().push(HomeCViewRutaPage);
+
+      } else {
         //utilizo funcion setear casa, por lo tanto se debe
         //guardar valores en casa base enviar por api a guardar 
         //this.varDir ;this.varLatLng
@@ -150,16 +152,16 @@ export class SetMapOrigenPage {
       }
     else
       //utn es destino
-      if (this.setmap)
+      if (this.setmap) {
         //utilzo funcion selecconar mapa
         //se guardan las variable de latitud y ongitud y direccion en el provider origen dir y dir latlng
         //se hace dismiss del controller y se direcciona al home view ruta
-        this.viewCtrl.dismiss().then(() => {
-          this.routeCreate.origenLatLng = this.varLatLng;
-          this.routeCreate.origenDir = this.varDir;
-          this.nav.push(HomeCViewRutaPage);
-        });
-      else {
+        this.viewCtrl.dismiss();
+        this.routeCreate.origenLatLng = this.varLatLng;
+        this.routeCreate.origenDir = this.varDir;
+        this.appCtrl.getRootNav().push(HomeCViewRutaPage);
+
+      } else {
         //utilizo funcion setear casa, por lo tanto se debe
         //guardar valores en casa base enviar por api a guardar 
         //this.varDir ;this.varLatLng
