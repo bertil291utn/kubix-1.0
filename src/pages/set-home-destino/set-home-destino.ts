@@ -6,7 +6,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
 declare var google;
 
-@IonicPage()
+
 @Component({
   selector: 'page-set-home-destino',
   templateUrl: 'set-home-destino.html',

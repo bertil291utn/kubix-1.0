@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController } 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { HomeServiceProvider } from '../../providers/home-service/home-service';
 
-@IonicPage()
 @Component({
   selector: 'page-car',
   templateUrl: 'car.html',

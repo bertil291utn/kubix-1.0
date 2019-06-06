@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, MenuController, AlertController } 
 import { HomePage } from '../home/home';
 
 
-@IonicPage()
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',

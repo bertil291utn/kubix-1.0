@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
 import { ViajesDestinoPage } from '../viajes-destino/viajes-destino';
 
-@IonicPage()
+
 @Component({
   selector: 'page-viajes-origen-destino',
   templateUrl: 'viajes-origen-destino.html',

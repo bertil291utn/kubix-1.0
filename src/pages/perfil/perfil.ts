@@ -5,7 +5,7 @@ import { CarPage } from '../car/car';
 import { ThrowStmt } from '@angular/compiler';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
-@IonicPage()
+
 @Component({
   selector: 'page-perfil',
   templateUrl: 'perfil.html',

@@ -5,7 +5,7 @@ import { dateDataSortValue } from 'ionic-angular/umd/util/datetime-util';
 import { ViajesPasajeroDetailPage } from '../viajes-pasajero-detail/viajes-pasajero-detail';
 
 
-@IonicPage()
+
 @Component({
   selector: 'page-viajes-pasajero',
   templateUrl: 'viajes-pasajero.html',

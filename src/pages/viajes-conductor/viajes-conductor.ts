@@ -8,7 +8,7 @@ import { CarPage } from '../car/car';
 
 
 
-@IonicPage()
+
 @Component({
   selector: 'page-viajes-conductor',
   templateUrl: 'viajes-conductor.html',

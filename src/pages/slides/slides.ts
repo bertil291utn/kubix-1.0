@@ -4,7 +4,7 @@ import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 
 
-@IonicPage()
+
 @Component({
   selector: 'page-slides',
   templateUrl: 'slides.html',

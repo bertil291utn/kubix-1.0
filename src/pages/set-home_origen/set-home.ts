@@ -5,7 +5,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
 declare var google;
-@IonicPage()
+
 @Component({
 
   selector: 'page-set-home',

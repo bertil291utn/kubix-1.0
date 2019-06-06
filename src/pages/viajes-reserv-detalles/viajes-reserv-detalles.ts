@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
-@IonicPage()
+
 @Component({
   selector: 'page-viajes-reserv-detalles',
   templateUrl: 'viajes-reserv-detalles.html',

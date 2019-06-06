@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController, A
 import { ViajesReserPasajeroPage } from '../viajes-reser-pasajero/viajes-reser-pasajero';
 
 
-@IonicPage()
+
 @Component({
   selector: 'page-viajes-pasajero-detail',
   templateUrl: 'viajes-pasajero-detail.html',

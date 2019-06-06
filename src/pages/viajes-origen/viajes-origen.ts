@@ -7,7 +7,7 @@ import { MyLocationOptions, LocationService } from '@ionic-native/google-maps';
 import { RutaProvider } from '../../providers/ruta/ruta';
 
 declare var google;
-@IonicPage()
+
 @Component({
   selector: 'page-viajes-origen',
   templateUrl: 'viajes-origen.html',

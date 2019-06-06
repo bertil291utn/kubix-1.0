@@ -7,7 +7,7 @@ import { ViajesConductorPage } from '../viajes-conductor/viajes-conductor';
 import html2canvas from 'html2canvas'
 
 declare var google;
-@IonicPage()
+
 @Component({
   selector: 'page-set-map-pto',
   templateUrl: 'set-map-pto.html',

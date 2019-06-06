@@ -11,7 +11,7 @@ import { RutaProvider } from '../../providers/ruta/ruta';
 declare var google;
 declare var html2canvas;
 
-@IonicPage()
+
 @Component({
   selector: 'page-home-c-view-ruta',
   templateUrl: 'home-c-view-ruta.html',

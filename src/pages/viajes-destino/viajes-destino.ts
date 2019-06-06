@@ -7,7 +7,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { MyLocationOptions, LocationService, MyLocation } from '@ionic-native/google-maps';
 
 declare var google;
-@IonicPage()
+
 @Component({
   selector: 'page-viajes-destino',
   templateUrl: 'viajes-destino.html',

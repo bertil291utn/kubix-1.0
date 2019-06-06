@@ -5,7 +5,7 @@ import { CallNumber } from '@ionic-native/call-number';
 
 
 
-@IonicPage()
+
 @Component({
   selector: 'page-info-pasajero-sol',
   templateUrl: 'info-pasajero-sol.html',

@@ -6,7 +6,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
 import { RutaProvider } from '../../providers/ruta/ruta';
 declare var google;
-@IonicPage()
+
 @Component({
   selector: 'page-set-map-origen',
   templateUrl: 'set-map-origen.html',

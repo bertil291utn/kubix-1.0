@@ -6,7 +6,7 @@ import { InfoPasajeroSolPage } from '../info-pasajero-sol/info-pasajero-sol';
 import { HomeServiceProvider } from '../../providers/home-service/home-service';
 
 declare var html2canvas;
-@IonicPage()
+
 @Component({
   selector: 'page-det-ruta-c',
   templateUrl: 'det-ruta-c.html',

@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { ViajesReservDetallesPage } from '../viajes-reserv-detalles/viajes-reserv-detalles';
 
 
-@IonicPage()
+
 @Component({
   selector: 'page-viajes-reser-pasajero',
   templateUrl: 'viajes-reser-pasajero.html',

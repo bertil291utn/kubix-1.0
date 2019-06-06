@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DetRutaCPage } from '../det-ruta-c/det-ruta-c';
 
-@IonicPage()
+
 @Component({
   selector: 'page-viajes-pub-c',
   templateUrl: 'viajes-pub-c.html',
