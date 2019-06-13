@@ -1,32 +1,32 @@
 page-home-c-view-ruta {
-    #map_canvas {
-        height: 100%;
-        width: 100%;
-      }
-      .card{
-        box-shadow: none;
-        -webkit-box-shadow:none; 
-        margin: 0px;
-    }
-    .label-md {
-        margin: 0px 0px 0px 0;
-    }
+  #map_canvas {
+    height: 100%;
+  }
+  .card {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    margin: 0px;
+  }
+  .label-md {
+    margin: 0px 0px 0px 0;
+  }
 
-    ion-content .text {
-        font-size: 1rem;
-    
-    }
+  ion-content .text {
+    font-size: 1rem;
+  }
 
+  ion-footer .list {
+    margin: 16px 0 16px;
+  }
 
-    ion-footer .list{
+  .grid {
+    margin-bottom: 15px;
+  }
 
-        margin: 16px 0 16px;
-    }
-
-    .grid{
-        margin-bottom: 15px;
-    }
-
-
-    ion-content .gmnoprint { display:none; }
+  ion-content .gmnoprint {
+    display: none;
+  }
+  ion-content .item-inner {
+    margin-left: 10px !important;
+  }
 }

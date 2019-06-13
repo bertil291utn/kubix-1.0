@@ -1,11 +1,45 @@
 <ion-content>
+  <ion-segment color="danger" [(ngModel)]="proceso" (click)="updateVal()">
+    <ion-segment-button value="ruta">
+      RUTA
+    </ion-segment-button>
+    <ion-segment-button value="lugares">
+      LUGARES DE PASO
+    </ion-segment-button>
+  </ion-segment>
 
-  <!-- <div #map_canvas id="map_canvas">
-  </div> -->
+  <div [ngSwitch]="proceso">
+    <ion-grid *ngSwitchCase="'lugares'" padding>
+      <br>
+      <ion-searchbar color="danger" [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"
+        placeholder="Ejemplo: Ibarra Parque Pedro Moncayo"></ion-searchbar>
+
+      <ion-list [hidden]="autocompleteItems.length == 0">
+        <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+          {{ item.description }}
+        </ion-item>
+      </ion-list>
+      <p ion-text *ngIf="predictions == null" color="danger" style="font-size: 1.3rem;">En caso de no encontrar
+        resultados, anteceder la ciudad de b&uacute;squeda <br>Ejemplo: Ibarra Terminal Terrestre o Quito Avenida Simon
+        Bolivar</p>
+      <!-- listar los lugares que se vayan anadiendo -->
+      <br><br>
+      <div *ngIf="autocompleteItems.length == 0">
+        <ion-item *ngFor="let obj of routeCreate.lugares" no-lines style="margin: 2% 0;">
+          <ion-icon name="pin" item-start small color="iconos"></ion-icon>
+          <h2>{{obj.nombreCorto}}</h2>
+          <p style="font-size: 0.7em !important;">{{obj.nombreExtenso}}</p>
+        </ion-item>
+      </div>
+    </ion-grid>
+  </div>
+  <div #map_canvas id="map_canvas">
+  </div>
+
 
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="proceso == 'ruta'">
   <ion-toolbar color="white">
     <ion-list>
       <ion-item no-lines>
@@ -30,12 +64,13 @@
     <ion-grid>
       <ion-row>
         <ion-col></ion-col>
-        <ion-col *ngIf="routeCreate.lugares.length==!0" text-center (click)="goToAceptar()"><strong ion-text
+        <ion-col *ngIf="routeCreate.lugares.length>1" text-center (click)="goToAceptar()"><strong ion-text
             color="danger">ACEPTAR</strong></ion-col>
-        <ion-col *ngIf="routeCreate.lugares.length==0" text-center (click)="goToModalLugViaje()"><strong ion-text
-            color="danger">CONTINUAR</strong></ion-col>
+        <!-- <ion-col *ngIf="routeCreate.lugares.length==0" text-center (click)="goToModalLugViaje()"><strong ion-text
+            color="danger">CONTINUAR</strong></ion-col> -->
         <ion-col></ion-col>
-        <ion-col text-center (click)="goToCancel()"><strong ion-text color="danger">CANCELAR</strong></ion-col>
+        <ion-col *ngIf="routeCreate.lugares.length>1" text-center (click)="goToCancel()"><strong ion-text
+            color="danger">CANCELAR</strong></ion-col>
         <ion-col></ion-col>
       </ion-row>
     </ion-grid>

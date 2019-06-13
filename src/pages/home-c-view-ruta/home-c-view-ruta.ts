@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
+import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController, ModalController, ToastController, Platform } from 'ionic-angular';
 import { ViajesDestinoPage } from '../viajes-destino/viajes-destino';
 import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
 import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
@@ -27,11 +27,17 @@ export class HomeCViewRutaPage {
   origenDir;
   destinoDir;
   image;
+  public proceso = 'ruta';
+  GoogleAutocomplete;
+  autocomplete;
+  autocompleteItems;
+  predictions = "";
+  toast;
 
-  constructor(private storage: Storage,
-    public loadingCtrl: LoadingController,
+  constructor(private storage: Storage, public toastCtrl: ToastController,
+    public loadingCtrl: LoadingController, public platform: Platform,
     public nav: NavController, public modalCtrl: ModalController,
-    public navparams: NavParams,
+    public navparams: NavParams, private zone: NgZone,
     public routeCreate: RutaProvider) {
 
     this.origenLatLng = routeCreate.origenLatLng;
@@ -46,7 +52,63 @@ export class HomeCViewRutaPage {
     // let route = routeCreate.lugares;
     // console.log('routeCreate.lugares: ', route);
 
+    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+    this.autocomplete = { input: '' };
+    this.autocompleteItems = [];
+    //en caso de que se presione el boton de atras tiene hacer un pop de pages y qquitar todos los lugares seleccinados
+    platform.registerBackButtonAction(() => {
+      nav.pop();
+      routeCreate.resetLugares();
+    });
+
   }
+  //metodo para cuando haga clic en la barra de busqueda
+  updateSearchResults() {
+    if (this.autocomplete.input == '') {
+      this.autocompleteItems = [];
+      return;
+    }
+
+    let config = {
+      input: this.autocomplete.input,
+      componentRestrictions: { 'country': 'ec' }
+    };
+
+    this.GoogleAutocomplete.getPlacePredictions(config,
+      (predictions, status) => {
+        this.autocompleteItems = [];
+        this.zone.run(() => {
+          this.predictions = predictions;
+          if (predictions != null)
+            predictions.forEach((prediction) => {
+              this.autocompleteItems.push(prediction);
+            });
+        });
+      });
+  }
+
+
+  selectSearchResult(item) {
+    //console.log('item: ', item);
+    console.log('guardar valores en route routeCreate.lugares');
+    let nombreCorto = item.terms[0].value;
+    let nombreExtenso = item.description;
+    let lugar = { nombreCorto: nombreCorto, nombreExtenso: nombreExtenso };
+    this.routeCreate.lugares = lugar;
+    // console.log('lugar: ', lugar);
+    //console.log('array lugares: ', this.routeCreate.lugares);
+    //limpiar el input y el listado mostrado despues de seleccionar el deseado
+    this.autocomplete = { input: '' };
+    this.autocompleteItems = [];
+    //actualizar el tamno del arrya lugares. Para que se activen los botondes de ACEPTAR  o CANCELAR 
+    this.zone.run(() => {
+      this.routeCreate.lugares.length
+    });
+
+
+  }
+
+
 
   goToModalLugViaje() {
     let contactModal = this.modalCtrl.create(LugaresViajePage);
@@ -63,6 +125,38 @@ export class HomeCViewRutaPage {
     this.initMapa();
 
 
+  }
+
+  //metodo para despuer de dar click en ion-segment y se haga el cambio en la variable proceso 
+  updateVal() {
+    this.zone.run(() => {
+      if (this.proceso == 'ruta') {
+        //en caso de que el ion-segment con el valor de ruta se haya activado el mapa se visualiza caso contario se oculta 
+        this.mapElement.nativeElement.hidden = false;
+        this.toastDismiss();
+      } else {
+        this.mapElement.nativeElement.hidden = true;
+        //mostra el mensaje de trabajos continuos
+        this.presentToast();
+      }
+    });
+
+  }
+
+  presentToast() {
+    this.toast = this.toastCtrl.create({
+      message: 'Estamos trabajando para que el recorrido mostrado sea lo m\u00E1s exacto posible.' +
+        ' Mientras tanto a\u00F1ada al menos dos lugares por donde vaya a pasar.',
+      closeButtonText: 'OK',
+      showCloseButton: true
+    });
+    this.toast.present();
+
+
+  }
+
+  toastDismiss() {
+    this.toast.dismiss();
   }
 
   initMapa() {
