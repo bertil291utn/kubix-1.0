@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
 import { ViajesDestinoPage } from '../viajes-destino/viajes-destino';
 import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
 import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
@@ -7,6 +7,7 @@ import { ViajesConductorPage } from '../viajes-conductor/viajes-conductor';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { RutaProvider } from '../../providers/ruta/ruta';
+import { LugaresViajePage } from '../lugares-viaje/lugares-viaje';
 
 declare var google;
 declare var html2canvas;
@@ -29,7 +30,7 @@ export class HomeCViewRutaPage {
 
   constructor(private storage: Storage,
     public loadingCtrl: LoadingController,
-    public nav: NavController,
+    public nav: NavController, public modalCtrl: ModalController,
     public navparams: NavParams,
     public routeCreate: RutaProvider) {
 
@@ -39,11 +40,22 @@ export class HomeCViewRutaPage {
     this.destinoDir = routeCreate.destinoDir;
 
     console.log('this.origenLatLng: ', this.origenLatLng,
-    'this.origenDir: ', this.origenDir,
+      'this.origenDir: ', this.origenDir,
       'this.destinoLatLng: ', this.destinoLatLng,
-      'this.destinoDir: ', this.destinoDir)
+      'this.destinoDir: ', this.destinoDir);
+    // let route = routeCreate.lugares;
+    // console.log('routeCreate.lugares: ', route);
 
   }
+
+  goToModalLugViaje() {
+    let contactModal = this.modalCtrl.create(LugaresViajePage);
+    // contactModal.onDidDismiss(data => {
+    //   console.log('data es despues de dismis: ', data);
+    // });
+    contactModal.present();
+  }
+
 
   ionViewDidLoad() {
 
@@ -67,7 +79,7 @@ export class HomeCViewRutaPage {
     this.directionsService.route({
       origin: this.origenLatLng,
       destination: this.destinoLatLng,
-      travelMode: 'DRIVING'
+      travelMode: 'WALKING'
     }, (response, status) => {
       if (status === 'OK') {
         this.directionsDisplay.setDirections(response);
@@ -88,6 +100,7 @@ export class HomeCViewRutaPage {
   }
 
   goToCancel() {
+    this.routeCreate.resetLugares();
     this.nav.setRoot(HomePage);
   }
 

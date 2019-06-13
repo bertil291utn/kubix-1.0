@@ -62,4 +62,9 @@ page-perfil {
     text-transform: initial;
     font-weight: normal;
   }
+
+  ion-select.select {
+    width: 100%;
+    max-width: 100%;
+  }
 }

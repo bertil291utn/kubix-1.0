@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-buttons end style="margin-right: 2%;">
+      <button ion-button tappable (click)="saveValues()">
+        OK
+      </button>
+      <button ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Lugares de paso</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-label text-center>Estamos trabajando para que el recorrido mostrado sea lo m&aacute;s exacto posible.
+    <br>Mientras tanto a&ntilde;ade al menos dos lugares por donde vayas a pasar.</ion-label>
+  <br><br>
+
+  <ion-searchbar color="danger" [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"
+    placeholder="Ejemplo: Parque Pedro Moncayo o Terminal Terrestre Ibarra"></ion-searchbar>
+
+  <ion-list [hidden]="autocompleteItems.length == 0">
+    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+      {{ item.description }}
+    </ion-item>
+  </ion-list>
+  <ion-label *ngIf="predictions == null" color="danger">Lugar no encontrado. Intente con otro nombre</ion-label>
+</ion-content>

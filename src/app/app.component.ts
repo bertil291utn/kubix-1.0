@@ -20,12 +20,13 @@ import { LoginPage } from '../pages/login/login';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
+  contrasenaExists = true;
   evento;
   radiobtn;
-  pasajero: boolean = true;
-  conductor: boolean = false;
+  pasajero: boolean = false;
+  conductor: boolean = true;
   //solicitud: boolean = false;
-  rootPage: any = LoginPage;
+  rootPage;
   pages: Array<{ title: string, component: any, icono: string }>;
   pages_pas: Array<{ title: string, component: any, icono: string }>;
 
@@ -39,7 +40,18 @@ export class MyApp {
     this.pageslist();
     this.valConductorPasajero();
     //this.myservices.solicitud = this.solicitud
+    this.actionPassword();
+  }
 
+  private actionPassword() {
+
+    //si la existe la contrasena guardada y es correcta en el navegador entonces directo al home
+    if (this.contrasenaExists) {
+      console.log('this.contrasenaExists: ', this.contrasenaExists)
+      this.rootPage = HomePage;
+    } else
+      //caso contrario se dirige al slide page 
+      this.rootPage = SlidesPage;
   }
 
   private valConductorPasajero() {

@@ -33,6 +33,17 @@ export class RutaProvider {
     this._destinoDir = value;
   }
 
+  private _lugares: any = [];
+  public get lugares(): any {
+    return this._lugares;
+  }
+  public set lugares(value: any) {
+    this._lugares.push(value);
+  }
+  resetLugares() {
+    this._lugares = [];
+  }
+
 
   constructor() {
     console.log('Hello RutaProvider Provider');

@@ -5,6 +5,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
 import { RutaProvider } from '../../providers/ruta/ruta';
+
 declare var google;
 
 @Component({
@@ -64,6 +65,12 @@ export class SetMapOrigenPage {
     const loading = this.loadingCtrl.create();
     loading.present();
     const myLatLng = await this.getLocation();
+    let myMapType: string;
+    if (this.ubicacion)
+      myMapType = 'MAP_TYPE_HYBRID';
+    else
+      myMapType = 'MAP_TYPE_ROADMAP';
+
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
@@ -71,8 +78,10 @@ export class SetMapOrigenPage {
           lng: myLatLng.lng
         },
         zoom: 18
-      }
+      },
+      mapType: myMapType
     };
+
     this.map = GoogleMaps.create('map_canvas6', mapOptions);
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
       loading.dismiss();

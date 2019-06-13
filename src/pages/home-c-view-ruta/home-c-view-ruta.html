@@ -1,8 +1,8 @@
 <ion-content>
-  
-    <div #map_canvas id="map_canvas">
-    </div>
-  
+
+  <!-- <div #map_canvas id="map_canvas">
+  </div> -->
+
 </ion-content>
 
 <ion-footer>
@@ -30,7 +30,10 @@
     <ion-grid>
       <ion-row>
         <ion-col></ion-col>
-        <ion-col text-center (click)="goToAceptar()"><strong ion-text color="danger">ACEPTAR</strong></ion-col>
+        <ion-col *ngIf="routeCreate.lugares.length==!0" text-center (click)="goToAceptar()"><strong ion-text
+            color="danger">ACEPTAR</strong></ion-col>
+        <ion-col *ngIf="routeCreate.lugares.length==0" text-center (click)="goToModalLugViaje()"><strong ion-text
+            color="danger">CONTINUAR</strong></ion-col>
         <ion-col></ion-col>
         <ion-col text-center (click)="goToCancel()"><strong ion-text color="danger">CANCELAR</strong></ion-col>
         <ion-col></ion-col>
