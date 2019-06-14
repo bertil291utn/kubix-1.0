@@ -66,10 +66,14 @@ export class SetMapOrigenPage {
     loading.present();
     const myLatLng = await this.getLocation();
     let myMapType: string;
-    if (this.ubicacion)
+    let zoom: number;
+    if (this.ubicacion) {
       myMapType = 'MAP_TYPE_HYBRID';
-    else
+      zoom = 18;
+    } else {
       myMapType = 'MAP_TYPE_ROADMAP';
+      zoom = 15;
+    }
 
     let mapOptions: GoogleMapOptions = {
       camera: {
@@ -77,7 +81,7 @@ export class SetMapOrigenPage {
           lat: myLatLng.lat,
           lng: myLatLng.lng
         },
-        zoom: 18
+        zoom: zoom
       },
       mapType: myMapType
     };

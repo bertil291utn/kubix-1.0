@@ -19,20 +19,33 @@
           {{ item.description }}
         </ion-item>
       </ion-list>
-      <p ion-text *ngIf="predictions == null" color="danger" style="font-size: 1.3rem;">En caso de no encontrar
+      <p ion-text *ngIf="predictionsLugares == null" color="danger" style="font-size: 1.3rem;">En caso de no encontrar
         resultados, anteceder la ciudad de b&uacute;squeda <br>Ejemplo: Ibarra Terminal Terrestre o Quito Avenida Simon
         Bolivar</p>
       <!-- listar los lugares que se vayan anadiendo -->
       <br><br>
-      <div *ngIf="autocompleteItems.length == 0">
-        <ion-item *ngFor="let obj of routeCreate.lugares" no-lines style="margin: 2% 0;">
-          <ion-icon name="pin" item-start small color="iconos"></ion-icon>
-          <h2>{{obj.nombreCorto}}</h2>
-          <p style="font-size: 0.7em !important;">{{obj.nombreExtenso}}</p>
-        </ion-item>
-      </div>
+      <ion-list *ngIf="autocompleteItems.length == 0">
+        <ion-item-sliding *ngFor="let obj of routeCreate.lugares">
+          <ion-item no-lines *ngFor="let obj of routeCreate.lugares">
+            <ion-icon name="pin" item-start small color="iconos"></ion-icon>
+            <!-- <ion-icon name="trash" item-end small color="iconos" (click)="deletePlace(obj.id)"></ion-icon> -->
+            <h2>{{obj.nombreCorto}}</h2>
+            <p style="font-size: 0.7em !important;">{{obj.nombreExtenso}}</p>
+          </ion-item>
+
+          <ion-item-options side="right">
+            <button ion-button color="danger" (click)="deletePlace(obj.id)">
+              <ion-icon name="trash"></ion-icon>
+              Eliminar
+            </button>
+          </ion-item-options>
+          <br><br>
+        </ion-item-sliding>
+      </ion-list>
     </ion-grid>
   </div>
+
+
   <div #map_canvas id="map_canvas">
   </div>
 

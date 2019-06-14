@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ModalController, ToastController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ModalController, ToastController, Platform, ItemSliding } from 'ionic-angular';
 import { ViajesDestinoPage } from '../viajes-destino/viajes-destino';
 import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
 import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
@@ -31,8 +31,9 @@ export class HomeCViewRutaPage {
   GoogleAutocomplete;
   autocomplete;
   autocompleteItems;
-  predictions = "";
-  toast;
+  predictionsLugares = "";
+  toastLugares;
+  indexLugares = 0;
 
   constructor(private storage: Storage, public toastCtrl: ToastController,
     public loadingCtrl: LoadingController, public platform: Platform,
@@ -59,6 +60,7 @@ export class HomeCViewRutaPage {
     platform.registerBackButtonAction(() => {
       nav.pop();
       routeCreate.resetLugares();
+      this.toastDismiss();
     });
 
   }
@@ -71,14 +73,15 @@ export class HomeCViewRutaPage {
 
     let config = {
       input: this.autocomplete.input,
-      componentRestrictions: { 'country': 'ec' }
+      componentRestrictions: { 'country': 'ec' },
+      types: ['establishment']
     };
 
     this.GoogleAutocomplete.getPlacePredictions(config,
       (predictions, status) => {
         this.autocompleteItems = [];
         this.zone.run(() => {
-          this.predictions = predictions;
+          this.predictionsLugares = predictions;
           if (predictions != null)
             predictions.forEach((prediction) => {
               this.autocompleteItems.push(prediction);
@@ -87,16 +90,20 @@ export class HomeCViewRutaPage {
       });
   }
 
-
+  //item es el resultado del lugar seleccionado del listado de lugares que da el autocomplete 
   selectSearchResult(item) {
-    //console.log('item: ', item);
-    console.log('guardar valores en route routeCreate.lugares');
-    let nombreCorto = item.terms[0].value;
-    let nombreExtenso = item.description;
-    let lugar = { nombreCorto: nombreCorto, nombreExtenso: nombreExtenso };
-    this.routeCreate.lugares = lugar;
-    // console.log('lugar: ', lugar);
-    //console.log('array lugares: ', this.routeCreate.lugares);
+    //console.log('item: ', item)
+    let nombreCorto = item.structured_formatting.main_text;
+    let nombreExtenso = item.structured_formatting.secondary_text;
+    let placeid = item.id;
+    let lugar = { id: this.indexLugares, placeid: placeid, nombreCorto: nombreCorto, nombreExtenso: nombreExtenso };
+    let lugarExists = this.lugarExists(nombreCorto);
+    if (!lugarExists)
+      this.routeCreate.lugares = lugar;
+    else {
+      let message = 'Este lugar ya ha sido agregado';
+      this.presentToastDurationTop(message, 2000);
+    }
     //limpiar el input y el listado mostrado despues de seleccionar el deseado
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
@@ -104,11 +111,23 @@ export class HomeCViewRutaPage {
     this.zone.run(() => {
       this.routeCreate.lugares.length
     });
-
-
+    this.indexLugares++;
+    console.log('this.routeCreate.lugares: ', this.routeCreate.lugares);
   }
 
 
+  //alternativa a funcion includes para objetos
+  lugarExists(nombreCorto) {
+    let found = false;
+    let lugaresLenght = this.routeCreate.lugares.length;
+    for (var i = 0; i < lugaresLenght; i++) {
+      if (this.routeCreate.lugares[i].nombreCorto == nombreCorto) {
+        found = true;
+        break;
+      }
+    }
+    return found;
+  }
 
   goToModalLugViaje() {
     let contactModal = this.modalCtrl.create(LugaresViajePage);
@@ -137,26 +156,34 @@ export class HomeCViewRutaPage {
       } else {
         this.mapElement.nativeElement.hidden = true;
         //mostra el mensaje de trabajos continuos
-        this.presentToast();
+        let message = 'Estamos trabajando para que el recorrido mostrado sea lo m\u00E1s exacto posible.' +
+          ' Mientras tanto a\u00F1ada al menos dos lugares por donde vaya a pasar.';
+        this.presentToastClosedButton(message);
       }
     });
 
   }
 
-  presentToast() {
-    this.toast = this.toastCtrl.create({
-      message: 'Estamos trabajando para que el recorrido mostrado sea lo m\u00E1s exacto posible.' +
-        ' Mientras tanto a\u00F1ada al menos dos lugares por donde vaya a pasar.',
+  presentToastClosedButton(message) {
+    this.toastLugares = this.toastCtrl.create({
+      message: message,
       closeButtonText: 'OK',
       showCloseButton: true
     });
-    this.toast.present();
-
-
+    this.toastLugares.present();
   }
 
   toastDismiss() {
-    this.toast.dismiss();
+    this.toastLugares.dismiss();
+  }
+
+  presentToastDurationTop(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: 'top',
+      duration: duration
+    });
+    toast.present();
   }
 
   initMapa() {
@@ -201,10 +228,13 @@ export class HomeCViewRutaPage {
   goToAceptar() {
     let elem = document.getElementById('map_canvas')
     //this.capImagen(elem)
-
-
     //guardar en base de datos la imgen de rutas
     this.nav.push(ViajesConductorPage);
+  }
+
+  deletePlace(id) {
+    //elimina el lugar de aucerdo al id dado
+    this.routeCreate.lugares.splice(this.routeCreate.lugares.findIndex(obj => obj.id == id), 1)
 
   }
 
