@@ -16,17 +16,18 @@
 
       <ion-list [hidden]="autocompleteItems.length == 0">
         <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
-          {{ item.description }}
+          <h2>{{ item.structured_formatting.main_text }}</h2>
+          <p style="font-size: 0.7em !important;">{{item.structured_formatting.secondary_text}}</p>
         </ion-item>
       </ion-list>
       <p ion-text *ngIf="predictionsLugares == null" color="danger" style="font-size: 1.3rem;">En caso de no encontrar
-        resultados, anteceder la ciudad de b&uacute;squeda <br>Ejemplo: Ibarra Terminal Terrestre o Quito Avenida Simon
-        Bolivar</p>
+        resultados, anteceder la ciudad y/o sector de b&uacute;squeda <br>Ejemplo: Ibarra Terminal Terrestre o Ibarra
+        Yacucalle Parque de la familia. Estamos trabajando para mejorar su experiencia.</p>
       <!-- listar los lugares que se vayan anadiendo -->
       <br><br>
       <ion-list *ngIf="autocompleteItems.length == 0">
         <!-- <ion-item-sliding *ngFor="let obj of routeCreate.lugares"> -->
-        <ion-item no-lines *ngFor="let obj of routeCreate.lugares"> 
+        <ion-item no-lines *ngFor="let obj of routeCreate.lugares">
           <ion-icon name="pin" item-start small color="iconos"></ion-icon>
           <ion-icon name="trash" item-end small color="iconos" (click)="deletePlace(obj.id)"></ion-icon>
           <h2>{{obj.nombreCorto}}</h2>

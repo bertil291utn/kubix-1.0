@@ -1,8 +1,9 @@
 <ion-header>
   <ion-navbar color="danger">
     <ion-buttons left style="margin: 0 1%;">
-      <button ion-button icon-only (click)="viewCtrl.dismiss()" class="my-style-for-modal">
+      <button ion-button icon-only (click)="viewCtrl.dismiss();toastDismiss()" class="my-style-for-modal">
         <ion-icon name="arrow-back"></ion-icon>
+        <ion-title>Buscar</ion-title>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -19,6 +20,7 @@
       <p style="font-size: 0.7em !important;">{{item.nombreExtenso}}</p>
     </ion-item>
   </ion-list>
-  <ion-label *ngIf="filteredItems!=undefined&&filteredItems.length==0" color="danger">No hay ning&uacute;n viaje agendado con este sitio o
+  <ion-label *ngIf="filteredItems!=undefined&&filteredItems.length==0" color="danger">No hay ning&uacute;n viaje
+    agendado con este sitio o
     intente con otro nombre</ion-label>
 </ion-content>

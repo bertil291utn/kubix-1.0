@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { RutaProvider } from '../../providers/ruta/ruta';
 
 declare var google;
@@ -12,12 +12,13 @@ export class searchTravelPasajero {
   filteredItems;
   query;
   lista_viaje;
+  toastLugares;
 
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, public routeCreate: RutaProvider,
-    private zone: NgZone
+    private zone: NgZone, public toastCtrl: ToastController
   ) {
 
     console.log('this.filtereditems: ', this.filteredItems)
@@ -26,6 +27,7 @@ export class searchTravelPasajero {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LugaresViajePage');
+    this.presentToastClosedButton('Seleccione un lugar de destino.');
     this.allTravelItems = this.initializeItems(this.navParams.data.lista_viaje);
   }
 
@@ -73,12 +75,23 @@ export class searchTravelPasajero {
   selectSearchResult(item) {
     console.log('item: ', item);
     //item.placeid enviar este valor para busqueda
+    this.toastDismiss();
     this.viewCtrl.dismiss(item.placeid);
   }
 
 
+  presentToastClosedButton(message) {
+    this.toastLugares = this.toastCtrl.create({
+      message: message,
+      closeButtonText: 'OK',
+      showCloseButton: true
+    });
+    this.toastLugares.present();
+  }
 
-
+  toastDismiss() {
+    this.toastLugares.dismiss();
+  }
 
 
 
