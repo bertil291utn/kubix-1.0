@@ -23,6 +23,11 @@
 
 
 <ion-content>
+  <ion-fab style="margin: 10% 5%;" right bottom (click)="goToSearch()">
+    <button ion-fab color="danger">
+      <ion-icon name="search"></ion-icon>
+    </button>
+  </ion-fab>
   <ion-card *ngFor="let item of lista_viaje">
     <ion-card-content text-center>
       <ion-card-title>

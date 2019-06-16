@@ -7,7 +7,7 @@ import { ViajesConductorPage } from '../viajes-conductor/viajes-conductor';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { RutaProvider } from '../../providers/ruta/ruta';
-import { LugaresViajePage } from '../lugares-viaje/lugares-viaje';
+import { searchTravelPasajero } from "../searchTravelPasajero/searchTravelPasajero";
 
 declare var google;
 declare var html2canvas;
@@ -112,7 +112,7 @@ export class HomeCViewRutaPage {
       this.routeCreate.lugares.length
     });
     this.indexLugares++;
-    console.log('this.routeCreate.lugares: ', this.routeCreate.lugares);
+    
   }
 
 
@@ -130,11 +130,11 @@ export class HomeCViewRutaPage {
   }
 
   goToModalLugViaje() {
-    let contactModal = this.modalCtrl.create(LugaresViajePage);
+    //let contactModal = this.modalCtrl.create(LugaresViajePage);
     // contactModal.onDidDismiss(data => {
     //   console.log('data es despues de dismis: ', data);
     // });
-    contactModal.present();
+    //contactModal.present();
   }
 
 

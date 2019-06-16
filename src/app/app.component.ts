@@ -23,8 +23,8 @@ export class MyApp {
   contrasenaExists = true;
   evento;
   radiobtn;
-  pasajero: boolean = false;
-  conductor: boolean = true;
+  //pasajero: boolean = true;
+  conductor: boolean = false;
   //solicitud: boolean = false;
   rootPage;
   pages: Array<{ title: string, component: any, icono: string }>;
@@ -55,7 +55,7 @@ export class MyApp {
   }
 
   private valConductorPasajero() {
-    this.myservices.pasajero = this.pasajero;
+   // this.myservices.pasajero = this.pasajero;
     this.myservices.conductor = this.conductor;
     if (this.conductor)
       this.radiobtn = true;
@@ -142,20 +142,11 @@ export class MyApp {
   }
 
   private actionChangeMode() {
-    if (this.evento) {
-      this.pasajero = false;
-      this.conductor = true;
-      this.myservices.pasajero = this.pasajero;
-      this.myservices.conductor = this.conductor;
-      console.log("modo conductor activo");
-    }
-    else {
-      this.pasajero = true;
-      this.conductor = false;
-      console.log("modo conductor inactivo");
-      this.myservices.pasajero = this.pasajero;
-      this.myservices.conductor = this.conductor;
-    }
+    if (this.evento)
+      this.myservices.conductor = true;
+    else
+      this.myservices.conductor = false;
+
     this.nav.setRoot(HomePage);
     this.menu.close();
   }

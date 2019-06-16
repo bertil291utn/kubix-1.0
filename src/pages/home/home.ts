@@ -10,7 +10,7 @@ import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-
   templateUrl: 'home.html'
 })
 export class HomePage {
-  pasajero: boolean;
+ // pasajero: boolean;
   conductor: boolean;
   varInterval;
 
@@ -18,15 +18,15 @@ export class HomePage {
     public myservices: HomeServiceProvider,
     public loadingCtrl: LoadingController,
     public nav: NavController) {
-    this.pasajero = myservices.pasajero;
+    //this.pasajero = myservices.pasajero;
     this.conductor = myservices.conductor;
 
   }
   ionViewDidEnter() {
     this.varInterval = setInterval(() => {
-      this.pasajero = this.myservices.pasajero;
+     // this.pasajero = this.myservices.pasajero;
       this.conductor = this.myservices.conductor;
-      console.log('this.pasajero: ', this.pasajero, ' this.conductor: ', this.conductor)
+     // console.log('this.pasajero: ', this.pasajero, ' this.conductor: ', this.conductor)
     }, 1000);
   }
 

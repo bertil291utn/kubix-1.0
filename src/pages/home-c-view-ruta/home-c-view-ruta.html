@@ -25,22 +25,22 @@
       <!-- listar los lugares que se vayan anadiendo -->
       <br><br>
       <ion-list *ngIf="autocompleteItems.length == 0">
-        <ion-item-sliding *ngFor="let obj of routeCreate.lugares">
-          <ion-item no-lines *ngFor="let obj of routeCreate.lugares">
-            <ion-icon name="pin" item-start small color="iconos"></ion-icon>
-            <!-- <ion-icon name="trash" item-end small color="iconos" (click)="deletePlace(obj.id)"></ion-icon> -->
-            <h2>{{obj.nombreCorto}}</h2>
-            <p style="font-size: 0.7em !important;">{{obj.nombreExtenso}}</p>
-          </ion-item>
+        <!-- <ion-item-sliding *ngFor="let obj of routeCreate.lugares"> -->
+        <ion-item no-lines *ngFor="let obj of routeCreate.lugares"> 
+          <ion-icon name="pin" item-start small color="iconos"></ion-icon>
+          <ion-icon name="trash" item-end small color="iconos" (click)="deletePlace(obj.id)"></ion-icon>
+          <h2>{{obj.nombreCorto}}</h2>
+          <p style="font-size: 0.7em !important;">{{obj.nombreExtenso}}</p>
+        </ion-item>
 
-          <ion-item-options side="right">
+        <!-- <ion-item-options side="right">
             <button ion-button color="danger" (click)="deletePlace(obj.id)">
               <ion-icon name="trash"></ion-icon>
               Eliminar
             </button>
           </ion-item-options>
-          <br><br>
-        </ion-item-sliding>
+        <br><br>
+        </ion-item-sliding>-->
       </ion-list>
     </ion-grid>
   </div>

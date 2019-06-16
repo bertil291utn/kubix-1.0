@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-buttons left style="margin: 0 1%;">
+      <button ion-button icon-only (click)="viewCtrl.dismiss()" class="my-style-for-modal">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)" placeholder="Ejemplo: Parque Pedro Moncayo o Terminal Terrestre Ibarra"
+    color="danger"></ion-searchbar>
+  <ion-list *ngIf="query && query.trim() != ''">
+    <ion-item no-lines *ngFor="let item of filteredItems" tappable (click)="selectSearchResult(item)">
+      <ion-icon name="pin" item-start small color="iconos"></ion-icon>
+      <h2>{{ item.nombreCorto }}</h2>
+      <p style="font-size: 0.7em !important;">{{item.nombreExtenso}}</p>
+    </ion-item>
+  </ion-list>
+  <ion-label *ngIf="filteredItems!=undefined&&filteredItems.length==0" color="danger">No hay ning&uacute;n viaje agendado con este sitio o
+    intente con otro nombre</ion-label>
+</ion-content>

@@ -41,7 +41,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { CallNumber } from '@ionic-native/call-number';
 import { SlidesPage } from '../pages/slides/slides';
 import { LoginPage } from '../pages/login/login';
-import { LugaresViajePage } from '../pages/lugares-viaje/lugares-viaje';
+import { searchTravelPasajero } from "../pages/searchTravelPasajero/searchTravelPasajero";
 
 @NgModule({
   declarations: [
@@ -70,7 +70,7 @@ import { LugaresViajePage } from '../pages/lugares-viaje/lugares-viaje';
     CarPage,
     SlidesPage,
     LoginPage,
-    LugaresViajePage
+    searchTravelPasajero
   ],
   imports: [
     BrowserModule,
@@ -104,7 +104,7 @@ import { LugaresViajePage } from '../pages/lugares-viaje/lugares-viaje';
     CarPage,
     SlidesPage,
     LoginPage,
-    LugaresViajePage
+    searchTravelPasajero
   ],
   providers: [
     StatusBar,
