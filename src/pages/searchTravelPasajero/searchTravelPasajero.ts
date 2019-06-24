@@ -27,7 +27,7 @@ export class searchTravelPasajero {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LugaresViajePage');
-    this.presentToastClosedButton('Seleccione un lugar de destino.');
+    this.presentToastDurationTop('Seleccione un lugar de destino.', 3000);
     this.allTravelItems = this.initializeItems(this.navParams.data.lista_viaje);
   }
 
@@ -75,7 +75,7 @@ export class searchTravelPasajero {
   selectSearchResult(item) {
     console.log('item: ', item);
     //item.placeid enviar este valor para busqueda
-    this.toastDismiss();
+   // this.toastDismiss();
     this.viewCtrl.dismiss(item.placeid);
   }
 
@@ -88,10 +88,18 @@ export class searchTravelPasajero {
     });
     this.toastLugares.present();
   }
-
-  toastDismiss() {
-    this.toastLugares.dismiss();
+  presentToastDurationTop(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: 'top',
+      duration: duration
+    });
+    toast.present();
   }
+
+  // toastDismiss() {
+  //   this.toastLugares.dismiss();
+  // }
 
 
 
