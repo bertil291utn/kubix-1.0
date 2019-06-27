@@ -43,9 +43,9 @@
     <ion-segment-button value="ruta">
       RUTA
     </ion-segment-button>
-    <ion-segment-button value="solicitud">
+    <!-- <ion-segment-button value="solicitud">
       SOLICITUDES
-    </ion-segment-button>
+    </ion-segment-button> -->
   </ion-segment>
 
 
@@ -71,7 +71,6 @@
     </ion-grid>
 
     <ion-grid id="ubicacion" *ngSwitchCase="'ubicacion'">
-
       <div class="relative">
         <img class="fotoRelative" src="{{viajedet.ubicacion}}" />
         <h6 id="absoluto_title" ion-text text-center>LUGAR DE SALIDA</h6>
@@ -81,11 +80,9 @@
 
     <ion-grid id="ruta" *ngSwitchCase="'ruta'">
       <img src="{{viajedet.ruta}}" />
-
     </ion-grid>
 
     <ion-grid id="request" *ngSwitchCase="'solicitud'">
-
       <ion-card *ngFor="let item of viajedet.solicitud">
         <ion-card-content (click)="gotoInfo(item.id-1)">
           <ion-row>
@@ -113,7 +110,6 @@
               aceptar
             </button>
           </ion-col>
-
           <ion-col text-center>
             <button ion-button clear color="iconos" icon-start>
               <ion-icon name='close'></ion-icon>
@@ -121,13 +117,8 @@
             </button>
           </ion-col>
         </ion-row>
-
       </ion-card>
-
-
     </ion-grid>
-
-
   </div>
 
 </ion-content>

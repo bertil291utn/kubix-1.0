@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController, ToastController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
 
@@ -11,7 +11,7 @@ import { HomePage } from '../home/home';
 export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private menu: MenuController, private alertCtrl: AlertController) {
+    private menu: MenuController, private alertCtrl: AlertController, public toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
@@ -28,27 +28,30 @@ export class LoginPage {
 
   goToHome() {
     //si coinciden credenciales enviar al home caso contrario se aciva la variable error para el template de error
-    //let val=rest.api.verCredenciales(user,pass);
-    //if(val) else error=true;
+    //let val=rest.api.verCredenciales(user,pass);s
+    //if(val) this.navCtrl.setRoot(HomePage); else this.presentToastDurationTop('Usuario o contrase\xF1a incorrectos', 2000);
     this.navCtrl.setRoot(HomePage);
-    //this.presentAlert();
+      //this.presentToastDurationTop('Usuario o contrase\xF1a incorrectos', 2000);
   }
 
-  private presentAlert() {
-    let title = 'Te olvidaste?';
-    let subTitle = 'Tu usuario o contrase&ntilde;a no son los correctos. \n Revisa e int&eacute;ntalo de nuevo';
-    this.actionListenerpresentAlert(title, subTitle);
-  }
 
-  actionListenerpresentAlert(title, subTitle) {
+  public presentAlert(subtitle) {
     let alert = this.alertCtrl.create({
-      title: title,
-      subTitle: subTitle,
-      buttons: ['Revisar']
-    });
+      subTitle: subtitle,
+      buttons: ['OK']
+    })
     alert.present();
   }
 
+
+  presentToastDurationTop(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: 'top',
+      duration: duration
+    });
+    toast.present();
+  }
 
 
 }

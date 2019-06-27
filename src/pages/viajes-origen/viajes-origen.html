@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar color="danger">
+    <ion-buttons end *ngIf="casa">
+      <button ion-button tappable (click)="showAlert()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
   <ion-toolbar color="white">
     <ion-list>
@@ -46,7 +51,7 @@
       <ion-item-options side="right">
         <button ion-button color="danger" (click)="editHome(false,slidingItem)">
           <ion-icon name="create"></ion-icon>
-          cambiar
+          editar
         </button>
       </ion-item-options>
     </ion-item-sliding>
@@ -78,20 +83,20 @@
       <ion-icon name="locate" color="primary" item-start></ion-icon>
       Tu ubicaci&oacute;n actual
     </ion-item>
-    <!-- <ion-item-sliding #slidingItem> -->
-    <ion-item *ngIf="casa" (click)="goToViewRoute(true)">
-      <ion-icon name="home" color="iconos" item-start></ion-icon>
-      <ion-icon name="create" item-end small color="iconos" (click)="editHome(false,slidingItem)"></ion-icon>
-      <h2>Casa</h2>
-      <p ion-text>Av. 17 de Julio</p>
-    </ion-item>
-    <!-- <ion-item-options side="right">
+    <ion-item-sliding #slidingItem>
+      <ion-item *ngIf="casa" (click)="goToViewRoute(true)">
+        <ion-icon name="home" color="iconos" item-start></ion-icon>
+        <!-- <ion-icon name="create" item-end small color="iconos" (click)="editHome(false,slidingItem)"></ion-icon> -->
+        <h2>Casa</h2>
+        <p ion-text>Av. 17 de Julio</p>
+      </ion-item>
+      <ion-item-options side="right">
         <button ion-button color="danger" (click)="editHome(false,slidingItem)">
           <ion-icon name="create"></ion-icon>
-          cambiar
+          editar
         </button>
       </ion-item-options>
-    </ion-item-sliding> -->
+    </ion-item-sliding>
     <ion-item *ngIf="!casa" (click)="goToSetMap(false)">
       <ion-icon name="home" color="iconos" item-start></ion-icon>
       <h2>Casa</h2>

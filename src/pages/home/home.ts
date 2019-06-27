@@ -25,7 +25,7 @@ export class HomePage {
   ionViewDidLoad() {
     //revisar en la base de datos si existe o no el campo de automovil  y el campo perfil(telfono e informacion personal)
     this.myservices.profileExists = true;
-    this.myservices.carExists = false;
+    this.myservices.carExists = true;
     console.log('ionViewDidLoad HomePage');
   }
 

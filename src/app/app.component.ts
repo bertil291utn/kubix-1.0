@@ -24,7 +24,7 @@ export class MyApp {
   evento;
   radiobtn;
   //pasajero: boolean = true;
-  conductor: boolean = false;
+  conductor: boolean = true;
   //solicitud: boolean = false;
   rootPage;
   pages: Array<{ title: string, component: any, icono: string }>;

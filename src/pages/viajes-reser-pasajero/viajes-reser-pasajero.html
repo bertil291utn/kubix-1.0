@@ -20,10 +20,10 @@
 
 
 <ion-content>
-  <ion-refresher pullMin="50" pullMax="300" (ionRefresh)="doRefresh($event)">
+  <!-- <ion-refresher pullMin="50" pullMax="300" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-down" refreshingSpinner="crescent">
     </ion-refresher-content>
-  </ion-refresher>
+  </ion-refresher> -->
   <ion-card *ngFor="let item of viajes_reservados">
     <ion-card-content text-center>
       <ion-card-title>
@@ -42,9 +42,9 @@
       <p>
         {{item.hora}} &nbsp;&nbsp;&nbsp; <strong>{{item.fecha}}</strong>
       </p>
-      <ion-badge *ngIf="item.estado === 1" color="aprobado">Aprobado</ion-badge>
+      <!-- <ion-badge *ngIf="item.estado === 1" color="aprobado">Aprobado</ion-badge>
       <ion-badge *ngIf="item.estado === 0" color="danger">No aprobado</ion-badge>
-      <ion-badge *ngIf="item.estado >1" color="espera">En espera</ion-badge>
+      <ion-badge *ngIf="item.estado >1" color="espera">En espera</ion-badge> -->
       <!-- <strong ion-text color="black">{{returnestado(item.estado)}}</strong> -->
     </ion-card-content>
     <div id="foot">

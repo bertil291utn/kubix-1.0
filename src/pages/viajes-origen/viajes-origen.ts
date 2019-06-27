@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ItemSliding } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ItemSliding, AlertController } from 'ionic-angular';
 import { SetHomePage } from '../set-home_origen/set-home';
 import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
@@ -24,7 +24,7 @@ export class ViajesOrigenPage {
   ubicacionActualLatLng;
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
+    public navParams: NavParams, public alertCtrl: AlertController,
     public modalCtrl: ModalController,
     public routeCreate: RutaProvider) {
 
@@ -165,6 +165,15 @@ export class ViajesOrigenPage {
     console.log('casa|ubicactual this.routeCreate.destinoLatLng: ', this.routeCreate.destinoLatLng)
     console.log('casa|ubicactual this.routeCreate.destinoDir: ', this.routeCreate.destinoDir)
     this.navCtrl.push(HomeCViewRutaPage);
+  }
+
+  showAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Editar',
+      message: 'Deslizar hacia la izquierda su direcci&oacute;n',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 
