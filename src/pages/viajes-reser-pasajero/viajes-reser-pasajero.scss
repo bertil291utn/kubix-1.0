@@ -14,4 +14,11 @@ page-viajes-reser-pasajero {
   .content {
     background-color: #d5cdcb;
   }
+
+  ion-spinner * {
+    width: 28px;
+    height: 28px;
+    stroke: #444;
+    fill: #222;
+  }
 }

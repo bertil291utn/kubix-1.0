@@ -25,6 +25,28 @@ export class ViajesReserPasajeroPage {
     this.viajes_reservados = this.array_viajes()
   }
 
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+    //mandar a llamar viajes_reservados y refresher complete cuando haya terminado la consulta 
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 5000);
+  }
+
+
+  doPull(event) {
+    console.log(' doPull event: ', event);
+  }
+
+
+  doStart(event) {
+    console.log('doStart event: ', event);
+  }
+
+
+
   goToDetails(itemid) {
 
     console.log('ir detalles de viajes reservados ');
