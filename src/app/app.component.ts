@@ -55,7 +55,7 @@ export class MyApp {
   }
 
   private valConductorPasajero() {
-   // this.myservices.pasajero = this.pasajero;
+    // this.myservices.pasajero = this.pasajero;
     this.myservices.conductor = this.conductor;
     if (this.conductor)
       this.radiobtn = true;
@@ -70,7 +70,7 @@ export class MyApp {
     ];
     this.pages_pas = [
       { title: 'Home', component: HomePage, icono: "home" },
-      { title: 'Ver rutas', component: ViajesPasajeroPage, icono: "car" },
+      // { title: 'Ver rutas', component: ViajesPasajeroPage, icono: "car" },
       { title: 'Viajes reservados', component: ViajesReserPasajeroPage, icono: "walk" },
       { title: 'Perfil', component: PerfilPage, icono: "contact" }
     ];
@@ -142,14 +142,16 @@ export class MyApp {
   }
 
   private actionChangeMode() {
-    if (this.evento)
+    if (this.evento) {
       this.myservices.conductor = true;
-    else
+      this.conductor = true;
+    } else {
       this.myservices.conductor = false;
-
+      this.conductor = false;
+    }
     this.nav.setRoot(HomePage);
-    this.menu.close();
+    //this.menu.close();
   }
 
 
-}
+}//end class

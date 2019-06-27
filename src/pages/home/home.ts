@@ -20,8 +20,15 @@ export class HomePage {
     public nav: NavController) {
     //this.pasajero = myservices.pasajero;
     this.conductor = myservices.conductor;
-
   }
+
+  ionViewDidLoad() {
+    //revisar en la base de datos si existe o no el campo de automovil  y el campo perfil(telfono e informacion personal)
+    this.myservices.profileExists = true;
+    this.myservices.carExists = false;
+    console.log('ionViewDidLoad HomePage');
+  }
+
   ionViewDidEnter() {
     this.varInterval = setInterval(() => {
      // this.pasajero = this.myservices.pasajero;
@@ -36,12 +43,9 @@ export class HomePage {
     clearInterval(this.varInterval);
   }
 
-  ionViewDidLoad() {
-    //revisar en la base de datos si existe o no el campo de automovil  y el campo perfil(telfono e informacion personal)
-    this.myservices.carExists = true;
-    this.myservices.profileExists = true;
-    console.log('ionViewDidLoad HomePage');
-  }
+  
+
+
   goToDriver() {
     this.nav.push(ViajesOrigenDestinoPage)
     //this.nav.setRoot(pagina)

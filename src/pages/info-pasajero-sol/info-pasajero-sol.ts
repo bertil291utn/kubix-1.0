@@ -13,12 +13,34 @@ import { CallNumber } from '@ionic-native/call-number';
 export class InfoPasajeroSolPage {
   perfil_val;
   //telefono: string;
+  preferenciasObjetos;
+
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
     private socialSharing: SocialSharing,
     private callNumber: CallNumber) {
-    this.perfil_val = this.perfil();
+    this.perfil_val = navParams.data.infopasajero;
+    console.log('this.perfil_val: ', this.perfil_val);
+    this.preferenciasObjetos = [{
+      id: 'C',
+      preferencias: this.perfil_val.preferencias.chat,
+      iconos: 'chatboxes',
+      titulo: 'Conversar'
+    },
+    {
+      id: 'M',
+      preferencias: this.perfil_val.preferencias.musica,
+      iconos: 'musical-notes',
+      titulo: 'Escuchar m\u00FAsica'
+    },
+    {
+      id: 'F',
+      preferencias: this.perfil_val.preferencias.fumar,
+      iconos: 'no-smoking',
+      titulo: 'Fumar'
+    }]
   }
 
   ionViewDidLoad() {
@@ -26,28 +48,7 @@ export class InfoPasajeroSolPage {
     console.log('ionViewDidLoad InfoPasajeroSolPage');
   }
 
-  private perfil() {
-    return {
-      id: 1,
-      nombre: "Pepito Adolfo",
-      apellido: "Perez Hitler",
-      fotografia: "assets/imgs/profileOK.jpg",
-      ocupacion: 'Docente',
-      facultad: "FICA",
-      carrera: "Sistemas",
-      genero: "Masculino",
-      telefono: '0984807620',
-      informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio',
-      auto: {
-        placa: "PCC0629",
-        modelo: "IBIZA",
-        marca: "SEAT",
-        color: "Negro",
-        imagen: "assets/imgs/01.png"
-      }
-    }
-  }
-
+ 
 
   dismiss() {
     this.viewCtrl.dismiss();

@@ -38,8 +38,10 @@ export class DetRutaCPage {
   }
 
 
-  gotoInfo() {
-    let contactModal = this.modalCtrl.create(InfoPasajeroSolPage);
+  gotoInfo(item) {
+    //item mandar a buscar a la BD los datos de esa persona item=cedula 
+    let contactModal = this.modalCtrl.create(InfoPasajeroSolPage, { infopasajero: this.viajedet.solicitud[item] });
+    console.log('this.viajedet.solicitud[item]: ',this.viajedet.solicitud[item]);
     contactModal.present();
 
   }

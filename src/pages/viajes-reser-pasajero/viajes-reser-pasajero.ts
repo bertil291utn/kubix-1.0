@@ -71,7 +71,7 @@ export class ViajesReserPasajeroPage {
         carrera: "Sistemas",
         genero: "Masculino",
         telefono: '0984807620',
-        informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio'
+        preferencias: { chat: 1, fumar: 3, musica: 3 },
       },
       estado: 0
 
@@ -104,7 +104,7 @@ export class ViajesReserPasajeroPage {
         carrera: "Enfermeria",
         genero: "Femenino",
         telefono: '0984807620',
-        informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio'
+        preferencias: { chat: 1, fumar: 1, musica: 3 },
       },
       estado: 1
 

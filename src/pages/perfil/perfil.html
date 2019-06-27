@@ -63,8 +63,8 @@
         </ion-row>
 
         <br>
-        <h5>Informaci&oacute;n personal</h5><br>
-        <ion-row>
+        <h5>Preferencias</h5><br>
+        <!-- <ion-row>
           <ion-col *ngIf="!editarBoton">
             {{perfil_val.informacion}}
           </ion-col>
@@ -72,7 +72,44 @@
             [(ngModel)]="personalData" color="danger"
             placeholder="Ingrese informacion reeveante acerca de usted con respecto a un viaje Ej. Me gusta, no me gusta, no se permite fumar  ">
           </ion-textarea>
-        </ion-row><br><br>
+        </ion-row><br><br> -->
+
+        <div *ngIf="!editarBoton" text-center>
+          <ion-row id="showicon">
+            <ion-col *ngFor="let obj of preferenciasObjetos">
+              <ion-label><strong>{{obj.titulo}}</strong></ion-label>
+              <ion-icon [style.color]="obj.preferencias==1?'#e6bcbc':(obj.preferencias==2?'#ea6b7c':'red')"
+                [name]="obj.iconos"></ion-icon>
+              <ion-label style="font-size: 1rem;">
+                {{obj.preferencias==1?'Nada':(obj.preferencias==2?'Poco':'Mucho')}}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <div *ngIf="editarBoton">
+          <ion-grid *ngFor="let obj of preferenciasObjetos">
+            <ion-row radio-group (ionChange)="rbngroupPreferencias($event,obj)">
+              <ion-col col-4><strong>{{obj.titulo}}</strong></ion-col>
+              <ion-col col-2>
+                <ion-icon style="color: #e6bcbc;" [name]="obj.iconos" small></ion-icon>
+                <br>
+                <ion-radio [checked]="obj.preferencias==1" color="danger" value="1"></ion-radio>
+              </ion-col>
+              <ion-col col-2>
+                <ion-icon style="font-size: 1.8em;color: #ea6b7c;" [name]="obj.iconos">
+                </ion-icon><br>
+                <ion-radio [checked]="obj.preferencias==2" color="danger" value="2"></ion-radio>
+              </ion-col>
+              <ion-col>
+                <ion-icon style="font-size: 2.3em;color: red;" [name]="obj.iconos"></ion-icon><br>
+                <ion-radio [checked]="obj.preferencias==3" color="danger" value="3"></ion-radio>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+
+
         <ion-row>
           <ion-icon slot="icon-only" name="call" style="font-size: 1.8em;" color="iconos"></ion-icon>
           <ion-col *ngIf="!editarBoton">
@@ -86,12 +123,26 @@
       </div>
       <div *ngIf="!profileExists">
         <br>
-        <h5>Informaci&oacute;n personal</h5><br>
-        <ion-row>
-          <ion-textarea style="background-color: #ebebeb;" rows="4" cols="20" [(ngModel)]="personalData" color="danger"
-            placeholder="Ingrese informacion personal. Ej. Me gusta la puntulidad, no me gusta..., no se permite fumar ">
-          </ion-textarea>
-        </ion-row><br><br>
+        <h5>Preferencias</h5><br>
+        <ion-grid *ngFor="let obj of preferenciasObjetos">
+          <ion-row radio-group (ionChange)="rbngroupPreferencias($event,obj)">
+            <ion-col col-4><strong>{{obj.titulo}}</strong></ion-col>
+            <ion-col col-2>
+              <ion-icon style="color: #e6bcbc;" [name]="obj.iconos" small></ion-icon>
+              <br>
+              <ion-radio color="danger" value=1></ion-radio>
+            </ion-col>
+            <ion-col col-2>
+              <ion-icon style="font-size: 1.8em;color: #ea6b7c;" [name]="obj.iconos">
+              </ion-icon><br>
+              <ion-radio color="danger" value=2></ion-radio>
+            </ion-col>
+            <ion-col>
+              <ion-icon style="font-size: 2.3em;color: red;" [name]="obj.iconos"></ion-icon><br>
+              <ion-radio color="danger" value=3></ion-radio>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
         <ion-row>
           <ion-icon slot="icon-only" name="call" style="font-size: 1.8em;" color="iconos"></ion-icon>
           <ion-col style="background-color: #ebebeb;" col-5>
@@ -101,13 +152,15 @@
         </ion-row>
 
       </div>
-      <h5>Informaci&oacute;n acad&eacute;mica</h5>
-      <div>
-        <ion-row>
+
+      <div *ngIf="!editarBoton">
+        <ion-row *ngIf="profileExists">
           <ion-col col-4>
             <p><strong>Ocupaci&oacute;n</strong></p>
             <p><strong>Facultad</strong></p>
-            <p><strong>Carrera</strong></p>
+            <p><strong>Dependencia</strong></p>
+            <!-- mostrar cargo si es diferente de null -->
+            <p><strong>Cargo</strong></p>
           </ion-col>
           <ion-col>
             <p> {{perfil_val.ocupacion}}</p>
@@ -255,16 +308,53 @@
       </ion-row>
 
       <br>
-      <h5>Informaci&oacute;n personal</h5><br>
-      <ion-row>
-        <ion-col *ngIf="!editarBoton">
+      <h5>Preferencias</h5><br>
+      <!-- <ion-row> -->
+      <!-- <ion-col *ngIf="!editarBoton">
           {{perfil_val.informacion}}
-        </ion-col>
-        <ion-textarea style="background-color: #ebebeb;" *ngIf="editarBoton" rows="4" cols="20"
+        </ion-col> -->
+      <!-- <ion-textarea style="background-color: #ebebeb;" *ngIf="editarBoton" rows="4" cols="20"
           [(ngModel)]="personalData" color="danger"
           placeholder="Ingrese informacion reeveante acerca de usted con respecto a un viaje Ej. Me gusta, no me gusta, no se permite fumar  ">
-        </ion-textarea>
-      </ion-row><br><br>
+        </ion-textarea> -->
+
+      <div *ngIf="!editarBoton" text-center>
+        <ion-row id="showicon">
+          <ion-col *ngFor="let obj of preferenciasObjetos">
+            <ion-label><strong>{{obj.titulo}}</strong></ion-label>
+            <ion-icon [style.color]="obj.preferencias==1?'#e6bcbc':(obj.preferencias==2?'#ea6b7c':'red')"
+              [name]="obj.iconos"></ion-icon>
+            <ion-label style="font-size: 1rem;">
+              {{obj.preferencias==1?'Nada':(obj.preferencias==2?'Poco':'Mucho')}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div *ngIf="editarBoton">
+        <ion-grid *ngFor="let obj of preferenciasObjetos">
+          <ion-row radio-group (ionChange)="rbngroupPreferencias($event,obj)">
+            <ion-col col-4><strong>{{obj.titulo}}</strong></ion-col>
+            <ion-col col-2>
+              <ion-icon style="color: #e6bcbc;" [name]="obj.iconos" small></ion-icon>
+              <br>
+              <ion-radio [checked]="obj.preferencias==1" color="danger" value="1"></ion-radio>
+            </ion-col>
+            <ion-col col-2>
+              <ion-icon style="font-size: 1.8em;color: #ea6b7c;" [name]="obj.iconos">
+              </ion-icon><br>
+              <ion-radio [checked]="obj.preferencias==2" color="danger" value="2"></ion-radio>
+            </ion-col>
+            <ion-col>
+              <ion-icon style="font-size: 2.3em;color: red;" [name]="obj.iconos"></ion-icon><br>
+              <ion-radio [checked]="obj.preferencias==3" color="danger" value="3"></ion-radio>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+
+      <br><br>
       <ion-row>
         <ion-icon slot="icon-only" name="call" style="font-size: 1.8em;" color="iconos"></ion-icon>
         <ion-col *ngIf="!editarBoton">
@@ -278,12 +368,26 @@
     </div>
     <div *ngIf="!profileExists">
       <br>
-      <h5>Informaci&oacute;n personal</h5><br>
-      <ion-row>
-        <ion-textarea style="background-color: #ebebeb;" rows="4" cols="20" [(ngModel)]="personalData" color="danger"
-          placeholder="Ingrese informacion personal. Ej. Me gusta la puntulidad, no me gusta..., no se permite fumar ">
-        </ion-textarea>
-      </ion-row><br><br>
+      <h5>Preferencias</h5><br>
+      <ion-grid *ngFor="let obj of preferenciasObjetos">
+        <ion-row radio-group (ionChange)="rbngroupPreferencias($event,obj)">
+          <ion-col col-4><strong>{{obj.titulo}}</strong></ion-col>
+          <ion-col col-2>
+            <ion-icon style="color: #e6bcbc;" [name]="obj.iconos" small></ion-icon>
+            <br>
+            <ion-radio color="danger" value=1></ion-radio>
+          </ion-col>
+          <ion-col col-2>
+            <ion-icon style="font-size: 1.8em;color: #ea6b7c;" [name]="obj.iconos">
+            </ion-icon><br>
+            <ion-radio color="danger" value=2></ion-radio>
+          </ion-col>
+          <ion-col>
+            <ion-icon style="font-size: 2.3em;color: red;" [name]="obj.iconos"></ion-icon><br>
+            <ion-radio color="danger" value=3></ion-radio>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
       <ion-row>
         <ion-icon slot="icon-only" name="call" style="font-size: 1.8em;" color="iconos"></ion-icon>
         <ion-col style="background-color: #ebebeb;" col-5>
@@ -293,13 +397,15 @@
       </ion-row>
 
     </div>
-    <h5>Informaci&oacute;n acad&eacute;mica</h5>
-    <div>
-      <ion-row>
+
+    <div *ngIf="!editarBoton">
+      <ion-row *ngIf="profileExists">
         <ion-col col-4>
           <p><strong>Ocupaci&oacute;n</strong></p>
           <p><strong>Facultad</strong></p>
-          <p><strong>Carrera</strong></p>
+          <p><strong>Dependencia</strong></p>
+          <!-- mostrar cargo si es diferente de null -->
+          <p><strong>Cargo</strong></p>
         </ion-col>
         <ion-col>
           <p> {{perfil_val.ocupacion}}</p>

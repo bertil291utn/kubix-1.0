@@ -53,20 +53,26 @@ export class ViajesPubCPage {
       textoubicacion: "Av, 17 de Julio. Ibarra . Imbabura, Universidad Tecnica del Norte",
       ruta: "http://www.samtrans.com/Assets/SamTrans/Timetables/RB121/Maps/Route+61_2016_08-07.png",
       solicitud: [{
+        id: 1,
         nombre: "Pepito Adolfo",
         apellido: "Perez Hitler",
         fotografia: "assets/imgs/profileOK.jpg",
         facultad: "FICA",
         carrera: "Sistemas",
-        genero: "Masculino"
+        genero: "Masculino",
+        telefono: '0984845620',
+        preferencias: { chat: 1, fumar: 1, musica: 1 }
       },
       {
+        id: 2,
         nombre: "Maria",
         apellido: "Juana Cabrera",
         fotografia: "https://media.metrolatam.com/2018/08/23/mujer1-234853dc0e0619b7be7317871413304c-1200x800.jpg",
         facultad: "FCCSS",
         carrera: "Enfermeria",
-        genero: "Femenino"
+        genero: "Femenino",
+        telefono: '0983407620',
+        preferencias: { chat: 2, fumar: 2, musica: 1 }
       }]
 
     },
@@ -89,20 +95,26 @@ export class ViajesPubCPage {
       ruta: "http://www.samtrans.com/Assets/SamTrans/Timetables/RB121/Maps/Route+61_2016_08-07.png",
       solicitud: [
         {
+          id: 1,
           nombre: "Maria Jane",
           apellido: "Juana Parker",
           fotografia: "https://media.metrolatam.com/2018/08/23/mujer1-234853dc0e0619b7be7317871413304c-1200x800.jpg",
           facultad: "FCCSS",
           carrera: "Enfermeria",
-          genero: "Femenino"
+          genero: "Femenino",
+          telefono: '0984823620',
+          preferencias: { chat: 1, fumar: 2, musica: 1 }
         },
         {
+          id: 2,
           nombre: "Pepito Adolf",
           apellido: "Perez Saenz",
           fotografia: "https://ep01.epimg.net/elpais/imagenes/2018/11/06/gente/1541494541_621304_1541494790_noticia_normal.jpg",
           facultad: "FICA",
           carrera: "Sistemas",
-          genero: "Masculino"
+          genero: "Masculino",
+          telefono: '0984805620',
+          preferencias: { chat: 2, fumar: 2, musica: 1 }
         }]
     }]
   }

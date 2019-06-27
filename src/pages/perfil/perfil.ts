@@ -23,6 +23,10 @@ export class PerfilPage {
   addBoton: boolean = false;
   //varInterval;
   profileExists: boolean;
+  preferenciasObjetos;
+  enviarPreferencias;
+  valores;
+
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -31,6 +35,28 @@ export class PerfilPage {
     private camera: Camera, public alertController: AlertController) {
 
     this.perfil_val = this.perfil();
+    //crear un array de objetos, con valores de nombre d eiconos y valores de cada uno d elas preferncia para el perfil 
+    //objeto
+    this.preferenciasObjetos = [{
+      id: 'C',
+      preferencias: this.perfil_val.preferencias.chat,
+      iconos: 'chatboxes',
+      titulo: 'Conversar'
+    },
+    {
+      id: 'M',
+      preferencias: this.perfil_val.preferencias.musica,
+      iconos: 'musical-notes',
+      titulo: 'Escuchar m\u00FAsica'
+    },
+    {
+      id: 'F',
+      preferencias: this.perfil_val.preferencias.fumar,
+      iconos: 'no-smoking',
+      titulo: 'Fumar'
+    }]
+    //iniciar en cero no importa si profileexits o no 
+    this.enviarPreferencias = { chat: 0, musica: 0, fumar: 0 }
   }
 
 
@@ -47,10 +73,26 @@ export class PerfilPage {
     console.log('ionViewDidLoad PerfilPage');
   }
 
+  rbngroupPreferencias(event, objeto) {
+    console.log('evento: ', event, 'de: ', objeto.titulo);
+
+    if (objeto.id == 'C')
+      this.enviarPreferencias.chat = +event //signo+ delante de un string para convertir en int
+    else if (objeto.id == 'M')
+      this.enviarPreferencias.musica = +event
+    else
+      this.enviarPreferencias.fumar = +event
+    console.log('arrayenviar: ', this.enviarPreferencias)
+
+  }
+
   actionEditButton() {
+    //hacer que boton editar se averdadero ara el view HMTL
+    //tarer informacion preferencias y telefono desde la consulta api rest
     this.editarBoton = true;
-    this.personalData = this.perfil_val.informacion;
+    this.enviarPreferencias = { chat: this.perfil_val.preferencias.chat, musica: this.perfil_val.preferencias.musica, fumar: this.perfil_val.preferencias.fumar }
     this.telefono = this.perfil_val.telefono;
+    console.log('arrayenviar: ', this.enviarPreferencias)
   }
 
   goToAuto() {
@@ -162,12 +204,7 @@ export class PerfilPage {
         this.previewimg = 'data:image/png;base64,' + imgUrl;
       }
     });
-
-
   }
-
-
-
 
   private perfil() {
     return {
@@ -180,7 +217,7 @@ export class PerfilPage {
       carrera: "Sistemas",
       genero: "Masculino",
       telefono: '09999999',
-      informacion: 'Soy una persona reservada hablo lo necesario, no se permite fumar. Y siempre al servicio',
+      preferencias: { chat: 3, fumar: 2, musica: 1 },
       auto: {
         placa: "PCC0629",
         modelo: "IBIZA",
@@ -192,5 +229,4 @@ export class PerfilPage {
   }
 
 
-
-}
+}//end class

@@ -11,6 +11,7 @@ export class ViajesReservDetallesPage {
   viajedet;
   detalle: string;
   conductor: boolean;
+  preferenciasObjetos;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -18,7 +19,26 @@ export class ViajesReservDetallesPage {
     this.viajedet = navParams.get('datos');
     //valor para cambiar el template depndiendo si es condcutor o no 
     this.conductor = navParams.get('conductor');
+    this.preferenciasObjetos = [{
+      id: 'C',
+      preferencias: this.viajedet.conductor.preferencias.chat,
+      iconos: 'chatboxes',
+      titulo: 'Conversaci\u00F3n'
+    },
+    {
+      id: 'M',
+      preferencias: this.viajedet.conductor.preferencias.musica,
+      iconos: 'musical-notes',
+      titulo: 'M\u00FAsica'
+    },
+    {
+      id: 'F',
+      preferencias: this.viajedet.conductor.preferencias.fumar,
+      iconos: 'no-smoking',
+      titulo: 'Fumar'
+    }]
   }
+
 
   ionViewDidLoad() {
     this.initvalues();

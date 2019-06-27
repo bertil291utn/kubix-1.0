@@ -87,7 +87,7 @@
     <ion-grid id="request" *ngSwitchCase="'solicitud'">
 
       <ion-card *ngFor="let item of viajedet.solicitud">
-        <ion-card-content (click)="gotoInfo()">
+        <ion-card-content (click)="gotoInfo(item.id-1)">
           <ion-row>
             <ion-col col-4>
               <div id="circular">

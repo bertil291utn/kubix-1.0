@@ -26,7 +26,7 @@ export class searchTravelPasajero {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LugaresViajePage');
+    console.log('ionViewDidLoad SearchTravelPasajero');
     this.presentToastDurationTop('Seleccione un lugar de destino.', 3000);
     this.allTravelItems = this.initializeItems(this.navParams.data.lista_viaje);
   }
@@ -97,9 +97,7 @@ export class searchTravelPasajero {
     toast.present();
   }
 
-  // toastDismiss() {
-  //   this.toastLugares.dismiss();
-  // }
+
 
 
 
