@@ -7,7 +7,7 @@
       <ion-col>
         <ion-item no-lines style="border: 1.5px solid #898989;background-color: #ffffffbd;">
           <!-- <ion-icon name="person" color="iconos" item-start></ion-icon> -->
-          <ion-input placeholder="Usuario" clearInput></ion-input>
+          <ion-input placeholder="Usuario" clearInput [(ngModel)]="usuario"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -15,18 +15,18 @@
       <ion-col>
         <ion-item no-lines style="border: 1.5px solid #898989;background-color: #ffffffbd;">
           <!-- <ion-icon name="key" color="iconos" item-start></ion-icon> -->
-          <ion-input type="password" placeholder="Contrase&ntilde;a" clearInput></ion-input>
+          <ion-input type="password" placeholder="Contrase&ntilde;a" clearInput [(ngModel)]="password"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-item no-lines text-right style="background: border-box;" 
-    (click)="presentAlert('Ingrese con sus mismas credenciales. Anteponiendo la letra correspondiente.  
+    (click)="presentAlert('Utilice las mismas credenciales de Portafolio o de Sistema. Anteponiendo la letra correspondiente.  
     <p>A Administrativo, D Docente y E Estudiante</p>')">
       <ion-icon item-end name="help-circle" style="color:#3d454d"></ion-icon>
       <ion-label style="color:#3d454d">Ayuda</ion-label>
     </ion-item>
     <br>
-    <button full ion-button color="danger" (click)="goToHome()">ingresar</button>
+    <button full ion-button color="danger" (click)="signIn()">ingresar</button>
   </div>
 
 </ion-content>

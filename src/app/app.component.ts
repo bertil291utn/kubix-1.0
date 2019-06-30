@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController, MenuController, Slides, IonicPage } from 'ionic-angular';
+import { Component, ViewChild, NgZone } from '@angular/core';
+import { Nav, Platform, AlertController, MenuController, Slides, IonicPage, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -13,6 +13,7 @@ import { PerfilPage } from '../pages/perfil/perfil';
 import { CompileMetadataResolver } from '@angular/compiler';
 import { SlidesPage } from '../pages/slides/slides';
 import { LoginPage } from '../pages/login/login';
+import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-service';
 
 @Component({
   selector: 'page-menu',
@@ -20,31 +21,35 @@ import { LoginPage } from '../pages/login/login';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  contrasenaExists = true;
-  evento;
+  contrasenaExists = false;
+  evntRbnTipoPasajero;
   radiobtn;
-  //pasajero: boolean = true;
   conductor: boolean = true;
-  //solicitud: boolean = false;
   rootPage;
   pages: Array<{ title: string, component: any, icono: string }>;
   pages_pas: Array<{ title: string, component: any, icono: string }>;
+  userInfoData;
 
-  constructor(public platform: Platform, public statusBar: StatusBar,
-    public splashScreen: SplashScreen, public myservices: HomeServiceProvider,
-    public alertCtrl: AlertController,
+  constructor(public platform: Platform, public statusBar: StatusBar, private zone: NgZone,
+    public splashScreen: SplashScreen, public myservices: HomeServiceProvider, public event: Events,
+    public alertCtrl: AlertController, public apiRestService: RestApiServiceProvider,
     public menu: MenuController) {
-    this.initializeApp();
 
+    this.initializeApp();
     // used for an example of ngFor and navigation
     this.pageslist();
     this.valConductorPasajero();
-    //this.myservices.solicitud = this.solicitud
+    //para verificar si la contrasena ya esta guardada
     this.actionPassword();
+    //subscribirse al evento publicado anteriormnente en el login.
+    // El view de sidemenu debe estar coulto hasta que haya respuesta en userinfodata
+    this.event.subscribe('userInfoData', (data) => {
+      this.userInfoData = data;
+    });
   }
 
-  private actionPassword() {
 
+  private actionPassword() {
     //si la existe la contrasena guardada y es correcta en el navegador entonces directo al home
     if (this.contrasenaExists) {
       console.log('this.contrasenaExists: ', this.contrasenaExists)
@@ -92,14 +97,14 @@ export class MyApp {
   }
 
   gotoLogin() {
-
+    //salir log out
     //this.nav.setRoot(login)
     //close to all sessions
   }
 
   activatechangeMode(event) {
     console.log(event)
-    this.evento = event;
+    this.evntRbnTipoPasajero = event;
     this.createAlert();
     //this.nav.setRoot(homepasajero);
 
@@ -107,7 +112,7 @@ export class MyApp {
 
   private createAlert() {
     let text_msg;
-    if (this.evento) {
+    if (this.evntRbnTipoPasajero) {
       text_msg = "activar"
     } else {
       text_msg = "desactivar"
@@ -135,14 +140,14 @@ export class MyApp {
 
 
   private rdbnReturn() {
-    if (this.evento)
+    if (this.evntRbnTipoPasajero)
       this.radiobtn = false;
     else
       this.radiobtn = true;
   }
 
   private actionChangeMode() {
-    if (this.evento) {
+    if (this.evntRbnTipoPasajero) {
       this.myservices.conductor = true;
       this.conductor = true;
     } else {

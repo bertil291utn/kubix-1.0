@@ -1,16 +1,18 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" *ngIf="userInfoData!=undefined">
   <ion-header>
     <ion-toolbar style="padding:0 16px 0;">
       <ion-grid>
         <ion-row>
           <ion-col col-3>
             <div id="circular">
-              <img src="assets/imgs/1.png">
+              <img [src]="userInfoData.foto!=null?userInfoData.foto:'assets/imgs/blank-avatar.png'">
             </div>
           </ion-col> 
           <ion-col style="padding-top: 5%;">
-            <strong ion-text>{{PrimerNombre}}Bertil {{Primerapellido}}Tandayamo</strong><br>
-            {{Correo}}batandayamol@utn.edu.ec
+            <strong ion-text style="font-size: 1.7rem;">{{userInfoData.primer_nombre|titlecase }} {{userInfoData.primer_apellido|titlecase }}</strong>
+            <p style="font-size: 1.2rem; margin: 0;">
+              {{userInfoData.email}}
+            </p>
           </ion-col>
         </ion-row>
       </ion-grid>

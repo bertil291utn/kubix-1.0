@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoadingController, NavController } from 'ionic-angular';
+import { LoadingController, NavController, MenuController } from 'ionic-angular';
 import { ViajesMainCPage } from '../viajes-main-c/viajes-main-c';
 import { HomeServiceProvider } from '../../providers/home-service/home-service';
 import { ViajesPasajeroPage } from '../viajes-pasajero/viajes-pasajero';
@@ -15,7 +15,7 @@ export class HomePage {
   varInterval;
 
   constructor(
-    public myservices: HomeServiceProvider,
+    public myservices: HomeServiceProvider, private menu: MenuController,
     public loadingCtrl: LoadingController,
     public nav: NavController) {
     //this.pasajero = myservices.pasajero;

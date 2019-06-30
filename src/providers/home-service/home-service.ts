@@ -42,6 +42,13 @@ export class HomeServiceProvider {
     this._profileExists = value;
   }
 
+  private _userdata: any;
+  public get userdata(): any {
+    return this._userdata;
+  }
+  public set userdata(value: any) {
+    this._userdata = value;
+  }
   constructor() {
     console.log('Hello HomeServiceProvider Provider');
   }

@@ -42,6 +42,10 @@ import { CallNumber } from '@ionic-native/call-number';
 import { SlidesPage } from '../pages/slides/slides';
 import { LoginPage } from '../pages/login/login';
 import { searchTravelPasajero } from "../pages/searchTravelPasajero/searchTravelPasajero";
+import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-service';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 @NgModule({
   declarations: [
@@ -71,9 +75,11 @@ import { searchTravelPasajero } from "../pages/searchTravelPasajero/searchTravel
     SlidesPage,
     LoginPage,
     searchTravelPasajero
+    
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
   ],
@@ -105,6 +111,7 @@ import { searchTravelPasajero } from "../pages/searchTravelPasajero/searchTravel
     SlidesPage,
     LoginPage,
     searchTravelPasajero
+  
   ],
   providers: [
     StatusBar,
@@ -118,7 +125,8 @@ import { searchTravelPasajero } from "../pages/searchTravelPasajero/searchTravel
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HomeServiceProvider,
     DatesFormatProvider,
-    RutaProvider
+    RutaProvider,
+    RestApiServiceProvider
   ]
 })
 export class AppModule { }
