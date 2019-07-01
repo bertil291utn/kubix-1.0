@@ -1,5 +1,5 @@
-import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { Component, NgZone, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController, AlertController, Events, Content, ViewController } from 'ionic-angular';
 import { HomeServiceProvider } from '../../providers/home-service/home-service';
 import { CarPage } from '../car/car';
 import { ThrowStmt } from '@angular/compiler';
@@ -12,6 +12,7 @@ import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-ap
   templateUrl: 'perfil.html',
 })
 export class PerfilPage {
+  @ViewChild(Content) content: Content;
   perfil_val;
   detalle: string = 'datos';
   conductor: boolean;
@@ -28,15 +29,22 @@ export class PerfilPage {
   enviarPreferencias;
 
 
-  constructor(public navCtrl: NavController,
+  constructor(public navCtrl: NavController, public events: Events, private viewCtrl: ViewController,
     public navParams: NavParams, public apiRestService: RestApiServiceProvider,
     public myservices: HomeServiceProvider, private zone: NgZone,
     public modalCtrl: ModalController,
     private camera: Camera, public alertController: AlertController) {
 
     this.perfil_val = this.perfil();
-    //iniciar en cero no importa si profileexits o no 
+    // this.events.subscribe('updateScreen', () => {
+    //   this.zone.run(() => {
+    //     this.getPreferencesUser();
+    //   });
+    // });
+
+
   }
+
 
   ionViewDidLoad() {
     this.getPreferencesUser();
@@ -52,6 +60,12 @@ export class PerfilPage {
     }
     console.log('ionViewDidLoad PerfilPage');
   }
+
+  ionViewDidEnter() {
+    ///dont delete this method is called to refresh budy
+  }
+
+
 
   private getUserInfo(cedula: string) {
     this.apiRestService.getUsuario(cedula)
@@ -104,12 +118,11 @@ export class PerfilPage {
     this.apiRestService.getUsuarioPreferences(this.myservices.usuarioCedula)
       .subscribe((resp) => {
         //reorganizar el objto JSON
-        let corr = this.apiRestService.groupJsonObject(resp.items, 'cedula');
         this.actionListenerPreferencias(resp.items[0].nivel,
           resp.items[1].nivel, resp.items[2].nivel, resp.items[0].cod_preferencia,
           resp.items[1].cod_preferencia, resp.items[2].cod_preferencia);
-        console.log('corregido: ', corr);
         console.log('resp: ', resp.items);
+        this.viewCtrl._didEnter();//llamar al lifecycle ionviewdidenter para la actualizacion 
       });
   }
 
@@ -159,10 +172,9 @@ export class PerfilPage {
       this.apiRestService.updateProfilePreferences(cedula, obj.codigo_preferencia, obj.nivel_edited).subscribe((resp) => {
         console.log('resp: ', resp);
       });
-      this.getPreferencesUser();
-      this.zone.run(() => {
-        this.preferenciasObjetos; //volver a llamar para actualizar
-      });
+      this.getPreferencesUser();//llamar a las preferncias del usuario y dentr de este async llamar al lyfecicle ionViewDidEnter
+      //no  poner dentro del async update por que devuelve error pero si ejecuta el update
+      
     }
     if (this.detalle == "automovil") {
       //enviar a bas e datos los datos del automovil de esta persona 
