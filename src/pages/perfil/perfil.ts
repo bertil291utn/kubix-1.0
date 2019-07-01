@@ -1,5 +1,5 @@
 import { Component, NgZone, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController, Events, Content, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController, Events, Content, ViewController, LoadingController } from 'ionic-angular';
 import { HomeServiceProvider } from '../../providers/home-service/home-service';
 import { CarPage } from '../car/car';
 import { ThrowStmt } from '@angular/compiler';
@@ -27,12 +27,12 @@ export class PerfilPage {
   profileExists: boolean;
   preferenciasObjetos;
   enviarPreferencias;
-
+  loadingControllerSave;
 
   constructor(public navCtrl: NavController, public events: Events, private viewCtrl: ViewController,
     public navParams: NavParams, public apiRestService: RestApiServiceProvider,
     public myservices: HomeServiceProvider, private zone: NgZone,
-    public modalCtrl: ModalController,
+    public modalCtrl: ModalController, public loadingCtrl: LoadingController,
     private camera: Camera, public alertController: AlertController) {
 
     this.perfil_val = this.perfil();
@@ -62,7 +62,8 @@ export class PerfilPage {
   }
 
   ionViewDidEnter() {
-    ///dont delete this method is called to refresh budy
+
+
   }
 
 
@@ -123,6 +124,11 @@ export class PerfilPage {
           resp.items[1].cod_preferencia, resp.items[2].cod_preferencia);
         console.log('resp: ', resp.items);
         this.viewCtrl._didEnter();//llamar al lifecycle ionviewdidenter para la actualizacion 
+        if (resp != null)
+          if (this.loadingControllerSave != undefined) {
+            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            this.loadingControllerSave.dismiss();
+          }
       });
   }
 
@@ -162,6 +168,8 @@ export class PerfilPage {
   }
 
   saveAndEdit() {
+    this.loadingControllerSave = this.loadingCtrl.create();
+    this.loadingControllerSave.present();
     //enviar datos
     console.log('save edit')
     this.editarBoton = false;
@@ -174,7 +182,7 @@ export class PerfilPage {
       });
       this.getPreferencesUser();//llamar a las preferncias del usuario y dentr de este async llamar al lyfecicle ionViewDidEnter
       //no  poner dentro del async update por que devuelve error pero si ejecuta el update
-      
+
     }
     if (this.detalle == "automovil") {
       //enviar a bas e datos los datos del automovil de esta persona 
