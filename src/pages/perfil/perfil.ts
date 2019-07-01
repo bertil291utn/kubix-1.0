@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { HomeServiceProvider } from '../../providers/home-service/home-service';
 import { CarPage } from '../car/car';
 import { ThrowStmt } from '@angular/compiler';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 
 
 @Component({
@@ -21,46 +22,87 @@ export class PerfilPage {
   previewimg: string;
   preview: boolean = false;
   addBoton: boolean = false;
-  //varInterval;
+
   profileExists: boolean;
   preferenciasObjetos;
   enviarPreferencias;
-  valores;
 
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    public myservices: HomeServiceProvider,
+    public navParams: NavParams, public apiRestService: RestApiServiceProvider,
+    public myservices: HomeServiceProvider, private zone: NgZone,
     public modalCtrl: ModalController,
     private camera: Camera, public alertController: AlertController) {
 
+
     this.perfil_val = this.perfil();
-    //crear un array de objetos, con valores de nombre d eiconos y valores de cada uno d elas preferncia para el perfil 
-    //objeto
-    this.preferenciasObjetos = [{
-      id: 'C',
-      preferencias: this.perfil_val.preferencias.chat,
-      iconos: 'chatboxes',
-      titulo: 'Conversar'
-    },
-    {
-      id: 'M',
-      preferencias: this.perfil_val.preferencias.musica,
-      iconos: 'musical-notes',
-      titulo: 'Escuchar m\u00FAsica'
-    },
-    {
-      id: 'F',
-      preferencias: this.perfil_val.preferencias.fumar,
-      iconos: 'no-smoking',
-      titulo: 'Fumar'
-    }]
     //iniciar en cero no importa si profileexits o no 
-    this.enviarPreferencias = { chat: 0, musica: 0, fumar: 0 }
+
+  }
+
+  private getUserInfo(cedula: string) {
+    this.apiRestService.getUsuario(cedula)
+      .subscribe((resp) => {
+        if (resp.items[0].foto != null)
+          this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].foto;
+        this.myservices.userData.primer_nombre = resp.items[0].primer_nombre;
+        this.myservices.userData.segundo_nombre = resp.items[0].segundo_nombre;
+        this.myservices.userData.primer_apellido = resp.items[0].primer_apellido;
+        this.myservices.userData.email = resp.items[0].correo_institucional;
+        this.myservices.userData.celular = resp.items[0].telefono_movil;
+
+      },
+        (error) => {
+          console.error(error);
+        });
   }
 
 
+  private actionListenerPreferencias(chat, musica, fumar, id_chat, id_musica, id_fumar) {
+    // array con preferncias  del ususario 
+    // params nivel de cada preferencia 
+    this.preferenciasObjetos = [{
+      id: 'C',
+      codigo_preferencia: id_chat,
+      nivel: chat,
+      iconos: 'chatboxes',
+      titulo: 'Conversar',
+      nivel_edited: chat
+    },
+    {
+      id: 'M',
+      codigo_preferencia: id_musica,
+      nivel: musica,
+      iconos: 'musical-notes',
+      titulo: 'Escuchar m\u00FAsica',
+      nivel_edited: musica
+    },
+    {
+      id: 'F',
+      codigo_preferencia: id_fumar,
+      nivel: fumar,
+      iconos: 'no-smoking',
+      titulo: 'Fumar',
+      nivel_edited: fumar
+    }];
+  }
+
+  private getPreferencesUser() {
+    this.apiRestService.getUsuarioPreferences(this.myservices.usuarioCedula)
+      .subscribe((resp) => {
+        //reorganizar el objto JSON
+        let corr = this.apiRestService.groupJsonObject(resp.items, 'cedula');
+        this.actionListenerPreferencias(resp.items[0].nivel,
+          resp.items[1].nivel, resp.items[2].nivel, resp.items[0].cod_preferencia,
+          resp.items[1].cod_preferencia, resp.items[2].cod_preferencia);
+        console.log('corregido: ', corr);
+        console.log('resp: ', resp.items);
+      });
+  }
+
   ionViewDidLoad() {
+    this.getPreferencesUser();
+    this.getUserInfo(this.myservices.usuarioCedula);
     this.conductor = this.myservices.conductor;
     this.carExists = this.myservices.carExists;
     this.profileExists = this.myservices.profileExists;
@@ -74,25 +116,26 @@ export class PerfilPage {
   }
 
   rbngroupPreferencias(event, objeto) {
-    console.log('evento: ', event, 'de: ', objeto.titulo);
+    console.log('evento: ', event, 'de: ', objeto.titulo, 'obj: ', objeto);
 
     if (objeto.id == 'C')
-      this.enviarPreferencias.chat = +event //signo+ delante de un string para convertir en int
+      this.preferenciasObjetos[0].nivel_edited = +event
     else if (objeto.id == 'M')
-      this.enviarPreferencias.musica = +event
+      this.preferenciasObjetos[1].nivel_edited = +event
     else
-      this.enviarPreferencias.fumar = +event
-    console.log('arrayenviar: ', this.enviarPreferencias)
+      this.preferenciasObjetos[2].nivel_edited = +event
+    console.log('arrayenviar: ', this.preferenciasObjetos)
 
   }
 
   actionEditButton() {
     //hacer que boton editar se averdadero ara el view HMTL
     //tarer informacion preferencias y telefono desde la consulta api rest
+
+    //cargar datos
     this.editarBoton = true;
-    this.enviarPreferencias = { chat: this.perfil_val.preferencias.chat, musica: this.perfil_val.preferencias.musica, fumar: this.perfil_val.preferencias.fumar }
-    this.telefono = this.perfil_val.telefono;
-    console.log('arrayenviar: ', this.enviarPreferencias)
+    this.telefono = this.myservices.userData.celular;
+    console.log('arrayenviar: ', this.preferenciasObjetos)
   }
 
   goToAuto() {
@@ -107,9 +150,21 @@ export class PerfilPage {
   }
 
   saveAndEdit() {
+    //enviar datos
     console.log('save edit')
     this.editarBoton = false;
     this.preview = false;
+
+    let cedula = this.myservices.usuarioCedula;
+    for (let obj of this.preferenciasObjetos) {
+      this.apiRestService.updateProfilePreferences(cedula, obj.codigo_preferencia, obj.nivel_edited).subscribe((resp) => {
+        console.log('resp: ', resp);
+      });
+      this.getPreferencesUser();
+      this.zone.run(() => {
+        this.preferenciasObjetos; //volver a llamar para actualizar
+      });
+    }
     if (this.detalle == "automovil") {
       //enviar a bas e datos los datos del automovil de esta persona 
       console.log('enviar a bas e datos los datos del automovil de esta persona ')
@@ -127,6 +182,7 @@ export class PerfilPage {
     }
 
     //volver a traer datos desde base de datos para ver el autmovil editado o guardado REFRESH
+    //volver a llamar a las preferncias  
 
   }
 

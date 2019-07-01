@@ -42,15 +42,20 @@ export class HomeServiceProvider {
     this._profileExists = value;
   }
 
-  private _userdata: any;
-  public get userdata(): any {
-    return this._userdata;
+  private _userData = { foto: null, primer_nombre: null, segundo_nombre: null, primer_apellido: null, email: null, celular: null };
+  public get userData() {
+    return this._userData;
   }
-  public set userdata(value: any) {
-    this._userdata = value;
+  public set userData(value) {
+    this._userData = value;
   }
-  constructor() {
-    console.log('Hello HomeServiceProvider Provider');
+
+  private _usuarioCedula: string;
+  public get usuarioCedula(): string {
+    return this._usuarioCedula;
+  }
+  public set usuarioCedula(value: string) {
+    this._usuarioCedula = value;
   }
 
 

@@ -52,10 +52,13 @@
     <ion-grid id="descripcion" *ngSwitchCase="'datos'">
 
       <div id="circular">
-        <img class="imgbck" src="{{perfil_val.fotografia}}">
+        <img class="imgbck"
+          [src]="myservices.userData.foto!=null?myservices.userData.foto:'assets/imgs/blank-avatar.png'">
       </div>
 
-      <h4 style="margin-bottom: 1%;" ion-text text-center>{{perfil_val.nombre}}</h4>
+      <h4 style="margin-bottom: 1%;" ion-text text-center>{{myservices.userData.primer_nombre|titlecase}}
+        {{myservices.userData.segundo_nombre|titlecase}}
+        {{myservices.userData.primer_apellido|titlecase}}</h4>
       <div *ngIf="profileExists">
         <ion-row>
           <button (click)="actionEditButton()" *ngIf="!editarBoton" small ion-button round color="danger" outline
@@ -78,10 +81,10 @@
           <ion-row id="showicon">
             <ion-col *ngFor="let obj of preferenciasObjetos">
               <ion-label><strong>{{obj.titulo}}</strong></ion-label>
-              <ion-icon [style.color]="obj.preferencias==1?'#e6bcbc':(obj.preferencias==2?'#ea6b7c':'red')"
-                [name]="obj.iconos"></ion-icon>
+              <ion-icon [style.color]="obj.nivel==1?'#e6bcbc':(obj.nivel==2?'#ea6b7c':'red')" [name]="obj.iconos">
+              </ion-icon>
               <ion-label style="font-size: 1rem;">
-                {{obj.preferencias==1?'Nada':(obj.preferencias==2?'Poco':'Mucho')}}
+                {{obj.nivel==1?'Nada':(obj.nivel==2?'Poco':'Mucho')}}
               </ion-label>
             </ion-col>
           </ion-row>
@@ -94,16 +97,16 @@
               <ion-col col-2>
                 <ion-icon style="color: #e6bcbc;" [name]="obj.iconos" small></ion-icon>
                 <br>
-                <ion-radio [checked]="obj.preferencias==1" color="danger" value="1"></ion-radio>
+                <ion-radio [checked]="obj.nivel==1" color="danger" value="1"></ion-radio>
               </ion-col>
               <ion-col col-2>
                 <ion-icon style="font-size: 1.8em;color: #ea6b7c;" [name]="obj.iconos">
                 </ion-icon><br>
-                <ion-radio [checked]="obj.preferencias==2" color="danger" value="2"></ion-radio>
+                <ion-radio [checked]="obj.nivel==2" color="danger" value="2"></ion-radio>
               </ion-col>
               <ion-col>
                 <ion-icon style="font-size: 2.3em;color: red;" [name]="obj.iconos"></ion-icon><br>
-                <ion-radio [checked]="obj.preferencias==3" color="danger" value="3"></ion-radio>
+                <ion-radio [checked]="obj.nivel==3" color="danger" value="3"></ion-radio>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -113,7 +116,7 @@
         <ion-row>
           <ion-icon slot="icon-only" name="call" style="font-size: 1.8em;" color="iconos"></ion-icon>
           <ion-col *ngIf="!editarBoton">
-            <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>
+            <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{myservices.userData.celular}}</strong>
           </ion-col>
           <ion-col *ngIf="editarBoton" style="background-color: #ebebeb;" col-5>
             <ion-input type="tel" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
@@ -143,14 +146,6 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <ion-row>
-          <ion-icon slot="icon-only" name="call" style="font-size: 1.8em;" color="iconos"></ion-icon>
-          <ion-col style="background-color: #ebebeb;" col-5>
-            <ion-input type="tel" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
-            </ion-input>
-          </ion-col>
-        </ion-row>
-
       </div>
 
       <div *ngIf="!editarBoton">
@@ -297,10 +292,12 @@
 
   <ion-grid id="descripcion">
     <div id="circular">
-      <img class="imgbck" src="{{perfil_val.fotografia}}">
+      <img class="imgbck"
+        [src]="myservices.userData.foto!=null?myservices.userData.foto:'assets/imgs/blank-avatar.png'">
     </div>
 
-    <h4 style="margin-bottom: 1%;" ion-text text-center>{{perfil_val.nombre}}</h4>
+    <h4 style="margin-bottom: 1%;" ion-text text-center>{{myservices.userData.primer_nombre|titlecase}}
+      {{myservices.userData.primer_apellido|titlecase}}</h4>
     <div *ngIf="profileExists">
       <ion-row>
         <button (click)="actionEditButton()" *ngIf="!editarBoton" small ion-button round color="danger" outline
@@ -322,10 +319,10 @@
         <ion-row id="showicon">
           <ion-col *ngFor="let obj of preferenciasObjetos">
             <ion-label><strong>{{obj.titulo}}</strong></ion-label>
-            <ion-icon [style.color]="obj.preferencias==1?'#e6bcbc':(obj.preferencias==2?'#ea6b7c':'red')"
-              [name]="obj.iconos"></ion-icon>
+            <ion-icon [style.color]="obj.nivel==1?'#e6bcbc':(obj.nivel==2?'#ea6b7c':'red')" [name]="obj.iconos">
+            </ion-icon>
             <ion-label style="font-size: 1rem;">
-              {{obj.preferencias==1?'Nada':(obj.preferencias==2?'Poco':'Mucho')}}
+              {{obj.nivel==1?'Nada':(obj.nivel==2?'Poco':'Mucho')}}
             </ion-label>
           </ion-col>
         </ion-row>
@@ -338,16 +335,16 @@
             <ion-col col-2>
               <ion-icon style="color: #e6bcbc;" [name]="obj.iconos" small></ion-icon>
               <br>
-              <ion-radio [checked]="obj.preferencias==1" color="danger" value="1"></ion-radio>
+              <ion-radio [checked]="obj.nivel==1" color="danger" value="1"></ion-radio>
             </ion-col>
             <ion-col col-2>
               <ion-icon style="font-size: 1.8em;color: #ea6b7c;" [name]="obj.iconos">
               </ion-icon><br>
-              <ion-radio [checked]="obj.preferencias==2" color="danger" value="2"></ion-radio>
+              <ion-radio [checked]="obj.nivel==2" color="danger" value="2"></ion-radio>
             </ion-col>
             <ion-col>
               <ion-icon style="font-size: 2.3em;color: red;" [name]="obj.iconos"></ion-icon><br>
-              <ion-radio [checked]="obj.preferencias==3" color="danger" value="3"></ion-radio>
+              <ion-radio [checked]="obj.nivel==3" color="danger" value="3"></ion-radio>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -358,7 +355,7 @@
       <ion-row>
         <ion-icon slot="icon-only" name="call" style="font-size: 1.8em;" color="iconos"></ion-icon>
         <ion-col *ngIf="!editarBoton">
-          <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{perfil_val.telefono}}</strong>
+          <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{myservices.userData.celular}}</strong>
         </ion-col>
         <ion-col *ngIf="editarBoton" style="background-color: #ebebeb;" col-5>
           <ion-input type="tel" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
@@ -388,14 +385,6 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <ion-row>
-        <ion-icon slot="icon-only" name="call" style="font-size: 1.8em;" color="iconos"></ion-icon>
-        <ion-col style="background-color: #ebebeb;" col-5>
-          <ion-input type="tel" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
-          </ion-input>
-        </ion-col>
-      </ion-row>
-
     </div>
 
     <div *ngIf="!editarBoton">

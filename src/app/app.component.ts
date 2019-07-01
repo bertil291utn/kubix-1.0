@@ -21,20 +21,19 @@ import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-s
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  contrasenaExists = false;
+  contrasenaExists = true;
   evntRbnTipoPasajero;
   radiobtn;
   conductor: boolean = true;
   rootPage;
   pages: Array<{ title: string, component: any, icono: string }>;
   pages_pas: Array<{ title: string, component: any, icono: string }>;
-  userInfoData;
+
 
   constructor(public platform: Platform, public statusBar: StatusBar, private zone: NgZone,
     public splashScreen: SplashScreen, public myservices: HomeServiceProvider, public event: Events,
     public alertCtrl: AlertController, public apiRestService: RestApiServiceProvider,
     public menu: MenuController) {
-
     this.initializeApp();
     // used for an example of ngFor and navigation
     this.pageslist();
@@ -43,9 +42,26 @@ export class MyApp {
     this.actionPassword();
     //subscribirse al evento publicado anteriormnente en el login.
     // El view de sidemenu debe estar coulto hasta que haya respuesta en userinfodata
+
     this.event.subscribe('userInfoData', (data) => {
-      this.userInfoData = data;
+      this.myservices.userData = data;
     });
+  }
+
+
+  private userInfo(cedula: string) {
+    this.apiRestService.getUsuario(cedula)
+      .subscribe((resp) => {
+        if (resp.items[0].foto != null)
+          this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].foto;
+        this.myservices.userData.primer_nombre = resp.items[0].primer_nombre;
+        this.myservices.userData.segundo_nombre = resp.items[0].segundo_nombre;
+        this.myservices.userData.primer_apellido = resp.items[0].primer_apellido;
+        this.myservices.userData.email = resp.items[0].correo_institucional;
+      },
+        (error) => {
+          console.error(error);
+        });
   }
 
 
@@ -54,9 +70,15 @@ export class MyApp {
     if (this.contrasenaExists) {
       console.log('this.contrasenaExists: ', this.contrasenaExists)
       this.rootPage = HomePage;
+      //devolver cedula guardada
+      let userId = '1004453633';
+      this.userInfo(userId);
+      this.myservices.usuarioCedula = userId;
     } else
       //caso contrario se dirige al slide page 
       this.rootPage = SlidesPage;
+
+
   }
 
   private valConductorPasajero() {

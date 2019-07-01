@@ -12,7 +12,7 @@ import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-ap
 export class LoginPage {
   usuario: string;
   password: string;
-  userInfoData = { foto: null, primer_nombre: null, primer_apellido: null, email: null };
+
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public myservices: HomeServiceProvider, public apiRestService: RestApiServiceProvider,
@@ -35,22 +35,32 @@ export class LoginPage {
     //si coinciden credenciales enviar al home caso contrario se aciva la variable error para el template de error
     //let val=rest.api.verCredenciales(user,pass);s
     //if(val) this.navCtrl.setRoot(HomePage); else this.presentToastDurationTop('Usuario o contrase\xF1a incorrectos', 2000);
+    //ingresar en talba usuasriosusuarios si es que no existe
+    this.verificarTabUsuario(this.usuario);
     this.userInfo(this.usuario);
+    //subir cedula de usuario actual a memoria
+    this.myservices.usuarioCedula = this.usuario;
     this.navCtrl.setRoot(HomePage);
-    //this.presentToastDurationTop('Usuario o contrase\xF1a incorrectos', 2000);
+  }
+
+  private verificarTabUsuario(cedula: string) {
+    this.apiRestService.postUsuario(cedula)
+      .subscribe((resp) => {
+        console.log('resp: ', resp);
+      });
   }
 
   private userInfo(cedula: string) {
     this.apiRestService.getUsuario(cedula)
       .subscribe((resp) => {
         if (resp.items[0].foto != null)
-          this.userInfoData.foto = 'data:image/png;base64,' + resp.items[0].foto;
-        this.userInfoData.primer_nombre = resp.items[0].primer_nombre;
-        this.userInfoData.primer_apellido = resp.items[0].primer_apellido;
-        this.userInfoData.email = resp.items[0].correo_institucional;
-        console.log('userInfoData: ', this.userInfoData);
+          this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].foto;
+        this.myservices.userData.primer_nombre = resp.items[0].primer_nombre;
+        this.myservices.userData.primer_apellido = resp.items[0].primer_apellido;
+        this.myservices.userData.email = resp.items[0].correo_institucional;
+        console.log('userInfoData: ', this.myservices.userData);
         //publicar un evento la respuesta Userdataindo 
-        this.event.publish('userInfoData', this.userInfoData);
+        this.event.publish('userInfoData', this.myservices.userData);
       },
         (error) => {
           console.error(error);
