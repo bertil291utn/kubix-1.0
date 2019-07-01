@@ -34,10 +34,23 @@ export class PerfilPage {
     public modalCtrl: ModalController,
     private camera: Camera, public alertController: AlertController) {
 
-
     this.perfil_val = this.perfil();
     //iniciar en cero no importa si profileexits o no 
+  }
 
+  ionViewDidLoad() {
+    this.getPreferencesUser();
+    this.getUserInfo(this.myservices.usuarioCedula);
+    this.conductor = this.myservices.conductor;
+    this.carExists = this.myservices.carExists;
+    this.profileExists = this.myservices.profileExists;
+
+    if (!this.profileExists) {
+      this.addBoton = true;
+      this.personalData = "";
+      this.telefono = "";
+    }
+    console.log('ionViewDidLoad PerfilPage');
   }
 
   private getUserInfo(cedula: string) {
@@ -100,20 +113,6 @@ export class PerfilPage {
       });
   }
 
-  ionViewDidLoad() {
-    this.getPreferencesUser();
-    this.getUserInfo(this.myservices.usuarioCedula);
-    this.conductor = this.myservices.conductor;
-    this.carExists = this.myservices.carExists;
-    this.profileExists = this.myservices.profileExists;
-
-    if (!this.profileExists) {
-      this.addBoton = true;
-      this.personalData = "";
-      this.telefono = "";
-    }
-    console.log('ionViewDidLoad PerfilPage');
-  }
 
   rbngroupPreferencias(event, objeto) {
     console.log('evento: ', event, 'de: ', objeto.titulo, 'obj: ', objeto);
