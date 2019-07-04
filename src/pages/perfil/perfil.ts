@@ -5,6 +5,7 @@ import { CarPage } from '../car/car';
 import { ThrowStmt } from '@angular/compiler';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
+import { FormBuilder, RequiredValidator, Validators } from '@angular/forms';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-ap
 })
 export class PerfilPage {
   @ViewChild(Content) content: Content;
+  contactForm;
   perfil_val;
   detalle: string = 'datos';
   conductor: boolean;
@@ -23,34 +25,38 @@ export class PerfilPage {
   previewimg: string;
   preview: boolean = false;
   addBoton: boolean = false;
-
+  marca;//arrays para ion-select
+  valplaca;
+  valmarca;
+  modelo;
+  colores = ['AMARILLO', 'AZUL OSCURO', 'AZUL', 'BEIGE', 'BLANCO', 'GRIS OSCURO', 'GRIS', 'MARRON', 'MORADO', 'NARANJA', 'NEGRO',
+    'ROJO OSCURO', 'ROJO', 'ROSA', 'VERDE OSCURO', 'VERDE'];
   profileExists: boolean;
   preferenciasObjetos;
   enviarPreferencias;
   loadingControllerSave;
+  carObject = { placa: null, foto: null, marca: null, modelo: null, color: null, codigo_marca: null, codigo_modelo: null, codigo_vehiculo: null }
+
 
   constructor(public navCtrl: NavController, public events: Events, private viewCtrl: ViewController,
     public navParams: NavParams, public apiRestService: RestApiServiceProvider,
-    public myservices: HomeServiceProvider, private zone: NgZone,
+    public myservices: HomeServiceProvider, private zone: NgZone, private fb: FormBuilder,
     public modalCtrl: ModalController, public loadingCtrl: LoadingController,
     private camera: Camera, public alertController: AlertController) {
 
     this.perfil_val = this.perfil();
-    // this.events.subscribe('updateScreen', () => {
-    //   this.zone.run(() => {
-    //     this.getPreferencesUser();
-    //   });
-    // });
-
+    this.initForm();
 
   }
 
 
   ionViewDidLoad() {
     this.getPreferencesUser();
-    this.getUserInfo(this.myservices.usuarioCedula);
+    this.getUserInfo();
+    this.getMarcaModelo();
+    this.getVehiculoInfo();
     this.conductor = this.myservices.conductor;
-    this.carExists = this.myservices.carExists;
+    //this.carExists = this.myservices.carExists;
     this.profileExists = this.myservices.profileExists;
 
     if (!this.profileExists) {
@@ -61,15 +67,64 @@ export class PerfilPage {
     console.log('ionViewDidLoad PerfilPage');
   }
 
-  ionViewDidEnter() {
 
+  private initForm() {
+    this.contactForm = this.fb.group({
+      placa: ['', Validators.required],
+      color: ['', Validators.required],
+      modelo: ['', Validators.required],
+      foto: ['', Validators.required]
+    });
+  }
 
+  public getVehiculoInfo() {
+    this.carExists = false;
+    this.apiRestService.getVehiculoInfo().subscribe((resp) => {
+      if (resp.items[0].placa != null) {
+        this.carExists = true;
+
+        this.carObject.placa = resp.items[0].placa;
+        this.carObject.marca = resp.items[0].marca;
+        this.carObject.modelo = resp.items[0].modelo;
+        this.carObject.color = resp.items[0].color;
+        this.carObject.codigo_marca = resp.items[0].id_marca;
+        this.carObject.codigo_modelo = resp.items[0].id_modelo;
+        this.carObject.codigo_vehiculo = resp.items[0].codigo_vehiculo;
+        this.carObject.foto = resp.items[0].foto;
+
+        if (resp != null)
+          if (this.loadingControllerSave != undefined)
+            this.loadingControllerSave.dismiss();
+      }
+    });
   }
 
 
+  ionViewDidEnter() { }
 
-  private getUserInfo(cedula: string) {
-    this.apiRestService.getUsuario(cedula)
+  inputUpperCase(valor) {
+    // console.log('event: ', valor);
+    // this.valplaca = valor._value.toUpperCase();
+
+  }
+
+  private getMarcaModelo(modelo?: number) {
+    this.apiRestService.getMarcaModelo(modelo).subscribe((resp) => {
+      console.log('respuesta marcamodelo: ', resp);
+      if (modelo != null || undefined) {
+        this.modelo = resp.respuesta;
+        console.log('this.modelo: ', this.modelo);
+      } else {
+        this.marca = resp.respuesta;
+        console.log('this.marca: ', this.marca);
+      }
+      //console.log('respmarcamodelo: ', resp.items[0].marca_modelo);
+    });
+  }
+
+
+  private getUserInfo() {
+    this.apiRestService.getUsuario()
       .subscribe((resp) => {
         if (resp.items[0].foto != null)
           this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].foto;
@@ -116,19 +171,17 @@ export class PerfilPage {
   }
 
   private getPreferencesUser() {
-    this.apiRestService.getUsuarioPreferences(this.myservices.usuarioCedula)
+    this.apiRestService.getUsuarioPreferences()
       .subscribe((resp) => {
         //reorganizar el objto JSON
         this.actionListenerPreferencias(resp.items[0].nivel,
           resp.items[1].nivel, resp.items[2].nivel, resp.items[0].cod_preferencia,
           resp.items[1].cod_preferencia, resp.items[2].cod_preferencia);
         console.log('resp: ', resp.items);
-        this.viewCtrl._didEnter();//llamar al lifecycle ionviewdidenter para la actualizacion 
+        // this.viewCtrl._didEnter();//llamar al lifecycle ionviewdidenter para la actualizacion 
         if (resp != null)
-          if (this.loadingControllerSave != undefined) {
-            this.navCtrl.setRoot(this.navCtrl.getActive().component);
+          if (this.loadingControllerSave != undefined)
             this.loadingControllerSave.dismiss();
-          }
       });
   }
 
@@ -153,7 +206,25 @@ export class PerfilPage {
     //cargar datos
     this.editarBoton = true;
     this.telefono = this.myservices.userData.celular;
-    console.log('arrayenviar: ', this.preferenciasObjetos)
+    console.log('arrayenviar: ', this.preferenciasObjetos);
+
+
+
+    if (this.detalle == "automovil") {
+      console.log('carObject: ', this.carObject);
+      //this.carObject.foto = this.carObject.foto.replace('data:image/png;base64,', '');
+
+      this.contactForm.controls.placa.setValue(this.carObject.placa);
+      this.valplaca = this.carObject.placa;
+      //this.contactForm.controls.marca.setValue(this.carObject.marca);
+      this.valmarca = this.carObject.codigo_marca;
+      this.getMarcaModelo(this.valmarca);
+      this.contactForm.controls.modelo.setValue(this.carObject.codigo_modelo);
+      this.contactForm.controls.color.setValue(this.carObject.color);
+      this.contactForm.controls.foto.setValue(this.carObject.foto);
+      console.log('contactForm.value: ', this.contactForm.value);
+
+    }
   }
 
   goToAuto() {
@@ -175,29 +246,48 @@ export class PerfilPage {
     this.editarBoton = false;
     this.preview = false;
 
-    let cedula = this.myservices.usuarioCedula;
-    for (let obj of this.preferenciasObjetos) {
-      this.apiRestService.updateProfilePreferences(cedula, obj.codigo_preferencia, obj.nivel_edited).subscribe((resp) => {
-        console.log('resp: ', resp);
-      });
-      this.getPreferencesUser();//llamar a las preferncias del usuario y dentr de este async llamar al lyfecicle ionViewDidEnter
-      //no  poner dentro del async update por que devuelve error pero si ejecuta el update
-
-    }
     if (this.detalle == "automovil") {
       //enviar a bas e datos los datos del automovil de esta persona 
       console.log('enviar a bas e datos los datos del automovil de esta persona ')
       //let var =exists base de datos = revisar en la base de datos si existe automovil
       //if(var)
-      this.carExists = true;
-      this.myservices.carExists = true;
 
       this.addBoton = false;
+      console.log('this.contactForm.value: ', this.contactForm.value);
+      if (!this.carExists)
+        this.apiRestService.updateAutomovil(this.contactForm.value).subscribe((resp) => {
+          this.carExists = true;
+          //this.myservices.carExists = true;
+          console.log('resp update automiv: ', resp);
+
+        }, (error) => { console.log('error: ', error) });
+      else
+        //codigo listado sacar de listado de vechiulos JSON cod_vehiculoo 
+        this.apiRestService.updateAutomovil(this.contactForm.value, this.carObject.codigo_vehiculo)
+          .subscribe((resp) => {
+            console.log('resp update automiv: ', resp);
+            this.getVehiculoInfo();//refresh data
+          }, (error) => console.log('error: ', error));
+
     }
-    if (this.detalle == "datos") {
+
+    if (this.detalle == "datos" || !this.conductor) {
       this.profileExists = true;
       this.myservices.profileExists = true;
       this.addBoton = false;
+      let cedula = this.myservices.usuarioCedula;
+      let index = 1;
+      for (let obj of this.preferenciasObjetos) {
+        this.apiRestService.updateProfilePreferences(cedula, obj.codigo_preferencia, obj.nivel_edited, this.telefono).subscribe((resp) => {
+          console.log('resp: ', resp);
+          if (index == this.preferenciasObjetos.length) {//para que haga la solicitud al API  una sola vez
+            console.log('llamar al refresh');
+            this.getPreferencesUser();//llamar a las preferncias del usuario 
+            this.getUserInfo();//refresh los datos de usuario
+          }
+          index++;
+        });
+      }
     }
 
     //volver a traer datos desde base de datos para ver el autmovil editado o guardado REFRESH
@@ -274,6 +364,7 @@ export class PerfilPage {
     /* get picture */
     this.camera.getPicture(options).then((imgUrl) => {
       console.log('imgurl: ', imgUrl)
+      this.contactForm.controls.foto.setValue(imgUrl);
       if (imgUrl != undefined) {
         this.preview = true;
         this.previewimg = 'data:image/png;base64,' + imgUrl;

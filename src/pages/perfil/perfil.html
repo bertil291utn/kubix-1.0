@@ -119,7 +119,8 @@
             <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{myservices.userData.celular}}</strong>
           </ion-col>
           <ion-col *ngIf="editarBoton" style="background-color: #ebebeb;" col-5>
-            <ion-input type="tel" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
+            <ion-input type="tel" maxlength="10" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular"
+              clearInput>
             </ion-input>
           </ion-col>
         </ion-row>
@@ -175,49 +176,54 @@
         <h4 ion-text>Autom&oacute;vil designado</h4>
         <ion-row>
           <button small ion-button round color="danger" outline style="font-size:1.1rem;margin:auto;"
-            (click)="editarBoton=true;" *ngIf="!editarBoton">Editar autom&oacute;vil</button>
+            (click)="actionEditButton()" *ngIf="!editarBoton">Editar autom&oacute;vil</button>
         </ion-row><br>
         <!-- <div class="relative">
           
           <ion-icon class="top-right" name="create" color="iconos"></ion-icon>
         </div> -->
-        <img *ngIf="!preview" class="imgbck" src="{{perfil_val.auto.imagen}}">
-        <img *ngIf="preview" id="imgbck" [src]="previewimg">
-        <ion-row *ngIf="editarBoton">
-          <button small ion-button round color="primary" clear id="subtitle" (click)="goToCamera()">Cambiar imagen
-            autom&oacute;vil</button>
-        </ion-row>
-        <div *ngIf="!editarBoton">
-          <h6 ion-text>{{perfil_val.auto.marca}} {{perfil_val.auto.modelo}}</h6>
-          <span ion-text>{{perfil_val.auto.color}}</span>
-        </div>
-        <br>
-        <ion-list *ngIf="editarBoton">
-          <!-- traer valores desde las variables por que es edit -->
-          <ion-item>
-            <!-- <ion-label color="danger" floating>Ingrese n&uacute;mero de placa</ion-label> -->
-            <ion-input [(ngModel)]="placa" color="danger" placeholder="PCC0123" clearInput></ion-input>
-          </ion-item>
-          <ion-item>
+        <form [formGroup]="contactForm">
+          <img *ngIf="!preview" class="imgbck" [src]="'data:image/png;base64,' +carObject.foto">
+          <img *ngIf="preview" id="imgbck" [src]="previewimg">
+          <ion-row *ngIf="editarBoton">
+            <button small ion-button round color="primary" clear id="subtitle" (click)="goToCamera()">Cambiar imagen
+              autom&oacute;vil</button>
+          </ion-row>
+          <div *ngIf="!editarBoton">
+            <h6 ion-text>{{carObject.marca|uppercase}} - {{carObject.modelo}}</h6>
+            <span ion-text>{{carObject.color|titlecase}}</span>
+          </div>
+          <br>
+          <ion-list *ngIf="editarBoton">
+            <!-- traer valores desde las variables por que es edit -->
+            <ion-item>
+              <!-- <ion-label color="danger" floating>Ingrese n&uacute;mero de placa</ion-label> -->
+              <ion-input formControlName="placa" [ngModel]="valplaca" (ngModelChange)="valplaca = $event.toUpperCase()"
+                maxlength="7" color="danger" placeholder="PCC0123" clearInput>
+              </ion-input>
+            </ion-item>
+            <ion-item>
 
-            <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="marca">
-              <ion-option value="chevrolet">Chevrolet</ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
+              <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="valmarca"
+                [ngModelOptions]="{standalone: true}">
+                <ion-option *ngFor="let obj of marca" [value]="obj.codigo" (ionSelect)="getMarcaModelo(obj.codigo)">
+                  {{obj.nombre}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
 
-            <ion-select placeholder="Modelo" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="modelo">
-              <ion-option value="s1">S1</ion-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
+              <ion-select formControlName="modelo" placeholder="Modelo" cancelText="CANCELAR" interface="action-sheet">
+                <ion-option *ngFor="let obj of modelo" [value]="obj.codigo">{{obj.nombre}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
 
-            <ion-select placeholder="Color" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="color">
-              <ion-option value="azul">Azul</ion-option>
-              <ion-option value="negro">Negro</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-list>
+              <ion-select formControlName="color" placeholder="Color" cancelText="CANCELAR" interface="action-sheet">
+                <ion-option *ngFor="let obj of colores" [value]="obj">{{obj|titlecase}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </form>
       </div>
       <div *ngIf="!carExists" ion-text text-center>
         <div *ngIf="!addBoton">
@@ -225,48 +231,54 @@
           <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir datos de su autom&oacute;vil
           </ion-label>
         </div>
-        <div *ngIf="addBoton">
-          <div *ngIf="preview">
-            <img id="imgbck" [src]="previewimg">
-            <ion-row>
-              <button small ion-button round color="primary" clear id="subtitle" (click)="goToCamera()">Cambiar imagen
-                autom&oacute;vil</button>
-            </ion-row>
+        <form [formGroup]="contactForm">
+          <div *ngIf="addBoton">
+            <div *ngIf="preview">
+              <img id="imgbck" [src]="previewimg">
+              <ion-row>
+                <button small ion-button round color="primary" clear id="subtitle" (click)="goToCamera()">Cambiar imagen
+                  autom&oacute;vil</button>
+              </ion-row>
+            </div>
+            <div *ngIf="!preview">
+              <ion-icon name="camera" id="camara" (click)="goToCamera()"></ion-icon>
+              <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir una fotograf&iacute;a de su
+                autom&oacute;vil
+              </ion-label>
+            </div>
+            <ion-list>
+              <!-- los datos vacios -->
+              <ion-item>
+                <!-- <ion-label color="danger" floating>Ingrese n&uacute;mero de placa</ion-label> -->
+                <ion-input formControlName="placa" [ngModel]="valplaca"
+                  (ngModelChange)="valplaca = $event.toUpperCase()" maxlength="7" color="danger" placeholder="PCC0123"
+                  clearInput></ion-input>
+              </ion-item>
+              <ion-item>
+
+                <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet">
+                  <!-- <ion-option value="chevrolet">Chevrolet</ion-option> -->
+                  <ion-option *ngFor="let obj of marca" [value]="obj.codigo" (ionSelect)="getMarcaModelo(obj.codigo)">
+                    {{obj.nombre}}</ion-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+
+                <ion-select formControlName="modelo" placeholder="Modelo" cancelText="CANCELAR"
+                  interface="action-sheet">
+                  <!-- <ion-option value="s1">S1</ion-option> -->
+                  <ion-option *ngFor="let obj of modelo" [value]="obj.codigo">{{obj.nombre}}</ion-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+
+                <ion-select formControlName="color" placeholder="Color" cancelText="CANCELAR" interface="action-sheet">
+                  <ion-option *ngFor="let obj of colores" [value]="obj">{{obj|titlecase}}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
           </div>
-          <div *ngIf="!preview">
-            <ion-icon name="camera" id="camara" (click)="goToCamera()"></ion-icon>
-            <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir una fotograf&iacute;a de su
-              autom&oacute;vil
-            </ion-label>
-          </div>
-          <ion-list>
-            <!-- los datos vacios -->
-            <ion-item>
-              <!-- <ion-label color="danger" floating>Ingrese n&uacute;mero de placa</ion-label> -->
-              <ion-input [(ngModel)]="placa" color="danger" placeholder="PCC0123" clearInput></ion-input>
-            </ion-item>
-            <ion-item>
-
-              <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="marca">
-                <ion-option value="chevrolet">Chevrolet</ion-option>
-              </ion-select>
-            </ion-item>
-            <ion-item>
-
-              <ion-select placeholder="Modelo" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="modelo">
-                <ion-option value="s1">S1</ion-option>
-              </ion-select>
-            </ion-item>
-            <ion-item>
-
-              <ion-select placeholder="Color" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="color">
-                <ion-option value="azul">Azul</ion-option>
-                <ion-option value="negro">Negro</ion-option>
-              </ion-select>
-            </ion-item>
-          </ion-list>
-
-        </div>
+        </form>
       </div>
     </ion-grid>
   </div>
@@ -358,7 +370,8 @@
           <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{myservices.userData.celular}}</strong>
         </ion-col>
         <ion-col *ngIf="editarBoton" style="background-color: #ebebeb;" col-5>
-          <ion-input type="tel" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular" clearInput>
+          <ion-input type="tel" maxlength="10" [(ngModel)]="telefono" color="danger" placeholder="Telefono celular"
+            clearInput>
           </ion-input>
         </ion-col>
       </ion-row>

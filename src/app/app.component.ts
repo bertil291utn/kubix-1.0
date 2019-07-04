@@ -49,8 +49,8 @@ export class MyApp {
   }
 
 
-  private userInfo(cedula: string) {
-    this.apiRestService.getUsuario(cedula)
+  private userInfo() {
+    this.apiRestService.getUsuario()
       .subscribe((resp) => {
         if (resp.items[0].foto != null)
           this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].foto;
@@ -72,8 +72,8 @@ export class MyApp {
       this.rootPage = HomePage;
       //devolver cedula guardada
       let userId = '1004453633';
-      this.userInfo(userId);
       this.myservices.usuarioCedula = userId;
+      this.userInfo();
     } else
       //caso contrario se dirige al slide page 
       this.rootPage = SlidesPage;

@@ -4,6 +4,7 @@ import { ViajesMainCPage } from '../viajes-main-c/viajes-main-c';
 import { HomeServiceProvider } from '../../providers/home-service/home-service';
 import { ViajesPasajeroPage } from '../viajes-pasajero/viajes-pasajero';
 import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
+import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 
 @Component({
   selector: 'page-home',
@@ -16,7 +17,7 @@ export class HomePage {
 
   constructor(
     public myservices: HomeServiceProvider, private menu: MenuController,
-    public loadingCtrl: LoadingController,
+    public loadingCtrl: LoadingController, public apiRestService: RestApiServiceProvider,
     public nav: NavController) {
     //this.pasajero = myservices.pasajero;
     this.conductor = myservices.conductor;
@@ -25,9 +26,12 @@ export class HomePage {
   ionViewDidLoad() {
     //revisar en la base de datos si existe o no el campo de automovil  y el campo perfil(telfono e informacion personal)
     this.myservices.profileExists = true;//siempre verdadero 
-    this.myservices.carExists = false;
+    //this.carExists();
+
     console.log('ionViewDidLoad HomePage');
   }
+
+  
 
   ionViewDidEnter() {
     this.varInterval = setInterval(() => {

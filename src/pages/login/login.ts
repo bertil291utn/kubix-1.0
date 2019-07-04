@@ -36,22 +36,23 @@ export class LoginPage {
     //let val=rest.api.verCredenciales(user,pass);s
     //if(val) this.navCtrl.setRoot(HomePage); else this.presentToastDurationTop('Usuario o contrase\xF1a incorrectos', 2000);
     //ingresar en talba usuasriosusuarios si es que no existe
-    this.verificarTabUsuario(this.usuario);
-    this.userInfo(this.usuario);
+    this.myservices.usuarioCedula = this.usuario;
+    this.verificarTabUsuario();
+    this.userInfo();
     //subir cedula de usuario actual a memoria
     this.myservices.usuarioCedula = this.usuario;
     this.navCtrl.setRoot(HomePage);
   }
 
-  private verificarTabUsuario(cedula: string) {
-    this.apiRestService.postUsuario(cedula)
+  private verificarTabUsuario() {
+    this.apiRestService.postUsuario()
       .subscribe((resp) => {
         console.log('resp: ', resp);
       });
   }
 
-  private userInfo(cedula: string) {
-    this.apiRestService.getUsuario(cedula)
+  private userInfo() {
+    this.apiRestService.getUsuario()
       .subscribe((resp) => {
         if (resp.items[0].foto != null)
           this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].foto;
