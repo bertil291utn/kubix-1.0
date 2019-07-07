@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LoadingController, NavController, MenuController } from 'ionic-angular';
 import { ViajesMainCPage } from '../viajes-main-c/viajes-main-c';
-import { HomeServiceProvider } from '../../providers/home-service/home-service';
+import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { ViajesPasajeroPage } from '../viajes-pasajero/viajes-pasajero';
 import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
@@ -16,7 +16,7 @@ export class HomePage {
   varInterval;
 
   constructor(
-    public myservices: HomeServiceProvider, private menu: MenuController,
+    public myservices: EnvironmentVarService, private menu: MenuController,
     public loadingCtrl: LoadingController, public apiRestService: RestApiServiceProvider,
     public nav: NavController) {
     //this.pasajero = myservices.pasajero;

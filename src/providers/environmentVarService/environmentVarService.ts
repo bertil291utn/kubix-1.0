@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 
 @Injectable()
-export class HomeServiceProvider {
+export class EnvironmentVarService {
   private _solicitud: boolean;
   public get solicitud(): boolean {
     return this._solicitud;
@@ -56,6 +56,22 @@ export class HomeServiceProvider {
   }
   public set usuarioCedula(value: string) {
     this._usuarioCedula = value;
+  }
+
+  private _utnOrigen: boolean;
+  public get utnOrigen(): boolean {
+    return this._utnOrigen;
+  }
+  public set utnOrigen(value: boolean) {
+    this._utnOrigen = value;
+  }
+
+  private _setMap: boolean;
+  public get setMap(): boolean {
+    return this._setMap;
+  }
+  public set setMap(value: boolean) {
+    this._setMap = value;
   }
 
 

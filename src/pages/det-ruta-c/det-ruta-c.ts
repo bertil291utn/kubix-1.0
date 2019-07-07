@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { Storage } from '@ionic/storage';
 import { DomSanitizer } from '@angular/platform-browser';
 import { InfoPasajeroSolPage } from '../info-pasajero-sol/info-pasajero-sol';
-import { HomeServiceProvider } from '../../providers/home-service/home-service';
+import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 
 declare var html2canvas;
 
@@ -16,7 +16,7 @@ export class DetRutaCPage {
   viajedet
 
   constructor(private storage: Storage,
-    public myservices: HomeServiceProvider,
+    public myservices: EnvironmentVarService,
     public navCtrl: NavController,
     public navParams: NavParams,
     private sanitizer: DomSanitizer,

@@ -1,13 +1,13 @@
 import { Component, NgZone, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController, Events, Content, ViewController, LoadingController } from 'ionic-angular';
-import { HomeServiceProvider } from '../../providers/home-service/home-service';
+import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { CarPage } from '../car/car';
 import { ThrowStmt } from '@angular/compiler';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import { FormBuilder, RequiredValidator, Validators } from '@angular/forms';
-
-
+import b64toBlob from 'b64-to-blob';
+//var b64toBlob = require('b64-to-blob');
 @Component({
   selector: 'page-perfil',
   templateUrl: 'perfil.html',
@@ -35,12 +35,15 @@ export class PerfilPage {
   preferenciasObjetos;
   enviarPreferencias;
   loadingControllerSave;
-  carObject = { placa: null, foto: null, marca: null, modelo: null, color: null, codigo_marca: null, codigo_modelo: null, codigo_vehiculo: null }
+  carObject = {
+    placa: null, foto: null, marca: null, modelo: null,
+    color: null, codigo_marca: null, codigo_modelo: null, codigo_vehiculo: null
+  };
 
 
   constructor(public navCtrl: NavController, public events: Events, private viewCtrl: ViewController,
     public navParams: NavParams, public apiRestService: RestApiServiceProvider,
-    public myservices: HomeServiceProvider, private zone: NgZone, private fb: FormBuilder,
+    public myservices: EnvironmentVarService, private zone: NgZone, private fb: FormBuilder,
     public modalCtrl: ModalController, public loadingCtrl: LoadingController,
     private camera: Camera, public alertController: AlertController) {
 
@@ -82,7 +85,6 @@ export class PerfilPage {
     this.apiRestService.getVehiculoInfo().subscribe((resp) => {
       if (resp.items[0].placa != null) {
         this.carExists = true;
-
         this.carObject.placa = resp.items[0].placa;
         this.carObject.marca = resp.items[0].marca;
         this.carObject.modelo = resp.items[0].modelo;
@@ -208,20 +210,17 @@ export class PerfilPage {
     this.telefono = this.myservices.userData.celular;
     console.log('arrayenviar: ', this.preferenciasObjetos);
 
-
-
     if (this.detalle == "automovil") {
       console.log('carObject: ', this.carObject);
-      //this.carObject.foto = this.carObject.foto.replace('data:image/png;base64,', '');
-
       this.contactForm.controls.placa.setValue(this.carObject.placa);
       this.valplaca = this.carObject.placa;
-      //this.contactForm.controls.marca.setValue(this.carObject.marca);
       this.valmarca = this.carObject.codigo_marca;
       this.getMarcaModelo(this.valmarca);
       this.contactForm.controls.modelo.setValue(this.carObject.codigo_modelo);
       this.contactForm.controls.color.setValue(this.carObject.color);
-      this.contactForm.controls.foto.setValue(this.carObject.foto);
+      //this.contactForm.controls.foto.setValue(this.carObject.foto);
+      let fotoAuto = b64toBlob(this.carObject.foto, 'image/png');
+      this.contactForm.controls.foto.setValue(fotoAuto);
       console.log('contactForm.value: ', this.contactForm.value);
 
     }
@@ -254,20 +253,11 @@ export class PerfilPage {
 
       this.addBoton = false;
       console.log('this.contactForm.value: ', this.contactForm.value);
-      if (!this.carExists)
-        this.apiRestService.updateAutomovil(this.contactForm.value).subscribe((resp) => {
-          this.carExists = true;
-          //this.myservices.carExists = true;
-          console.log('resp update automiv: ', resp);
+      this.apiRestService.updateAutomovil(this.contactForm.value).subscribe((resp) => {
+        console.log('resp update automiv: ', resp);
+        this.getVehiculoInfo();//refresh data
+      }, (error) => { console.log('error: ', error) });
 
-        }, (error) => { console.log('error: ', error) });
-      else
-        //codigo listado sacar de listado de vechiulos JSON cod_vehiculoo 
-        this.apiRestService.updateAutomovil(this.contactForm.value, this.carObject.codigo_vehiculo)
-          .subscribe((resp) => {
-            console.log('resp update automiv: ', resp);
-            this.getVehiculoInfo();//refresh data
-          }, (error) => console.log('error: ', error));
 
     }
 
@@ -363,8 +353,10 @@ export class PerfilPage {
 
     /* get picture */
     this.camera.getPicture(options).then((imgUrl) => {
-      console.log('imgurl: ', imgUrl)
-      this.contactForm.controls.foto.setValue(imgUrl);
+      // console.log('imgurl: ', imgUrl)
+      // this.contactForm.controls.foto.setValue(imgUrl);
+      let fotoAuto = b64toBlob(imgUrl, 'image/png');
+      this.contactForm.controls.foto.setValue(fotoAuto);
       if (imgUrl != undefined) {
         this.preview = true;
         this.previewimg = 'data:image/png;base64,' + imgUrl;

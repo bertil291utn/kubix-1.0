@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as _ from 'lodash';
-import { HomeServiceProvider } from '../home-service/home-service';
+import { EnvironmentVarService } from '../environmentVarService/environmentVarService';
 
 @Injectable()
 export class RestApiServiceProvider {
@@ -10,8 +10,10 @@ export class RestApiServiceProvider {
   mainBasePath = 'http://192.168.64.166:8080/ords/appkubix/';
   userBasePathUser = 'usuarios/';
   vehiculoBasePathUser = 'vehiculos/';
+  lugarGeoBasePathUser = 'lugargeo/';
 
-  constructor(public http: HttpClient, public myservices: HomeServiceProvider) {
+
+  constructor(public http: HttpClient, public myservices: EnvironmentVarService) {
     console.log('Hello RestApiServiceProvider Provider');
   }
 
@@ -51,20 +53,44 @@ export class RestApiServiceProvider {
     return this.makeRequestGet(url);
   }
 
-  public updateAutomovil(data: any, codigoVehiculo?: number): Observable<any> {
-    let url;
-    if (codigoVehiculo != null || undefined || '')
-      url = this.vehiculoBasePathUser + `informacion?cedula=${this.myservices.usuarioCedula}&codigo_vehiculo=${codigoVehiculo}&placa=${data.placa}&color=${data.color}&modelo=${data.modelo}`;
-    else
-      url = this.vehiculoBasePathUser + `informacion?cedula=${this.myservices.usuarioCedula}&placa=${data.placa}&color=${data.color}&modelo=${data.modelo}`;
-    let body = { 'foto': data.foto }
-    return this.makeRequestPut(url, true, body);
+  public updateAutomovil(data: any): Observable<any> {
+    let url = this.vehiculoBasePathUser + `informacion?cedula=${this.myservices.usuarioCedula}&placa=${data.placa}&color=${data.color}&modelo=${data.modelo}`;
+    return this.makeRequestPut(url, false, data.foto);
   }
 
   public getVehiculoInfo(): Observable<any> {
     let url = this.vehiculoBasePathUser + 'informacion?cedula=' + this.myservices.usuarioCedula;
     return this.makeRequestGet(url);
   }
+
+  //LUGAR GEO 
+  //GETCASA 
+  public getCasaInfo(): Observable<any> {
+    let url = this.lugarGeoBasePathUser + 'casa?cedula=' + this.myservices.usuarioCedula;
+    return this.makeRequestGet(url);
+  }
+
+  //INSERT UPDATE CASA
+
+  public updateCasa(data: any): Observable<any> {
+    let url = this.lugarGeoBasePathUser + `casa?cedula=${this.myservices.usuarioCedula}&latitud=${data.lat}
+      &longitud=${data.lng}&short_name=${data.short_name}&full_name=${data.full_name}`;
+    return this.makeRequestPut(url, false);
+  }
+
+
+  //UNIVERSIDAD
+  public getUniversidadInfo(): Observable<any> {
+    let url = this.lugarGeoBasePathUser + 'universidad';
+    return this.makeRequestGet(url);
+  }
+
+
+
+
+
+
+
 
 
 
@@ -90,6 +116,10 @@ export class RestApiServiceProvider {
     httpHeaders.set('Content-Type', 'application/json');
     return httpHeaders;
   }
+
+
+
+
 
 
 

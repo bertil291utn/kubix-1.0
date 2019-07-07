@@ -5,6 +5,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
 import { RutaProvider } from '../../providers/ruta/ruta';
+import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
+import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 
 declare var google;
 
@@ -16,21 +18,21 @@ export class SetMapOrigenPage {
   public direccion;
   public map: GoogleMap;
   varLatLng;
-  varDir;
-  setmap: boolean;
-  utnOrigen: boolean;
+
   ubicacion: boolean;
   varInterval;
+  loadingControllerSave;
 
-  constructor(private geolocation: Geolocation,
-    public loadingCtrl: LoadingController,
+  setMapObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null };
+
+  constructor(private geolocation: Geolocation, public myservices: EnvironmentVarService,
+    public loadingCtrl: LoadingController, public apiRestService: RestApiServiceProvider,
     public nav: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
     public routeCreate: RutaProvider,
     public appCtrl: App) {
-    this.setmap = navParams.get('setmap');
-    this.utnOrigen = navParams.get('utnOrigen');
+
     this.ubicacion = navParams.get('ubicacion');
   }
 
@@ -58,7 +60,6 @@ export class SetMapOrigenPage {
       nodeList.item(k).classList.remove('_gmaps_cdv_');
     }
   }
-
 
 
   async loadMapa() {
@@ -91,10 +92,8 @@ export class SetMapOrigenPage {
       loading.dismiss();
       this.camera_position();
     });
-
-
-
   }
+
 
   private async getLocation() {
     const rta = await this.geolocation.getCurrentPosition();
@@ -105,7 +104,6 @@ export class SetMapOrigenPage {
   }
 
   camera_position() {
-
     this.map.on(GoogleMapsEvent.CAMERA_MOVE_END).subscribe((val) => {
       let target = val[0].target;
       let latlng = {
@@ -114,8 +112,9 @@ export class SetMapOrigenPage {
       };
       this.geoDecoder(latlng);
       this.varLatLng = latlng;
+      this.setMapObject.lat = this.varLatLng.lat;
+      this.setMapObject.lng = this.varLatLng.lng;
     });
-
   }
 
   geoDecoder(latlng) {
@@ -126,66 +125,63 @@ export class SetMapOrigenPage {
         if (status === 'OK') {
           if (results[0]) {
             this.direccion = results[0].formatted_address;
-            this.varDir = this.direccion;
+            this.setMapObject.short_name = this.getShortName(results[0]);
+            this.setMapObject.full_name = this.direccion;
+            console.log('object setmap inicial: ', this.setMapObject);
+            //console.log('full results: ', results);
           }
         }
-
       });
-
   }
 
 
+  private getShortName(results: any) {
+    let resultsLength = results.address_components.length;
+
+    if (resultsLength >= 6)
+      return results.address_components[3].short_name;
+    else if (resultsLength == 4 || resultsLength == 5)
+      return results.address_components[1].short_name;
+    else if (resultsLength == 2 || resultsLength == 3)
+      return results.address_components[0].short_name;
+    else if (resultsLength == 1) {
+      let direccion = results.formatted_address.split(',');
+      return direccion[0];
+    }
+  }
+
   async reverse_geo_application() {
+    this.loadingControllerSave = this.loadingCtrl.create();
+    this.loadingControllerSave.present();
     this.geoDecoder(await this.getLocation());
 
   }
 
   async ActionGetLocation() {
     this.varLatLng = await this.getLocation();
+    if (this.varLatLng != null || undefined) {
+      this.setMapObject.lat = this.varLatLng.lat;
+      this.setMapObject.lng = this.varLatLng.lng;
+      this.loadingControllerSave.dismiss();
+    }
   }
 
   saveValues() {
-    if (this.utnOrigen)
-      //utn es origen
-      if (this.setmap) {
-        //utilzo funcion selecconar mapa
-        //se guardan las variable de latitud y ongitud y direccion en el provider destino dir y dir latlng
-        //se hace dismiss del controller y se direcciona al home view ruta
-        this.viewCtrl.dismiss();
-        this.routeCreate.destinoLatLng = this.varLatLng;
-        this.routeCreate.destinoDir = this.varDir;
-        // this.nav.push(HomeCViewRutaPage);
-        this.appCtrl.getRootNav().push(HomeCViewRutaPage);
+    if (this.myservices.setMap) {
+      this.viewCtrl.dismiss();
+      if (this.myservices.utnOrigen)
+        this.routeCreate.destino = this.setMapObject;
+      else
+        this.routeCreate.origen = this.setMapObject;
+      this.appCtrl.getRootNav().push(HomeCViewRutaPage)
+    } else
+      this.returnValues();
 
-      } else {
-        //utilizo funcion setear casa, por lo tanto se debe
-        //guardar valores en casa base enviar por api a guardar 
-        //this.varDir ;this.varLatLng
-        this.returnValues();
-      }
-    else
-      //utn es destino
-      if (this.setmap) {
-        //utilzo funcion selecconar mapa
-        //se guardan las variable de latitud y ongitud y direccion en el provider origen dir y dir latlng
-        //se hace dismiss del controller y se direcciona al home view ruta
-        this.viewCtrl.dismiss();
-        this.routeCreate.origenLatLng = this.varLatLng;
-        this.routeCreate.origenDir = this.varDir;
-        this.appCtrl.getRootNav().push(HomeCViewRutaPage);
-
-      } else {
-        //utilizo funcion setear casa, por lo tanto se debe
-        //guardar valores en casa base enviar por api a guardar 
-        //this.varDir ;this.varLatLng
-        this.returnValues();
-      }
     //this ubicacion viene cunado el conductor establece punto de encuentro viaje-conductor page 
     if (this.ubicacion) {
       let data = { ubicacionLatLng: this.varLatLng };
       this.viewCtrl.dismiss(data);
     }
-
 
   }
 
@@ -195,9 +191,9 @@ export class SetMapOrigenPage {
 
   returnValues() {
     //casa verdadero para que el template se visualice en viaje-origen page
-    let data = { casa: true, ubicacionLatLng: this.varLatLng };
-    this.viewCtrl.dismiss(data);
-
+    //guardar en casa
+    console.log('casaobject para guardar: ', this.setMapObject);
+    this.apiRestService.updateCasa(this.setMapObject).subscribe((resp) => { console.log('respuesta guardar casa: ', resp); this.viewCtrl.dismiss({ update: true }); });
   }
 
 }

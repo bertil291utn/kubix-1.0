@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { ViajesPubCPage } from '../pages/viajes-pub-c/viajes-pub-c';
-import { HomeServiceProvider } from '../providers/home-service/home-service';
+import { EnvironmentVarService } from '../providers/environmentVarService/environmentVarService';
 import { ViajesPasajeroPage } from '../pages/viajes-pasajero/viajes-pasajero';
 import { ViajesReserPasajeroPage } from '../pages/viajes-reser-pasajero/viajes-reser-pasajero';
 import { PerfilPage } from '../pages/perfil/perfil';
@@ -31,7 +31,7 @@ export class MyApp {
 
 
   constructor(public platform: Platform, public statusBar: StatusBar, private zone: NgZone,
-    public splashScreen: SplashScreen, public myservices: HomeServiceProvider, public event: Events,
+    public splashScreen: SplashScreen, public myservices: EnvironmentVarService, public event: Events,
     public alertCtrl: AlertController, public apiRestService: RestApiServiceProvider,
     public menu: MenuController) {
     this.initializeApp();

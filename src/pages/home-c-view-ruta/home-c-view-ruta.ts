@@ -22,10 +22,10 @@ export class HomeCViewRutaPage {
   public map: any;
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
-  origenLatLng;
-  destinoLatLng;
-  origenDir;
-  destinoDir;
+  // origenLatLng;
+  // destinoLatLng;
+  // origenDir;
+  // destinoDir;
   image;
   public proceso = 'ruta';
   GoogleAutocomplete;
@@ -41,29 +41,30 @@ export class HomeCViewRutaPage {
     public navparams: NavParams, private zone: NgZone,
     public routeCreate: RutaProvider) {
 
-    this.origenLatLng = routeCreate.origenLatLng;
-    this.destinoLatLng = routeCreate.destinoLatLng;
-    this.origenDir = routeCreate.origenDir;
-    this.destinoDir = routeCreate.destinoDir;
-
-    console.log('this.origenLatLng: ', this.origenLatLng,
-      'this.origenDir: ', this.origenDir,
-      'this.destinoLatLng: ', this.destinoLatLng,
-      'this.destinoDir: ', this.destinoDir);
-    // let route = routeCreate.lugares;
-    // console.log('routeCreate.lugares: ', route);
-
-    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-    this.autocomplete = { input: '' };
-    this.autocompleteItems = [];
     //en caso de que se presione el boton de atras tiene hacer un pop de pages y qquitar todos los lugares seleccinados
     platform.registerBackButtonAction(() => {
       nav.pop();
       routeCreate.resetLugares();
       this.toastDismiss();
     });
-
   }
+
+  ionViewDidLoad() {
+    console.log('origen: ', this.routeCreate.origen, 'destino: ', this.routeCreate.destino);
+    this.initValAutocomplete();
+    console.log('ionViewDidLoad HomeCViewRutaPage');
+    this.initMapa();
+  }
+
+
+  private initValAutocomplete() {
+    //iniciar valores de autcomplete
+    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+    this.autocomplete = { input: '' };
+    this.autocompleteItems = [];
+  }
+
+
   //metodo para cuando haga clic en la barra de busqueda
   updateSearchResults() {
     if (this.autocomplete.input == '') {
@@ -93,10 +94,11 @@ export class HomeCViewRutaPage {
   //item es el resultado del lugar seleccionado del listado de lugares que da el autocomplete 
   selectSearchResult(item) {
     //console.log('item: ', item)
+
     let nombreCorto = item.structured_formatting.main_text;
     let nombreExtenso = item.structured_formatting.secondary_text;
     let placeid = item.id;
-    let lugar = { id: this.indexLugares, placeid: placeid, nombreCorto: nombreCorto, nombreExtenso: nombreExtenso };
+    let lugar = { id: this.indexLugares, placeid: placeid, nombreCorto: nombreCorto, nombreExtenso: item.description };
     let lugarExists = this.lugarExists(nombreCorto);
     if (!lugarExists)
       this.routeCreate.lugares = lugar;
@@ -112,7 +114,7 @@ export class HomeCViewRutaPage {
       this.routeCreate.lugares.length
     });
     this.indexLugares++;
-    
+    console.log('lugares guardado en ruta service: ', this.routeCreate.lugares);
   }
 
 
@@ -138,13 +140,7 @@ export class HomeCViewRutaPage {
   }
 
 
-  ionViewDidLoad() {
 
-    console.log('ionViewDidLoad HomeCViewRutaPage');
-    this.initMapa();
-
-
-  }
 
   //metodo para despuer de dar click en ion-segment y se haga el cambio en la variable proceso 
   updateVal() {
@@ -198,14 +194,16 @@ export class HomeCViewRutaPage {
 
   calculateAndDisplayRoute() {
     this.directionsService.route({
-      origin: this.origenLatLng,
-      destination: this.destinoLatLng,
-      travelMode: 'WALKING'
+      origin: { lat: this.routeCreate.origen.lat, lng: this.routeCreate.origen.lng },
+      destination: { lat: this.routeCreate.destino.lat, lng: this.routeCreate.destino.lng },
+      travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
+        console.log('response calculate display: ', response);
         this.directionsDisplay.setDirections(response);
       } else {
-        window.alert('Directions request failed due to ' + status);
+        console.log('Directions request failed due to ' + status);
+        // window.alert('Directions request failed due to ' + status);
       }
     });
   }

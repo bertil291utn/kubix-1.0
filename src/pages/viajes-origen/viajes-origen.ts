@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ItemSliding, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ItemSliding, AlertController, LoadingController } from 'ionic-angular';
 import { SetHomePage } from '../set-home_origen/set-home';
 import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
 import { MyLocationOptions, LocationService } from '@ionic-native/google-maps';
 import { RutaProvider } from '../../providers/ruta/ruta';
+import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
+import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 
 declare var google;
 
@@ -14,32 +16,49 @@ declare var google;
 })
 export class ViajesOrigenPage {
 
-  casa: boolean = true;
-  utnLatLng;
-  casaLatLng;
-  utnDir: string;
-  casaDir: string;
-  utnOrigen: boolean;
+  casa: boolean;
+
   ubicacionActualDir: string;
   ubicacionActualLatLng;
+  loadingControllerSave;
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams, public alertCtrl: AlertController,
-    public modalCtrl: ModalController,
+  casaObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null };
+  ubicActualObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null };
+
+
+  constructor(public navCtrl: NavController, public myservices: EnvironmentVarService,
+    public navParams: NavParams, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
+    public modalCtrl: ModalController, public apiRestService: RestApiServiceProvider,
     public routeCreate: RutaProvider) {
 
-    this.utnOrigen = navParams.get('universidad_origen');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajesOrigenPage');
-    this.utnLatLng = { lat: 0.3581583, lng: -78.112088 };
-    this.utnDir = 'Universidad Tecnica del Norte';
-    //llamar api rest  buscando casa de la persona y la direccion
-    this.casaLatLng = { lat: 0.341304, lng: -78.125170 };
-    this.casaDir = 'Yacucalle, Ibarra';
+    this.casaInfo();
     this.latLngDir();
     this.ActionGetLocation();
+  }
+
+
+
+  private casaInfo() {
+    //llamar api rest  buscando casa de la persona y la direccion
+    this.casa = true;
+    this.apiRestService.getCasaInfo().subscribe((resp) => {
+      if (resp.items[0].codigo_geo != null) {
+        this.casaObject.codigo_geo = resp.items[0].codigo_geo;
+        this.casaObject.lat = resp.items[0].lat;
+        this.casaObject.lng = resp.items[0].lng;
+        this.casaObject.short_name = resp.items[0].short_name;
+        this.casaObject.full_name = resp.items[0].full_name;
+        if (resp != null)
+          if (this.loadingControllerSave != undefined)
+            this.loadingControllerSave.dismiss();
+      } else
+        this.casa = false;
+    });
+
   }
 
   ionViewDidEnter() {
@@ -51,63 +70,58 @@ export class ViajesOrigenPage {
 
   async ActionGetLocation() {
     this.ubicacionActualLatLng = await this.getLocation();
+    if (this.ubicacionActualLatLng != null || undefined)
+      this.loadingControllerSave.dismiss();
+    console.log('ubicacionActualLatLng: ', this.ubicacionActualLatLng);
   }
 
 
-  // goToSetHome() {
-  //   this.navCtrl.push(SetHomePage);
-  // }
+  goToViewRoute(casa: boolean) {
+
+    this.ubicActualObject.lat = this.ubicacionActualLatLng.lat
+    this.ubicActualObject.lng = this.ubicacionActualLatLng.lng
+    this.ubicActualObject.full_name = this.ubicacionActualDir
+    if (this.myservices.utnOrigen)
+      //cuando utn es origen solo tiene casa
+      this.routeCreate.destino = this.casaObject;
+    else {
+      //verficar si tiene casa o ubcacin actual
+      if (casa)
+        this.routeCreate.origen = this.casaObject;
+      else
+        // y la opcion seleccionada es ubicacion actual
+        this.routeCreate.origen = this.ubicActualObject;
+    }
+    this.navCtrl.push(HomeCViewRutaPage);
+  }
+
 
   goToSetMap(setmap: boolean) {
-    if (this.utnOrigen) {
-      this.routeCreate.origenLatLng = this.utnLatLng;
-      this.routeCreate.origenDir = this.utnDir;
-      console.log(' setmap this.routeCreate.origenLatLng: ', this.routeCreate.origenLatLng)
-      console.log(' setmap this.routeCreate.origenDir: ', this.routeCreate.origenDir)
 
-    } else {
-      this.routeCreate.destinoLatLng = this.utnLatLng;
-      this.routeCreate.destinoDir = this.utnDir;
-      console.log(' setmap this.routeCreate.destinoLatLng: ', this.routeCreate.destinoLatLng)
-      console.log(' setmap this.routeCreate.destinoDir: ', this.routeCreate.destinoDir)
-    }
-
-    let contactModal = this.modalCtrl.create(SetMapOrigenPage, {
-      setmap: setmap,
-      utnOrigen: this.utnOrigen
-    });
-
-    contactModal.onDidDismiss(data => {
-      console.log('data es despues de dismis: ', data);
-      if (data != undefined)
-        this.casa = data;
-    });
+    this.myservices.setMap = setmap;
+    let contactModal = this.modalCtrl.create(SetMapOrigenPage);
     contactModal.present();
 
-
-  }
-
-  editHome(setmap: boolean, slidingItem: ItemSliding) {
-    let contactModal = this.modalCtrl.create(SetMapOrigenPage, {
-      setmap: setmap,
-      utnOrigen: this.utnOrigen
-    });
-
     contactModal.onDidDismiss(data => {
-      console.log('data es despues de dismis: ', data);
-      if (data != undefined)
-        this.casa = data;
+      if (data != null || undefined) {
+        this.loadingControllerSave = this.loadingCtrl.create();
+        this.loadingControllerSave.present();
+        console.log('data return modal es: ', data);
+        if (data.update) {
+          console.log('hacer refresh de casa info');
+          this.casaInfo();//refresh data after viewctrl dismiss}
+        }
+      }
+
     });
-    //se abre la pagina set to map
-    contactModal.present();
-    //se cierra el sliding de editar casa
-    slidingItem.close();
 
   }
 
   async latLngDir() {
+    this.loadingControllerSave = this.loadingCtrl.create();
+    this.loadingControllerSave.present();
     this.getDireccion(await this.getLocation());
-    this.ubicacionActualLatLng = await this.getLocation();
+    //this.ubicacionActualLatLng = await this.getLocation();
   }
 
   getDireccion(latlng) {
@@ -128,44 +142,12 @@ export class ViajesOrigenPage {
     }
     const rta = await LocationService.getMyLocation(option);
     //const rta = await this.geolocation.getCurrentPosition();
+
     return rta.latLng
   }
 
 
-  goToViewRoute(casa: boolean) {
-    //Cuando utn es origen 
-    if (this.utnOrigen)
-      // if (casa)
-      //y la opcion seleccionada es casa
-      this.actionListenerGoRoute(this.utnLatLng, this.utnDir, this.casaLatLng, this.casaDir);
-    // else
-    //   // y la opcion seleccionada es select map
-    //   //this.actionListenerGoRoute(this.utnLatLng, this.utnDir, this.setmapLatLng, this.setmapDir);
-    //   console.log('get latlng y direccion de set map');
-    else
-      //Cuando utn es destino 
-      if (casa)
-        //y la opcion seleccionada es casa
-        this.actionListenerGoRoute(this.casaLatLng, this.casaDir, this.utnLatLng, this.utnDir);
-      else
-        // y la opcion seleccionada es ubicacion actual
-        this.actionListenerGoRoute(this.ubicacionActualLatLng, this.ubicacionActualDir, this.utnLatLng, this.utnDir);
 
-
-  }
-
-  private actionListenerGoRoute(origenLatLng, origenDir, destinoLatLng, destinoDir) {
-
-    this.routeCreate.origenLatLng = origenLatLng;
-    this.routeCreate.origenDir = origenDir;
-    this.routeCreate.destinoLatLng = destinoLatLng;
-    this.routeCreate.destinoDir = destinoDir;
-    console.log(' casa|ubicactual this.routeCreate.origenLatLng: ', this.routeCreate.origenLatLng)
-    console.log('casa|ubicactual this.routeCreate.origenDir: ', this.routeCreate.origenDir)
-    console.log('casa|ubicactual this.routeCreate.destinoLatLng: ', this.routeCreate.destinoLatLng)
-    console.log('casa|ubicactual this.routeCreate.destinoDir: ', this.routeCreate.destinoDir)
-    this.navCtrl.push(HomeCViewRutaPage);
-  }
 
   showAlert() {
     const alert = this.alertCtrl.create({

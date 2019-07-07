@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { HomeServiceProvider } from '../../providers/home-service/home-service';
+import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 
 @Component({
   selector: 'page-car',
@@ -18,7 +18,7 @@ export class CarPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, public alertController: AlertController,
-    private camera: Camera, public myservices: HomeServiceProvider) {
+    private camera: Camera, public myservices: EnvironmentVarService) {
   }
 
   ionViewDidLoad() {

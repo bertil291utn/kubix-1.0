@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController, ModalController, 
 import { SetMapPtoPage } from '../set-map-pto/set-map-pto';
 import { ViajesPubCPage } from '../viajes-pub-c/viajes-pub-c';
 import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
-import { HomeServiceProvider } from '../../providers/home-service/home-service';
+import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { CarPage } from '../car/car';
 
 
@@ -31,7 +31,7 @@ export class ViajesConductorPage {
 
   constructor(public navparams: NavParams, public navCtrl: NavController,
     public navParams: NavParams, public alertCtrl: AlertController,
-    public modalCtrl: ModalController, public myservices: HomeServiceProvider, private app: App) {
+    public modalCtrl: ModalController, public myservices: EnvironmentVarService, private app: App) {
 
     this.setHour();
     let p = app.getActiveNavs();

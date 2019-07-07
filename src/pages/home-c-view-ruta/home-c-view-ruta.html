@@ -20,16 +20,15 @@
           <p style="font-size: 0.7em !important;">{{item.structured_formatting.secondary_text}}</p>
         </ion-item>
       </ion-list>
-      <p ion-text *ngIf="predictionsLugares == null" color="danger" style="font-size: 1.3rem;">En caso de no encontrar
-        resultados, anteceder la ciudad y/o sector de b&uacute;squeda <br>Ejemplo: Ibarra Terminal Terrestre o Ibarra
-        Yacucalle Parque de la familia. Estamos trabajando para mejorar su experiencia.</p>
+      <p ion-text *ngIf="predictionsLugares == null" [hidden]="autocomplete.input==''" color="danger" style="font-size: 1.3rem;">Ejemplo: Ibarra Terminal Terrestre o Ibarra
+        Yacucalle Parque de la familia. <br>Estamos trabajando para mejorar su experiencia.</p>
       <!-- listar los lugares que se vayan anadiendo -->
       <br><br>
       <ion-list *ngIf="autocompleteItems.length == 0">
         <!-- <ion-item-sliding *ngFor="let obj of routeCreate.lugares"> -->
         <ion-item no-lines *ngFor="let obj of routeCreate.lugares">
           <ion-icon name="pin" item-start small color="iconos"></ion-icon>
-          <ion-icon name="trash" item-end small color="iconos" (click)="deletePlace(obj.id)"></ion-icon>
+          <ion-icon name="close" item-end small color="iconos" (click)="deletePlace(obj.id)"></ion-icon>
           <h2>{{obj.nombreCorto}}</h2>
           <p style="font-size: 0.7em !important;">{{obj.nombreExtenso}}</p>
         </ion-item>
@@ -60,7 +59,7 @@
         <ion-icon name="pin" color="iconos" item-start></ion-icon>
         <ion-card>
           <ion-item color="destinocard">
-            {{origenDir}}
+            {{routeCreate.origen.full_name}}
           </ion-item>
         </ion-card>
       </ion-item>
@@ -69,7 +68,7 @@
         <ion-icon name="home" color="iconos" item-start></ion-icon>
         <ion-card>
           <ion-item color="destinocard">
-            {{destinoDir}}
+            {{routeCreate.destino.full_name}}
           </ion-item>
         </ion-card>
       </ion-item>
@@ -82,8 +81,8 @@
             color="danger">ACEPTAR</strong></ion-col>
         <!-- <ion-col *ngIf="routeCreate.lugares.length==0" text-center (click)="goToModalLugViaje()"><strong ion-text
             color="danger">CONTINUAR</strong></ion-col> -->
-        <ion-col></ion-col>
-        <ion-col *ngIf="routeCreate.lugares.length>1" text-center (click)="goToCancel()"><strong ion-text
+        <ion-col *ngIf="routeCreate.lugares.length>1"></ion-col>
+        <ion-col text-center (click)="goToCancel()"><strong ion-text
             color="danger">CANCELAR</strong></ion-col>
         <ion-col></ion-col>
       </ion-row>

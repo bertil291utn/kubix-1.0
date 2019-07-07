@@ -1,7 +1,7 @@
 import { Component, Injectable, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController, ToastController, Events } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { HomeServiceProvider } from '../../providers/home-service/home-service';
+import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 
 
@@ -15,7 +15,7 @@ export class LoginPage {
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public myservices: HomeServiceProvider, public apiRestService: RestApiServiceProvider,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public myservices: EnvironmentVarService, public apiRestService: RestApiServiceProvider,
     private menu: MenuController, private alertCtrl: AlertController, public toastCtrl: ToastController, public event: Events) {
 
   }

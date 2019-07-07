@@ -26,7 +26,7 @@ import { GoogleMaps } from "@ionic-native/google-maps";
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { IonicStorageModule } from '@ionic/storage';
-import { HomeServiceProvider } from '../providers/home-service/home-service';
+import { EnvironmentVarService } from '../providers/environmentVarService/environmentVarService';
 import { ViajesPasajeroPage } from '../pages/viajes-pasajero/viajes-pasajero';
 import { DatesFormatProvider } from '../providers/dates-format/dates-format';
 import { ViajesPasajeroDetailPage } from '../pages/viajes-pasajero-detail/viajes-pasajero-detail';
@@ -123,7 +123,7 @@ import { HttpClientModule } from '@angular/common/http';
     SocialSharing,
     CallNumber, 
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    HomeServiceProvider,
+    EnvironmentVarService,
     DatesFormatProvider,
     RutaProvider,
     RestApiServiceProvider
