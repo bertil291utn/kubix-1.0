@@ -1,80 +1,47 @@
-<ion-content>
-  <ion-segment color="danger" [(ngModel)]="proceso" (click)="updateVal()">
-    <ion-segment-button value="ruta">
-      RUTA
-    </ion-segment-button>
-    <ion-segment-button value="lugares">
-      LUGARES DE PASO
-    </ion-segment-button>
-  </ion-segment>
-
-  <div [ngSwitch]="proceso">
-    <ion-grid *ngSwitchCase="'lugares'" padding>
-      <br>
-      <ion-searchbar color="danger" [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"
-        placeholder="Ejemplo: Ibarra Parque Pedro Moncayo"></ion-searchbar>
-
-      <ion-list [hidden]="autocompleteItems.length == 0">
-        <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
-          <h2>{{ item.structured_formatting.main_text }}</h2>
-          <p style="font-size: 0.7em !important;">{{item.structured_formatting.secondary_text}}</p>
-        </ion-item>
-      </ion-list>
-      <p ion-text *ngIf="predictionsLugares == null" [hidden]="autocomplete.input==''" color="danger" style="font-size: 1.3rem;">Ejemplo: Ibarra Terminal Terrestre o Ibarra
-        Yacucalle Parque de la familia. <br>Estamos trabajando para mejorar su experiencia.</p>
-      <!-- listar los lugares que se vayan anadiendo -->
-      <br><br>
-      <ion-list *ngIf="autocompleteItems.length == 0">
-        <!-- <ion-item-sliding *ngFor="let obj of routeCreate.lugares"> -->
-        <ion-item no-lines *ngFor="let obj of routeCreate.lugares">
-          <ion-icon name="pin" item-start small color="iconos"></ion-icon>
-          <ion-icon name="close" item-end small color="iconos" (click)="deletePlace(obj.id)"></ion-icon>
-          <h2>{{obj.nombreCorto}}</h2>
-          <p style="font-size: 0.7em !important;">{{obj.nombreExtenso}}</p>
-        </ion-item>
-
-        <!-- <ion-item-options side="right">
-            <button ion-button color="danger" (click)="deletePlace(obj.id)">
-              <ion-icon name="trash"></ion-icon>
-              Eliminar
-            </button>
-          </ion-item-options>
-        <br><br>
-        </ion-item-sliding>-->
-      </ion-list>
-    </ion-grid>
-  </div>
-
-
-  <div #map_canvas id="map_canvas">
-  </div>
-
-
-</ion-content>
-
-<ion-footer *ngIf="proceso == 'ruta'">
-  <ion-toolbar color="white">
-    <ion-list>
-      <ion-item no-lines>
-        <ion-icon name="pin" color="iconos" item-start></ion-icon>
-        <ion-card>
-          <ion-item color="destinocard">
-            {{routeCreate.origen.full_name}}
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-buttons end>
+      <button ion-button tappable (click)="showAlert()">
+        <ion-icon name="information-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar color="white" style="top: 20px;padding: unset;box-shadow: -1px 4px 5px 1px #e4e4e4;">
+    <ion-row style="padding: 5px;">
+      <ion-col col-1></ion-col>
+      <ion-col style="border: 1.5px solid #a9a9a9a6;border-radius: 10px;" (click)="goToPlaces()">
+        <ion-list>
+          <ion-item no-lines style="padding-left: 5px;">
+            <ion-icon small name="checkmark-circle" color="iconos" item-start></ion-icon>
+            <ion-label>
+              {{routeCreate.origen.full_name}}
+            </ion-label>
           </ion-item>
-        </ion-card>
-      </ion-item>
 
-      <ion-item no-lines>
-        <ion-icon name="home" color="iconos" item-start></ion-icon>
-        <ion-card>
-          <ion-item color="destinocard">
-            {{routeCreate.destino.full_name}}
+          <div *ngIf="routeCreate.lugares.length>=1">
+            <ion-item style="padding-left: 30px;" *ngFor="let obj of routeCreate.lugares">
+              <ion-icon small name="checkmark-circle" color="iconos" item-start></ion-icon>
+              <ion-label>
+                {{obj.mainName}}
+              </ion-label>
+            </ion-item>
+          </div>
+
+          <ion-item no-lines style="padding-left: 5px;">
+            <ion-icon small name="checkmark-circle" color="iconos" item-start></ion-icon>
+            <ion-label>
+              {{routeCreate.destino.full_name}}
+            </ion-label>
           </ion-item>
-        </ion-card>
-      </ion-item>
-    </ion-list>
+        </ion-list>
+      </ion-col>
+      <ion-col col-1 text-center>
+        <!-- <ion-icon style="font-size: 1.7em;" color="black" name="add-circle"></ion-icon> -->
+      </ion-col>
+    </ion-row>
+    <br>
 
-    <ion-grid>
+    <ion-grid style="border-top: 1.5px solid #f1f1f1;">
       <ion-row>
         <ion-col></ion-col>
         <ion-col *ngIf="routeCreate.lugares.length>1" text-center (click)="goToAceptar()"><strong ion-text
@@ -82,11 +49,17 @@
         <!-- <ion-col *ngIf="routeCreate.lugares.length==0" text-center (click)="goToModalLugViaje()"><strong ion-text
             color="danger">CONTINUAR</strong></ion-col> -->
         <ion-col *ngIf="routeCreate.lugares.length>1"></ion-col>
-        <ion-col text-center (click)="goToCancel()"><strong ion-text
-            color="danger">CANCELAR</strong></ion-col>
+        <ion-col text-center (click)="goToCancel()"><strong ion-text color="danger">CANCELAR</strong></ion-col>
         <ion-col></ion-col>
       </ion-row>
     </ion-grid>
 
   </ion-toolbar>
-</ion-footer>
+</ion-header>
+
+
+<ion-content>
+  <div #map_canvas id="map_canvas">
+  </div>
+
+</ion-content>

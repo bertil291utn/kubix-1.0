@@ -44,6 +44,7 @@ import { LoginPage } from '../pages/login/login';
 import { searchTravelPasajero } from "../pages/searchTravelPasajero/searchTravelPasajero";
 import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-service';
 import { HttpClientModule } from '@angular/common/http';
+import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
 
 
 
@@ -74,7 +75,8 @@ import { HttpClientModule } from '@angular/common/http';
     CarPage,
     SlidesPage,
     LoginPage,
-    searchTravelPasajero
+    searchTravelPasajero,
+    StopConductorPage
     
   ],
   imports: [
@@ -110,7 +112,8 @@ import { HttpClientModule } from '@angular/common/http';
     CarPage,
     SlidesPage,
     LoginPage,
-    searchTravelPasajero
+    searchTravelPasajero,
+    StopConductorPage
   
   ],
   providers: [

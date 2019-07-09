@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ModalController, ToastController, Platform, ItemSliding } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ModalController, ToastController, Platform, ItemSliding, AlertController } from 'ionic-angular';
 import { ViajesDestinoPage } from '../viajes-destino/viajes-destino';
 import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
 import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { RutaProvider } from '../../providers/ruta/ruta';
 import { searchTravelPasajero } from "../searchTravelPasajero/searchTravelPasajero";
+import { StopConductorPage } from '../stop-conductor/stop-conductor';
 
 declare var google;
 declare var html2canvas;
@@ -22,23 +23,17 @@ export class HomeCViewRutaPage {
   public map: any;
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
-  // origenLatLng;
-  // destinoLatLng;
-  // origenDir;
-  // destinoDir;
+  service;// = new google.maps.places.PlacesService(map);
   image;
   public proceso = 'ruta';
-  GoogleAutocomplete;
-  autocomplete;
-  autocompleteItems;
-  predictionsLugares = "";
   toastLugares;
-  indexLugares = 0;
+
+
 
   constructor(private storage: Storage, public toastCtrl: ToastController,
     public loadingCtrl: LoadingController, public platform: Platform,
     public nav: NavController, public modalCtrl: ModalController,
-    public navparams: NavParams, private zone: NgZone,
+    public navparams: NavParams, private zone: NgZone, public alertCtrl: AlertController,
     public routeCreate: RutaProvider) {
 
     //en caso de que se presione el boton de atras tiene hacer un pop de pages y qquitar todos los lugares seleccinados
@@ -51,84 +46,8 @@ export class HomeCViewRutaPage {
 
   ionViewDidLoad() {
     console.log('origen: ', this.routeCreate.origen, 'destino: ', this.routeCreate.destino);
-    this.initValAutocomplete();
     console.log('ionViewDidLoad HomeCViewRutaPage');
     this.initMapa();
-  }
-
-
-  private initValAutocomplete() {
-    //iniciar valores de autcomplete
-    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-    this.autocomplete = { input: '' };
-    this.autocompleteItems = [];
-  }
-
-
-  //metodo para cuando haga clic en la barra de busqueda
-  updateSearchResults() {
-    if (this.autocomplete.input == '') {
-      this.autocompleteItems = [];
-      return;
-    }
-
-    let config = {
-      input: this.autocomplete.input,
-      componentRestrictions: { 'country': 'ec' },
-      types: ['establishment']
-    };
-
-    this.GoogleAutocomplete.getPlacePredictions(config,
-      (predictions, status) => {
-        this.autocompleteItems = [];
-        this.zone.run(() => {
-          this.predictionsLugares = predictions;
-          if (predictions != null)
-            predictions.forEach((prediction) => {
-              this.autocompleteItems.push(prediction);
-            });
-        });
-      });
-  }
-
-  //item es el resultado del lugar seleccionado del listado de lugares que da el autocomplete 
-  selectSearchResult(item) {
-    //console.log('item: ', item)
-
-    let nombreCorto = item.structured_formatting.main_text;
-    let nombreExtenso = item.structured_formatting.secondary_text;
-    let placeid = item.id;
-    let lugar = { id: this.indexLugares, placeid: placeid, nombreCorto: nombreCorto, nombreExtenso: item.description };
-    let lugarExists = this.lugarExists(nombreCorto);
-    if (!lugarExists)
-      this.routeCreate.lugares = lugar;
-    else {
-      let message = 'Este lugar ya ha sido agregado';
-      this.presentToastDurationTop(message, 2000);
-    }
-    //limpiar el input y el listado mostrado despues de seleccionar el deseado
-    this.autocomplete = { input: '' };
-    this.autocompleteItems = [];
-    //actualizar el tamno del arrya lugares. Para que se activen los botondes de ACEPTAR  o CANCELAR 
-    this.zone.run(() => {
-      this.routeCreate.lugares.length
-    });
-    this.indexLugares++;
-    console.log('lugares guardado en ruta service: ', this.routeCreate.lugares);
-  }
-
-
-  //alternativa a funcion includes para objetos
-  lugarExists(nombreCorto) {
-    let found = false;
-    let lugaresLenght = this.routeCreate.lugares.length;
-    for (var i = 0; i < lugaresLenght; i++) {
-      if (this.routeCreate.lugares[i].nombreCorto == nombreCorto) {
-        found = true;
-        break;
-      }
-    }
-    return found;
   }
 
   goToModalLugViaje() {
@@ -138,8 +57,6 @@ export class HomeCViewRutaPage {
     // });
     //contactModal.present();
   }
-
-
 
 
   //metodo para despuer de dar click en ion-segment y se haga el cambio en la variable proceso 
@@ -173,33 +90,110 @@ export class HomeCViewRutaPage {
     this.toastLugares.dismiss();
   }
 
-  presentToastDurationTop(message, duration) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      position: 'top',
-      duration: duration
-    });
-    toast.present();
-  }
 
   initMapa() {
+    let styles = [
+      {
+        "stylers": [
+          {
+            "hue": "#e7ecf0"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.business",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.government",
+        "stylers": [
+          {
+            "color": "#ffff80"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.medical",
+        "stylers": [
+          {
+            "color": "#80c2ff"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "stylers": [
+          {
+            "color": "#75e159"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.school",
+        "stylers": [
+          {
+            "color": "#ffff80"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "stylers": [
+          {
+            "saturation": -70
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "stylers": [
+          {
+            "saturation": -60
+          },
+          {
+            "visibility": "simplified"
+          }
+        ]
+      }
+    ];
     this.map = new google.maps.Map(this.mapElement.nativeElement, {
-      zoom: 7,
-      disableDefaultUI: true
+      zoom: 12,
+      disableDefaultUI: true,
+      styles: styles
     });
     //this.map = GoogleMaps.create(this.mapElement.nativeElement);
     this.directionsDisplay.setMap(this.map);
-    this.calculateAndDisplayRoute();
+    this.directionsDisplay.setOptions({
+      polylineOptions: {
+        strokeColor: '#3f3d56'
+      }
+    });
+    this.calculateAndDisplayRoute();//traer wayspoitn desde route
   }
 
-  calculateAndDisplayRoute() {
+  calculateAndDisplayRoute(wayPoints?) {
     this.directionsService.route({
       origin: { lat: this.routeCreate.origen.lat, lng: this.routeCreate.origen.lng },
       destination: { lat: this.routeCreate.destino.lat, lng: this.routeCreate.destino.lng },
-      travelMode: 'DRIVING'
+      travelMode: 'DRIVING',
+      waypoints: wayPoints,
+      optimizeWaypoints: true
     }, (response, status) => {
       if (status === 'OK') {
-        console.log('response calculate display: ', response);
+        //console.log('response calculate display: ', response);
         this.directionsDisplay.setDirections(response);
       } else {
         console.log('Directions request failed due to ' + status);
@@ -230,9 +224,30 @@ export class HomeCViewRutaPage {
     this.nav.push(ViajesConductorPage);
   }
 
-  deletePlace(id) {
-    //elimina el lugar de aucerdo al id dado
-    this.routeCreate.lugares.splice(this.routeCreate.lugares.findIndex(obj => obj.id == id), 1)
+
+
+  showAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Informaci&oacute;n',
+      message: 'Para a&ntildeadir lugares de paso presione en el cuadro de direcciones',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+
+  goToPlaces() {
+
+    let contactModal = this.modalCtrl.create(StopConductorPage, this.map);
+    contactModal.present();
+    contactModal.onDidDismiss(data => {
+      let wayPointsArray = [];
+      //console.log('waypoints de vuelta: ', data.waypoints);
+      //anadir en un arrya temporal
+      for (let obj of this.routeCreate.lugares)
+        wayPointsArray.push(obj.waypoints);
+      this.calculateAndDisplayRoute(wayPointsArray);//traer wayspoitn desde route
+    });
 
   }
 

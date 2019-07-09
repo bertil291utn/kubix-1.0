@@ -75,7 +75,83 @@ export class SetMapOrigenPage {
       myMapType = 'MAP_TYPE_ROADMAP';
       zoom = 15;
     }
-
+    let styles = [
+      {
+        "stylers": [
+          {
+            "hue": "#e7ecf0"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.business",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.government",
+        "stylers": [
+          {
+            "color": "#ffff80"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.medical",
+        "stylers": [
+          {
+            "color": "#80c2ff"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "stylers": [
+          {
+            "color": "#75e159"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.school",
+        "stylers": [
+          {
+            "color": "#ffff80"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "stylers": [
+          {
+            "saturation": -70
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "stylers": [
+          {
+            "saturation": -60
+          },
+          {
+            "visibility": "simplified"
+          }
+        ]
+      }
+    ];
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
@@ -84,7 +160,8 @@ export class SetMapOrigenPage {
         },
         zoom: zoom
       },
-      mapType: myMapType
+      mapType: myMapType,
+      styles: styles
     };
 
     this.map = GoogleMaps.create('map_canvas6', mapOptions);

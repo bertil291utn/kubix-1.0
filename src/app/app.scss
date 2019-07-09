@@ -70,3 +70,16 @@ page-menu {
     //margin-left: -50px;
   }
 }
+
+page-home-c-view-ruta {
+  .item-md ion-icon[item-left] + .item-inner,
+  .item-md ion-icon[item-left] + .item-input,
+  .item-md ion-icon[item-start] + .item-inner,
+  .item-md ion-icon[item-start] + .item-input {
+    margin-left: 7px;
+  }
+
+  .list-md {
+    margin: unset;
+  }
+}

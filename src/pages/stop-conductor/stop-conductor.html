@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-row padding>
+      <ion-col col-2>
+        <ion-icon slot="icon-only" color="white" name="close" style="font-size: 1.8em;"
+          (click)="viewCtrl.dismiss(true);">
+        </ion-icon>
+      </ion-col>
+      <ion-col> </ion-col>
+      <ion-col text-right>
+        <ion-icon slot="icon-only" color="white" name="checkmark" style="font-size: 1.8em;" (click)="saveModalPlace();">
+        </ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <br>
+
+  <div padding>
+    <strong style="font-size: 1.6rem;">
+      Estamos trabajando para que el recorrido mostrado sea lo m&aacute;s exacto posible.
+      <br>Mientras tanto a&ntilde;ada al menos dos lugares por donde vaya a pasar.
+    </strong>
+  </div>
+
+  <div padding>
+    <ion-searchbar color="danger" [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"
+      placeholder="Ejemplo: Ibarra Parque Pedro Moncayo"></ion-searchbar>
+
+    <ion-list *ngIf="predictionsLugares != null">
+      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+        <h2>{{ item.structured_formatting.main_text }}</h2>
+        <p style="font-size: 0.7em !important;">{{item.structured_formatting.secondary_text}}</p>
+      </ion-item>
+    </ion-list>
+
+    <p ion-text *ngIf="predictionsLugares == null" [hidden]="autocomplete.input==''" color="danger"
+      style="font-size: 1.3rem;">Ejemplo: Ibarra Terminal Terrestre o Ibarra Yacucalle Parque de la familia.</p>
+    <!-- listar los lugares que se vayan anadiendo -->
+    <br><br>
+
+    <ion-list *ngIf="autocomplete.input==''">
+      <ion-item no-lines *ngFor="let obj of routeCreate.lugares">
+        <ion-icon name="pin" item-start small color="iconos"></ion-icon>
+        <ion-icon name="close" item-end small color="iconos" (click)="deletePlace(obj.id)"></ion-icon>
+        <h2>{{obj.mainName}}</h2>
+        <p style="font-size: 0.7em !important;">{{obj.subName}}</p>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>
