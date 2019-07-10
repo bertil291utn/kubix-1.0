@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="danger" text-center>
     <ion-buttons end style="margin-right: 2%;">
-      <button ion-button (click)="dismiss()">
+      <button ion-button (click)="viewCtrl.dismiss();">
         <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
       </button>
     </ion-buttons>
@@ -24,72 +24,154 @@
 
 
 <ion-content>
-  <ion-segment color="danger" [(ngModel)]="proceso">
-    <ion-segment-button value="datos">
-      DATOS
-    </ion-segment-button>
-    <ion-segment-button value="imagen">
-      IMAGEN
-    </ion-segment-button>
-  </ion-segment>
+  <div *ngIf="editarBoton||addBoton" style="box-shadow: 0px 1px 11px -2px #ea6b7c;" padding>
+    <ion-row>
+      <ion-col col-2>
+        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;" (click)="closeDialogEditSave()">
+        </ion-icon>
+      </ion-col>
+      <ion-col><strong style="font-size: 1.7rem;">
+          Editar
+        </strong></ion-col>
+      <ion-col text-right>
+        <ion-icon slot="icon-only" color="primary" name="checkmark" style="font-size: 1.8em;" (click)="saveAndEdit()">
+        </ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
 
-  <div [ngSwitch]="proceso">
-    <ion-grid *ngSwitchCase="'datos'" padding>
-      <ion-list>
+  <div *ngIf="carExists" text-center style="padding: 0 40px;">
+    <br>
+    <h4 ion-text>Autom&oacute;vil designado</h4>
+    <ion-row>
+      <button small ion-button round color="danger" outline style="font-size:1.1rem;margin:auto;"
+        (click)="actionEditButton()" *ngIf="!editarBoton">Editar autom&oacute;vil</button>
+    </ion-row><br>
+    <ion-card *ngIf="!editarBoton">
+      <img *ngIf="!preview" class="imgbck" [src]="'data:image/png;base64,' +carObject.foto">
+      <ion-card-content>
+        <ion-card-title>{{carObject.placa}}</ion-card-title>
+      </ion-card-content>
+      <ion-row no-padding>
+        <ion-col>
+          <button ion-button clear small icon-start>
+            <ion-icon color="iconos" name='car'></ion-icon>
+            <ion-label color="dark">
+              {{carObject.marca|lowercase}}
+            </ion-label>
+          </button>
+        </ion-col>
+        <ion-col text-center>
+          <button ion-button clear small icon-start>
+            <ion-icon color="iconos" name='car'></ion-icon>
+            <ion-label color="dark">
+              {{carObject.modelo|lowercase}}
+            </ion-label>
+          </button>
+        </ion-col>
+        <ion-col text-right>
+          <button ion-button clear small icon-start>
+            <ion-icon color="iconos" name='color-palette'></ion-icon>
+            <ion-label color="dark">
+              {{carObject.color|lowercase}}
+            </ion-label>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+
+    <form [formGroup]="contactForm">
+      <img *ngIf="preview" id="imgbck" [src]="previewimg">
+      <ion-row *ngIf="editarBoton">
+        <img *ngIf="!preview" class="imgbck" [src]="'data:image/png;base64,' +carObject.foto">
+        <button small ion-button round color="primary" clear id="subtitle" (click)="goToCamera()">Cambiar imagen
+          autom&oacute;vil</button>
+      </ion-row>
+      <br>
+      <ion-list *ngIf="editarBoton">
+        <!-- traer valores desde las variables por que es edit -->
         <ion-item>
           <!-- <ion-label color="danger" floating>Ingrese n&uacute;mero de placa</ion-label> -->
-          <ion-input [(ngModel)]="placa" color="danger" placeholder="PCC0123" clearInput></ion-input>
+          <ion-input formControlName="placa" [ngModel]="valplaca" (ngModelChange)="valplaca = $event.toUpperCase()"
+            maxlength="7" color="danger" placeholder="PCC0123" clearInput>
+          </ion-input>
         </ion-item>
         <ion-item>
 
-          <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="marca">
-            <ion-option value="chevrolet">Chevrolet</ion-option>
+          <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="valmarca"
+            [ngModelOptions]="{standalone: true}">
+            <ion-option *ngFor="let obj of marca" [value]="obj.codigo" (ionSelect)="getMarcaModelo(obj.codigo)">
+              {{obj.nombre}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
 
-          <ion-select placeholder="Modelo" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="modelo">
-            <ion-option value="s1">S1</ion-option>
+          <ion-select formControlName="modelo" placeholder="Modelo" cancelText="CANCELAR" interface="action-sheet">
+            <ion-option *ngFor="let obj of modelo" [value]="obj.codigo">{{obj.nombre}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
 
-          <ion-select placeholder="Color" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="color">
-            <ion-option value="azul">Azul</ion-option>
-            <ion-option value="negro">Negro</ion-option>
+          <ion-select formControlName="color" placeholder="Color" cancelText="CANCELAR" interface="action-sheet">
+            <ion-option *ngFor="let obj of colores" [value]="obj">{{obj|titlecase}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>
-      <h5 color="danger" ion-text text-center (click)="goToImage()">SIGUIENTE</h5>
-    </ion-grid>
+    </form>
+  </div>
 
-    <ion-grid *ngSwitchCase="'imagen'" padding>
-      <div *ngIf="carExists">
-
-        <!-- <div class="relative">
-          <img id="imgbck" src="assets/imgs/01.png">
-          <ion-icon class="top-right" name="camera" color="iconos" (click)="goToCamera()"></ion-icon>
-        </div> -->
-        <img id="imgbck" src="assets/imgs/01.png"><br>
-        <ion-row>
-          <button small ion-button round color="primary" clear style="font-size:1.1rem;margin:auto;"
-            (click)="goToCamera()">Cambiar imagen autom&oacute;vil</button>
-        </ion-row>
-      </div>
-      <div *ngIf="!carExists" ion-text text-center>
+  <div *ngIf="!carExists" ion-text text-center>
+    <div *ngIf="!addBoton">
+      <ion-icon name="add-circle" id="camara" (click)="addBoton=true;"></ion-icon>
+      <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir datos de su autom&oacute;vil
+      </ion-label>
+    </div>
+    <form [formGroup]="contactForm">
+      <div *ngIf="addBoton">
+        <div *ngIf="preview">
+          <img id="imgbck" [src]="previewimg">
+          <ion-row>
+            <button small ion-button round color="primary" clear id="subtitle" (click)="goToCamera()">Cambiar imagen
+              autom&oacute;vil</button>
+          </ion-row>
+        </div>
         <div *ngIf="!preview">
           <ion-icon name="camera" id="camara" (click)="goToCamera()"></ion-icon>
-          <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir una fotograf&iacute;a de su autom&oacute;vil
+          <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir una fotograf&iacute;a de su
+            autom&oacute;vil
           </ion-label>
         </div>
+        <ion-list>
+          <!-- los datos vacios -->
+          <ion-item>
+            <!-- <ion-label color="danger" floating>Ingrese n&uacute;mero de placa</ion-label> -->
+            <ion-input formControlName="placa" [ngModel]="valplaca" (ngModelChange)="valplaca = $event.toUpperCase()"
+              maxlength="7" color="danger" placeholder="PCC0123" clearInput></ion-input>
+          </ion-item>
+          <ion-item>
+
+            <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet">
+              <!-- <ion-option value="chevrolet">Chevrolet</ion-option> -->
+              <ion-option *ngFor="let obj of marca" [value]="obj.codigo" (ionSelect)="getMarcaModelo(obj.codigo)">
+                {{obj.nombre}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+
+            <ion-select formControlName="modelo" placeholder="Modelo" cancelText="CANCELAR" interface="action-sheet">
+              <!-- <ion-option value="s1">S1</ion-option> -->
+              <ion-option *ngFor="let obj of modelo" [value]="obj.codigo">{{obj.nombre}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+
+            <ion-select formControlName="color" placeholder="Color" cancelText="CANCELAR" interface="action-sheet">
+              <ion-option *ngFor="let obj of colores" [value]="obj">{{obj|titlecase}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
       </div>
-      <div *ngIf="preview">
-        <div class="relative">
-          <img id="imgbck" [src]="previewimg">
-          <ion-icon class="top-right" name="camera" color="iconos" (click)="goToCamera()"></ion-icon>
-        </div>
-      </div>
-      <button *ngIf="preview" ion-button round color="danger" large (click)="addAuto()">guardar</button>
-    </ion-grid>
+    </form>
   </div>
 </ion-content>

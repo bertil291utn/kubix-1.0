@@ -36,7 +36,7 @@ export class ViajesConductorPage {
     this.setHour();
     let p = app.getActiveNavs();
     console.log('navigation app: ', p)
-    let q=navCtrl.getViews();
+    let q = navCtrl.getViews();
     console.log('navigation navctrl: ', q)
 
   }
@@ -63,7 +63,10 @@ export class ViajesConductorPage {
     this.createAlert();
     //guardar en BD los datos de la ruta 
   }
-
+  goToCar() {
+    let contactModal = this.modalCtrl.create(CarPage);
+    contactModal.present();
+  }
 
   private createAlert() {
     const alert = this.alertCtrl.create({

@@ -1,37 +1,38 @@
 page-car {
-  h5 {
-    padding-left: 25px;
+  #circular {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    margin: auto;
   }
 
+  #circular img {
+    position: absolute;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    //margin-left: -50px;
+  }
   #centerImg {
     width: 100% !important;
     height: auto !important;
     padding: 5% 10%;
   }
-  .item {
-    padding-left: 25px;
-    padding-right: 25px;
-  }
-
-  ion-select.select:not(#extra) {
-    width: 100%;
-    max-width: 100%;
-  }
-  h5.text {
-    margin-top: 30%;
-  }
-
-  ion-col#auto {
-    text-align: center;
-  }
-  button.button {
-    margin: 10% 20% 0;
+  #descripcion {
+    padding: 4% 10%;
   }
 
   #camara {
     color: #e5e5e5;
-    font-size: 30vw;
+    font-size: 20vw;
     margin-top: 10vw;
+  }
+  .segmento {
+    font-size: 2vw;
   }
 
   .relative {
@@ -48,11 +49,29 @@ page-car {
     padding: 2%;
   }
 
-  #imgbck {
+  .imgbck {
     width: 100%;
     display: block;
     height: auto;
     border: 0;
+  }
 
+  #subtitle {
+    font-size: 1.5rem;
+    margin: auto;
+    text-transform: initial;
+    font-weight: normal;
+  }
+
+  ion-select.select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #showicon {
+    font-size: 2.5em;
+  }
+  #showicon ion-label {
+    font-size: 1.4rem;
   }
 }

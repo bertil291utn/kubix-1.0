@@ -14,27 +14,19 @@ import b64toBlob from 'b64-to-blob';
 })
 export class PerfilPage {
   @ViewChild(Content) content: Content;
-  contactForm;
+
   perfil_val;
-  detalle: string = 'datos';
   conductor: boolean;
-  carExists: boolean;
   personalData: string;
   telefono: string;
   editarBoton: boolean = false;
-  previewimg: string;
-  preview: boolean = false;
   addBoton: boolean = false;
-  marca;//arrays para ion-select
-  valplaca;
-  valmarca;
-  modelo;
-  colores = ['AMARILLO', 'AZUL OSCURO', 'AZUL', 'BEIGE', 'BLANCO', 'GRIS OSCURO', 'GRIS', 'MARRON', 'MORADO', 'NARANJA', 'NEGRO',
-    'ROJO OSCURO', 'ROJO', 'ROSA', 'VERDE OSCURO', 'VERDE'];
   profileExists: boolean;
   preferenciasObjetos;
   enviarPreferencias;
-  loadingControllerSave;
+  loadingCrtlRefresh;
+  //loadingControllerBegin;
+  saveEdit: boolean = false;
   carObject = {
     placa: null, foto: null, marca: null, modelo: null,
     color: null, codigo_marca: null, codigo_modelo: null, codigo_vehiculo: null
@@ -48,7 +40,7 @@ export class PerfilPage {
     private camera: Camera, public alertController: AlertController) {
 
     this.perfil_val = this.perfil();
-    this.initForm();
+
 
   }
 
@@ -56,8 +48,7 @@ export class PerfilPage {
   ionViewDidLoad() {
     this.getPreferencesUser();
     this.getUserInfo();
-    this.getMarcaModelo();
-    this.getVehiculoInfo();
+
     this.conductor = this.myservices.conductor;
     //this.carExists = this.myservices.carExists;
     this.profileExists = this.myservices.profileExists;
@@ -71,37 +62,6 @@ export class PerfilPage {
   }
 
 
-  private initForm() {
-    this.contactForm = this.fb.group({
-      placa: ['', Validators.required],
-      color: ['', Validators.required],
-      modelo: ['', Validators.required],
-      foto: ['', Validators.required]
-    });
-  }
-
-  public getVehiculoInfo() {
-    this.carExists = false;
-    this.apiRestService.getVehiculoInfo().subscribe((resp) => {
-      if (resp.items[0].placa != null) {
-        this.carExists = true;
-        this.carObject.placa = resp.items[0].placa;
-        this.carObject.marca = resp.items[0].marca;
-        this.carObject.modelo = resp.items[0].modelo;
-        this.carObject.color = resp.items[0].color;
-        this.carObject.codigo_marca = resp.items[0].id_marca;
-        this.carObject.codigo_modelo = resp.items[0].id_modelo;
-        this.carObject.codigo_vehiculo = resp.items[0].codigo_vehiculo;
-        this.carObject.foto = resp.items[0].foto;
-
-        if (resp != null)
-          if (this.loadingControllerSave != undefined)
-            this.loadingControllerSave.dismiss();
-      }
-    });
-  }
-
-
   ionViewDidEnter() { }
 
   inputUpperCase(valor) {
@@ -109,21 +69,6 @@ export class PerfilPage {
     // this.valplaca = valor._value.toUpperCase();
 
   }
-
-  private getMarcaModelo(modelo?: number) {
-    this.apiRestService.getMarcaModelo(modelo).subscribe((resp) => {
-      console.log('respuesta marcamodelo: ', resp);
-      if (modelo != null || undefined) {
-        this.modelo = resp.respuesta;
-        console.log('this.modelo: ', this.modelo);
-      } else {
-        this.marca = resp.respuesta;
-        console.log('this.marca: ', this.marca);
-      }
-      //console.log('respmarcamodelo: ', resp.items[0].marca_modelo);
-    });
-  }
-
 
   private getUserInfo() {
     this.apiRestService.getUsuario()
@@ -173,6 +118,13 @@ export class PerfilPage {
   }
 
   private getPreferencesUser() {
+    //solo para que que inicie loading ctrontroller al incio de la paagina, 
+    //si vienes desde save edit ya no se presenta por que ya esta declarado 
+    if (!this.saveEdit) {
+      this.loadingCrtlRefresh = this.loadingCtrl.create();
+      this.loadingCrtlRefresh.present();
+    }
+
     this.apiRestService.getUsuarioPreferences()
       .subscribe((resp) => {
         //reorganizar el objto JSON
@@ -182,8 +134,10 @@ export class PerfilPage {
         console.log('resp: ', resp.items);
         // this.viewCtrl._didEnter();//llamar al lifecycle ionviewdidenter para la actualizacion 
         if (resp != null)
-          if (this.loadingControllerSave != undefined)
-            this.loadingControllerSave.dismiss();
+          if (this.loadingCrtlRefresh != undefined)
+            this.loadingCrtlRefresh.dismiss();
+        // else if (this.loadingControllerBegin != undefined)
+        //   this.loadingControllerBegin.dismiss();
       });
   }
 
@@ -210,20 +164,7 @@ export class PerfilPage {
     this.telefono = this.myservices.userData.celular;
     console.log('arrayenviar: ', this.preferenciasObjetos);
 
-    if (this.detalle == "automovil") {
-      console.log('carObject: ', this.carObject);
-      this.contactForm.controls.placa.setValue(this.carObject.placa);
-      this.valplaca = this.carObject.placa;
-      this.valmarca = this.carObject.codigo_marca;
-      this.getMarcaModelo(this.valmarca);
-      this.contactForm.controls.modelo.setValue(this.carObject.codigo_modelo);
-      this.contactForm.controls.color.setValue(this.carObject.color);
-      //this.contactForm.controls.foto.setValue(this.carObject.foto);
-      let fotoAuto = b64toBlob(this.carObject.foto, 'image/png');
-      this.contactForm.controls.foto.setValue(fotoAuto);
-      console.log('contactForm.value: ', this.contactForm.value);
 
-    }
   }
 
   goToAuto() {
@@ -238,46 +179,29 @@ export class PerfilPage {
   }
 
   saveAndEdit() {
-    this.loadingControllerSave = this.loadingCtrl.create();
-    this.loadingControllerSave.present();
+    this.loadingCrtlRefresh = this.loadingCtrl.create();
+    this.loadingCrtlRefresh.present();//begin loding ctrl to refresh 
+    this.saveEdit = true;
     //enviar datos
     console.log('save edit')
     this.editarBoton = false;
-    this.preview = false;
-
-    if (this.detalle == "automovil") {
-      //enviar a bas e datos los datos del automovil de esta persona 
-      console.log('enviar a bas e datos los datos del automovil de esta persona ')
-      //let var =exists base de datos = revisar en la base de datos si existe automovil
-      //if(var)
-
-      this.addBoton = false;
-      console.log('this.contactForm.value: ', this.contactForm.value);
-      this.apiRestService.updateAutomovil(this.contactForm.value).subscribe((resp) => {
-        console.log('resp update automiv: ', resp);
-        this.getVehiculoInfo();//refresh data
-      }, (error) => { console.log('error: ', error) });
 
 
-    }
-
-    if (this.detalle == "datos" || !this.conductor) {
-      this.profileExists = true;
-      this.myservices.profileExists = true;
-      this.addBoton = false;
-      let cedula = this.myservices.usuarioCedula;
-      let index = 1;
-      for (let obj of this.preferenciasObjetos) {
-        this.apiRestService.updateProfilePreferences(cedula, obj.codigo_preferencia, obj.nivel_edited, this.telefono).subscribe((resp) => {
-          console.log('resp: ', resp);
-          if (index == this.preferenciasObjetos.length) {//para que haga la solicitud al API  una sola vez
-            console.log('llamar al refresh');
-            this.getPreferencesUser();//llamar a las preferncias del usuario 
-            this.getUserInfo();//refresh los datos de usuario
-          }
-          index++;
-        });
-      }
+    this.profileExists = true;
+    this.myservices.profileExists = true;
+    this.addBoton = false;
+    let cedula = this.myservices.usuarioCedula;
+    let index = 1;
+    for (let obj of this.preferenciasObjetos) {
+      this.apiRestService.updateProfilePreferences(cedula, obj.codigo_preferencia, obj.nivel_edited, this.telefono).subscribe((resp) => {
+        console.log('resp: ', resp);
+        if (index == this.preferenciasObjetos.length) {//para que haga la solicitud al API  una sola vez
+          console.log('llamar al refresh');
+          this.getPreferencesUser();//llamar a las preferncias del usuario 
+          this.getUserInfo();//refresh los datos de usuario
+        }
+        index++;
+      });
     }
 
     //volver a traer datos desde base de datos para ver el autmovil editado o guardado REFRESH
@@ -286,82 +210,9 @@ export class PerfilPage {
   }
 
   closeDialogEditSave() {
-    if (this.detalle == "automovil") {
-      this.editarBoton = false;
-      this.addBoton = false
-    }
-    if (this.preview)
-      this.preview = false;
+
     if (this.editarBoton)
       this.editarBoton = false;
-
-  }
-
-
-  goToCamera() {
-    const alert = this.alertController.create({
-      title: 'A&ntilde;adir foto de autom&oacute;vil ',
-      buttons: [
-        {
-          text: 'Tomar fotografía',
-          handler: () => {
-            this.actionHandler(2);
-          }
-        },
-        {
-          text: 'Seleccionar desde galería',
-          handler: () => {
-            this.actionHandler(1);
-          }
-        },
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-      ]
-    });
-    alert.present();
-
-
-  }
-
-  actionHandler(selection: number) {
-
-    let options: CameraOptions;
-    // Toma la imagen desde la camara o de la galeria
-    // 1 = Galeria
-    // 2 = Camara
-
-    let type: number;
-    let rootsource = this.camera.PictureSourceType;
-    if (selection === 1)
-      type = rootsource.PHOTOLIBRARY;
-    else if (selection === 2)
-      type = rootsource.CAMERA;
-
-    options = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      sourceType: type,
-      encodingType: this.camera.EncodingType.JPEG,
-      targetWidth: 500,
-      targetHeight: 500,
-      allowEdit: true,
-      correctOrientation: true,
-      cameraDirection: 0
-    };
-
-    /* get picture */
-    this.camera.getPicture(options).then((imgUrl) => {
-      // console.log('imgurl: ', imgUrl)
-      // this.contactForm.controls.foto.setValue(imgUrl);
-      let fotoAuto = b64toBlob(imgUrl, 'image/png');
-      this.contactForm.controls.foto.setValue(fotoAuto);
-      if (imgUrl != undefined) {
-        this.preview = true;
-        this.previewimg = 'data:image/png;base64,' + imgUrl;
-      }
-    });
   }
 
   private perfil() {

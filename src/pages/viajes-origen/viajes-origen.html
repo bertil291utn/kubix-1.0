@@ -37,14 +37,12 @@
 
 <ion-content>
   <ion-list *ngIf="myservices.utnOrigen">
-    <!-- <ion-item-sliding #slidingItem> -->
     <ion-item *ngIf="casa" (click)="goToViewRoute(true)">
       <ion-icon name="home" color="iconos" item-start></ion-icon>
       <button item-end ion-button color="danger" clear
         (click)="goToSetMap(false);$event.stopPropagation();">editar</button>
-      <!-- <ion-icon name="create" item-end small color="iconos" (click)="editHome(false,slidingItem)"></ion-icon> -->
       <h2>Casa</h2>
-      <p ion-text>{{casaObject.full_name}}</p>
+      <p ion-text>{{casaObject.showfull_name}}</p>
     </ion-item>
 
 
@@ -65,14 +63,12 @@
       <ion-icon name="locate" color="primary" item-start></ion-icon>
       Tu ubicaci&oacute;n actual
     </ion-item>
-    <!-- <ion-item-sliding #slidingItem> -->
     <ion-item *ngIf="casa" (click)="goToViewRoute(true)">
       <ion-icon name="home" color="iconos" item-start></ion-icon>
       <button item-end ion-button color="danger" clear
         (click)="goToSetMap(false);$event.stopPropagation();">editar</button>
-      <!-- <ion-icon name="create" item-end small color="iconos" (click)="editHome(false,slidingItem)"></ion-icon> -->
       <h2>Casa</h2>
-      <p ion-text>{{casaObject.full_name}}</p>
+      <p ion-text>{{casaObject.showfull_name}}</p>
     </ion-item>
 
     <ion-item *ngIf="!casa" (click)="goToSetMap(false)">

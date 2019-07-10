@@ -45,7 +45,7 @@ export class HomeCViewRutaPage {
   }
 
   ionViewDidLoad() {
-    console.log('origen: ', this.routeCreate.origen, 'destino: ', this.routeCreate.destino);
+
     console.log('ionViewDidLoad HomeCViewRutaPage');
     this.initMapa();
   }
@@ -221,6 +221,7 @@ export class HomeCViewRutaPage {
     let elem = document.getElementById('map_canvas')
     //this.capImagen(elem)
     //guardar en base de datos la imgen de rutas
+    console.log('origen: ', this.routeCreate.origen, 'destino: ', this.routeCreate.destino, 'lugares: ', this.routeCreate.lugares);
     this.nav.push(ViajesConductorPage);
   }
 

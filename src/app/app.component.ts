@@ -14,6 +14,7 @@ import { CompileMetadataResolver } from '@angular/compiler';
 import { SlidesPage } from '../pages/slides/slides';
 import { LoginPage } from '../pages/login/login';
 import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-service';
+import { ViajesConductorPage } from '../pages/viajes-conductor/viajes-conductor';
 
 @Component({
   selector: 'page-menu',
@@ -69,7 +70,7 @@ export class MyApp {
     //si la existe la contrasena guardada y es correcta en el navegador entonces directo al home
     if (this.contrasenaExists) {
       console.log('this.contrasenaExists: ', this.contrasenaExists)
-      this.rootPage = HomePage;
+      this.rootPage = ViajesConductorPage;
       //devolver cedula guardada
       let userId = '1004453633';
       this.myservices.usuarioCedula = userId;

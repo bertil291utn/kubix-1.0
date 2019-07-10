@@ -22,7 +22,7 @@ export class ViajesOrigenPage {
   ubicacionActualLatLng;
   loadingControllerSave;
 
-  casaObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null };
+  casaObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null, showfull_name: null };
   ubicActualObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null };
 
 
@@ -51,7 +51,9 @@ export class ViajesOrigenPage {
         this.casaObject.lat = resp.items[0].lat;
         this.casaObject.lng = resp.items[0].lng;
         this.casaObject.short_name = resp.items[0].short_name;
-        this.casaObject.full_name = resp.items[0].full_name;
+        this.casaObject.full_name = 'Casa';
+        this.casaObject.showfull_name = resp.items[0].full_name;
+
         if (resp != null)
           if (this.loadingControllerSave != undefined)
             this.loadingControllerSave.dismiss();
@@ -77,10 +79,7 @@ export class ViajesOrigenPage {
 
 
   goToViewRoute(casa: boolean) {
-
-    this.ubicActualObject.lat = this.ubicacionActualLatLng.lat
-    this.ubicActualObject.lng = this.ubicacionActualLatLng.lng
-    this.ubicActualObject.full_name = this.ubicacionActualDir
+    // Enviar directo los dtos a home c view
     if (this.myservices.utnOrigen)
       //cuando utn es origen solo tiene casa
       this.routeCreate.destino = this.casaObject;
@@ -88,16 +87,20 @@ export class ViajesOrigenPage {
       //verficar si tiene casa o ubcacin actual
       if (casa)
         this.routeCreate.origen = this.casaObject;
-      else
+      else {
         // y la opcion seleccionada es ubicacion actual
+        this.ubicActualObject.lat = this.ubicacionActualLatLng.lat;
+        this.ubicActualObject.lng = this.ubicacionActualLatLng.lng;
+        this.ubicActualObject.full_name = 'Tu ubicaci\xF3n actual';
         this.routeCreate.origen = this.ubicActualObject;
+      }
     }
     this.navCtrl.push(HomeCViewRutaPage);
   }
 
 
   goToSetMap(setmap: boolean) {
-
+    //enviar a set map si es para elegir el origen/desitno en el mapa o para anadir/editar la casa del usuario
     this.myservices.setMap = setmap;
     let contactModal = this.modalCtrl.create(SetMapOrigenPage);
     contactModal.present();

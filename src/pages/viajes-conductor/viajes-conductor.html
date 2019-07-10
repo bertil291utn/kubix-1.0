@@ -20,10 +20,7 @@
     <ion-segment-button value="horario">
       HORARIO DE SALIDA
     </ion-segment-button>
-    <ion-segment-button value="vehiculo">
-      VEHICULO
-    </ion-segment-button>
-    <ion-segment-button value="adicional">
+        <ion-segment-button value="adicional">
       ADICIONAL
     </ion-segment-button>
   </ion-segment>
@@ -56,46 +53,21 @@
         </ion-col>
       </ion-row>
 
-      <!-- <h5>Repetir</h5>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-icon name="repeat" color="iconos" item-left></ion-icon>
-            <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="repeat">
-              <ion-option value="1">Si</ion-option>
-              <ion-option value="2">No</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row> -->
+    
 
       <h5 color="danger" ion-text text-center (click)="goToVehicule()">SIGUIENTE</h5>
     </ion-grid>
 
-
-    <ion-grid *ngSwitchCase="'vehiculo'" padding>
-      <div *ngIf="carExists" text-center>
-        <h6 ion-text text-center>Autom&oacute;vil designado</h6>
-        <ion-row align-items-center>
-          <ion-col id="auto">
-            <img src="assets/imgs/01.png" id="centerImg">
-          </ion-col>
-        </ion-row>
-        <h6 ion-text text-center>SEAT IBIZA</h6>
-        <span ion-text text-center>Negro</span>
-      </div>
-      <div *ngIf="!carExists" ion-text text-center>
-        <div (click)="addAuto()">
-          <ion-icon name="add-circle" id="camara"></ion-icon>
-          <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir los datos de su autom&oacute;vil
-          </ion-label>
-        </div>
-      </div>
-      <h5 *ngIf="carExists" color="danger" ion-text text-center (click)="goToAdicional()">SIGUIENTE</h5>
-    </ion-grid>
-
-
     <ion-grid *ngSwitchCase="'adicional'" padding>
+
+      <ion-row>
+        <ion-col>
+          <ion-item (click)="goToCar()">
+            <ion-label style="color: black;font-weight: bold;">Veh&iacute;culo</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
       <ion-row>
         <ion-col>
           <ion-item>
@@ -109,6 +81,8 @@
           </ion-item>
         </ion-col>
       </ion-row>
+
+
 
       <ion-row>
         <ion-col>
@@ -133,7 +107,7 @@
         </ion-col>
       </ion-row>
 
-      <button *ngIf="carExists" ion-button round color="danger" large (click)="showAlert()">Publicar</button>
+      <button ion-button round color="danger" large (click)="showAlert()">Publicar</button>
 
     </ion-grid>
 
