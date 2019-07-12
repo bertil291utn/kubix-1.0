@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController, LoadingController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
@@ -61,12 +61,12 @@ export class CarPage {
       this.loadingControllerSave = this.loadingCtrl.create();
       this.loadingControllerSave.present();
     }
-    this.carExists = false;
-    this.myservices.carExists = this.carExists;
+
+    this.myservices.carExists = false;
     this.apiRestService.getVehiculoInfo().subscribe((resp) => {
       if (resp.items[0].placa != null) {
-        this.carExists = true;
-        this.myservices.carExists = this.carExists;
+
+        this.myservices.carExists = true;
         this.carObject.placa = resp.items[0].placa;
         this.carObject.marca = resp.items[0].marca;
         this.carObject.modelo = resp.items[0].modelo;

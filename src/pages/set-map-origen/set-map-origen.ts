@@ -244,19 +244,22 @@ export class SetMapOrigenPage {
   }
 
   saveValues() {
-    if (this.myservices.setMap) {
-      this.viewCtrl.dismiss();
-      if (this.myservices.utnOrigen)
-        this.routeCreate.destino = this.setMapObject;
-      else
-        this.routeCreate.origen = this.setMapObject;
-      this.appCtrl.getRootNav().push(HomeCViewRutaPage)
-    } else
-      this.returnValues();
+
+    if (!this.ubicacion) {
+      if (this.myservices.setMap) {
+        this.viewCtrl.dismiss();
+        if (this.myservices.utnOrigen)
+          this.routeCreate.destino = this.setMapObject;
+        else
+          this.routeCreate.origen = this.setMapObject;
+        this.appCtrl.getRootNav().push(HomeCViewRutaPage)
+      } else
+        this.returnValues();
+    }
 
     //this ubicacion viene cunado el conductor establece punto de encuentro viaje-conductor page 
     if (this.ubicacion) {
-      let data = { ubicacionLatLng: this.varLatLng };
+      let data = { ubicacionObject: this.setMapObject };
       this.viewCtrl.dismiss(data);
     }
 
@@ -270,7 +273,10 @@ export class SetMapOrigenPage {
     //casa verdadero para que el template se visualice en viaje-origen page
     //guardar en casa
     console.log('casaobject para guardar: ', this.setMapObject);
-    this.apiRestService.updateCasa(this.setMapObject).subscribe((resp) => { console.log('respuesta guardar casa: ', resp); this.viewCtrl.dismiss({ update: true }); });
+    this.apiRestService.updateCasa(this.setMapObject).subscribe((resp) => {
+      console.log('respuesta guardar casa: ', resp);
+      this.viewCtrl.dismiss({ update: true });
+    });
   }
 
 }

@@ -48,6 +48,7 @@ import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
 
 
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -77,13 +78,13 @@ import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
     LoginPage,
     searchTravelPasajero,
     StopConductorPage
-    
+
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -114,7 +115,7 @@ import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
     LoginPage,
     searchTravelPasajero,
     StopConductorPage
-  
+
   ],
   providers: [
     StatusBar,
@@ -124,7 +125,7 @@ import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
     NativeGeocoder,
     Camera,
     SocialSharing,
-    CallNumber, 
+    CallNumber,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     EnvironmentVarService,
     DatesFormatProvider,

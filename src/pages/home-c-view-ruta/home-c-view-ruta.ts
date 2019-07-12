@@ -50,14 +50,7 @@ export class HomeCViewRutaPage {
     this.initMapa();
   }
 
-  goToModalLugViaje() {
-    //let contactModal = this.modalCtrl.create(LugaresViajePage);
-    // contactModal.onDidDismiss(data => {
-    //   console.log('data es despues de dismis: ', data);
-    // });
-    //contactModal.present();
-  }
-
+  
 
   //metodo para despuer de dar click en ion-segment y se haga el cambio en la variable proceso 
   updateVal() {

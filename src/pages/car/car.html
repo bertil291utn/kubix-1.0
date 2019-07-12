@@ -40,7 +40,7 @@
     </ion-row>
   </div>
 
-  <div *ngIf="carExists" text-center style="padding: 0 40px;">
+  <div *ngIf="myservices.carExists" text-center style="padding: 0 40px;">
     <br>
     <h4 ion-text>Autom&oacute;vil designado</h4>
     <ion-row>
@@ -121,7 +121,7 @@
     </form>
   </div>
 
-  <div *ngIf="!carExists" ion-text text-center>
+  <div *ngIf="!myservices.carExists" ion-text text-center>
     <div *ngIf="!addBoton">
       <ion-icon name="add-circle" id="camara" (click)="addBoton=true;"></ion-icon>
       <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir datos de su autom&oacute;vil

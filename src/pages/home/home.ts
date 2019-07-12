@@ -24,6 +24,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+    console.log('auto Exists: ', this.myservices.carExists);
     //revisar en la base de datos si existe o no el campo de automovil  y el campo perfil(telfono e informacion personal)
     this.myservices.profileExists = true;//siempre verdadero 
     //this.carExists();
@@ -31,7 +32,7 @@ export class HomePage {
     console.log('ionViewDidLoad HomePage');
   }
 
-  
+
 
   ionViewDidEnter() {
     this.varInterval = setInterval(() => {

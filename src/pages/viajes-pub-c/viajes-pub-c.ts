@@ -13,8 +13,8 @@ export class ViajesPubCPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    let q = navCtrl.getViews();
-    console.log('navigation navctrl: ', q)
+    // let q = navCtrl.getViews();
+    // console.log('navigation navctrl: ', q)
 
   }
 

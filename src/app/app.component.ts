@@ -15,6 +15,7 @@ import { SlidesPage } from '../pages/slides/slides';
 import { LoginPage } from '../pages/login/login';
 import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-service';
 import { ViajesConductorPage } from '../pages/viajes-conductor/viajes-conductor';
+import { CarPage } from '../pages/car/car';
 
 @Component({
   selector: 'page-menu',
@@ -29,12 +30,13 @@ export class MyApp {
   rootPage;
   pages: Array<{ title: string, component: any, icono: string }>;
   pages_pas: Array<{ title: string, component: any, icono: string }>;
-
+  mycar: CarPage;
 
   constructor(public platform: Platform, public statusBar: StatusBar, private zone: NgZone,
     public splashScreen: SplashScreen, public myservices: EnvironmentVarService, public event: Events,
     public alertCtrl: AlertController, public apiRestService: RestApiServiceProvider,
     public menu: MenuController) {
+    this.mycar;
     this.initializeApp();
     // used for an example of ngFor and navigation
     this.pageslist();
@@ -70,7 +72,7 @@ export class MyApp {
     //si la existe la contrasena guardada y es correcta en el navegador entonces directo al home
     if (this.contrasenaExists) {
       console.log('this.contrasenaExists: ', this.contrasenaExists)
-      this.rootPage = ViajesConductorPage;
+      this.rootPage = HomePage;
       //devolver cedula guardada
       let userId = '1004453633';
       this.myservices.usuarioCedula = userId;

@@ -20,13 +20,28 @@
     <ion-segment-button value="horario">
       HORARIO DE SALIDA
     </ion-segment-button>
-        <ion-segment-button value="adicional">
+    <ion-segment-button value="adicional">
       ADICIONAL
     </ion-segment-button>
   </ion-segment>
 
   <div [ngSwitch]="proceso">
     <ion-grid *ngSwitchCase="'horario'" padding>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-icon name="calendar" color="iconos" item-left></ion-icon>
+            <ion-datetime
+              monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+              monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"
+              dayNames="Domingo, Lunes, Martes , Mi\xE9rcoles, Jueves, Viernes, S\xE1bado"
+              dayShortNames="Dom, Lun, Mar, Mier, Jue, Vie, Sab" displayFormat="DDDD DD, MMM YYYY" [(ngModel)]="fechahoraISO"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- 
       <ion-row>
         <ion-col>
           <ion-item>
@@ -42,20 +57,17 @@
             </ion-select>
           </ion-item>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
 
       <ion-row>
         <ion-col>
           <ion-item>
             <ion-icon name="time" color="iconos" item-left></ion-icon>
-            <ion-datetime displayFormat="HH:mm" [(ngModel)]="hora"></ion-datetime>
+            <ion-datetime displayFormat="HH:mm" [(ngModel)]="fechahoraISO"></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>
-
-    
-
-      <h5 color="danger" ion-text text-center (click)="goToVehicule()">SIGUIENTE</h5>
+      <h5 color="danger" ion-text text-center (click)="goToNext()">SIGUIENTE</h5>
     </ion-grid>
 
     <ion-grid *ngSwitchCase="'adicional'" padding>
@@ -100,8 +112,8 @@
         <ion-col>
           <ion-item>
             <ion-label id="descripcion" stacked>Descripci&oacute;n adicional</ion-label>
-            <ion-textarea rows="6" cols="20" color="danger"
-              placeholder="Referencia de donde sale , si va a hacer paradas, hora de salida">
+            <ion-textarea rows="6" cols="20" color="danger" [(ngModel)]="descripcion" 
+              placeholder="Ingrese informacion que usted crea importante acerca del viaje.">
             </ion-textarea>
           </ion-item>
         </ion-col>

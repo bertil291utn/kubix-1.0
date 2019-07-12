@@ -32,36 +32,20 @@ export class RutaProvider {
   }
 
 
+  private _puntoEncuentro: any;
+  public get puntoEncuentro(): any {
+    return this._puntoEncuentro;
+  }
+  public set puntoEncuentro(value: any) {
+    this._puntoEncuentro = value;
+  }
 
-
-
-  private _origenLatLng;
-  public get origenLatLng() {
-    return this._origenLatLng;
+  private _adicional: any;//numero pasajeros, descripcionadicional
+  public get adicional(): any {
+    return this._adicional;
   }
-  public set origenLatLng(value) {
-    this._origenLatLng = value;
-  }
-  private _origenDir: string;
-  public get origenDir(): string {
-    return this._origenDir;
-  }
-  public set origenDir(value: string) {
-    this._origenDir = value;
-  }
-  private _destinoLatLng;
-  public get destinoLatLng() {
-    return this._destinoLatLng;
-  }
-  public set destinoLatLng(value) {
-    this._destinoLatLng = value;
-  }
-  private _destinoDir: string;
-  public get destinoDir(): string {
-    return this._destinoDir;
-  }
-  public set destinoDir(value: string) {
-    this._destinoDir = value;
+  public set adicional(value: any) {
+    this._adicional = value;
   }
 
 

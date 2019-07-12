@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController, App, ToastController } from 'ionic-angular';
 import { SetMapPtoPage } from '../set-map-pto/set-map-pto';
 import { ViajesPubCPage } from '../viajes-pub-c/viajes-pub-c';
 import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { CarPage } from '../car/car';
-
+import { RutaProvider } from '../../providers/ruta/ruta';
 
 
 
@@ -16,103 +16,102 @@ import { CarPage } from '../car/car';
 export class ViajesConductorPage {
 
   public proceso = 'horario';
-  repeat = 2
-  dia = new Date().getDay();
-  hora;
+  fechahoraISO = new Date().toISOString();
   pasajero = 1;
-  punto_LatLng;
-  ubicacion;
-  carExists: boolean;
-  varInterval;
-  // callback = data => {
-  //   this.punto_LatLng = data;
-  //   console.log('data received from other page', this.punto_LatLng);
-  // };
+  descripcion: string;
+  adicionalObject = { noPasajeros: null, descripcion: null, fecha: null };
 
-  constructor(public navparams: NavParams, public navCtrl: NavController,
-    public navParams: NavParams, public alertCtrl: AlertController,
+  constructor(public navparams: NavParams, public navCtrl: NavController, public routeCreate: RutaProvider,
+    public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController,
     public modalCtrl: ModalController, public myservices: EnvironmentVarService, private app: App) {
-
-    this.setHour();
-    let p = app.getActiveNavs();
-    console.log('navigation app: ', p)
-    let q = navCtrl.getViews();
-    console.log('navigation navctrl: ', q)
+    //console.log('fechaiso: ', this.fechaISO);
+    // let p = app.getActiveNavs();
+    // console.log('navigation app: ', p)
+    // let q = navCtrl.getViews();
+    // console.log('navigation navctrl: ', q)
 
   }
 
-  ionViewDidEnter() {
-    this.varInterval = setInterval(() => {
-      this.carExists = this.myservices.carExists;
-    }, 1000);
-  }
-
-  ionViewDidLeave() {
-    //pararla funcion de busqueda el momento que haya dejado el page
-    clearInterval(this.varInterval);
-  }
 
   ionViewDidLoad() {
-
-    this.carExists = this.myservices.carExists;
+    this.setHour();
     console.log('ionViewDidLoad ViajesConductorPage');
-
   }
+
 
   showAlert() {
-    this.createAlert();
-    //guardar en BD los datos de la ruta 
+    //this.horarioObject.fecha = this.fechaISO;
+    this.adicionalObject.fecha = this.fechahoraISO;
+    this.adicionalObject.noPasajeros = this.pasajero;
+    this.adicionalObject.descripcion = this.descripcion;
+    this.routeCreate.adicional = this.adicionalObject;
+    console.log('Dtos para enviar a la BD: ', this.routeCreate);
+    // let horarioISO = new Date(this.fechahoraISO);
+    // let horarioISOprint = (horarioISO.getHours() > 0 && horarioISO.getHours() < 10 ? '0' + (horarioISO.getHours() + 5) : (horarioISO.getHours() + 5)) + ':'
+    //   + (horarioISO.getMinutes() > 0 && horarioISO.getMinutes() < 10 ? '0' + horarioISO.getMinutes() : horarioISO.getMinutes());
+    // console.log('hora:minutes ISO', horarioISOprint);
+
+    if ((this.routeCreate.puntoEncuentro == null || undefined) ||
+      !this.myservices.carExists || (this.descripcion == undefined || null))
+      //alert anada donde a a a recoger al pasajero
+      this.enterAlert();
+    else {
+      //guardar en BD los datos de la ruta 
+      //if se guardaron los datos motrart el toast 
+      this.presentToastDurationTop('Su viaje se ha publicado con \xE9xito', 2000);
+      this.navCtrl.setRoot(ViajesPubCPage);
+      //console.log('alert anada donde a a a recoger al pasajero');
+    }
   }
+
+
+
   goToCar() {
     let contactModal = this.modalCtrl.create(CarPage);
     contactModal.present();
   }
 
-  private createAlert() {
+  presentToastDurationTop(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: 'top',
+      duration: duration
+    });
+    toast.present();
+  }
+
+  private enterAlert() {
     const alert = this.alertCtrl.create({
-      title: 'Viaje publicado',
-      message: 'Su viaje se ha publicado con &eacute;xito. Solo espere a que los pasajeros hagan la reserva.',
+      title: 'Datos incompletos',
+      message: 'Revise que haya ingresado todos los datos.<br> Autom&oacute;vil, punto de encuentro o descripci&oacute;n adicional',
       buttons: [{
-        text: 'Aceptar',
-        handler: () => {
-          // this.navCtrl.insert(0, ViajesPubCPage);
-          // this.navCtrl.popToRoot();
-          this.navCtrl.setRoot(ViajesPubCPage);
-        }
+        text: 'OK'
       }]
     })
     alert.present()
   }
 
   goToMap() {
-    // this.navCtrl.push(SetMapPtoPage, {
-    //   callback: this.callback
-    // });
     let contactModal = this.modalCtrl.create(SetMapOrigenPage, { ubicacion: true });
-
     contactModal.onDidDismiss(data => {
-      console.log('data es despues de dismis: ', data);
       if (data != undefined)
-        this.ubicacion = data;
-      console.log('this.ubicacion: ', this.ubicacion)
+        this.routeCreate.puntoEncuentro = data.ubicacionObject;
+      console.log('this.ubicacionObject: ', data)
     });
     contactModal.present();
   }
 
   private setHour() {
-    this.hora = this.calculateTime('-5');
+    this.fechahoraISO = this.calculateTime('-5');
+    console.log('hora iso: ', this.fechahoraISO);
     // If it is Daylight Savings Time
     if (this.dst(new Date())) {
-      this.hora = this.calculateTime('-4');
+      this.fechahoraISO = this.calculateTime('-4');
     }
   }
 
 
-  goToVehicule() {
-    this.proceso = 'vehiculo'
-  }
-
-  goToAdicional() {
+  goToNext() {
     this.proceso = 'adicional'
   }
 

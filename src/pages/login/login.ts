@@ -36,7 +36,7 @@ export class LoginPage {
     //let val=rest.api.verCredenciales(user,pass);s
     //if(val) this.navCtrl.setRoot(HomePage); else this.presentToastDurationTop('Usuario o contrase\xF1a incorrectos', 2000);
     //ingresar en talba usuasriosusuarios si es que no existe
-    this.myservices.usuarioCedula = this.usuario;
+    this.myservices.usuarioCedula = this.usuario;//obtener el usuario que arroja el API o solo quitar la letra E A D
     this.verificarTabUsuario();
     this.userInfo();
     //subir cedula de usuario actual a memoria
