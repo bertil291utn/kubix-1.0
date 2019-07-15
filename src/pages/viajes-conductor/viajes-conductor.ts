@@ -6,6 +6,7 @@ import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { CarPage } from '../car/car';
 import { RutaProvider } from '../../providers/ruta/ruta';
+import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 
 
 
@@ -19,11 +20,12 @@ export class ViajesConductorPage {
   fechahoraISO = new Date().toISOString();
   pasajero = 1;
   descripcion: string;
-  adicionalObject = { noPasajeros: null, descripcion: null, fecha: null };
+  adicionalObject = { personas: null, descripcion: null, fecha: null };
 
   constructor(public navparams: NavParams, public navCtrl: NavController, public routeCreate: RutaProvider,
     public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController,
-    public modalCtrl: ModalController, public myservices: EnvironmentVarService, private app: App) {
+    public modalCtrl: ModalController, public myservices: EnvironmentVarService, private app: App,
+    public apiRestService: RestApiServiceProvider) {
     //console.log('fechaiso: ', this.fechaISO);
     // let p = app.getActiveNavs();
     // console.log('navigation app: ', p)
@@ -39,32 +41,68 @@ export class ViajesConductorPage {
   }
 
 
-  showAlert() {
+  goToPublicar() {
     //this.horarioObject.fecha = this.fechaISO;
     this.adicionalObject.fecha = this.fechahoraISO;
-    this.adicionalObject.noPasajeros = this.pasajero;
+    this.adicionalObject.personas = this.pasajero;
     this.adicionalObject.descripcion = this.descripcion;
     this.routeCreate.adicional = this.adicionalObject;
-    console.log('Dtos para enviar a la BD: ', this.routeCreate);
+
     // let horarioISO = new Date(this.fechahoraISO);
     // let horarioISOprint = (horarioISO.getHours() > 0 && horarioISO.getHours() < 10 ? '0' + (horarioISO.getHours() + 5) : (horarioISO.getHours() + 5)) + ':'
     //   + (horarioISO.getMinutes() > 0 && horarioISO.getMinutes() < 10 ? '0' + horarioISO.getMinutes() : horarioISO.getMinutes());
     // console.log('hora:minutes ISO', horarioISOprint);
-
+    console.log('Dtos para enviar a la BD: ', this.routeCreate);
     if ((this.routeCreate.puntoEncuentro == null || undefined) ||
       !this.myservices.carExists || (this.descripcion == undefined || null))
       //alert anada donde a a a recoger al pasajero
       this.enterAlert();
     else {
       //guardar en BD los datos de la ruta 
-      //if se guardaron los datos motrart el toast 
-      this.presentToastDurationTop('Su viaje se ha publicado con \xE9xito', 2000);
+      this.apiRestService.insertarViaje(this.routeCreate.adicional).subscribe((resp) => {
+        console.log('respuesta datos adicionales de ruta: ', resp);
+        if (resp.respuesta == 200) {
+          //ORIGEN
+          this.apiRestService.insertarLugaresGeoViaje(this.routeCreate.origen, resp.cod_viaje, 'O').subscribe((resp) => {
+            console.log('respuesta ingreso origen: ', resp);
+          });
+          //DESTINO
+          this.apiRestService.insertarLugaresGeoViaje(this.routeCreate.destino, resp.cod_viaje, 'D').subscribe((resp) => {
+            console.log('respuesta ingreso destino: ', resp);
+          });
+          //UBIACION
+          this.apiRestService.insertarLugaresGeoViaje(this.routeCreate.puntoEncuentro, resp.cod_viaje, 'U').subscribe((resp) => {
+            console.log('respuesta ingreso ubicacion: ', resp);
+            //if se guardaron los datos motrart el toast 
+            if (resp.respuesta == 200) {
+              this.presentToastDurationTop('Su viaje se ha publicado con \xE9xito', 2000);
+              this.resetRouteValues();//despues de haber guardado reiniciar valores
+            }
+          });
+
+          //PLACES
+          for (let obj of this.routeCreate.lugares) {
+            this.apiRestService.insertarLugaresGeoViaje(obj, resp.cod_viaje, 'P').subscribe((resp) => {
+              console.log('respuesta ingreso places: ', resp);
+            });
+          }
+        }
+
+        //mandar a llamar al listar viajes publicados para el refresh
+
+      });
+
+
+
       this.navCtrl.setRoot(ViajesPubCPage);
       //console.log('alert anada donde a a a recoger al pasajero');
     }
   }
 
-
+  resetRouteValues() {
+    this.routeCreate.resetLugares();
+    this.routeCreate.puntoEncuentro = null;
+  }
 
   goToCar() {
     let contactModal = this.modalCtrl.create(CarPage);

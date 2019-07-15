@@ -35,7 +35,7 @@
             <ion-datetime
               monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
               monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"
-              dayNames="Domingo, Lunes, Martes , Mi\xE9rcoles, Jueves, Viernes, S\xE1bado"
+              dayNames="Domingo, Lunes, Martes , Miercoles, Jueves, Viernes, Sabado"
               dayShortNames="Dom, Lun, Mar, Mier, Jue, Vie, Sab" displayFormat="DDDD DD, MMM YYYY" [(ngModel)]="fechahoraISO"></ion-datetime>
           </ion-item>
         </ion-col>
@@ -119,7 +119,7 @@
         </ion-col>
       </ion-row>
 
-      <button ion-button round color="danger" large (click)="showAlert()">Publicar</button>
+      <button ion-button round color="danger" large (click)="goToPublicar()">Publicar</button>
 
     </ion-grid>
 

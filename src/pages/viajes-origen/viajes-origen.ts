@@ -17,13 +17,11 @@ declare var google;
 export class ViajesOrigenPage {
 
   casa: boolean;
-
-  ubicacionActualDir: string;
   ubicacionActualLatLng;
   loadingControllerSave;
-
+  //enviar el showfullname no el full name
   casaObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null, showfull_name: null };
-  ubicActualObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null };
+  ubicActualObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null, showfull_name: null };
 
 
   constructor(public navCtrl: NavController, public myservices: EnvironmentVarService,
@@ -36,8 +34,8 @@ export class ViajesOrigenPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajesOrigenPage');
     this.casaInfo();
-    this.latLngDir();
     this.ActionGetLocation();
+    this.latLngDir();
   }
 
 
@@ -63,12 +61,7 @@ export class ViajesOrigenPage {
 
   }
 
-  ionViewDidEnter() {
-    setInterval(() => {
-      this.ubicacionActualDir;
-      this.ubicacionActualLatLng;
-    }, 300);
-  }
+
 
   async ActionGetLocation() {
     this.ubicacionActualLatLng = await this.getLocation();
@@ -93,6 +86,7 @@ export class ViajesOrigenPage {
         this.ubicActualObject.lng = this.ubicacionActualLatLng.lng;
         this.ubicActualObject.full_name = 'Tu ubicaci\xF3n actual';
         this.routeCreate.origen = this.ubicActualObject;
+        console.log('ubicacion actual object: ', this.ubicActualObject);
       }
     }
     this.navCtrl.push(HomeCViewRutaPage);
@@ -133,7 +127,8 @@ export class ViajesOrigenPage {
       , (results, status) => {
         if (status === 'OK') {
           if (results[0]) {
-            this.ubicacionActualDir = results[0].formatted_address;
+            this.ubicActualObject.short_name = this.getShortName(results[0]);
+            this.ubicActualObject.showfull_name = results[0].formatted_address;
           }
         }
       });
@@ -150,8 +145,6 @@ export class ViajesOrigenPage {
   }
 
 
-
-
   showAlert() {
     const alert = this.alertCtrl.create({
       title: 'Editar',
@@ -160,6 +153,23 @@ export class ViajesOrigenPage {
     });
     alert.present();
   }
+
+
+  private getShortName(results: any) {
+    let resultsLength = results.address_components.length;
+
+    if (resultsLength >= 6)
+      return results.address_components[3].short_name;
+    else if (resultsLength == 4 || resultsLength == 5)
+      return results.address_components[1].short_name;
+    else if (resultsLength == 2 || resultsLength == 3)
+      return results.address_components[0].short_name;
+    else if (resultsLength == 1) {
+      let direccion = results.formatted_address.split(',');
+      return direccion[0];
+    }
+  }
+
 
 
 

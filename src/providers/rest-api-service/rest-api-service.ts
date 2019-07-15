@@ -11,6 +11,7 @@ export class RestApiServiceProvider {
   userBasePathUser = 'usuarios/';
   vehiculoBasePathUser = 'vehiculos/';
   lugarGeoBasePathUser = 'lugargeo/';
+  publicacionBasePathUser = 'publicacion/';
 
 
   constructor(public http: HttpClient, public myservices: EnvironmentVarService) {
@@ -85,7 +86,28 @@ export class RestApiServiceProvider {
     return this.makeRequestGet(url);
   }
 
+  // PUBLICAR VIAJE CONDUCTOR
+  public insertarViaje(data: any): Observable<any> {
+    let url = this.publicacionBasePathUser + `ruta?fecha=${data.fecha}&descripcion=${data.descripcion}&personas=${data.personas}&cedula=${this.myservices.usuarioCedula}`;
+    return this.makeRequestPost(url);
+  }
 
+
+  //Publicar Lugares_geo del viaje Origen, destino, Ubicacion, Places
+
+  public insertarLugaresGeoViaje(data: any, codigo_viaje: number, tipo: string): Observable<any> {
+    let url;
+    if (tipo == 'U')
+      url = this.publicacionBasePathUser + `ruta?codigo_viaje=${codigo_viaje}&latitud=${data.lat}&longitud=${data.lng}&short_name=${data.short_name}&full_name=${data.full_name}&tipo=${tipo}`;
+    else if (tipo == 'P')
+      url = this.publicacionBasePathUser + `ruta?codigo_viaje=${codigo_viaje}&latitud=${data.waypoints.location.lat}&longitud=${data.waypoints.location.lng}&short_name=${data.mainName}&full_name=${data.nombreExtenso}&place_id=${data.placeid}&tipo=${tipo}`;
+    else
+      if (data.codigo_geo == null || undefined)
+        url = this.publicacionBasePathUser + `ruta?codigo_viaje=${codigo_viaje}&latitud=${data.lat}&longitud=${data.lng}&short_name=${data.short_name}&full_name=${data.showfull_name}&tipo=${tipo}`;
+      else
+        url = this.publicacionBasePathUser + `ruta?codigo_geo=${data.codigo_geo}&codigo_viaje=${codigo_viaje}&tipo=${tipo}`;
+    return this.makeRequestPut(url, false);
+  }
 
 
 

@@ -23,7 +23,7 @@ export class SetMapOrigenPage {
   varInterval;
   loadingControllerSave;
 
-  setMapObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null };
+  setMapObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null, showfull_name: null };
 
   constructor(private geolocation: Geolocation, public myservices: EnvironmentVarService,
     public loadingCtrl: LoadingController, public apiRestService: RestApiServiceProvider,
@@ -204,6 +204,7 @@ export class SetMapOrigenPage {
             this.direccion = results[0].formatted_address;
             this.setMapObject.short_name = this.getShortName(results[0]);
             this.setMapObject.full_name = this.direccion;
+            this.setMapObject.showfull_name = this.direccion;
             console.log('object setmap inicial: ', this.setMapObject);
             //console.log('full results: ', results);
           }
