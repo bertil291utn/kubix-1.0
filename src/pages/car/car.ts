@@ -12,7 +12,7 @@ import b64toBlob from 'b64-to-blob';
 })
 export class CarPage {
   contactForm;
-  carExists: boolean;
+  //carExists: boolean;
   editarBoton: boolean = false;
   previewimg: string;
   preview: boolean = false;

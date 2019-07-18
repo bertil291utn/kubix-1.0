@@ -1,7 +1,7 @@
 page-det-ruta-c {
-  ion-segment {
-    padding-top: 15px;
-  }
+  // ion-segment {
+  //   padding-top: 15px;
+  // }
   .grid#descripcion,
   .grid#auto {
     padding: 8% 10%;
@@ -97,5 +97,10 @@ page-det-ruta-c {
   .fotoRelative {
     width: 100% !important;
     height: 100% !important;
+  }
+
+  ion-header .label {
+    margin: unset;
+    color: white;
   }
 }

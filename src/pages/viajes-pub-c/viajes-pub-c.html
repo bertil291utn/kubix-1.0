@@ -20,23 +20,23 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let item of viajes_pub">
+  <ion-card *ngFor="let item of viajesPubObjectArray">
     <ion-card-content text-center>
       <ion-card-title>
         <ion-row>
           <ion-col>
-            {{item.origen}}
+            {{item.origen.short_name}}
           </ion-col>
           <ion-col col-1>
             <ion-icon name="arrow-round-forward" id="arrow" color="iconos"></ion-icon>
           </ion-col>
           <ion-col>
-            {{item.destino}}
+            {{item.destino.short_name}}
           </ion-col>
         </ion-row>
       </ion-card-title>
       <p>
-        {{item.hora}} &nbsp;&nbsp;&nbsp; <strong>{{item.fecha}}</strong>
+        {{item.adicional.hora}} &nbsp;&nbsp;&nbsp; <strong>{{item.adicional.fecha|titlecase}}</strong>
       </p>
     </ion-card-content>
 
@@ -54,7 +54,7 @@
         </button>
       </ion-col>
       <ion-col text-left>
-        <button ion-button clear color="iconos" icon-start (click)="goToDetails(item.id)">
+        <button ion-button clear color="iconos" icon-start (click)="goToDetails(item.adicional.codigo_viaje)">
           <ion-icon name='list-box'></ion-icon>
           Detalles
         </button>

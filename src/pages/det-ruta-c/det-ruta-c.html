@@ -6,10 +6,14 @@
           <ion-icon name="pin" color="light" small></ion-icon>
         </ion-col>
         <ion-col text-left>
-          <ion-title color="light">{{viajedet.origen}}</ion-title>
+          <ion-label>
+            {{viajedet.origen.short_name}}
+          </ion-label>
         </ion-col>
-        <ion-col>
-          <ion-title>{{viajedet.hora}}</ion-title>
+        <ion-col text-center>
+          <ion-label>
+            {{viajedet.adicional.hora}}
+          </ion-label>
         </ion-col>
       </ion-row>
 
@@ -18,10 +22,14 @@
           <ion-icon name="pin" color="light" small></ion-icon>
         </ion-col>
         <ion-col text-left>
-          <ion-title color="light">{{viajedet.destino}}</ion-title>
+          <ion-label>
+            {{viajedet.destino.short_name}}
+          </ion-label>
         </ion-col>
-        <ion-col text-left>
-          <ion-title>{{viajedet.fecha}}</ion-title>
+        <ion-col text-center>
+          <ion-label>
+            {{viajedet.adicional.fecha|titlecase}}
+          </ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -54,20 +62,48 @@
       <h5>Descripci&oacute;n del viaje</h5><br>
       <ion-row>
         <ion-col>
-          {{viajedet.descripcion}}
+          {{viajedet.adicional.descripcion_viaje}}
         </ion-col>
       </ion-row>
     </ion-grid>
 
     <ion-grid id="vehiculo" *ngSwitchCase="'vehiculo'">
-      <ion-row align-items-center>
-        <ion-col id="auto">
-          <img src="{{viajedet.auto.imagen}}" id="centerImg">
-        </ion-col>
-      </ion-row>
-      <h6 ion-text text-center>{{viajedet.auto.placa}}</h6>
-      <h6 ion-text text-center>{{viajedet.auto.marca}} {{viajedet.auto.modelo}}</h6>
-      <span ion-text text-center>{{viajedet.auto.color}}</span>
+      <div style="padding: 0 40px;">
+        <br>
+        <h4 ion-text text-center>Autom&oacute;vil designado</h4>
+        <ion-card>
+          <img class="imgbck" [src]="'data:image/png;base64,' +carObject.foto">
+          <ion-card-content>
+            <ion-card-title text-center>{{carObject.placa}}</ion-card-title>
+          </ion-card-content>
+          <ion-row no-padding>
+            <ion-col>
+              <button ion-button clear small icon-start>
+                <ion-icon color="iconos" name='car'></ion-icon>
+                <ion-label color="dark">
+                  {{carObject.marca|lowercase}}
+                </ion-label>
+              </button>
+            </ion-col>
+            <ion-col text-center>
+              <button ion-button clear small icon-start>
+                <ion-icon color="iconos" name='car'></ion-icon>
+                <ion-label color="dark">
+                  {{carObject.modelo|lowercase}}
+                </ion-label>
+              </button>
+            </ion-col>
+            <ion-col text-right>
+              <button ion-button clear small icon-start>
+                <ion-icon color="iconos" name='color-palette'></ion-icon>
+                <ion-label color="dark">
+                  {{carObject.color|lowercase}}
+                </ion-label>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </div>
     </ion-grid>
 
     <ion-grid id="ubicacion" *ngSwitchCase="'ubicacion'">

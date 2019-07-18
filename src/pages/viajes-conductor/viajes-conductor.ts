@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController, App, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController, App, ToastController, LoadingController } from 'ionic-angular';
 import { SetMapPtoPage } from '../set-map-pto/set-map-pto';
 import { ViajesPubCPage } from '../viajes-pub-c/viajes-pub-c';
 import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
@@ -21,11 +21,12 @@ export class ViajesConductorPage {
   pasajero = 1;
   descripcion: string;
   adicionalObject = { personas: null, descripcion: null, fecha: null };
+  loadingCrtlRefresh;
 
   constructor(public navparams: NavParams, public navCtrl: NavController, public routeCreate: RutaProvider,
     public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController,
     public modalCtrl: ModalController, public myservices: EnvironmentVarService, private app: App,
-    public apiRestService: RestApiServiceProvider) {
+    public apiRestService: RestApiServiceProvider, public loadingCtrl: LoadingController) {
     //console.log('fechaiso: ', this.fechaISO);
     // let p = app.getActiveNavs();
     // console.log('navigation app: ', p)
@@ -42,6 +43,8 @@ export class ViajesConductorPage {
 
 
   goToPublicar() {
+    this.loadingCrtlRefresh = this.loadingCtrl.create();
+    this.loadingCrtlRefresh.present();
     //this.horarioObject.fecha = this.fechaISO;
     this.adicionalObject.fecha = this.fechahoraISO;
     this.adicionalObject.personas = this.pasajero;
@@ -77,6 +80,8 @@ export class ViajesConductorPage {
             if (resp.respuesta == 200) {
               this.presentToastDurationTop('Su viaje se ha publicado con \xE9xito', 2000);
               this.resetRouteValues();//despues de haber guardado reiniciar valores
+              this.navCtrl.setRoot(ViajesPubCPage);
+              this.loadingCrtlRefresh.dismiss();
             }
           });
 
@@ -87,14 +92,7 @@ export class ViajesConductorPage {
             });
           }
         }
-
-        //mandar a llamar al listar viajes publicados para el refresh
-
       });
-
-
-
-      this.navCtrl.setRoot(ViajesPubCPage);
       //console.log('alert anada donde a a a recoger al pasajero');
     }
   }

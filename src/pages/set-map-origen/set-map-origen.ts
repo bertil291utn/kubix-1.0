@@ -27,11 +27,8 @@ export class SetMapOrigenPage {
 
   constructor(private geolocation: Geolocation, public myservices: EnvironmentVarService,
     public loadingCtrl: LoadingController, public apiRestService: RestApiServiceProvider,
-    public nav: NavController,
-    public navParams: NavParams,
-    public viewCtrl: ViewController,
-    public routeCreate: RutaProvider,
-    public appCtrl: App) {
+    public nav: NavController, public navParams: NavParams, public viewCtrl: ViewController,
+    public routeCreate: RutaProvider, public appCtrl: App) {
 
     this.ubicacion = navParams.get('ubicacion');
   }

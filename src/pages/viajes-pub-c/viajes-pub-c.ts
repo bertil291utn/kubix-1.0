@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { DetRutaCPage } from '../det-ruta-c/det-ruta-c';
-
+import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
+import { RutaProvider } from '../../providers/ruta/ruta';
+import * as d3 from "d3-collection";
+import { DatesFormatProvider } from '../../providers/dates-format/dates-format';
 
 @Component({
   selector: 'page-viajes-pub-c',
@@ -10,9 +13,14 @@ import { DetRutaCPage } from '../det-ruta-c/det-ruta-c';
 
 export class ViajesPubCPage {
   viajes_pub
+  viajesPubObjectArray = [];
+  fecha: string;
+  hora: string;
+  loadingCrtlRefresh;
 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController,
+    public apiRestService: RestApiServiceProvider, public viajesPublicadoObject: RutaProvider) {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
     // let q = navCtrl.getViews();
     // console.log('navigation navctrl: ', q)
 
@@ -20,17 +28,102 @@ export class ViajesPubCPage {
 
 
   ionViewDidLoad() {
+    this.loadingCrtlRefresh = this.loadingCtrl.create();
+    this.loadingCrtlRefresh.present();
+    this.getViajesPublicados();
     console.log('ionViewDidLoad ViajesPubCPage');
     //recibir datos desde la BD. Viajes publicados de este cedula  
     this.viajes_pub = this.arrayViajesPub()
   }
 
-  goToDetails(itemid) {
+  private getViajesPublicados() {
+    //console.log('string to isostring: ', horatemp.toISOString());//restar menos cinco horas getHours()-5
+    this.apiRestService.getViajesPublicados().subscribe((resp) => {
+      // console.log('respuesta viajes pub: ', resp.respuesta);
+      let groupByCodViaje = this.setGroup(resp);//agrupamos por cod_viaje la respuesta JSON
+      for (let obj of groupByCodViaje) {
+        this.viajesPublicadoObject = new RutaProvider();//crear nuevo objeto cada vez qe tenga nuevos viajes
+
+        let adicional = {//dentro de adicional se anadio el codigo viaje
+          codigo_viaje: +obj.key,
+          fecha_salida: obj.values[0].fecha_salida,
+          fechastring: obj.values[0].fechastring,
+          descripcion_viaje: obj.values[0].descripcion_viaje,
+          fecha: obj.values[0].fecha,
+          hora: obj.values[0].hora
+        };
+        this.viajesPublicadoObject.adicional = adicional;
+        this.setViajesObject(obj.values);//designar si es Origen,destino,ubicacion o un place
+
+      }
+    });
+  }
+
+  private setGroup(resp: any) {
+    //metodo para agrupar un objeto json
+    let groupByCodViaje = d3.nest()
+      .key((d) => { return d.cod_viaje; })
+      .entries(resp.respuesta);
+    //console.log('d3 grouped: ', groupByCodViaje);
+    return groupByCodViaje;
+  }
+
+  public setViajesObject(ValuesAdicionales) {
+    //metodo para asignar al objeto su Origen,Destino,Ubicacion o Place de acuerdo al campo TIPO 
+    for (let obj of ValuesAdicionales) {
+      let valueObject = {
+        codigo_geo: obj.codigo_geo,
+        lat: obj.lat,
+        lng: obj.lng,
+        short_name: obj.short_name,
+        full_name: obj.full_name,
+        place_id: obj.place_id
+      };
+
+      if (obj.tipo === 'O')
+        this.viajesPublicadoObject.origen = valueObject
+      else if (obj.tipo === 'D')
+        this.viajesPublicadoObject.destino = valueObject;
+      else if (obj.tipo === 'U')
+        this.viajesPublicadoObject.puntoEncuentro = valueObject;
+      else
+        this.viajesPublicadoObject.lugares = valueObject;
+
+    }
+    this.viajesPubObjectArray.push(this.viajesPublicadoObject);//anadir  en un array todos los viajes ya elebaorados
+    this.loadingCrtlRefresh.dismiss();
+    console.log('Object view finish: ', this.viajesPubObjectArray);
+  }
+
+  goToDetails(codigo_viaje) {
+    let travel = this.searchTravel(codigo_viaje, this.viajesPubObjectArray);
     this.navCtrl.push(DetRutaCPage, {
-      datos: this.viajes_pub[itemid - 1]
+      datos: travel
     })
   }
 
+  public searchTravel(codigo_viaje: number, arrayObjects) {
+    let viajeFound;
+    for (let obj of arrayObjects) {
+      if (obj.adicional.codigo_viaje == codigo_viaje) {
+        viajeFound = obj;
+        break;
+      }
+    }
+    return viajeFound;
+  }
+
+  // getDateISOToString(ISOString: string) {
+  //   let horarioISO = new Date(ISOString);
+  //   let hours = horarioISO.getHours() + 1;//uso horario y Base de datos
+  //   this.hora = (hours < 10 ? '0' + hours : hours) + ':'
+  //     + (horarioISO.getMinutes() < 10 ? '0' + horarioISO.getMinutes() : horarioISO.getMinutes());
+  //   this.fecha = this.myFormatDate.actionGetDay(horarioISO.getDay()) + ' . ' + horarioISO.getDate() + ' . '
+  //     + this.myFormatDate.actionGetMonth(horarioISO.getMonth());
+  //   // console.log('hora: ', horarioISO.getHours());
+  //   // console.log('horario: ', horarioISO);
+
+  // }
 
 
 

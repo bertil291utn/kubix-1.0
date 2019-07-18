@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DomSanitizer } from '@angular/platform-browser';
 import { InfoPasajeroSolPage } from '../info-pasajero-sol/info-pasajero-sol';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
+import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 
 declare var html2canvas;
 
@@ -13,39 +14,63 @@ declare var html2canvas;
 })
 export class DetRutaCPage {
   public proceso_v: string;
-  viajedet
+  viajedet;
+  carObject = {
+    placa: null, foto: null, marca: null, modelo: null,
+    color: null, codigo_marca: null, codigo_modelo: null, codigo_vehiculo: null
+  };
+  loadingCrtlRefresh;
 
-  constructor(private storage: Storage,
+
+  constructor(public loadingCtrl: LoadingController,
     public myservices: EnvironmentVarService,
-    public navCtrl: NavController,
-    public navParams: NavParams,
+    public navCtrl: NavController, public apiRestService: RestApiServiceProvider,
+    public navParams: NavParams, private zone: NgZone,
     private sanitizer: DomSanitizer,
     public modalCtrl: ModalController) {
     this.viajedet = navParams.get('datos')
+    //console.log('viajesPublicados: ', navParams.data.viajes);
     console.log(this.viajedet)
 
 
   }
 
   ionViewDidLoad() {
+    this.getVehiculoInfo();
     this.proceso_v = 'descripcion'
-    // if (this.myservices.solicitud) {
-    //   this.proceso_v = 'solicitud'
-    // }
-    //this.url = "blob:http://localhost:8100/b95c7e2b-a3b4-4ac8-b51e-a9af526f3788"
     console.log('ionViewDidLoad DetRutaCPage');
-    //this.storage.get('imageurl').then((val) => { this.url = this.getUrlVideo(val); console.log('url: ', this.url) })
   }
 
 
-  gotoInfo(item) {
-    //item mandar a buscar a la BD los datos de esa persona item=cedula 
-    let contactModal = this.modalCtrl.create(InfoPasajeroSolPage, { infopasajero: this.viajedet.solicitud[item] });
-    console.log('this.viajedet.solicitud[item]: ',this.viajedet.solicitud[item]);
-    contactModal.present();
+  // public refreshInitialCar() {
+  //   this.zone.run(() => {
+  //     this.proceso_v;
+  //     if (this.proceso_v == 'vehiculo') {
+  //       this.loadingCrtlRefresh = this.loadingCtrl.create();
+  //       this.loadingCrtlRefresh.present();
+  //       console.log('present lading controller');
+  //     }
+  //   });
+  // }
 
+  public getVehiculoInfo() {
+
+    this.apiRestService.getVehiculoInfo().subscribe((resp) => {
+      if (resp.items[0].placa != null) {
+        this.carObject.placa = resp.items[0].placa;
+        this.carObject.marca = resp.items[0].marca;
+        this.carObject.modelo = resp.items[0].modelo;
+        this.carObject.color = resp.items[0].color;
+        this.carObject.codigo_marca = resp.items[0].id_marca;
+        this.carObject.codigo_modelo = resp.items[0].id_modelo;
+        this.carObject.codigo_vehiculo = resp.items[0].codigo_vehiculo;
+        this.carObject.foto = resp.items[0].foto;
+        if (resp != null)
+          if (this.loadingCrtlRefresh != undefined)
+            this.loadingCrtlRefresh.dismiss();
+      }
+    });
   }
-  getUrlVideo(videoURL: string) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(videoURL);
-  }
-}
+
+
+}//fin clase

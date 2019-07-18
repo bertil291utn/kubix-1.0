@@ -11,7 +11,7 @@ export class RestApiServiceProvider {
   userBasePathUser = 'usuarios/';
   vehiculoBasePathUser = 'vehiculos/';
   lugarGeoBasePathUser = 'lugargeo/';
-  publicacionBasePathUser = 'publicacion/';
+  rutaBasePathUser = 'ruta/';
 
 
   constructor(public http: HttpClient, public myservices: EnvironmentVarService) {
@@ -88,7 +88,7 @@ export class RestApiServiceProvider {
 
   // PUBLICAR VIAJE CONDUCTOR
   public insertarViaje(data: any): Observable<any> {
-    let url = this.publicacionBasePathUser + `ruta?fecha=${data.fecha}&descripcion=${data.descripcion}&personas=${data.personas}&cedula=${this.myservices.usuarioCedula}`;
+    let url = this.rutaBasePathUser + `publicacion?fecha=${data.fecha}&descripcion=${data.descripcion}&personas=${data.personas}&cedula=${this.myservices.usuarioCedula}`;
     return this.makeRequestPost(url);
   }
 
@@ -98,17 +98,28 @@ export class RestApiServiceProvider {
   public insertarLugaresGeoViaje(data: any, codigo_viaje: number, tipo: string): Observable<any> {
     let url;
     if (tipo == 'U')
-      url = this.publicacionBasePathUser + `ruta?codigo_viaje=${codigo_viaje}&latitud=${data.lat}&longitud=${data.lng}&short_name=${data.short_name}&full_name=${data.full_name}&tipo=${tipo}`;
+      url = this.rutaBasePathUser + `publicacion?codigo_viaje=${codigo_viaje}&latitud=${data.lat}&longitud=${data.lng}&short_name=${data.short_name}&full_name=${data.full_name}&tipo=${tipo}`;
     else if (tipo == 'P')
-      url = this.publicacionBasePathUser + `ruta?codigo_viaje=${codigo_viaje}&latitud=${data.waypoints.location.lat}&longitud=${data.waypoints.location.lng}&short_name=${data.mainName}&full_name=${data.nombreExtenso}&place_id=${data.placeid}&tipo=${tipo}`;
+      url = this.rutaBasePathUser + `publicacion?codigo_viaje=${codigo_viaje}&latitud=${data.waypoints.location.lat}&longitud=${data.waypoints.location.lng}&short_name=${data.mainName}&full_name=${data.nombreExtenso}&place_id=${data.placeid}&tipo=${tipo}`;
     else
       if (data.codigo_geo == null || undefined)
-        url = this.publicacionBasePathUser + `ruta?codigo_viaje=${codigo_viaje}&latitud=${data.lat}&longitud=${data.lng}&short_name=${data.short_name}&full_name=${data.showfull_name}&tipo=${tipo}`;
+        url = this.rutaBasePathUser + `publicacion?codigo_viaje=${codigo_viaje}&latitud=${data.lat}&longitud=${data.lng}&short_name=${data.short_name}&full_name=${data.showfull_name}&tipo=${tipo}`;
       else
-        url = this.publicacionBasePathUser + `ruta?codigo_geo=${data.codigo_geo}&codigo_viaje=${codigo_viaje}&tipo=${tipo}`;
+        url = this.rutaBasePathUser + `publicacion?codigo_geo=${data.codigo_geo}&codigo_viaje=${codigo_viaje}&tipo=${tipo}`;
     return this.makeRequestPut(url, false);
   }
 
+  //GET VIAJES PUBLICADOS
+  public getViajesPublicados(): Observable<any> {
+    let url = this.rutaBasePathUser + `viajespublicados?cedula=${this.myservices.usuarioCedula}`;
+    return this.makeRequestGet(url);
+  }
+
+  // //GET VIAJES PUBLICADOS DETALLES
+  // public getViajesPublicadosDeatlles(codigo_viaje: number): Observable<any> {
+  //   let url = this.rutaBasePathUser + `viajespublicados?codigo_viaje=${codigo_viaje}`;
+  //   return this.makeRequestPost(url);
+  // }
 
 
 
