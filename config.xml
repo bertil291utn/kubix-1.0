@@ -101,5 +101,5 @@
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <plugin name="com-sarriaroman-photoviewer" spec="1.2.4" />
     <engine name="browser" spec="5.0.4" />
-    <engine name="android" spec="^7.1.4" />
+    <engine name="android" spec="~7.1.4" />
 </widget>

@@ -7,6 +7,9 @@
     "files": {}
   },
   "installed_plugins": {
+    "com-sarriaroman-photoviewer": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "io.ionic.starter"
     },

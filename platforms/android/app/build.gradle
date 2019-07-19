@@ -91,6 +91,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "../com-sarriaroman-photoviewer/starter-photoviewer.gradle"
 apply from: "../cordova-plugin-googlemaps/starter-tbxml-android.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 

@@ -9,6 +9,10 @@
         "parents": {
           "/*": [
             {
+              "xml": "<feature name=\"PhotoViewer\"><param name=\"android-package\" value=\"com.sarriaroman.PhotoViewer.PhotoViewer\" /></feature>",
+              "count": 1
+            },
+            {
               "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
             },
@@ -121,6 +125,66 @@
       },
       "AndroidManifest.xml": {
         "parents": {
+          "/manifest/application": [
+            {
+              "xml": "<activity android:name=\"com.sarriaroman.PhotoViewer.PhotoActivity\" android:theme=\"@android:style/Theme.Holo.NoActionBar.Fullscreen\" />",
+              "count": 1
+            },
+            {
+              "xml": "<meta-data android:name=\"com.google.android.geo.API_KEY\" android:value=\"AIzaSyBGqSAoZ_NIO3x4ezfKvJDXz2nfW5R9SYY\" />",
+              "count": 1
+            },
+            {
+              "xml": "<meta-data android:name=\"com.google.android.gms.version\" android:value=\"@integer/google_play_services_version\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-library android:name=\"org.apache.http.legacy\" android:required=\"false\" />",
+              "count": 1
+            },
+            {
+              "xml": "<provider android:authorities=\"${applicationId}.sharing.provider\" android:exported=\"false\" android:grantUriPermissions=\"true\" android:name=\"nl.xservices.plugins.FileProvider\"><meta-data android:name=\"android.support.FILE_PROVIDER_PATHS\" android:resource=\"@xml/sharing_paths\" /></provider>",
+              "count": 1
+            }
+          ],
+          "/manifest": [
+            {
+              "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+              "count": 3
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-feature android:glEsVersion=\"0x00020000\" android:required=\"true\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-feature android:name=\"android.hardware.location\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-feature android:name=\"android.hardware.location.gps\" />",
+              "count": 1
+            }
+          ],
           "/*": [
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
@@ -155,57 +219,9 @@
               "count": 1
             }
           ],
-          "/manifest": [
-            {
-              "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
-              "count": 2
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-feature android:glEsVersion=\"0x00020000\" android:required=\"true\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-feature android:name=\"android.hardware.location\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-feature android:name=\"android.hardware.location.gps\" />",
-              "count": 1
-            }
-          ],
           "application": [
             {
               "xml": "<provider android:authorities=\"${applicationId}.provider\" android:exported=\"false\" android:grantUriPermissions=\"true\" android:name=\"org.apache.cordova.camera.FileProvider\"><meta-data android:name=\"android.support.FILE_PROVIDER_PATHS\" android:resource=\"@xml/camera_provider_paths\" /></provider>",
-              "count": 1
-            }
-          ],
-          "/manifest/application": [
-            {
-              "xml": "<meta-data android:name=\"com.google.android.geo.API_KEY\" android:value=\"AIzaSyBGqSAoZ_NIO3x4ezfKvJDXz2nfW5R9SYY\" />",
-              "count": 1
-            },
-            {
-              "xml": "<meta-data android:name=\"com.google.android.gms.version\" android:value=\"@integer/google_play_services_version\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-library android:name=\"org.apache.http.legacy\" android:required=\"false\" />",
-              "count": 1
-            },
-            {
-              "xml": "<provider android:authorities=\"${applicationId}.sharing.provider\" android:exported=\"false\" android:grantUriPermissions=\"true\" android:name=\"nl.xservices.plugins.FileProvider\"><meta-data android:name=\"android.support.FILE_PROVIDER_PATHS\" android:resource=\"@xml/sharing_paths\" /></provider>",
               "count": 1
             }
           ],
@@ -238,6 +254,9 @@
     }
   },
   "installed_plugins": {
+    "com-sarriaroman-photoviewer": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
@@ -291,6 +310,14 @@
   },
   "dependent_plugins": {},
   "modules": [
+    {
+      "id": "com-sarriaroman-photoviewer.PhotoViewer",
+      "file": "plugins/com-sarriaroman-photoviewer/www/PhotoViewer.js",
+      "pluginId": "com-sarriaroman-photoviewer",
+      "clobbers": [
+        "PhotoViewer"
+      ]
+    },
     {
       "id": "cordova-plugin-file.DirectoryEntry",
       "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
@@ -862,6 +889,7 @@
     }
   ],
   "plugin_metadata": {
+    "com-sarriaroman-photoviewer": "1.2.4",
     "cordova-plugin-file": "6.0.1",
     "cordova-plugin-advanced-http": "2.1.1",
     "cordova-plugin-camera": "4.0.3",
