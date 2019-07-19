@@ -1,10 +1,13 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DomSanitizer } from '@angular/platform-browser';
 import { InfoPasajeroSolPage } from '../info-pasajero-sol/info-pasajero-sol';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
+import { ViewMapDetallesPage } from '../view-map-detalles/view-map-detalles';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+
 
 declare var html2canvas;
 
@@ -13,6 +16,7 @@ declare var html2canvas;
   templateUrl: 'det-ruta-c.html',
 })
 export class DetRutaCPage {
+
   public proceso_v: string;
   viajedet;
   carObject = {
@@ -22,7 +26,8 @@ export class DetRutaCPage {
   loadingCrtlRefresh;
 
 
-  constructor(public loadingCtrl: LoadingController,
+
+  constructor(public loadingCtrl: LoadingController, private photoViewer: PhotoViewer,
     public myservices: EnvironmentVarService,
     public navCtrl: NavController, public apiRestService: RestApiServiceProvider,
     public navParams: NavParams, private zone: NgZone,
@@ -31,27 +36,16 @@ export class DetRutaCPage {
     this.viajedet = navParams.get('datos')
     //console.log('viajesPublicados: ', navParams.data.viajes);
     console.log(this.viajedet)
-
-
   }
+
 
   ionViewDidLoad() {
     this.getVehiculoInfo();
-    this.proceso_v = 'descripcion'
+    //this.initMapa();
+    this.proceso_v = 'ruta';
     console.log('ionViewDidLoad DetRutaCPage');
   }
 
-
-  // public refreshInitialCar() {
-  //   this.zone.run(() => {
-  //     this.proceso_v;
-  //     if (this.proceso_v == 'vehiculo') {
-  //       this.loadingCrtlRefresh = this.loadingCtrl.create();
-  //       this.loadingCrtlRefresh.present();
-  //       console.log('present lading controller');
-  //     }
-  //   });
-  // }
 
   public getVehiculoInfo() {
 
@@ -71,6 +65,20 @@ export class DetRutaCPage {
       }
     });
   }
+
+  public viewMap(ruta: boolean) {
+
+    let contactModal = this.modalCtrl.create(ViewMapDetallesPage, { datos: this.viajedet, ruta: ruta });
+    contactModal.present();
+
+  }
+
+  public viewImgae(source) {
+    this.photoViewer.show(source);
+    //'https://www.ruta0.com/pix/una-ruta.jpg'
+  }
+
+
 
 
 }//fin clase

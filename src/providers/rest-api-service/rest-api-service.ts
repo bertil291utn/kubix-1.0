@@ -89,8 +89,15 @@ export class RestApiServiceProvider {
   // PUBLICAR VIAJE CONDUCTOR
   public insertarViaje(data: any): Observable<any> {
     let url = this.rutaBasePathUser + `publicacion?fecha=${data.fecha}&descripcion=${data.descripcion}&personas=${data.personas}&cedula=${this.myservices.usuarioCedula}`;
-    return this.makeRequestPost(url);
+    return this.makeRequestPost(url, data.foto_ruta);
   }
+
+  //update fotoUbicacion
+  public updateFotoUbicacion(foto_ubicacion: any, codigo_viaje: number): Observable<any> {
+    let url = this.rutaBasePathUser + 'viajespublicados?codigo_viaje=' + codigo_viaje;
+    return this.makeRequestPut(url, false, foto_ubicacion);
+  }
+
 
 
   //Publicar Lugares_geo del viaje Origen, destino, Ubicacion, Places

@@ -1,0 +1,19 @@
+<ion-header>
+
+  <ion-navbar color="danger">
+    <ion-title *ngIf="this.navParams.data.ruta">Ruta</ion-title>
+    <ion-title *ngIf="!this.navParams.data.ruta">Punto de encuentro</ion-title>
+    <ion-buttons end style="margin-right: 2%;">
+      <button ion-button (click)="viewCtrl.dismiss()">
+        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div #map_canvas2 id="map_canvas2">
+  </div>
+</ion-content>

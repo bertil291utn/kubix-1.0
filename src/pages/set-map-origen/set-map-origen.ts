@@ -9,7 +9,7 @@ import { EnvironmentVarService } from '../../providers/environmentVarService/env
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 
 declare var google;
-
+declare var html2canvas;
 @Component({
   selector: 'page-set-map-origen',
   templateUrl: 'set-map-origen.html',
@@ -161,7 +161,7 @@ export class SetMapOrigenPage {
       styles: styles
     };
 
-    this.map = GoogleMaps.create('map_canvas6', mapOptions);
+    this.map = GoogleMaps.create('map_canvas22', mapOptions);
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
       loading.dismiss();
       this.camera_position();
@@ -242,6 +242,8 @@ export class SetMapOrigenPage {
   }
 
   saveValues() {
+    const loading = this.loadingCtrl.create();
+    loading.present();
 
     if (!this.ubicacion) {
       if (this.myservices.setMap) {
@@ -253,12 +255,27 @@ export class SetMapOrigenPage {
         this.appCtrl.getRootNav().push(HomeCViewRutaPage)
       } else
         this.returnValues();
+      loading.dismiss();
     }
 
     //this ubicacion viene cunado el conductor establece punto de encuentro viaje-conductor page 
     if (this.ubicacion) {
-      let data = { ubicacionObject: this.setMapObject };
-      this.viewCtrl.dismiss(data);
+      let elem = document.getElementById('map_canvas22');
+      html2canvas(elem, {
+        optimized: false,
+        allowTaint: false,
+        useCORS: true,
+        onrendered: (canvas) => {
+          canvas.toBlob((blob) => {
+            this.routeCreate.adicional.foto_ubicacion = blob;
+            let data = { ubicacionObject: this.setMapObject };
+            if (blob != null || undefined)
+              loading.dismiss();
+            this.viewCtrl.dismiss(data);
+          })
+        }
+      })
+
     }
 
   }

@@ -20,7 +20,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let item of viajesPubObjectArray">
+  <h3 *ngIf="respuesta==0" ion-text text-center color="danger">Todav&iacute;a no has publicado ning&uacute;n viaje</h3>
+  <ion-card *ngFor="let item of viajesPubObjectArray" [hidden]="respuesta==0">
     <ion-card-content text-center>
       <ion-card-title>
         <ion-row>
@@ -41,20 +42,20 @@
     </ion-card-content>
 
     <ion-row id="foot">
-      <ion-col text-right>
+      <!-- <ion-col text-right>
         <button ion-button clear color="iconos" icon-start>
           <ion-icon name='create'></ion-icon>
           Editar
         </button>
-      </ion-col>
+      </ion-col> -->
       <ion-col text-center>
-        <button ion-button clear color="iconos" icon-start>
+        <button ion-button round outline color="iconos" icon-start>
           <ion-icon name='trash'></ion-icon>
           Eliminar
         </button>
       </ion-col>
-      <ion-col text-left>
-        <button ion-button clear color="iconos" icon-start (click)="goToDetails(item.adicional.codigo_viaje)">
+      <ion-col text-center>
+        <button ion-button round outline color="iconos" icon-start (click)="goToDetails(item.adicional.codigo_viaje)">
           <ion-icon name='list-box'></ion-icon>
           Detalles
         </button>

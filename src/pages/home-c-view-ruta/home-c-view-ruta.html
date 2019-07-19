@@ -6,6 +6,7 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+
   <ion-toolbar color="white" style="padding: unset;box-shadow: 0px 1px 11px -2px #ea6b7c;">
     <ion-row style="padding: 5px;margin-top: 30px;">
       <ion-col col-1></ion-col>
@@ -47,7 +48,7 @@
         <ion-col *ngIf="routeCreate.lugares.length>1" text-center (click)="goToAceptar()"><strong ion-text
             color="danger">ACEPTAR</strong></ion-col>
         <!-- <ion-col *ngIf="routeCreate.lugares.length==0" text-center (click)="goToModalLugViaje()"><strong ion-text
-            color="danger">CONTINUAR</strong></ion-col> -->
+                  color="danger">CONTINUAR</strong></ion-col> -->
         <ion-col *ngIf="routeCreate.lugares.length>1"></ion-col>
         <ion-col text-center (click)="goToCancel()"><strong ion-text color="danger">CANCELAR</strong></ion-col>
         <ion-col></ion-col>
@@ -55,11 +56,11 @@
     </ion-grid>
 
   </ion-toolbar>
+
 </ion-header>
 
 
 <ion-content>
   <div #map_canvas id="map_canvas">
   </div>
-
 </ion-content>

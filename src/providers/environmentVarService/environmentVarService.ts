@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-
+declare var html2canvas;
 @Injectable()
 export class EnvironmentVarService {
   private _solicitud: boolean;
@@ -72,6 +72,20 @@ export class EnvironmentVarService {
   }
   public set setMap(value: boolean) {
     this._setMap = value;
+  }
+
+
+  public saveMapToBlob(elemMapCanvas) {
+    html2canvas(elemMapCanvas, {
+      optimized: false,
+      allowTaint: false,
+      useCORS: true,
+      onrendered: (canvas) => {
+        canvas.toBlob((blob) => {
+        })
+      }
+    })
+
   }
 
 

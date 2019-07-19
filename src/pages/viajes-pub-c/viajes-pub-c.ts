@@ -17,6 +17,7 @@ export class ViajesPubCPage {
   fecha: string;
   hora: string;
   loadingCrtlRefresh;
+  respuesta;//para mostrar el lenght de respuesta en el view
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController,
     public apiRestService: RestApiServiceProvider, public viajesPublicadoObject: RutaProvider) {
@@ -28,8 +29,7 @@ export class ViajesPubCPage {
 
 
   ionViewDidLoad() {
-    this.loadingCrtlRefresh = this.loadingCtrl.create();
-    this.loadingCrtlRefresh.present();
+
     this.getViajesPublicados();
     console.log('ionViewDidLoad ViajesPubCPage');
     //recibir datos desde la BD. Viajes publicados de este cedula  
@@ -37,9 +37,13 @@ export class ViajesPubCPage {
   }
 
   private getViajesPublicados() {
+    this.loadingCrtlRefresh = this.loadingCtrl.create();
+    this.loadingCrtlRefresh.present();
     //console.log('string to isostring: ', horatemp.toISOString());//restar menos cinco horas getHours()-5
     this.apiRestService.getViajesPublicados().subscribe((resp) => {
-      // console.log('respuesta viajes pub: ', resp.respuesta);
+      this.respuesta = 0;
+      this.respuesta = resp.respuesta.length;
+      console.log('respuesta get viajes pub: ', resp);
       let groupByCodViaje = this.setGroup(resp);//agrupamos por cod_viaje la respuesta JSON
       for (let obj of groupByCodViaje) {
         this.viajesPublicadoObject = new RutaProvider();//crear nuevo objeto cada vez qe tenga nuevos viajes
@@ -50,7 +54,9 @@ export class ViajesPubCPage {
           fechastring: obj.values[0].fechastring,
           descripcion_viaje: obj.values[0].descripcion_viaje,
           fecha: obj.values[0].fecha,
-          hora: obj.values[0].hora
+          hora: obj.values[0].hora,
+          fotoRuta: obj.values[0].foto_ruta,
+          fotoUbicacion: obj.values[0].foto_ubicacion
         };
         this.viajesPublicadoObject.adicional = adicional;
         this.setViajesObject(obj.values);//designar si es Origen,destino,ubicacion o un place
@@ -77,7 +83,8 @@ export class ViajesPubCPage {
         lng: obj.lng,
         short_name: obj.short_name,
         full_name: obj.full_name,
-        place_id: obj.place_id
+        place_id: obj.place_id,
+        waypoints:{ location: { lat: obj.lat, lng: obj.lng }, stopover: true }
       };
 
       if (obj.tipo === 'O')

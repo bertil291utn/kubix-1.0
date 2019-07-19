@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
 import { SetHomeDestinoPage } from '../set-home-destino/set-home-destino';
-import { SetMapDestinoPage } from '../set-map-destino/set-map-destino';
+//import { SetMapDestinoPage } from '../viewMapDetails/viewMapDetails';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
 import { Geolocation } from '@ionic-native/geolocation';
 import { MyLocationOptions, LocationService, MyLocation } from '@ionic-native/google-maps';
@@ -81,7 +81,7 @@ export class ViajesDestinoPage {
   }
 
   goToSetMap() {
-    this.navCtrl.push(SetMapDestinoPage);
+    //this.navCtrl.push(SetMapDestinoPage);
   }
 
 

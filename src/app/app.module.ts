@@ -11,7 +11,7 @@ import { ViajesDestinoPage } from '../pages/viajes-destino/viajes-destino';
 import { SetHomePage } from '../pages/set-home_origen/set-home'
 import { SetMapOrigenPage } from '../pages/set-map-origen/set-map-origen';
 import { SetHomeDestinoPage } from '../pages/set-home-destino/set-home-destino';
-import { SetMapDestinoPage } from '../pages/set-map-destino/set-map-destino';
+
 import { HomeCViewRutaPage } from '../pages/home-c-view-ruta/home-c-view-ruta';
 import { ViajesConductorPage } from '../pages/viajes-conductor/viajes-conductor';
 import { SetMapPtoPage } from '../pages/set-map-pto/set-map-pto'
@@ -45,6 +45,8 @@ import { searchTravelPasajero } from "../pages/searchTravelPasajero/searchTravel
 import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-service';
 import { HttpClientModule } from '@angular/common/http';
 import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
+import { ViewMapDetallesPage } from '../pages/view-map-detalles/view-map-detalles';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 
 
@@ -60,7 +62,6 @@ import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
     SetHomePage,
     SetMapOrigenPage,
     SetHomeDestinoPage,
-    SetMapDestinoPage,
     HomeCViewRutaPage,
     ViajesConductorPage,
     SetMapPtoPage,
@@ -77,7 +78,8 @@ import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
     SlidesPage,
     LoginPage,
     searchTravelPasajero,
-    StopConductorPage
+    StopConductorPage,
+    ViewMapDetallesPage
 
   ],
   imports: [
@@ -97,7 +99,6 @@ import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
     SetHomePage,
     SetMapOrigenPage,
     SetHomeDestinoPage,
-    SetMapDestinoPage,
     HomeCViewRutaPage,
     ViajesConductorPage,
     SetMapPtoPage,
@@ -114,7 +115,8 @@ import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
     SlidesPage,
     LoginPage,
     searchTravelPasajero,
-    StopConductorPage
+    StopConductorPage,
+    ViewMapDetallesPage
 
   ],
   providers: [
@@ -126,6 +128,7 @@ import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
     Camera,
     SocialSharing,
     CallNumber,
+    PhotoViewer,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     EnvironmentVarService,
     DatesFormatProvider,

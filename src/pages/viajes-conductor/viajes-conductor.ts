@@ -20,14 +20,14 @@ export class ViajesConductorPage {
   fechahoraISO = new Date().toISOString();
   pasajero = 1;
   descripcion: string;
-  adicionalObject = { personas: null, descripcion: null, fecha: null };
+  adicionalObject = { personas: null, descripcion: null, fecha: null, foto_ubicacion: null, foto_ruta: null };
   loadingCrtlRefresh;
 
   constructor(public navparams: NavParams, public navCtrl: NavController, public routeCreate: RutaProvider,
     public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController,
     public modalCtrl: ModalController, public myservices: EnvironmentVarService, private app: App,
     public apiRestService: RestApiServiceProvider, public loadingCtrl: LoadingController) {
-    //console.log('fechaiso: ', this.fechaISO);
+
     // let p = app.getActiveNavs();
     // console.log('navigation app: ', p)
     // let q = navCtrl.getViews();
@@ -46,25 +46,31 @@ export class ViajesConductorPage {
     this.loadingCrtlRefresh = this.loadingCtrl.create();
     this.loadingCrtlRefresh.present();
     //this.horarioObject.fecha = this.fechaISO;
+
+    this.adicionalObject.foto_ruta = this.routeCreate.adicional.foto_ruta;
+    this.adicionalObject.foto_ubicacion = this.routeCreate.adicional.foto_ubicacion;
+
     this.adicionalObject.fecha = this.fechahoraISO;
     this.adicionalObject.personas = this.pasajero;
     this.adicionalObject.descripcion = this.descripcion;
     this.routeCreate.adicional = this.adicionalObject;
 
-    // let horarioISO = new Date(this.fechahoraISO);
-    // let horarioISOprint = (horarioISO.getHours() > 0 && horarioISO.getHours() < 10 ? '0' + (horarioISO.getHours() + 5) : (horarioISO.getHours() + 5)) + ':'
-    //   + (horarioISO.getMinutes() > 0 && horarioISO.getMinutes() < 10 ? '0' + horarioISO.getMinutes() : horarioISO.getMinutes());
-    // console.log('hora:minutes ISO', horarioISOprint);
     console.log('Dtos para enviar a la BD: ', this.routeCreate);
     if ((this.routeCreate.puntoEncuentro == null || undefined) ||
       !this.myservices.carExists || (this.descripcion == undefined || null))
       //alert anada donde a a a recoger al pasajero
       this.enterAlert();
     else {
+      //this.routeCreate.adicional = null;
       //guardar en BD los datos de la ruta 
       this.apiRestService.insertarViaje(this.routeCreate.adicional).subscribe((resp) => {
         console.log('respuesta datos adicionales de ruta: ', resp);
         if (resp.respuesta == 200) {
+          //update foto ubicaion 
+          this.apiRestService.updateFotoUbicacion(this.routeCreate.adicional.foto_ubicacion, resp.cod_viaje).subscribe((resp) => {
+            console.log('respuesta update foto ubicacion: ', resp);
+          });
+
           //ORIGEN
           this.apiRestService.insertarLugaresGeoViaje(this.routeCreate.origen, resp.cod_viaje, 'O').subscribe((resp) => {
             console.log('respuesta ingreso origen: ', resp);
@@ -84,7 +90,6 @@ export class ViajesConductorPage {
               this.loadingCrtlRefresh.dismiss();
             }
           });
-
           //PLACES
           for (let obj of this.routeCreate.lugares) {
             this.apiRestService.insertarLugaresGeoViaje(obj, resp.cod_viaje, 'P').subscribe((resp) => {
@@ -121,7 +126,12 @@ export class ViajesConductorPage {
       title: 'Datos incompletos',
       message: 'Revise que haya ingresado todos los datos.<br> Autom&oacute;vil, punto de encuentro o descripci&oacute;n adicional',
       buttons: [{
-        text: 'OK'
+        text: 'OK',
+        role: 'cancel',
+        handler: () => {
+          if (this.loadingCrtlRefresh != null || undefined)
+            this.loadingCrtlRefresh.dismiss();
+        }
       }]
     })
     alert.present()

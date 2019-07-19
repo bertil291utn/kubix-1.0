@@ -9,6 +9,7 @@ import { HomePage } from '../home/home';
 import { RutaProvider } from '../../providers/ruta/ruta';
 import { searchTravelPasajero } from "../searchTravelPasajero/searchTravelPasajero";
 import { StopConductorPage } from '../stop-conductor/stop-conductor';
+import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 
 declare var google;
 declare var html2canvas;
@@ -24,13 +25,12 @@ export class HomeCViewRutaPage {
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
   service;// = new google.maps.places.PlacesService(map);
-  image;
   public proceso = 'ruta';
   toastLugares;
+  center;
 
 
-
-  constructor(private storage: Storage, public toastCtrl: ToastController,
+  constructor(private myEnvironment: EnvironmentVarService, public toastCtrl: ToastController,
     public loadingCtrl: LoadingController, public platform: Platform,
     public nav: NavController, public modalCtrl: ModalController,
     public navparams: NavParams, private zone: NgZone, public alertCtrl: AlertController,
@@ -50,7 +50,7 @@ export class HomeCViewRutaPage {
     this.initMapa();
   }
 
-  
+
 
   //metodo para despuer de dar click en ion-segment y se haga el cambio en la variable proceso 
   updateVal() {
@@ -85,6 +85,8 @@ export class HomeCViewRutaPage {
 
 
   initMapa() {
+    const loading = this.loadingCtrl.create();
+    loading.present();
     let styles = [
       {
         "stylers": [
@@ -163,7 +165,7 @@ export class HomeCViewRutaPage {
       }
     ];
     this.map = new google.maps.Map(this.mapElement.nativeElement, {
-      zoom: 12,
+      zoom: 8,
       disableDefaultUI: true,
       styles: styles
     });
@@ -175,6 +177,14 @@ export class HomeCViewRutaPage {
       }
     });
     this.calculateAndDisplayRoute();//traer wayspoitn desde route
+    google.maps.event.addListenerOnce(this.map, 'idle', () => {
+      // this.center = this.map.getCenter();
+      // do something only the first time the map is loaded
+      loading.dismiss();
+    });
+    // google.maps.event.addDomListener(window, 'resize', function () {
+    //   this.map.setCenter(this.center);
+    // });
   }
 
   calculateAndDisplayRoute(wayPoints?) {
@@ -211,9 +221,18 @@ export class HomeCViewRutaPage {
   }
 
   goToAceptar() {
-    let elem = document.getElementById('map_canvas')
-    //this.capImagen(elem)
-    //guardar en base de datos la imgen de rutas
+    let elem = document.getElementById('map_canvas');
+    html2canvas(elem, {
+      optimized: false,
+      allowTaint: false,
+      useCORS: true,
+      onrendered: (canvas) => {
+        canvas.toBlob((blob) => {
+          this.routeCreate.adicional = { foto_ruta: blob, foto_ubicacion: null };
+        })
+      }
+    })
+
     console.log('origen: ', this.routeCreate.origen, 'destino: ', this.routeCreate.destino, 'lugares: ', this.routeCreate.lugares);
     this.nav.push(ViajesConductorPage);
   }
@@ -240,25 +259,10 @@ export class HomeCViewRutaPage {
       //anadir en un arrya temporal
       for (let obj of this.routeCreate.lugares)
         wayPointsArray.push(obj.waypoints);
+      //this.initMapa(wayPointsArray);
       this.calculateAndDisplayRoute(wayPointsArray);//traer wayspoitn desde route
     });
 
-  }
-
-  capImagen(elem) {
-    html2canvas(elem, {
-      optimized: false, allowTaint: false,
-      useCORS: true, onrendered: (canvas) => {
-        canvas.toBlob((blob) => {
-          let URLObj = window.URL || (window as any).webkitURL;
-          let image = URLObj.createObjectURL(blob)
-          this.storage.set('imageurl', image)
-          console.log('imageurl: ', image)
-          // return image
-          //document.getElementById('imgout').setAttribute("src", image)
-        })
-      }
-    })
   }
 
 
