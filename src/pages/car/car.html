@@ -40,16 +40,16 @@
     </ion-row>
   </div>
 
-  <div *ngIf="myservices.carExists" text-center style="padding: 0 40px;">
+  <div *ngIf="myservices.carExists" style="padding: 0 40px;">
     <br>
-    <h4 ion-text>Autom&oacute;vil designado</h4>
+    <h4 ion-text text-center>Autom&oacute;vil designado</h4>
     <ion-row>
       <button small ion-button round color="danger" outline style="font-size:1.1rem;margin:auto;"
         (click)="actionEditButton()" *ngIf="!editarBoton">Editar autom&oacute;vil</button>
     </ion-row><br>
     <ion-card *ngIf="!editarBoton">
       <img *ngIf="!preview" class="imgbck" [src]="'data:image/png;base64,' +carObject.foto">
-      <ion-card-content>
+      <ion-card-content text-center>
         <ion-card-title>{{carObject.placa}}</ion-card-title>
       </ion-card-content>
       <ion-row no-padding>

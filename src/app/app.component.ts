@@ -26,7 +26,7 @@ export class MyApp {
   contrasenaExists = true;
   evntRbnTipoPasajero;
   radiobtn;
-  conductor: boolean = true;
+  conductor: boolean = false;
   rootPage;
   pages: Array<{ title: string, component: any, icono: string }>;
   pages_pas: Array<{ title: string, component: any, icono: string }>;
@@ -74,7 +74,7 @@ export class MyApp {
       console.log('this.contrasenaExists: ', this.contrasenaExists)
       this.rootPage = HomePage;
       //devolver cedula guardada
-      let userId = '1004453633';
+      let userId = '1002334827';//1002334827//1002292272
       this.myservices.usuarioCedula = userId;
       this.userInfo();
     } else

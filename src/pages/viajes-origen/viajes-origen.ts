@@ -55,8 +55,10 @@ export class ViajesOrigenPage {
         if (resp != null)
           if (this.loadingControllerSave != undefined)
             this.loadingControllerSave.dismiss();
-      } else
+      } else {
         this.casa = false;
+        this.loadingControllerSave.dismiss();
+      }
     });
 
   }

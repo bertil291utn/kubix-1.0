@@ -13,4 +13,13 @@ page-viajes-pasajero-detail {
   ion-content button.button {
     margin: 50% 20% 0;
   }
+
+  ion-header .label {
+    margin: unset;
+    color: white;
+  }
+
+  ion-content.cards-bg {
+    background-color: #f4f4f7;
+  }
 }

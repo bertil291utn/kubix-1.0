@@ -76,10 +76,9 @@ export class CarPage {
         this.carObject.codigo_vehiculo = resp.items[0].codigo_vehiculo;
         this.carObject.foto = resp.items[0].foto;
 
-        if (resp != null)
-          if (this.loadingControllerSave != undefined)
-            this.loadingControllerSave.dismiss();
       }
+      if (this.loadingControllerSave != undefined)
+        this.loadingControllerSave.dismiss();
     });
   }
 

@@ -21,8 +21,12 @@ export class RestApiServiceProvider {
 
   //USUARIOS/PERSONAS
 
-  public getUsuario(): Observable<any> {
-    let url = this.userBasePathUser + 'usuarioinfo/' + this.myservices.usuarioCedula;
+  public getUsuario(conductor?: string): Observable<any> {
+    let url;
+    if (conductor != null || undefined)
+      url = this.userBasePathUser + 'usuarioinfo/' + conductor;
+    else
+      url = this.userBasePathUser + 'usuarioinfo/' + this.myservices.usuarioCedula;
     return this.makeRequestGet(url);
   }
 
@@ -121,6 +125,20 @@ export class RestApiServiceProvider {
     let url = this.rutaBasePathUser + `viajespublicados?cedula=${this.myservices.usuarioCedula}`;
     return this.makeRequestGet(url);
   }
+  //ELIMINAR VIAJES PUBLICADOS
+
+  public deleteViajesPublicados(codigo_viaje: number): Observable<any> {
+    let url = this.rutaBasePathUser + `publicacion?codigo_viaje=${codigo_viaje}`;
+    return this.makeRequestDelete(url);
+  }
+
+  //GET VIAJES DIARIOS
+
+  public getViajesDiarios(): Observable<any> {
+    let url = this.rutaBasePathUser + 'viajesdiarios';
+    return this.makeRequestGet(url);
+  }
+
 
   // //GET VIAJES PUBLICADOS DETALLES
   // public getViajesPublicadosDeatlles(codigo_viaje: number): Observable<any> {
@@ -142,6 +160,10 @@ export class RestApiServiceProvider {
 
   private makeRequestGet(url: string) {
     return this.http.get(this.mainBasePath + url, { responseType: 'json' });
+  }
+
+  private makeRequestDelete(url: string) {
+    return this.http.delete(this.mainBasePath + url, { responseType: 'json' });
   }
 
   private makeRequestPut(url: string, header: boolean, body?) {

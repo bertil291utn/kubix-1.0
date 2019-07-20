@@ -67,18 +67,14 @@ export class DetRutaCPage {
   }
 
   public viewMap(ruta: boolean) {
-
     let contactModal = this.modalCtrl.create(ViewMapDetallesPage, { datos: this.viajedet, ruta: ruta });
     contactModal.present();
-
   }
 
   public viewImgae(source) {
     this.photoViewer.show(source);
     //'https://www.ruta0.com/pix/una-ruta.jpg'
   }
-
-
 
 
 }//fin clase

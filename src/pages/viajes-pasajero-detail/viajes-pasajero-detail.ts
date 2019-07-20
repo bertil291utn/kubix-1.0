@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, App, ModalController } from 'ionic-angular';
 import { ViajesReserPasajeroPage } from '../viajes-reser-pasajero/viajes-reser-pasajero';
+import { ViewMapDetallesPage } from '../view-map-detalles/view-map-detalles';
 
 
 
@@ -17,7 +18,7 @@ export class ViajesPasajeroDetailPage {
   evento: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public viewCtrl: ViewController,
+    public viewCtrl: ViewController,public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     private app: App) {
     this.viajedet = navParams.get('datos');
@@ -31,6 +32,11 @@ export class ViajesPasajeroDetailPage {
     this.evento = event;
     if (event)
       this.mensaje = false
+  }
+
+  public viewMap(ruta: boolean) {
+    let contactModal = this.modalCtrl.create(ViewMapDetallesPage, { datos: this.viajedet, ruta: ruta });
+    contactModal.present();
   }
 
   showAlert() {

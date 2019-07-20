@@ -10,7 +10,7 @@
           <ion-buttons left>
             <button ion-button icon-only clear>
               <ion-icon name="time"></ion-icon>
-              &nbsp;&nbsp;&nbsp;{{fechamsg}}
+              &nbsp;&nbsp;&nbsp;{{fechaTitle}}
             </button>
           </ion-buttons>
         </ion-col>
@@ -23,57 +23,64 @@
 
 
 <ion-content>
-  <ion-fab style="margin: 10% 5%;" right bottom (click)="goToSearch()">
+  <h3 style="margin-top: 10%;" *ngIf="respuesta==0" ion-text text-center color="danger">
+    Todav&iacute;a no hay ning&uacute;n viaje disponible para este d&iacute;a</h3>
+
+
+  <ion-fab style="margin: 10% 5%;" right bottom (click)="goToSearch()" [hidden]="respuesta==0">
     <button ion-fab color="danger">
       <ion-icon name="search"></ion-icon>
     </button>
   </ion-fab>
-  <ion-card *ngFor="let item of lista_viaje">
+  <ion-card [hidden]="respuesta==0" *ngFor="let item of viajesPubObjectArrayToShow">
     <ion-card-content text-center>
       <ion-card-title>
         <ion-row>
           <ion-col>
-            {{item.origen}}
+            {{item.origen.short_name}}
           </ion-col>
           <ion-col col-1>
             <ion-icon name="arrow-round-forward" id="arrow" color="iconos"></ion-icon>
           </ion-col>
           <ion-col>
-            {{item.destino}}
+            {{item.destino.short_name}}
           </ion-col>
         </ion-row>
       </ion-card-title>
       <p>
-        <strong>{{item.hora}}</strong>
+        <strong>{{item.adicional.hora}}</strong>
       </p>
       <div text-center>
         <ion-chip *ngFor="let lugares of item.lugares" style="margin:2% 2% 0">
           <ion-icon name="pin" color="iconos"></ion-icon>
-          <ion-label>{{lugares.nombreCorto}}</ion-label>
+          <ion-label>{{lugares.short_name}}</ion-label>
         </ion-chip>
       </div>
     </ion-card-content>
 
-    <div (click)="goToDetails(item.id)">
+    <div (click)="goToDetails(item.adicional.codigo_viaje)">
       <ion-row id="foot" style="padding: 2% 10%;">
         <ion-col>
           <strong>Conductor</strong> <br>
           <div id="circular">
-            <img src="{{item.conductor.fotografia}}">
+            <img
+              [src]="item.adicional.conductor.foto!=null?item.adicional.conductor.foto:'assets/imgs/blank-avatar.png'">
           </div>
         </ion-col>
         <ion-col>
           <br><br>
-          <p>{{item.conductor.nombre}}</p>
-          <p>{{item.conductor.apellido}}</p>
+          <p>{{item.adicional.conductor.primer_nombre|titlecase}} {{item.adicional.conductor.segundo_nombre|titlecase}}
+          </p>
+          <p>{{item.adicional.conductor.primer_apellido|titlecase}}</p>
         </ion-col>
         <ion-col text-right>
           <br>
-          <strong style="font-size: 2rem;">{{item.asientos}}</strong>
+          <strong style="font-size: 2rem;">{{item.adicional.no_personas}}</strong>
           <p> Asientos disponibles</p>
         </ion-col>
       </ion-row>
     </div>
 
   </ion-card>
+
 </ion-content>
