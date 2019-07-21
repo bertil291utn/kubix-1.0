@@ -24,23 +24,27 @@
     <ion-refresher-content pullingIcon="arrow-down" refreshingSpinner="crescent">
     </ion-refresher-content>
   </ion-refresher> -->
-  <ion-card *ngFor="let item of viajes_reservados">
-    <ion-card-content text-center (click)="goToDetails(item.id)">
-      <ion-card-title >
+
+  <h3 style="margin-top: 10%;padding: 5%;" *ngIf="respuesta==0" ion-text text-center color="danger">
+    Todav&iacute;a no has reservado ning&uacute;n viaje</h3>
+
+  <ion-card *ngFor="let item of viajesPubObjectArray">
+    <ion-card-content text-center>
+      <ion-card-title>
         <ion-row>
           <ion-col>
-            {{item.origen}}
+            {{item.origen.short_name}}
           </ion-col>
           <ion-col col-1>
             <ion-icon name="arrow-round-forward" id="arrow" color="iconos"></ion-icon>
           </ion-col>
           <ion-col>
-            {{item.destino}}
+            {{item.destino.short_name}}
           </ion-col>
         </ion-row>
       </ion-card-title>
       <p>
-        {{item.hora}} &nbsp;&nbsp;&nbsp; <strong>{{item.fecha}}</strong>
+        {{item.adicional.hora}} &nbsp;&nbsp;&nbsp; <strong>{{item.adicional.fecha|titlecase}}</strong>
       </p>
       <!-- <ion-badge *ngIf="item.estado === 1" color="aprobado">Aprobado</ion-badge>
       <ion-badge *ngIf="item.estado === 0" color="danger">No aprobado</ion-badge>
@@ -49,20 +53,21 @@
     </ion-card-content>
     <div id="foot">
       <ion-row>
-        <ion-col text-center>
+        <!-- <ion-col text-center>
           <button ion-button round outline color="iconos" icon-start (click)="goToDriver(item.id)">
             <ion-icon name='person'></ion-icon>
             Conductor
           </button>
-        </ion-col>
-        <!-- <ion-col text-center>
-          <button ion-button round outline color="iconos" icon-start (click)="goToDetails(item.id)">
+        </ion-col> -->
+        <ion-col text-center>
+          <button ion-button round outline color="iconos" icon-start (click)="goToDetails(item.adicional.codigo_viaje)">
             <ion-icon name='list-box'></ion-icon>
             Detalles
           </button>
-        </ion-col> -->
+        </ion-col>
         <ion-col text-center>
-          <button ion-button round outline color="iconos" icon-start (click)="canceTravel(item.id)">
+          <button ion-button round outline color="iconos" icon-start
+            (click)="cancelReservaAlert(item.adicional.codigo_viaje,item.adicional.codigo_reserva)">
             <ion-icon name='close'></ion-icon>
             cancelar
           </button>

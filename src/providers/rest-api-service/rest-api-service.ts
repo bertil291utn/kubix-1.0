@@ -36,8 +36,12 @@ export class RestApiServiceProvider {
     return this.makeRequestPost(url);
   }
 
-  public getUsuarioPreferences(): Observable<any> {
-    let url = this.userBasePathUser + 'usuariopreferences?cedula=' + this.myservices.usuarioCedula;
+  public getUsuarioPreferences(conductor?: string): Observable<any> {
+    let url;
+    if (conductor != null || undefined)
+      url = this.userBasePathUser + 'usuariopreferences?cedula=' + conductor;
+    else
+      url = this.userBasePathUser + 'usuariopreferences?cedula=' + this.myservices.usuarioCedula;
     return this.makeRequestGet(url)
   }
 
@@ -63,8 +67,12 @@ export class RestApiServiceProvider {
     return this.makeRequestPut(url, false, data.foto);
   }
 
-  public getVehiculoInfo(): Observable<any> {
-    let url = this.vehiculoBasePathUser + 'informacion?cedula=' + this.myservices.usuarioCedula;
+  public getVehiculoInfo(conductor?: string): Observable<any> {
+    let url;
+    if (conductor != null || undefined)
+      url = this.vehiculoBasePathUser + 'informacion?cedula=' + conductor;
+    else
+      url = this.vehiculoBasePathUser + 'informacion?cedula=' + this.myservices.usuarioCedula;
     return this.makeRequestGet(url);
   }
 
@@ -146,6 +154,18 @@ export class RestApiServiceProvider {
     return this.makeRequestPost(url);
   }
 
+  //GET VIAJES RESERVADOS
+  public getViajesReservados(): Observable<any> {
+    let url = this.rutaBasePathUser + `reserva?cedula=${this.myservices.usuarioCedula}`;
+    return this.makeRequestGet(url);
+  }
+
+  //CANCEL RESERVA DE VIAJES
+
+  public cancelViajesReservados(codigo_viaje: number, codigo_reserva: number): Observable<any> {
+    let url = this.rutaBasePathUser + `reserva?codigo_viaje=${codigo_viaje}&codigo_reserva=${codigo_reserva}`;
+    return this.makeRequestDelete(url);
+  }
 
 
 

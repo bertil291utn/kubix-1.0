@@ -1,7 +1,5 @@
 <ion-header>
   <ion-navbar color="danger" text-center>
-
-
     <ion-buttons end style="margin-right: 2%;">
       <button ion-button (click)="viewCtrl.dismiss();">
         <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
@@ -10,7 +8,7 @@
     <ion-grid>
       <ion-row>
         <ion-col text-left col-5>
-          <ion-buttons start>
+          <ion-buttons start [hidden]="navParams.data.reserva">
             <button ion-button tappable (click)="showAlert()">
               <ion-icon name="information-circle"></ion-icon>
             </button>
@@ -51,7 +49,7 @@
   <div *ngIf="myservices.carExists" style="padding: 0 40px;">
     <br>
     <h4 ion-text text-center>Autom&oacute;vil designado</h4>
-    <ion-row>
+    <ion-row [hidden]="navParams.data.reserva">
       <button small ion-button round color="danger" outline style="font-size:1.1rem;margin:auto;"
         (click)="actionEditButton()" *ngIf="!editarBoton">Editar autom&oacute;vil</button>
     </ion-row><br>
@@ -93,7 +91,8 @@
     <form [formGroup]="contactForm">
       <img *ngIf="preview" id="imgbck" [src]="previewimg">
       <ion-row *ngIf="editarBoton">
-        <img *ngIf="!preview" class="imgbck" [src]="'data:image/png;base64,' +carObject.foto">
+        <img *ngIf="!preview" class="imgbck"
+          [src]="carObject.foto!=null?'data:image/png;base64,' +carObject.foto:'assets/imgs/car_null.png'">
         <button small ion-button round color="primary" clear id="subtitle" (click)="goToCamera()">Cambiar imagen
           autom&oacute;vil</button>
       </ion-row>

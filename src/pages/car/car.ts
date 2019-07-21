@@ -41,7 +41,10 @@ export class CarPage {
 
     console.log('ionViewDidLoad CarPage');
     this.getMarcaModelo();
-    this.getVehiculoInfo();
+    if (this.navParams.data.car != null || undefined)
+      this.getVehiculoInfo(this.navParams.data.car);
+    else
+      this.getVehiculoInfo();
 
     //cargar marca y modelo de auto desde base de datos 
   }
@@ -56,14 +59,14 @@ export class CarPage {
     });
   }
 
-  public getVehiculoInfo() {
+  public getVehiculoInfo(conductor?: string) {
     if (!this.saveEdit) {
       this.loadingControllerSave = this.loadingCtrl.create();
       this.loadingControllerSave.present();
     }
 
     this.myservices.carExists = false;
-    this.apiRestService.getVehiculoInfo().subscribe((resp) => {
+    this.apiRestService.getVehiculoInfo(conductor).subscribe((resp) => {
       if (resp.items[0].placa != null) {
 
         this.myservices.carExists = true;

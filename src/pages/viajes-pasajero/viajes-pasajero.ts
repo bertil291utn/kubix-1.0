@@ -7,6 +7,7 @@ import { searchTravelPasajero } from '../searchTravelPasajero/searchTravelPasaje
 import { RutaProvider } from '../../providers/ruta/ruta';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import * as d3 from "d3-collection";
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -14,7 +15,7 @@ import * as d3 from "d3-collection";
   templateUrl: 'viajes-pasajero.html',
 })
 export class ViajesPasajeroPage {
- 
+
   viajesPubObjectArrayToShow;
   viajesPubObjectArrayOriginal;
   fecha: string;
@@ -49,6 +50,9 @@ export class ViajesPasajeroPage {
         driverObject.primer_apellido = resp.items[0].primer_apellido;
         ruta.adicional.conductor = driverObject;
         //this.viajesPublicadoObject.adicional = this.driverObject;
+        if (resp != null)
+          if (this.loadingCrtlRefresh !== null || undefined)
+            this.loadingCrtlRefresh.dismiss();
       },
         (error) => {
           console.error(error);
@@ -56,7 +60,7 @@ export class ViajesPasajeroPage {
   }
 
   goToSearch() {
-  
+
     let contactModal = this.modalCtrl.create(searchTravelPasajero, { lista_viaje: this.viajesPubObjectArrayOriginal });
     contactModal.onDidDismiss(travel => {
       if (travel != undefined) {
@@ -111,7 +115,7 @@ export class ViajesPasajeroPage {
     for (let obj of this.viajesPubObjectArrayOriginal)
       this.userInfo(obj.adicional.cedula, obj);
     //@param la ceduladel condcutor para la busqueda, y el la posicion en el cual se va a anadir el objecto conductor
-    this.loadingCrtlRefresh.dismiss();
+
     console.log('Object view finishOriginal con condcutor: ', this.viajesPubObjectArrayOriginal);
     //si el array devuelto es mayor a diez entonces cortar a diez par mostrar solo esos diez valores 
     if (this.viajesPubObjectArrayOriginal.length > 10)
@@ -199,7 +203,7 @@ export class ViajesPasajeroPage {
   }
 
 
-  public refreshFindRoutes() { 
+  public refreshFindRoutes() {
 
     this.initVariables();
   }

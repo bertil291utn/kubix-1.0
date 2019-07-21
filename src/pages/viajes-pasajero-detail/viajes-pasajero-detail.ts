@@ -53,7 +53,7 @@ export class ViajesPasajeroDetailPage {
       this.apiRestService.reservaViaje(this.viajedet.adicional.codigo_viaje).subscribe((resp) => {
         console.log('respuesta reserva viaje: ', resp);
         if (resp.respuesta == 200) {
-          this.presentToastDurationTop('Su viaje se ha publicado con \xE9xito', 2000);
+          this.presentToastDurationTop('Su viaje ha sido reservado', 2000);
           //refresh get viajes reservados
           this.viewCtrl.dismiss().then(() => {
             // when this is a modal control

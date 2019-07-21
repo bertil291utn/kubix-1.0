@@ -63,4 +63,16 @@ page-viajes-reserv-detalles {
   #showicon ion-label {
     font-size: 1.4rem;
   }
+
+  .imgbck {
+    width: 100%;
+    display: block;
+    height: auto;
+    border: 0;
+  }
+
+  ion-header .label {
+    margin: unset;
+    color: white;
+  }
 }

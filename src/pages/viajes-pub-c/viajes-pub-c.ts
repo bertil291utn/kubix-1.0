@@ -4,7 +4,7 @@ import { DetRutaCPage } from '../det-ruta-c/det-ruta-c';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import { RutaProvider } from '../../providers/ruta/ruta';
 import * as d3 from "d3-collection";
-import { DatesFormatProvider } from '../../providers/dates-format/dates-format';
+
 
 @Component({
   selector: 'page-viajes-pub-c',
@@ -128,14 +128,14 @@ export class ViajesPubCPage {
   }
 
   public deleteViaje(codigo_viaje) {
-    // let loading = this.loadingCtrl.create();
-    // loading.present();
     this.delete = true;
     this.apiRestService.deleteViajesPublicados(codigo_viaje).subscribe((resp) => {
       console.log('respuesta: ', resp);
-      if (resp.respuesta == 200) {
-        this.getViajesPublicados();
-      }
+      if (resp.respuesta == 200)
+        if (resp.response == 1)
+          this.getViajesPublicados();
+        else
+          this.presentToastDurationBottom('Este viaje ya esta reservado y no puede ser eliminado', 3000);
     });
   }
 

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController, AlertController } from 'ionic-angular';
 import { ViajesReservDetallesPage } from '../viajes-reserv-detalles/viajes-reserv-detalles';
-
+import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
+import { RutaProvider } from '../../providers/ruta/ruta';
+import * as d3 from "d3-collection";
 
 
 @Component({
@@ -9,130 +11,149 @@ import { ViajesReservDetallesPage } from '../viajes-reserv-detalles/viajes-reser
   templateUrl: 'viajes-reser-pasajero.html',
 })
 export class ViajesReserPasajeroPage {
-  viajes_reservados;
-  estado: string;
-  cola: string = "primary";
-  conductor: boolean = false;
+  viajesPubObjectArray;
+  fecha: string;
+  hora: string;
+  loadingCrtlRefresh;
+  respuesta;//para mostrar el lenght de respuesta en el view
+  delete: boolean = false;
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams,
+
+
+  constructor(public navCtrl: NavController, public apiRestService: RestApiServiceProvider, public alertCtrl: AlertController,
+    public navParams: NavParams, public loadingCtrl: LoadingController, public viajesPublicadoObject: RutaProvider,
     public modalCtrl: ModalController) {
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajesReserPasajeroPage');
-    this.viajes_reservados = this.array_viajes()
+    this.getViajesReservados();
+
+  }
+
+  public getViajesReservados() {
+
+    this.loadingCrtlRefresh = this.loadingCtrl.create();
+    this.loadingCrtlRefresh.present();
+    //console.log('string to isostring: ', horatemp.toISOString());//restar menos cinco horas getHours()-5
+    this.apiRestService.getViajesReservados().subscribe((resp) => {
+      this.respuesta = 0;
+      this.respuesta = resp.respuesta.length;
+      console.log('respuesta get viajes pub: ', resp);
+      if (this.respuesta == 0)
+        this.loadingCrtlRefresh.dismiss();
+      let groupByCodViaje = this.setGroup(resp);//agrupamos por cod_viaje la respuesta JSON
+      this.viajesPubObjectArray = [];//declarar el array cada vez que se llama a getviajes ie, esta funcion 
+      for (let obj of groupByCodViaje) {
+        this.viajesPublicadoObject = new RutaProvider();//crear nuevo objeto cada vez qe tenga nuevos viajes
+        let adicional = {//dentro de adicional se anadio el codigo viaje
+          codigo_viaje: +obj.key,
+          codigo_reserva: obj.values[0].cod_reserva,
+          fecha_salida: obj.values[0].fecha_salida,
+          fechastring: obj.values[0].fechastring,
+          descripcion_viaje: obj.values[0].descripcion_viaje,
+          fecha: obj.values[0].fecha,
+          hora: obj.values[0].hora,
+          fotoRuta: obj.values[0].foto_ruta,
+          fotoUbicacion: obj.values[0].foto_ubicacion,
+          cedula: obj.values[0].cedula
+        };
+        this.viajesPublicadoObject.adicional = adicional;
+        this.setViajesObject(obj.values);//designar si es Origen,destino,ubicacion o un place
+      }
+      this.loadingCrtlRefresh.dismiss();
+      // if (this.delete)
+      //   this.presentToastDurationBottom('Viaje eliminado', 2000);
+      console.log('Object view finish: ', this.viajesPubObjectArray);
+    });
   }
 
 
-  doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
-    //mandar a llamar viajes_reservados y refresher complete cuando haya terminado la consulta 
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      refresher.complete();
-    }, 5000);
+  private setGroup(resp: any) {
+    //metodo para agrupar un objeto json
+    let groupByCodViaje = d3.nest()
+      .key((d) => { return d.cod_viaje; })
+      .entries(resp.respuesta);
+    //console.log('d3 grouped: ', groupByCodViaje);
+    return groupByCodViaje;
+  }
+
+  public setViajesObject(ValuesAdicionales) {
+    //metodo para asignar al objeto su Origen,Destino,Ubicacion o Place de acuerdo al campo TIPO 
+    for (let obj of ValuesAdicionales) {
+      let valueObject = {
+        codigo_geo: obj.codigo_geo,
+        lat: obj.lat,
+        lng: obj.lng,
+        short_name: obj.short_name,
+        full_name: obj.full_name,
+        place_id: obj.place_id,
+        waypoints: { location: { lat: obj.lat, lng: obj.lng }, stopover: true }
+      };
+
+      if (obj.tipo === 'O')
+        this.viajesPublicadoObject.origen = valueObject
+      else if (obj.tipo === 'D')
+        this.viajesPublicadoObject.destino = valueObject;
+      else if (obj.tipo === 'U')
+        this.viajesPublicadoObject.puntoEncuentro = valueObject;
+      else
+        this.viajesPublicadoObject.lugares = valueObject;
+
+    }
+    this.viajesPubObjectArray.push(this.viajesPublicadoObject);//anadir  en un array todos los viajes ya elebaorados
   }
 
 
-  doPull(event) {
-    console.log(' doPull event: ', event);
-  }
-
-
-  doStart(event) {
-    console.log('doStart event: ', event);
-  }
-
-
-
-  goToDetails(itemid) {
-
+  goToDetails(codigo_viaje: number) {
+    let travel = this.searchTravel(codigo_viaje, this.viajesPubObjectArray);
     console.log('ir detalles de viajes reservados ');
-    let contactModal = this.modalCtrl.create(ViajesReservDetallesPage, { datos: this.viajes_reservados[itemid - 1], conductor: this.conductor });
+    let contactModal = this.modalCtrl.create(ViajesReservDetallesPage,
+      {
+        datos: travel
+      });
     contactModal.present();
   }
 
-  goToDriver(itemid) {
-    this.conductor = true;
-    let contactModal = this.modalCtrl.create(ViajesReservDetallesPage, { datos: this.viajes_reservados[itemid - 1], conductor: this.conductor });
-    contactModal.present();
-    this.conductor = false;
+  public searchTravel(codigo_viaje: number, arrayObjects) {
+    let viajeFound;
+    for (let obj of arrayObjects) {
+      if (obj.adicional.codigo_viaje == codigo_viaje) {
+        viajeFound = obj;
+        break;
+      }
+    }
+    return viajeFound;
+  }
+
+  public canceTravel(codigo_viaje: number, codigo_reserva: number) {
+    this.apiRestService.cancelViajesReservados(codigo_viaje, codigo_reserva).subscribe((resp) => {
+      console.log('respuesta: ', resp);
+      if (resp.respuesta == 200)
+        this.getViajesReservados();
+    });
+
   }
 
 
-
-
-  private array_viajes() {
-    return [{
-      id: 1,
-      origen: "Ibarra",
-      destino: "UTN Ibarra",
-      hora: "07:00",
-      fecha: "Sab.27 sept.",
-      detalles: {
-        descripcion: "Voy a salir desde mi casa en Caranqui para pasar por los Ceibos y llegar a la universidad por la victoria. Quien sea que este por esa ruta reserve el viaje. Tengo dos asientos disponibles salgo a las 7 de mi casa.",
-        ubicacion: "http://www.elclarinete.com.mx/wp-content/uploads/2017/12/google-maps.png",
-        textoubicacion: "Av, 17 de Julio. Ibarra . Imbabura, Universidad Tecnica del Norte",
-        ruta: "http://www.samtrans.com/Assets/SamTrans/Timetables/RB121/Maps/Route+61_2016_08-07.png",
+  public cancelReservaAlert(codigo_viaje: number, codigo_reserva: number) {
+    const alert = this.alertCtrl.create({
+      title: 'Cancelar',
+      message: '¿Est&aacute; seguro de cancelar este viaje?',
+      buttons: [{
+        text: 'Si',
+        handler: () => {
+          this.canceTravel(codigo_viaje, codigo_reserva);
+        }
       },
-      conductor: {
-        auto: {
-          placa: "PCC0629",
-          modelo: "IBIZA",
-          marca: "SEAT",
-          color: "Negro",
-          imagen: "assets/imgs/01.png"
-        },
-        nombre: "Pepito Adolfo",
-        apellido: "Perez Hitler",
-        fotografia: "assets/imgs/profileOK.jpg",
-        ocupacion: 'Docente',
-        facultad: "FICA",
-        carrera: "Sistemas",
-        genero: "Masculino",
-        telefono: '0984807620',
-        preferencias: { chat: 1, fumar: 3, musica: 3 },
-      },
-      estado: 0
-
-    },
-    {
-      id: 2,
-      origen: "Otavalo",
-      destino: "Ibarra",
-      hora: "08:00",
-      fecha: "Dom.28 oct.",
-      detalles: {
-        descripcion: "2Voy a salir desde mi casa en Caranqui para pasar por los Ceibos y llegar a la universidad por la victoria. Quien sea que este por esa ruta reserve el viaje. Tengo dos asientos disponibles salgo a las 7 de mi casa.",
-        ubicacion: "http://www.elclarinete.com.mx/wp-content/uploads/2017/12/google-maps.png",
-        textoubicacion: "Otavalo, Av  Bolivar, Plaza de ponchos",
-        ruta: "http://www.samtrans.com/Assets/SamTrans/Timetables/RB121/Maps/Route+61_2016_08-07.png",
-      },
-      conductor: {
-        auto: {
-          placa: "XYZ0629",
-          modelo: "FAMILY",
-          color: "Azul",
-          marca: "CHEVROLET",
-          imagen: "assets/imgs/01.png"
-        },
-        nombre: "Maria Jane",
-        apellido: "Juana Parker",
-        fotografia: "https://media.metrolatam.com/2018/08/23/mujer1-234853dc0e0619b7be7317871413304c-1200x800.jpg",
-        ocupacion: 'Docente',
-        facultad: "FCCSS",
-        carrera: "Enfermeria",
-        genero: "Femenino",
-        telefono: '0984807620',
-        preferencias: { chat: 1, fumar: 1, musica: 3 },
-      },
-      estado: 1
-
-    }]
+      {
+        text: 'No',
+        role: 'cancel'
+      }],
+    })
+    alert.present();
   }
-
 
 
 }

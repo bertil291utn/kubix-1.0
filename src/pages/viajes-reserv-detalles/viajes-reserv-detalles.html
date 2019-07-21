@@ -1,24 +1,5 @@
 <ion-header>
-  <ion-navbar *ngIf="conductor" color="danger" text-center>
-    <ion-buttons end style="margin-right: 2%;">
-      <button ion-button (click)="dismiss()">
-        <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-buttons left>
-            <button ion-button icon-only clear>
-              <ion-icon name="person"></ion-icon>
-              <ion-title>conductor</ion-title>
-            </button>
-          </ion-buttons>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-navbar>
-  <ion-navbar *ngIf="!conductor" color="danger" text-center>
+  <ion-navbar color="danger" text-center>
     <ion-buttons end style="margin-right: 2%;">
       <button ion-button (click)="dismiss()">
         <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
@@ -30,10 +11,14 @@
           <ion-icon name="pin" color="light" small></ion-icon>
         </ion-col>
         <ion-col text-left>
-          <ion-title>{{viajedet.origen}}</ion-title>
+          <ion-label>
+            {{viajedet.origen.full_name}}
+          </ion-label>
         </ion-col>
-        <ion-col>
-          <ion-title>{{viajedet.hora}}</ion-title>
+        <ion-col text-center>
+          <ion-label>
+            {{viajedet.adicional.hora}}
+          </ion-label>
         </ion-col>
       </ion-row>
 
@@ -42,22 +27,24 @@
           <ion-icon name="pin" color="light" small></ion-icon>
         </ion-col>
         <ion-col text-left>
-          <ion-title color="light">{{viajedet.destino}}</ion-title>
+          <ion-label>
+            {{viajedet.destino.full_name}}
+          </ion-label>
         </ion-col>
-        <ion-col text-left>
-          <ion-title>{{viajedet.fecha}}</ion-title>
+        <ion-col text-center>
+          <ion-label>
+            {{viajedet.adicional.fecha|titlecase}}
+          </ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>
-
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content *ngIf="!conductor">
+<ion-content *ngIf="!conductor" style="background-color: #f4f4f7;">
 
-  <ion-segment color="danger" [(ngModel)]="detalle">
+  <ion-segment color="danger" [(ngModel)]="detalle" style="background-color: white;">
     <ion-segment-button value="ruta">
       RUTA
     </ion-segment-button>
@@ -67,6 +54,9 @@
     <ion-segment-button value="descripcion">
       DESCRIPCION
     </ion-segment-button>
+    <ion-segment-button value="conductor">
+      conductor
+    </ion-segment-button>
   </ion-segment>
 
   <div [ngSwitch]="detalle">
@@ -75,23 +65,160 @@
       <h5>Descripci&oacute;n del viaje</h5><br>
       <ion-row>
         <ion-col>
-          {{viajedet.detalles.descripcion}}
+          {{viajedet.adicional.descripcion_viaje}}
         </ion-col>
       </ion-row>
     </ion-grid>
     <ion-grid id="ruta" *ngSwitchCase="'ruta'">
-      <img src="{{viajedet.detalles.ruta}}" />
-    </ion-grid>
-    <ion-grid id="ubicacion" *ngSwitchCase="'ubicacion'">
-      <div class="relative">
-        <img src="{{viajedet.detalles.ubicacion}}" />
-        <h6 id="absoluto_title" ion-text text-center>LUGAR DE SALIDA</h6>
-        <p class="absolute-text">{{viajedet.detalles.textoubicacion}}</p>
+      <div style="padding: 0 40px;">
+        <ion-card>
+          <div style="position: relative;">
+            <img [src]="'data:image/png;base64,' +viajedet.adicional.fotoRuta"
+              (click)="viewImage('data:image/png;base64,' +viajedet.adicional.fotoRuta)">
+            <ion-fab right bottom style="right: 4%;">
+              <button ion-fab color="iconos" (click)="viewMap(true)">
+                <ion-icon name="map"></ion-icon>
+              </button>
+            </ion-fab>
+          </div>
+          <ion-card-content>
+            <ion-card-title>Lugares de paso </ion-card-title>
+          </ion-card-content>
+
+          <div text-center style="padding: 0 5% 5% 5%;">
+            <ion-chip *ngFor="let lugares of viajedet.lugares" style="margin:2% 2% 0">
+              <ion-icon name="pin" color="iconos"></ion-icon>
+              <ion-label>{{lugares.short_name}}</ion-label>
+            </ion-chip>
+          </div>
+        </ion-card>
       </div>
     </ion-grid>
-  </div>
+    <ion-grid id="ubicacion" *ngSwitchCase="'ubicacion'">
+      <div style="padding: 0 40px;">
+        <ion-card>
+          <div style="position: relative;">
+            <img [src]="'data:image/png;base64,' +viajedet.adicional.fotoUbicacion"
+              (click)="viewImage('data:image/png;base64,' +viajedet.adicional.fotoUbicacion)">
+            <ion-fab right bottom style="right: 4%;">
+              <button ion-fab color="iconos" (click)="viewMap(false)">
+                <ion-icon name="map"></ion-icon>
+              </button>
+            </ion-fab>
+          </div>
+          <ion-card-content>
+            <ion-card-title>Direcci&oacute;n de ubicaci&oacute;n </ion-card-title>
+          </ion-card-content>
+          <div style="padding: 0 5% 5% 5%;">
+            <ion-chip>
+              <ion-icon name="pin" color="iconos"></ion-icon>
+              <ion-label>{{viajedet.puntoEncuentro.full_name}}</ion-label>
+            </ion-chip>
+          </div>
+        </ion-card>
+      </div>
 
+    </ion-grid>
+
+    <ion-grid *ngSwitchCase="'conductor'">
+      <br><br>
+      <div id="circular">
+        <img class="imgbck"
+          [src]="conductorObject.foto!=null?conductorObject.foto:'assets/imgs/blank-avatar.png'">
+      </div>
+
+      <h4 style="margin-bottom: 1%;" ion-text text-center>{{conductorObject.primer_nombre|titlecase}}
+        {{conductorObject.segundo_nombre|titlecase}}
+        {{conductorObject.primer_apellido|titlecase}}</h4>
+
+      <br>
+
+      <div style="padding: 0px 30px;">
+
+        <ion-card>
+          <ion-card-header>
+            Preferencias
+          </ion-card-header>
+          <ion-card-content style="padding: 0px 13px 0px;">
+            <div text-center>
+              <ion-row id="showicon">
+                <ion-col *ngFor="let obj of preferenciasObjetos">
+                  <ion-label><strong>{{obj.titulo}}</strong></ion-label>
+                  <ion-icon [style.color]="obj.nivel==1?'#e6bcbc':(obj.nivel==2?'#ea6b7c':'red')" [name]="obj.iconos">
+                  </ion-icon>
+                  <ion-label style="font-size: 1rem;">
+                    {{obj.nivel==1?'Nada':(obj.nivel==2?'Poco':'Mucho')}}
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+            </div> <!-- preferencias -->
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header>
+            Informaci&oacute;n personal
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col>
+                <strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{conductorObject.celular}}</strong>
+              </ion-col>
+              <ion-col (click)="sendWhatsapp(conductorObject.celular)">
+                <ion-icon item-start name="logo-whatsapp" color="iconos" style="font-size: 1.6em;"></ion-icon>
+                &nbsp;&nbsp;&nbsp;WhatsApp
+              </ion-col>
+              <ion-col>
+                <a [href]="'tel:'+conductorObject.celular" style="text-decoration:none;color: black;">
+                  <ion-icon item-start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
+                  &nbsp;&nbsp;&nbsp;Llamar
+                </a>
+              </ion-col>
+
+            </ion-row><!-- celular -->
+            <ion-row>
+              <ion-col text-center (click)="goToAuto(true)">
+                <button ion-button icon-start round outline color="iconos">
+                  <ion-icon name="car"></ion-icon>
+                  Veh&iacute;culo
+                </button>
+              </ion-col>
+            </ion-row><!-- auto -->
+          </ion-card-content>
+        </ion-card> <!-- informacion personal -->
+
+        <ion-card>
+          <ion-card-header>
+            Acad&eacute;mico
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col col-4>
+                <p><strong>Ocupaci&oacute;n</strong></p>
+                <p><strong>Facultad</strong></p>
+                <p><strong>Dependencia</strong></p>
+                <!-- mostrar cargo si es diferente de null -->
+                <p><strong>Cargo</strong></p>
+              </ion-col>
+              <ion-col>
+                <p> Docente</p>
+                <p> FICA</p>
+                <p> Sistemas</p>
+              </ion-col>
+            </ion-row> <!-- Dependencia -->
+          </ion-card-content>
+        </ion-card>
+      </div> <!-- group cuando no es editar -->
+    </ion-grid>
+
+
+  </div>
 </ion-content>
+
+
+
+
+
 
 <ion-content *ngIf="conductor">
   <ion-segment color="danger" [(ngModel)]="detalle">
@@ -149,9 +276,9 @@
             <p><strong>Cargo</strong></p>
           </ion-col>
           <ion-col>
-            <p> {{viajedet.conductor.ocupacion}}</p>
-            <p> {{viajedet.conductor.facultad}}</p>
-            <p> {{viajedet.conductor.carrera}}</p>
+            <p> Docente</p>
+            <p> FICA</p>
+            <p> Sistemas</p>
           </ion-col>
         </ion-row>
 

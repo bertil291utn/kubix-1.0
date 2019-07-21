@@ -1,5 +1,5 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
-import { Nav, Platform, AlertController, MenuController, Slides, IonicPage, Events } from 'ionic-angular';
+import { Nav, Platform, AlertController, MenuController, Slides, IonicPage, Events, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -31,11 +31,12 @@ export class MyApp {
   pages: Array<{ title: string, component: any, icono: string }>;
   pages_pas: Array<{ title: string, component: any, icono: string }>;
   mycar: CarPage;
+  loadingCrtlRefresh;
 
   constructor(public platform: Platform, public statusBar: StatusBar, private zone: NgZone,
     public splashScreen: SplashScreen, public myservices: EnvironmentVarService, public event: Events,
     public alertCtrl: AlertController, public apiRestService: RestApiServiceProvider,
-    public menu: MenuController) {
+    public menu: MenuController, public loadingCtrl: LoadingController) {
     this.mycar;
     this.initializeApp();
     // used for an example of ngFor and navigation
@@ -53,6 +54,10 @@ export class MyApp {
 
 
   private userInfo() {
+    if (this.contrasenaExists) {
+      this.loadingCrtlRefresh = this.loadingCtrl.create();
+      this.loadingCrtlRefresh.present();
+    }
     this.apiRestService.getUsuario()
       .subscribe((resp) => {
         if (resp.items[0].foto != null)
@@ -61,6 +66,9 @@ export class MyApp {
         this.myservices.userData.segundo_nombre = resp.items[0].segundo_nombre;
         this.myservices.userData.primer_apellido = resp.items[0].primer_apellido;
         this.myservices.userData.email = resp.items[0].correo_institucional;
+        if (resp != null)
+          if (this.loadingCrtlRefresh != null || undefined)
+            this.loadingCrtlRefresh.dismiss();
       },
         (error) => {
           console.error(error);
