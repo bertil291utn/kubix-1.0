@@ -1,5 +1,7 @@
 <ion-header>
   <ion-navbar color="danger" text-center>
+
+
     <ion-buttons end style="margin-right: 2%;">
       <button ion-button (click)="viewCtrl.dismiss();">
         <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
@@ -7,7 +9,13 @@
     </ion-buttons>
     <ion-grid>
       <ion-row>
-        <ion-col></ion-col>
+        <ion-col text-left col-5>
+          <ion-buttons start>
+            <button ion-button tappable (click)="showAlert()">
+              <ion-icon name="information-circle"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-col>
         <ion-col>
           <ion-buttons left>
             <button ion-button icon-only clear>
@@ -48,7 +56,8 @@
         (click)="actionEditButton()" *ngIf="!editarBoton">Editar autom&oacute;vil</button>
     </ion-row><br>
     <ion-card *ngIf="!editarBoton">
-      <img *ngIf="!preview" class="imgbck" [src]="'data:image/png;base64,' +carObject.foto">
+      <img *ngIf="!preview" class="imgbck"
+        [src]="carObject.foto!=null?'data:image/png;base64,' +carObject.foto:'assets/imgs/car_null.png'">
       <ion-card-content text-center>
         <ion-card-title>{{carObject.placa}}</ion-card-title>
       </ion-card-content>
@@ -123,7 +132,7 @@
 
   <div *ngIf="!myservices.carExists" ion-text text-center>
     <div *ngIf="!addBoton">
-      <ion-icon name="add-circle" id="camara" (click)="addBoton=true;"></ion-icon>
+      <ion-icon name="add-circle" class="camara" (click)="addBoton=true;"></ion-icon>
       <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir datos de su autom&oacute;vil
       </ion-label>
     </div>
@@ -137,7 +146,7 @@
           </ion-row>
         </div>
         <div *ngIf="!preview">
-          <ion-icon name="camera" id="camara" (click)="goToCamera()"></ion-icon>
+          <ion-icon name="camera" class="camara" (click)="goToCamera()"></ion-icon>
           <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir una fotograf&iacute;a de su
             autom&oacute;vil
           </ion-label>

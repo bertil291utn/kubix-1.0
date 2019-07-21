@@ -36,28 +36,11 @@
               monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
               monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"
               dayNames="Domingo, Lunes, Martes , Miercoles, Jueves, Viernes, Sabado"
-              dayShortNames="Dom, Lun, Mar, Mier, Jue, Vie, Sab" displayFormat="DDDD DD, MMM YYYY" [(ngModel)]="fechahoraISO"></ion-datetime>
+              dayShortNames="Dom, Lun, Mar, Mier, Jue, Vie, Sab" displayFormat="DDDD DD, MMM YYYY"
+              [(ngModel)]="fechahoraISO"></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>
-
-      <!-- 
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-icon name="calendar" color="iconos" item-left></ion-icon>
-            <ion-select cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="dia">
-              <ion-option value="1">Lunes</ion-option>
-              <ion-option value="2">Martes</ion-option>
-              <ion-option value="3">Mi&eacute;rcoles</ion-option>
-              <ion-option value="4">Jueves</ion-option>
-              <ion-option value="5">Viernes</ion-option>
-              <ion-option value="6">S&aacute;bado</ion-option>
-              <ion-option value="7">Domingo</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row> -->
 
       <ion-row>
         <ion-col>
@@ -80,7 +63,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-row>
+      <!-- <ion-row>
         <ion-col>
           <ion-item>
             <ion-label id="pasajero">No. pasajeros</ion-label>
@@ -92,7 +75,7 @@
             </ion-select>
           </ion-item>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
 
 
 
@@ -112,8 +95,7 @@
         <ion-col>
           <ion-item>
             <ion-label id="descripcion" stacked>Descripci&oacute;n adicional</ion-label>
-            <ion-textarea rows="6" cols="20" color="danger" [(ngModel)]="descripcion" 
-              placeholder="Ingrese el punto de reunion de forma especifica y algo adicional que usted crea conveniente. 
+            <ion-textarea rows="6" cols="20" color="danger" [(ngModel)]="descripcion" placeholder="Ingrese el punto de reunion de forma especifica y algo adicional que usted crea conveniente. 
               \nEjemplo: Parqueadero FICA, FACAE. Terminal puerta principal,...\n Me demoro en el terminal 10 minutos">
             </ion-textarea>
           </ion-item>

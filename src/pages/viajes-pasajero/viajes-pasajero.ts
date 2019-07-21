@@ -14,8 +14,7 @@ import * as d3 from "d3-collection";
   templateUrl: 'viajes-pasajero.html',
 })
 export class ViajesPasajeroPage {
-  lista_viaje;
-
+ 
   viajesPubObjectArrayToShow;
   viajesPubObjectArrayOriginal;
   fecha: string;
@@ -57,18 +56,15 @@ export class ViajesPasajeroPage {
   }
 
   goToSearch() {
-    //vovler a traer de nuev de la base de datos todos los viajes
-    //para enviar al search y para devolver en el ondismiss
-    this.lista_viaje = this.viajes_disponibles();
-    let contactModal = this.modalCtrl.create(searchTravelPasajero, { lista_viaje: this.lista_viaje });
-    contactModal.onDidDismiss(data => {
-      if (data != undefined) {
-        this.lista_viaje = this.searchMatchTravels(data);
+  
+    let contactModal = this.modalCtrl.create(searchTravelPasajero, { lista_viaje: this.viajesPubObjectArrayOriginal });
+    contactModal.onDidDismiss(travel => {
+      if (travel != undefined) {
+        this.viajesPubObjectArrayToShow = this.searchMatchTravels(travel);
         //console.log('data es despues de dismis: ', data);
       }
     });
     contactModal.present();
-    //this.navCtrl.push(searchTravelPasajero, { lista_viaje: this.lista_viaje });
   }
 
 
@@ -181,75 +177,32 @@ export class ViajesPasajeroPage {
   }
 
 
-  searchMatchTravels(placeid: string) {
+  searchMatchTravels(travel: any) {
     let arrayMatchTravels = [];
     let viaje;
-    //revisar toda la lsita devijes de desde la bae de datos 
-    for (viaje of this.lista_viaje)
-      //elegir el array de lugares de ese viaje
-      for (let lugares of viaje.lugares)
-        //comparar en el valor con el parametro pasado 
-        if (lugares.placeid == placeid)
-          //si conincide anadir el viaje al array temporal
+
+    if (travel.place_id == null || '') {
+      for (viaje of this.viajesPubObjectArrayOriginal)
+        if (viaje.origen.codigo_geo == travel.codigo_geo || viaje.destino.codigo_geo == travel.codigo_geo)
           arrayMatchTravels.push(viaje);
+    } else
+      //revisar toda la lsita devijes de desde la bae de datos 
+      for (viaje of this.viajesPubObjectArrayOriginal)
+        //elegir el array de lugares de ese viaje
+        for (let lugares of viaje.lugares)
+          //comparar en el valor con el parametro pasado 
+          if (lugares.place_id == travel.place_id)
+            //si conincide anadir el viaje al array temporal
+            arrayMatchTravels.push(viaje);
     //devolver el array de viajes 
     return arrayMatchTravels;
   }
 
 
+  public refreshFindRoutes() { 
 
-  private viajes_disponibles() {
-    return [{
-      id: 1,
-      origen: "Ibarra",
-      destino: "UTN Ibarra",
-      hora: "07:00",
-      descripcion: "Voy a salir desde mi casa en Caranqui para pasar por los Ceibos y llegar a la universidad por la victoria. Quien sea que este por esa ruta reserve el viaje. Tengo dos asientos disponibles salgo a las 7 de mi casa.",
-      ubicacion: "http://www.elclarinete.com.mx/wp-content/uploads/2017/12/google-maps.png",
-      textoubicacion: "Av, 17 de Julio. Ibarra . Imbabura, Universidad Tecnica del Norte",
-      ruta: "http://www.samtrans.com/Assets/SamTrans/Timetables/RB121/Maps/Route+61_2016_08-07.png",
-      conductor: {
-        nombre: "Pepito Adolfo",
-        apellido: "Perez Hitler",
-        fotografia: "assets/imgs/profileOK.jpg",
-        facultad: "FICA",
-        carrera: "Sistemas",
-        genero: "Masculino"
-      },
-      asientos: 1,
-      lugares: [
-        { id: 0, placeid: 'fgghrydh47464h4ueed4ydh1', nombreCorto: 'BOla amarilla', nombreExtenso: '1Avenida hfhshfshdkjfewoyu hjsdhfsjf' },
-        { id: 1, placeid: 'fgghrydh47464h4ueed4ydh2', nombreCorto: 'Parque Ciudad blanca', nombreExtenso: '1ibarra  hjsdhfsjf' },
-        { id: 2, placeid: 'fgghrydh47464h4ueed4ydh3', nombreCorto: 'Parque Pedro moncayo', nombreExtenso: '1Panamericana Norte hjsdhfsjf' }]
-
-
-    },
-    {
-      id: 2,
-      origen: "Otavalo",
-      destino: "Ibarra",
-      hora: "08:00",
-      descripcion: "2Voy a salir desde mi casa en Caranqui para pasar por los Ceibos y llegar a la universidad por la victoria. Quien sea que este por esa ruta reserve el viaje. Tengo dos asientos disponibles salgo a las 7 de mi casa.",
-      ubicacion: "http://www.elclarinete.com.mx/wp-content/uploads/2017/12/google-maps.png",
-      textoubicacion: "Otavalo, Av  Bolivar, Plaza de ponchos",
-      ruta: "http://www.samtrans.com/Assets/SamTrans/Timetables/RB121/Maps/Route+61_2016_08-07.png",
-      conductor:
-      {
-        nombre: "Maria Jane",
-        apellido: "Juana Parker",
-        fotografia: "https://media.metrolatam.com/2018/08/23/mujer1-234853dc0e0619b7be7317871413304c-1200x800.jpg",
-        facultad: "FCCSS",
-        carrera: "Enfermeria",
-        genero: "Femenino"
-      },
-      asientos: 2,
-      lugares: [
-        { id: 0, placeid: 'fgghrydh47464h4ueed4ydh2', nombreCorto: 'Parque Ciudad blanca', nombreExtenso: 'Avenida hfhshfshdkjfewoyu hjsdhfsjf' },
-        { id: 1, placeid: 'fgghrydh47464h4ueed4ydh3', nombreCorto: 'Parque Pedro moncayo', nombreExtenso: 'ibarra  hjsdhfsjf' },
-        { id: 2, placeid: 'fgghrydh47464h4ueed4ydh6', nombreCorto: 'Parque el avion', nombreExtenso: 'Panamericana Norte hjsdhfsjf' }]
-    }]//return viajes disponibles
-  }//function end
-
+    this.initVariables();
+  }
 
 
 }

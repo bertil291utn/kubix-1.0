@@ -51,7 +51,7 @@ export class ViajesConductorPage {
     this.adicionalObject.foto_ubicacion = this.routeCreate.adicional.foto_ubicacion;
 
     this.adicionalObject.fecha = this.fechahoraISO;
-    this.adicionalObject.personas = this.pasajero;
+    //this.adicionalObject.personas = this.pasajero;
     this.adicionalObject.descripcion = this.descripcion;
     this.routeCreate.adicional = this.adicionalObject;
 

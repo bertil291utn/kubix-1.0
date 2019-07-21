@@ -8,35 +8,43 @@ declare var google;
   templateUrl: 'searchTravelPasajero.html',
 })
 export class searchTravelPasajero {
-  allTravelItems;
+  allTravelItems = [];
   filteredItems;
   query;
   lista_viaje;
   toastLugares;
-
-
+  eventSalgoTouniversidad: boolean = false;
+  autocomplete = { input: '' };//para un search bar tiene que la variable tipo objeto 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, public routeCreate: RutaProvider,
     private zone: NgZone, public toastCtrl: ToastController
   ) {
 
-    console.log('this.filtereditems: ', this.filteredItems)
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchTravelPasajero');
-    this.presentToastDurationTop('Seleccione un lugar de destino.', 3000);
+    //this.presentToastDurationBottom('¿D\xF3nde te encuentras?', 2000);
+    console.log('this.navParams.data.lista_viaje: ', this.navParams.data.lista_viaje);
     this.allTravelItems = this.initializeItems(this.navParams.data.lista_viaje);
+    this.addOrigenDestino();
+
   }
 
 
   initializeItems(arrayViajesDisponibles) {
     let arrayinitializeItems = [];
     for (let obj of arrayViajesDisponibles)
-      arrayinitializeItems = arrayinitializeItems.concat(obj.lugares);
-    return this.removeDuplicateObjectArray(arrayinitializeItems, 'placeid');
+      if (!this.eventSalgoTouniversidad) {
+        if (obj.destino.lat == 0.3581583)
+          arrayinitializeItems = arrayinitializeItems.concat(obj.lugares);
+      } else
+        if (obj.origen.lat == 0.3581583)
+          arrayinitializeItems = arrayinitializeItems.concat(obj.lugares);
+
+    return this.removeDuplicateObjectArray(arrayinitializeItems, 'place_id');
 
   }
 
@@ -64,7 +72,7 @@ export class searchTravelPasajero {
     if (this.query && this.query.trim() != '') {
       this.filteredItems = this.filteredItems.filter((item) => {
         //console.log('item: ', item)
-        return (item.nombreCorto.toLowerCase().indexOf(this.query.toLowerCase()) > -1);
+        return (item.short_name.toLowerCase().indexOf(this.query.toLowerCase()) > -1);
       })
     }
 
@@ -72,11 +80,11 @@ export class searchTravelPasajero {
 
 
 
-  selectSearchResult(item) {
-    console.log('item: ', item);
+  selectSearchResult(travel) {
+    console.log('item: ', travel);
     //item.placeid enviar este valor para busqueda
-   // this.toastDismiss();
-    this.viewCtrl.dismiss(item.placeid);
+    // this.toastDismiss();
+    this.viewCtrl.dismiss(travel);
   }
 
 
@@ -88,19 +96,37 @@ export class searchTravelPasajero {
     });
     this.toastLugares.present();
   }
-  presentToastDurationTop(message, duration) {
+
+
+  presentToastDurationBottom(message, duration) {
     let toast = this.toastCtrl.create({
       message: message,
-      position: 'top',
+      position: 'bottom',
       duration: duration
     });
     toast.present();
   }
 
 
+  activatechangeMode(event) {
+    this.query = '';
+    this.autocomplete.input = '';
+    console.log(event)
+    this.eventSalgoTouniversidad = event;
+    this.addOrigenDestino();
+  }
+
+  public addOrigenDestino() {
+    this.allTravelItems = [];
+    this.allTravelItems = this.initializeItems(this.navParams.data.lista_viaje);//volver a asignar los places 
+    //!eventSalgoTouniversidad= ORIGEN caso contratio DESTINO
+    for (let obj of this.navParams.data.lista_viaje)
+      if (!this.eventSalgoTouniversidad) {
+        if (obj.origen.lat != 0.3581583)//lat de universidad poner este mismo en la bd
+          this.allTravelItems.push(obj.origen);
+      } else if (obj.destino.lat != 0.3581583)
+        this.allTravelItems.push(obj.destino);
+  }
 
 
-
-
-
-}
+}//end class

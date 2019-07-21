@@ -71,7 +71,7 @@ export class DetRutaCPage {
     contactModal.present();
   }
 
-  public viewImgae(source) {
+  public viewImage(source) {
     this.photoViewer.show(source);
     //'https://www.ruta0.com/pix/una-ruta.jpg'
   }

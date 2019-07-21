@@ -20,7 +20,7 @@
 </ion-header>
 
 <ion-content>
-  <h3 style="margin-top: 10%;" *ngIf="respuesta==0" ion-text text-center color="danger">Todav&iacute;a no has publicado
+  <h3 style="margin-top: 10%;padding: 5%;" *ngIf="respuesta==0" ion-text text-center color="danger">Todav&iacute;a no has publicado
     ning&uacute;n viaje</h3>
   <ion-card *ngFor="let item of viajesPubObjectArray" [hidden]="respuesta==0">
     <ion-card-content text-center>

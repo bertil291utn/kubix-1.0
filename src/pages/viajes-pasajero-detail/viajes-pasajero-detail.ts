@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController, App, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, App, ModalController, ToastController, LoadingController } from 'ionic-angular';
 import { ViajesReserPasajeroPage } from '../viajes-reser-pasajero/viajes-reser-pasajero';
 import { ViewMapDetallesPage } from '../view-map-detalles/view-map-detalles';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 
 
 
@@ -16,10 +18,11 @@ export class ViajesPasajeroDetailPage {
   terminos: boolean;
   mensaje: boolean = false;
   evento: boolean = false;
+  loadingCrtlRefresh;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public viewCtrl: ViewController,public modalCtrl: ModalController,
-    public alertCtrl: AlertController,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController,
+    public viewCtrl: ViewController, public modalCtrl: ModalController, public apiRestService: RestApiServiceProvider,
+    public alertCtrl: AlertController, private photoViewer: PhotoViewer, public loadingCtrl: LoadingController,
     private app: App) {
     this.viajedet = navParams.get('datos');
     this.fechamsg = navParams.get('fecha');
@@ -27,7 +30,10 @@ export class ViajesPasajeroDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajesPasajeroDetailPage');
+    console.log('viajedet: ', this.viajedet);
   }
+
+
   verificar(event) {
     this.evento = event;
     if (event)
@@ -39,12 +45,27 @@ export class ViajesPasajeroDetailPage {
     contactModal.present();
   }
 
-  showAlert() {
+  goToReservar() {
+    this.loadingCrtlRefresh = this.loadingCtrl.create();
+    this.loadingCrtlRefresh.present();
     //revisar si acepta los terminos est marcado
     if (this.evento)
-      this.createAlert();
-    else
+      this.apiRestService.reservaViaje(this.viajedet.adicional.codigo_viaje).subscribe((resp) => {
+        console.log('respuesta reserva viaje: ', resp);
+        if (resp.respuesta == 200) {
+          this.presentToastDurationTop('Su viaje se ha publicado con \xE9xito', 2000);
+          //refresh get viajes reservados
+          this.viewCtrl.dismiss().then(() => {
+            // when this is a modal control
+            this.app.getRootNav().setRoot(ViajesReserPasajeroPage);
+          })
+          this.loadingCrtlRefresh.dismiss();
+        }
+      });
+    else {
       this.mensaje = true
+      this.loadingCrtlRefresh.dismiss();
+    }
 
     //guarda vije reservado en base de datos 
   }
@@ -69,5 +90,20 @@ export class ViajesPasajeroDetailPage {
   dismiss() {
     this.viewCtrl.dismiss();
   }
+
+  public viewImage(source) {
+    this.photoViewer.show(source);
+    //'https://www.ruta0.com/pix/una-ruta.jpg'
+  }
+
+  presentToastDurationTop(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: 'top',
+      duration: duration
+    });
+    toast.present();
+  }
+
 
 }

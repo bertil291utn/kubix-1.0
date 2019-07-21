@@ -3,6 +3,11 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-buttons end style="margin-right: 2%;">
+      <button ion-button (click)="refreshFindRoutes();">
+        <ion-icon slot="icon-only" name="refresh" style="font-size: 1.8em;"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-grid>
       <ion-row>
         <ion-col col-3></ion-col>
@@ -23,11 +28,11 @@
 
 
 <ion-content>
-  <h3 style="margin-top: 10%;" *ngIf="respuesta==0" ion-text text-center color="danger">
+  <h3 style="margin-top: 10%;padding: 5%;" *ngIf="respuesta==0" ion-text text-center color="danger">
     Todav&iacute;a no hay ning&uacute;n viaje disponible para este d&iacute;a</h3>
 
 
-  <ion-fab style="margin: 10% 5%;" right bottom (click)="goToSearch()" [hidden]="respuesta==0">
+  <ion-fab right bottom (click)="goToSearch()" [hidden]="respuesta==0">
     <button ion-fab color="danger">
       <ion-icon name="search"></ion-icon>
     </button>

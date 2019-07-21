@@ -7,7 +7,7 @@
         </ion-col>
         <ion-col text-left>
           <ion-label>
-            {{viajedet.origen.short_name}}
+            {{viajedet.origen.full_name}}
           </ion-label>
         </ion-col>
         <ion-col text-center>
@@ -23,7 +23,7 @@
         </ion-col>
         <ion-col text-left>
           <ion-label>
-            {{viajedet.destino.short_name}}
+            {{viajedet.destino.full_name}}
           </ion-label>
         </ion-col>
         <ion-col text-center>
@@ -77,7 +77,8 @@
         <br>
         <h4 ion-text text-center>Autom&oacute;vil designado</h4><br>
         <ion-card>
-          <img class="imgbck" [src]="'data:image/png;base64,' +carObject.foto">
+          <img class="imgbck"
+            [src]="carObject.foto!=null?'data:image/png;base64,' +carObject.foto:'assets/imgs/car_null.png'">
           <ion-card-content>
             <ion-card-title text-center>{{carObject.placa}}</ion-card-title>
           </ion-card-content>
@@ -116,7 +117,7 @@
         <ion-card>
           <div style="position: relative;">
             <img [src]="'data:image/png;base64,' +viajedet.adicional.fotoUbicacion"
-              (click)="viewImgae('data:image/png;base64,' +viajedet.adicional.fotoUbicacion)">
+              (click)="viewImage('data:image/png;base64,' +viajedet.adicional.fotoUbicacion)">
             <!-- <ion-fab right bottom style="right: 4%;">
               <button ion-fab color="iconos" (click)="viewMap(false)">
                 <ion-icon name="map"></ion-icon>

@@ -33,7 +33,7 @@ export class CarPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fb: FormBuilder, public loadingCtrl: LoadingController,
     public viewCtrl: ViewController, public alertController: AlertController, public apiRestService: RestApiServiceProvider,
-    private camera: Camera, public myservices: EnvironmentVarService) {
+    private camera: Camera, public myservices: EnvironmentVarService, public alertCtrl: AlertController) {
     this.initForm();
   }
 
@@ -128,9 +128,15 @@ export class CarPage {
     console.log('enviar a bas e datos los datos del automovil de esta persona ')
     //let var =exists base de datos = revisar en la base de datos si existe automovil
     //if(var)
-    this.addBoton = false;
+
     console.log('this.contactForm.value: ', this.contactForm.value);
+    if ((this.contactForm.value.placa == null || undefined) ||
+      (this.contactForm.value.color == null || undefined) ||
+      (this.contactForm.value.modelo == null || undefined))
+      this.enterAlert();
     this.apiRestService.updateAutomovil(this.contactForm.value).subscribe((resp) => {
+      if (resp.respuesta == 200)
+        this.addBoton = false;
       console.log('resp update automiv: ', resp);
       this.getVehiculoInfo();//refresh data
     }, (error) => { console.log('error: ', error) });
@@ -149,6 +155,22 @@ export class CarPage {
     if (this.editarBoton)
       this.editarBoton = false;
 
+  }
+
+  private enterAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Datos incompletos',
+      message: 'Revise que haya ingresado todos los datos.<br> La foto puede actualizar despu&eacute;s',
+      buttons: [{
+        text: 'OK',
+        role: 'cancel',
+        handler: () => {
+          if (this.loadingControllerSave != null || undefined)
+            this.loadingControllerSave.dismiss();
+        }
+      }]
+    })
+    alert.present()
   }
 
 
@@ -216,6 +238,16 @@ export class CarPage {
         this.previewimg = 'data:image/png;base64,' + imgUrl;
       }
     });
+  }
+
+
+  showAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'Fotograf&iacute;a del auto',
+      message: '<img src="assets/imgs/auto_model.jpg"><br>La fotograf&iacutea debe ser visible tanto frontal como lateral.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 

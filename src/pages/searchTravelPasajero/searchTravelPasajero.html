@@ -11,16 +11,53 @@
 
 
 <ion-content padding>
-  <ion-searchbar (ionInput)="getItems($event)" placeholder="Ejemplo: Parque Pedro Moncayo o Terminal Terrestre Ibarra"
-    color="danger"></ion-searchbar>
+
+  <p text-center style="font-size: 1.8rem;"><strong>
+      ¿D&oacute;nde te encuentras?
+    </strong> </p>
+  <ion-row style="padding: 20px;">
+    <ion-col text-center>Fuera de la universidad</ion-col>
+    <ion-toggle [(ngModel)]="radiobtn" color="danger" (ngModelChange)="activatechangeMode($event)"></ion-toggle>
+    <ion-col text-center>En la universidad</ion-col>
+  </ion-row>
+
+  <!-- <h5 text-center style="margin: 10px 0px 20px 0px;">
+    {{!eventSalgoTouniversidad?'Or&iacute;genes':'Destinos'}} y lugares de paso</h5> -->
+
+  <ion-searchbar style="margin-bottom: 20px;" (ionInput)="getItems($event)" [(ngModel)]="autocomplete.input"
+    placeholder="Ejemplo: Parque Pedro Moncayo o Terminal Terrestre Ibarra" color="danger"></ion-searchbar>
+
+  <p text-center [hidden]="filteredItems!=undefined&&filteredItems.length==0"><strong>
+      Elige un lugar donde tu colega universitario te puede
+      {{!eventSalgoTouniversidad?'recoger':'dejar'}}
+    </strong> </p>
+
+  <ion-label style="margin: 10px;" *ngIf="filteredItems!=undefined&&filteredItems.length==0"
+    [hidden]="autocomplete.input==''" color="danger">
+    No hay ninguna ruta que se dirija a este sitio o intente con otro nombre</ion-label>
+
   <ion-list *ngIf="query && query.trim() != ''">
     <ion-item no-lines *ngFor="let item of filteredItems" tappable (click)="selectSearchResult(item)">
       <ion-icon name="pin" item-start small color="iconos"></ion-icon>
-      <h2>{{ item.nombreCorto }}</h2>
-      <p style="font-size: 0.7em !important;">{{item.nombreExtenso}}</p>
+      <h2>{{ item.short_name }}</h2>
+      <p style="font-size: 0.7em !important;">{{item.full_name}}</p>
     </ion-item>
   </ion-list>
-  <ion-label *ngIf="filteredItems!=undefined&&filteredItems.length==0" color="danger">No hay ning&uacute;n viaje
-    agendado con este sitio o
-    intente con otro nombre</ion-label>
+
+  <h3 style="margin-top: 30%;" *ngIf="allTravelItems.length==0" ion-text text-center color="danger">
+    No hay rutas que {{!eventSalgoTouniversidad?'viajen a':'salgan de'}} la universidad</h3>
+
+  <div [hidden]="query && query.trim() != ''">
+    <ion-list>
+      <ion-item no-lines *ngFor="let item of allTravelItems" tappable (click)="selectSearchResult(item)">
+        <ion-icon name="pin" item-start small color="iconos"></ion-icon>
+        <h2>{{ item.short_name }}</h2>
+        <p style="font-size: 0.7em !important;">{{item.full_name}}</p>
+      </ion-item>
+    </ion-list>
+  </div>
+
+
+
+
 </ion-content>

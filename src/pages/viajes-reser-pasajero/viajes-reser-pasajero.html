@@ -25,8 +25,8 @@
     </ion-refresher-content>
   </ion-refresher> -->
   <ion-card *ngFor="let item of viajes_reservados">
-    <ion-card-content text-center>
-      <ion-card-title>
+    <ion-card-content text-center (click)="goToDetails(item.id)">
+      <ion-card-title >
         <ion-row>
           <ion-col>
             {{item.origen}}
@@ -55,10 +55,16 @@
             Conductor
           </button>
         </ion-col>
-        <ion-col text-center>
+        <!-- <ion-col text-center>
           <button ion-button round outline color="iconos" icon-start (click)="goToDetails(item.id)">
             <ion-icon name='list-box'></ion-icon>
             Detalles
+          </button>
+        </ion-col> -->
+        <ion-col text-center>
+          <button ion-button round outline color="iconos" icon-start (click)="canceTravel(item.id)">
+            <ion-icon name='close'></ion-icon>
+            cancelar
           </button>
         </ion-col>
       </ion-row>

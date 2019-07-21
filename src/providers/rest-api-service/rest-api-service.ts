@@ -92,7 +92,7 @@ export class RestApiServiceProvider {
 
   // PUBLICAR VIAJE CONDUCTOR
   public insertarViaje(data: any): Observable<any> {
-    let url = this.rutaBasePathUser + `publicacion?fecha=${data.fecha}&descripcion=${data.descripcion}&personas=${data.personas}&cedula=${this.myservices.usuarioCedula}`;
+    let url = this.rutaBasePathUser + `publicacion?fecha=${data.fecha}&descripcion=${data.descripcion}&cedula=${this.myservices.usuarioCedula}`;
     return this.makeRequestPost(url, data.foto_ruta);
   }
 
@@ -138,6 +138,17 @@ export class RestApiServiceProvider {
     let url = this.rutaBasePathUser + 'viajesdiarios';
     return this.makeRequestGet(url);
   }
+
+  //RESERVA VIAJES 
+
+  public reservaViaje(codigo_viaje: number): Observable<any> {
+    let url = this.rutaBasePathUser + `reserva?codigo_viaje=${codigo_viaje}&cedula=${this.myservices.usuarioCedula}`;
+    return this.makeRequestPost(url);
+  }
+
+
+
+
 
 
   // //GET VIAJES PUBLICADOS DETALLES
