@@ -42,7 +42,7 @@ export class EnvironmentVarService {
     this._profileExists = value;
   }
 
-  private _userData = { foto: null, primer_nombre: null, segundo_nombre: null, primer_apellido: null, email: null, celular: null };
+  private _userData = { foto: null, primer_nombre: null, segundo_nombre: null, primer_apellido: null, email: null, celular: null, dependencia: null };
   public get userData() {
     return this._userData;
   }

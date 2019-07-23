@@ -48,6 +48,7 @@ export class PerfilPage {
   ionViewDidLoad() {
     this.getPreferencesUser();
     this.getUserInfo();
+    this.getDependencias();
 
     this.conductor = this.myservices.conductor;
     //this.carExists = this.myservices.carExists;
@@ -85,6 +86,14 @@ export class PerfilPage {
         (error) => {
           console.error(error);
         });
+  }
+
+  public getDependencias() {
+    this.apiRestService.getDependencias().subscribe((resp) => {
+      this.myservices.userData.dependencia = resp.items[0].tipo_persona;
+      console.log('dependeicas: ', this.myservices.userData.dependencia);
+    });
+
   }
 
 

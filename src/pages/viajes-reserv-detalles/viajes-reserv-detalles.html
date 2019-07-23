@@ -123,8 +123,7 @@
     <ion-grid *ngSwitchCase="'conductor'">
       <br><br>
       <div id="circular">
-        <img class="imgbck"
-          [src]="conductorObject.foto!=null?conductorObject.foto:'assets/imgs/blank-avatar.png'">
+        <img class="imgbck" [src]="conductorObject.foto!=null?conductorObject.foto:'assets/imgs/blank-avatar.png'">
       </div>
 
       <h4 style="margin-bottom: 1%;" ion-text text-center>{{conductorObject.primer_nombre|titlecase}}
@@ -192,20 +191,7 @@
             Acad&eacute;mico
           </ion-card-header>
           <ion-card-content>
-            <ion-row>
-              <ion-col col-4>
-                <p><strong>Ocupaci&oacute;n</strong></p>
-                <p><strong>Facultad</strong></p>
-                <p><strong>Dependencia</strong></p>
-                <!-- mostrar cargo si es diferente de null -->
-                <p><strong>Cargo</strong></p>
-              </ion-col>
-              <ion-col>
-                <p> Docente</p>
-                <p> FICA</p>
-                <p> Sistemas</p>
-              </ion-col>
-            </ion-row> <!-- Dependencia -->
+            {{conductorObject.dependencias}}
           </ion-card-content>
         </ion-card>
       </div> <!-- group cuando no es editar -->

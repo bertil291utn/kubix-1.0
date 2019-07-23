@@ -12,7 +12,7 @@ export class RestApiServiceProvider {
   vehiculoBasePathUser = 'vehiculos/';
   lugarGeoBasePathUser = 'lugargeo/';
   rutaBasePathUser = 'ruta/';
-
+  mainBasePathAlt = 'http://cloud1.utn.edu.ec:9071/ords/acad_micoa5/apk/';
 
   constructor(public http: HttpClient, public myservices: EnvironmentVarService) {
     console.log('Hello RestApiServiceProvider Provider');
@@ -167,8 +167,24 @@ export class RestApiServiceProvider {
     return this.makeRequestDelete(url);
   }
 
+  //LOGIN
+
+  public getLogin(data: any): Observable<any> {
+    let url = `login?id=${data.username}&pw=${data.password}`;
+    return this.makeRequestGetAlterno(url);
+  }
 
 
+  //DEPENDECIAS
+
+  public getDependencias(conductor?: string): Observable<any> {
+    let url;
+    if (conductor != null || undefined)
+      url = `get_info_persona/${conductor}`;
+    else
+      url = `get_info_persona/${this.myservices.usuarioCedula}`;
+    return this.makeRequestGetAlterno(url);
+  }
 
 
   // //GET VIAJES PUBLICADOS DETALLES
@@ -191,6 +207,10 @@ export class RestApiServiceProvider {
 
   private makeRequestGet(url: string) {
     return this.http.get(this.mainBasePath + url, { responseType: 'json' });
+  }
+
+  private makeRequestGetAlterno(url: string) {
+    return this.http.get(this.mainBasePathAlt + url, { responseType: 'json' });
   }
 
   private makeRequestDelete(url: string) {

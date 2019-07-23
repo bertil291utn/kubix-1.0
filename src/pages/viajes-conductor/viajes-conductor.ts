@@ -83,18 +83,25 @@ export class ViajesConductorPage {
           this.apiRestService.insertarLugaresGeoViaje(this.routeCreate.puntoEncuentro, resp.cod_viaje, 'U').subscribe((resp) => {
             console.log('respuesta ingreso ubicacion: ', resp);
             //if se guardaron los datos motrart el toast 
-            if (resp.respuesta == 200) {
-              this.presentToastDurationTop('Su viaje se ha publicado con \xE9xito', 2000);
-              this.resetRouteValues();//despues de haber guardado reiniciar valores
-              this.navCtrl.setRoot(ViajesPubCPage);
-              this.loadingCrtlRefresh.dismiss();
-            }
+
           });
           //PLACES
+          let index = 1;
           for (let obj of this.routeCreate.lugares) {
             this.apiRestService.insertarLugaresGeoViaje(obj, resp.cod_viaje, 'P').subscribe((resp) => {
               console.log('respuesta ingreso places: ', resp);
+              if (index == this.routeCreate.lugares.length) {
+                if (resp.respuesta == 200) {
+                  this.presentToastDurationTop('Su viaje se ha publicado con \xE9xito', 2000);
+                  this.resetRouteValues();//despues de haber guardado reiniciar valores
+                  this.navCtrl.setRoot(ViajesPubCPage);
+                  this.loadingCrtlRefresh.dismiss();
+                }
+              }
+              index++;
             });
+
+
           }
         }
       });

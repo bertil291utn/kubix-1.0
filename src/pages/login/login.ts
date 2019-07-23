@@ -39,28 +39,34 @@ export class LoginPage {
       content: 'Iniciando sesi&oacute;n...'
     });
     loading.present();
-    //this.usuario = this.usuario.substring(1);//remove first character
-    let userData = { username: this.usuario, pass: this.password }
-    let val = true;//devuelve el api si es cooresto o no
-    //si coinciden credenciales enviar al home caso contrario se aciva la variable error para el template de error
-    //let val=rest.api.verCredenciales(user,pass);s
-    if (val) {
-      this.authService.login(userData, this.usuario).then(() => {
-        this.verificarTabUsuario();
-        this.userInfo();
-        //this.storage.set('userid', this.usuario);
-        // this.myservices.usuarioCedula = this.usuario;
-        this.navCtrl.setRoot(HomePage);
-      }, err => {
-        console.log('Ha ocurrido un error al inciar sesión.');
-      });
+    let userData = { username: this.usuario, password: this.password }
+    this.apiRestService.getLogin(userData).subscribe((resp) => {
+      let val = resp.value;
+      if (val == 'TRUE')
+        val = true;
+      else if (val == 'FALSE')
+        val = false;
+      //devuelve el api si es cooresto o no
+      //si coinciden credenciales enviar al home caso contrario se aciva la variable error para el template de error
+      //let val=rest.api.verCredenciales(user,pass);s
+      if (val) {
+        this.authService.login(userData, this.usuario).then(() => {
+          this.verificarTabUsuario();
+          this.userInfo();
+          //this.storage.set('userid', this.usuario);
+          // this.myservices.usuarioCedula = this.usuario;
+          this.navCtrl.setRoot(HomePage);
+        }, err => {
+          console.log('Ha ocurrido un error al inciar sesión.');
+        });
 
-    } else {
-      this.presentToastDurationTop('Usuario o contrase\xF1a incorrectos', 2000);
+      } else {
+        this.presentToastDurationTop('Usuario o contrase\xF1a incorrectos', 2000);
+        loading.dismiss();
+      }
+
       loading.dismiss();
-    }
-
-    loading.dismiss();
+    });
     //ingresar en talba usuasriosusuarios si es que no existe
     //obtener el usuario que arroja el API o solo quitar la letra E A D
 

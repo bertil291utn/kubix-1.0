@@ -19,7 +19,7 @@ export class AuthenticationserviceProvider {
     public myservices: EnvironmentVarService, private plt: Platform) {
 
     console.log('Hello AuthenticationserviceProvider Provider');
-   
+
     this.checkToken();
   }
 
@@ -43,6 +43,9 @@ export class AuthenticationserviceProvider {
 
 
   login(userData, user_id) {
+    console.log('userData.username: ', userData.username);
+    userData.username = userData.username.substring(1);//remove first character
+    user_id = user_id.substring(1);//remove first character para pasar solo la cedula
     const token = btoa(userData.username + ':' + userData.password);
     this.authToken = token;
     console.log('this is userid : ', user_id);

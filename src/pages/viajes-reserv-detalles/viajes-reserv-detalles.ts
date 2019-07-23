@@ -25,7 +25,8 @@ export class ViajesReservDetallesPage {
     segundo_nombre: null,
     primer_apellido: null,
     email: null,
-    celular: null
+    celular: null,
+    dependencias: null
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public myservices: EnvironmentVarService,
@@ -48,6 +49,14 @@ export class ViajesReservDetallesPage {
     this.detalle = 'ruta';
     this.getPreferencesUser(this.viajedet.adicional.cedula);
     this.getUserInfo(this.viajedet.adicional.cedula);
+    this.getDependencias(this.viajedet.adicional.cedula);
+  }
+
+  public getDependencias(cedula: string) {
+    this.apiRestService.getDependencias(cedula).subscribe((resp) => {
+      this.conductorObject.dependencias = resp.items[0].tipo_persona;
+      console.log('dependeicas: ', this.conductorObject.dependencias);
+    });
 
   }
 
@@ -139,9 +148,9 @@ export class ViajesReservDetallesPage {
       this.conductorObject.segundo_nombre + ' ' +
       this.conductorObject.primer_apellido;
     conductorName = this.titlecaseTransform(conductorName);
-    let ruta = '*Origen:* '+this.viajedet.origen.short_name + '\n*Destino:* ' + this.viajedet.destino.short_name;
-    let message: string = "Compa\xF1ero/a " + conductorName +' saludos.'+
-      "\nAcabo de reservar la ruta: \n" + ruta + 
+    let ruta = '*Origen:* ' + this.viajedet.origen.short_name + '\n*Destino:* ' + this.viajedet.destino.short_name;
+    let message: string = "Compa\xF1ero/a " + conductorName + ' saludos.' +
+      "\nAcabo de reservar la ruta: \n" + ruta +
       "\nmediante la aplicaci\xF3n KUBIX-UTN. Me gustar\xEDa saber si puedo viajar con usted. Muchas gracias" +
       "\n*Atentamente:* " + user;
     telefono = telefono.replace('0', '593');
