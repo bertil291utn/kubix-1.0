@@ -7,7 +7,7 @@ import { EnvironmentVarService } from '../environmentVarService/environmentVarSe
 @Injectable()
 export class RestApiServiceProvider {
 
-  mainBasePath = 'http://192.168.64.166:8080/ords/appkubix/';
+  mainBasePath = 'http://192.168.31.128:8080/ords/appkubix/';
   userBasePathUser = 'usuarios/';
   vehiculoBasePathUser = 'vehiculos/';
   lugarGeoBasePathUser = 'lugargeo/';
@@ -31,7 +31,7 @@ export class RestApiServiceProvider {
   }
 
   //Para anadir en la tabla  de ususario en caso de que no exista todavia  
-  public postUsuario(): Observable<any> {
+  public verificarUsuarioExists(): Observable<any> {
     let url = this.userBasePathUser + 'usuarioinfo/' + this.myservices.usuarioCedula;
     return this.makeRequestPost(url);
   }

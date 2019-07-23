@@ -1,5 +1,5 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
-import { Nav, Platform, AlertController, MenuController, Slides, IonicPage, Events, LoadingController } from 'ionic-angular';
+import { Nav, Platform, AlertController, MenuController, Slides, IonicPage, Events, LoadingController, NavController, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -16,6 +16,7 @@ import { LoginPage } from '../pages/login/login';
 import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-service';
 import { ViajesConductorPage } from '../pages/viajes-conductor/viajes-conductor';
 import { CarPage } from '../pages/car/car';
+import { AuthenticationserviceProvider } from '../providers/authenticationservice/authenticationservice';
 
 @Component({
   selector: 'page-menu',
@@ -23,7 +24,7 @@ import { CarPage } from '../pages/car/car';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  contrasenaExists = true;
+  //contrasenaExists = true;
   evntRbnTipoPasajero;
   radiobtn;
   conductor: boolean = false;
@@ -32,11 +33,13 @@ export class MyApp {
   pages_pas: Array<{ title: string, component: any, icono: string }>;
   mycar: CarPage;
   loadingCrtlRefresh;
+  authenticated;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, private zone: NgZone,
+
+  constructor(public platform: Platform, public statusBar: StatusBar, private zone: NgZone, public app: App,
     public splashScreen: SplashScreen, public myservices: EnvironmentVarService, public event: Events,
     public alertCtrl: AlertController, public apiRestService: RestApiServiceProvider,
-    public menu: MenuController, public loadingCtrl: LoadingController) {
+    public menu: MenuController, public loadingCtrl: LoadingController, private authService: AuthenticationserviceProvider) {
     this.mycar;
     this.initializeApp();
     // used for an example of ngFor and navigation
@@ -49,12 +52,13 @@ export class MyApp {
 
     this.event.subscribe('userInfoData', (data) => {
       this.myservices.userData = data;
+      console.log('userobject en event ', data);
     });
   }
 
 
   private userInfo() {
-    if (this.contrasenaExists) {
+    if (this.authenticated) {
       this.loadingCrtlRefresh = this.loadingCtrl.create();
       this.loadingCrtlRefresh.present();
     }
@@ -78,17 +82,26 @@ export class MyApp {
 
   private actionPassword() {
     //si la existe la contrasena guardada y es correcta en el navegador entonces directo al home
-    if (this.contrasenaExists) {
-      console.log('this.contrasenaExists: ', this.contrasenaExists)
-      this.rootPage = HomePage;
-      //devolver cedula guardada
-      let userId = '1002334827';//1002334827//1002292272
-      this.myservices.usuarioCedula = userId;
-      this.userInfo();
-    } else
-      //caso contrario se dirige al slide page 
-      this.rootPage = SlidesPage;
-
+    this.authService.checkToken().then(() => {
+      this.authenticated = this.authService.isAuthenticated()
+      if (!this.authenticated)
+        this.rootPage = SlidesPage;
+      else {
+        this.rootPage = HomePage;
+        this.userInfo();
+      }
+      console.log('Logged', this.authenticated)
+    })
+    // if (this.contrasenaExists) {
+    //   this.rootPage = HomePage;
+    //   //devolver cedula guardada
+    //   let userId = '1002334827';//1002334827//1002292272
+    //   this.myservices.usuarioCedula = userId;
+    //   this.userInfo();
+    // } else
+    //   //caso contrario se dirige al slide page 
+    //   this.rootPage = SlidesPage;
+    // console.log('this.contrasenaExists: ', this.contrasenaExists)
 
   }
 
@@ -189,6 +202,28 @@ export class MyApp {
     }
     this.nav.setRoot(HomePage);
     //this.menu.close();
+  }
+
+
+  public logOut() {
+    let loadingCrtlRefresh = this.loadingCtrl.create();
+    loadingCrtlRefresh.present();
+    this.authService.logOut().then(() => {
+      loadingCrtlRefresh.dismiss();
+      this.returnFalseStateRbn();
+      this.nav.setRoot(LoginPage);
+
+      //this.app.getActiveNav().setRoot(LoginPage);
+      //this.rootPage = LoginPage;
+      console.log('log out :autenticated ', this.authenticated);
+
+    });
+  }
+
+  private returnFalseStateRbn() {
+    this.conductor = false;
+    this.myservices.conductor = false;
+    this.radiobtn = false;
   }
 
 

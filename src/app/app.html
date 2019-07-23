@@ -1,15 +1,17 @@
-<ion-menu [content]="content" *ngIf="myservices.userData!=undefined">
+<ion-menu [content]="content" >
   <ion-header>
     <ion-toolbar style="padding:0 16px 0;">
       <ion-grid>
-        <ion-row>
+        <ion-row [hidden]="myservices.userData==undefined">
           <ion-col col-3>
             <div id="circular">
               <img [src]="myservices.userData.foto!=null?myservices.userData.foto:'assets/imgs/blank-avatar.png'">
             </div>
-          </ion-col> 
+          </ion-col>
           <ion-col style="padding-top: 5%;">
-            <strong ion-text style="font-size: 1.7rem;">{{myservices.userData.primer_nombre|titlecase }} {{myservices.userData.segundo_nombre|titlecase }} {{myservices.userData.primer_apellido|titlecase }}</strong>
+            <strong ion-text style="font-size: 1.7rem;">{{myservices.userData.primer_nombre|titlecase }}
+              {{myservices.userData.segundo_nombre|titlecase }}
+              {{myservices.userData.primer_apellido|titlecase }}</strong>
             <p style="font-size: 1.2rem; margin: 0;">
               {{myservices.userData.email}}
             </p>
@@ -38,7 +40,7 @@
         <ion-label>Conductor</ion-label>
         <ion-toggle [(ngModel)]="radiobtn" color="danger" (ngModelChange)="activatechangeMode($event)"></ion-toggle>
       </button>
-      <button id="item-button" menuClose ion-item (click)="gotoLogin()">
+      <button id="item-button" menuClose ion-item (click)="logOut()">
         <ion-icon name="exit" item-start></ion-icon>
         Salir
       </button>

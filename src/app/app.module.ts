@@ -46,7 +46,10 @@ import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-s
 import { HttpClientModule } from '@angular/common/http';
 import { StopConductorPage } from '../pages/stop-conductor/stop-conductor';
 import { ViewMapDetallesPage } from '../pages/view-map-detalles/view-map-detalles';
+import { TitleCasePipe } from '@angular/common';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { AuthenticationserviceProvider } from '../providers/authenticationservice/authenticationservice';
+import { AuthguardProvider } from '../providers/authguard/authguard';
 
 
 
@@ -86,7 +89,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot({name: '__kubixdb'})
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -129,11 +132,14 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
     SocialSharing,
     CallNumber,
     PhotoViewer,
+    TitleCasePipe,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     EnvironmentVarService,
     DatesFormatProvider,
     RutaProvider,
-    RestApiServiceProvider
+    RestApiServiceProvider,
+    AuthenticationserviceProvider,
+    AuthguardProvider
   ]
 })
 export class AppModule { }

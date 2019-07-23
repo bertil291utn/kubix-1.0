@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ViewController, App } from 'ionic-angular';
 import { GoogleMap, Marker, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -15,6 +15,7 @@ declare var html2canvas;
   templateUrl: 'set-map-origen.html',
 })
 export class SetMapOrigenPage {
+  @ViewChild('map_canvas22') mapElement: ElementRef;
   public direccion;
   public map: GoogleMap;
   varLatLng;
@@ -51,27 +52,18 @@ export class SetMapOrigenPage {
     clearInterval(this.varInterval);
   }
 
-  ionViewWillLeave() {
-    const nodeList = document.querySelectorAll('._gmaps_cdv_');
-    for (let k = 0; k < nodeList.length; ++k) {
-      nodeList.item(k).classList.remove('_gmaps_cdv_');
-    }
-  }
+  // ionViewWillLeave() {
+  //   const nodeList = document.querySelectorAll('._gmaps_cdv_');
+  //   for (let k = 0; k < nodeList.length; ++k) {
+  //     nodeList.item(k).classList.remove('_gmaps_cdv_');
+  //   }
+  // }
 
 
   async loadMapa() {
+    const myLatLng = await this.getLocation();
     const loading = this.loadingCtrl.create();
     loading.present();
-    const myLatLng = await this.getLocation();
-    let myMapType: string;
-    let zoom: number;
-    if (this.ubicacion) {
-      myMapType = 'MAP_TYPE_HYBRID';
-      zoom = 18;
-    } else {
-      myMapType = 'MAP_TYPE_ROADMAP';
-      zoom = 15;
-    }
     let styles = [
       {
         "stylers": [
@@ -149,23 +141,71 @@ export class SetMapOrigenPage {
         ]
       }
     ];
-    let mapOptions: GoogleMapOptions = {
-      camera: {
-        target: {
-          lat: myLatLng.lat,
-          lng: myLatLng.lng
-        },
-        zoom: zoom
-      },
-      mapType: myMapType,
-      styles: styles
+    let myMapType: string;
+    let zoom: number;
+
+    if (this.ubicacion) {
+      myMapType = 'hybrid';
+      zoom = 18;
+    } else {
+      myMapType = 'roadmap';
+      zoom = 15;
+    }
+
+    let mapOptions = {
+      center: { lat: myLatLng.lat, lng: myLatLng.lng },
+      zoom: zoom,
+      disableDefaultUI: true,
+      styles: styles,
+      mapTypeId: myMapType
     };
 
-    this.map = GoogleMaps.create('map_canvas22', mapOptions);
-    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+    google.maps.event.addListenerOnce(this.map, 'idle', () => {
+      // do something only the first time the map is loaded
       loading.dismiss();
-      this.camera_position();
+      this.camera_position(this.map);
     });
+
+
+    // const loading = this.loadingCtrl.create();
+    // loading.present();
+    // const myLatLng = await this.getLocation();
+    // let myMapType: string;
+    // let zoom: number;
+    // if (this.ubicacion) {
+    //   myMapType = 'MAP_TYPE_HYBRID';
+    //   zoom = 18;
+    // } else {
+    //   myMapType = 'MAP_TYPE_ROADMAP';
+    //   zoom = 15;
+    // }
+
+    // 
+    // let mapOptions: GoogleMapOptions = {
+    //   camera: {
+    //     target: {
+    //       lat: myLatLng.lat,
+    //       lng: myLatLng.lng
+    //     },
+    //     zoom: zoom
+    //   },
+    //   mapType: myMapType,
+    //   styles: styles
+    // };
+
+    // //this.map = GoogleMaps.create('map_canvas22', mapOptions);
+
+
+
+    // this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+    //   loading.dismiss();
+    //   this.camera_position();
+    // });
+
+
   }
 
 
@@ -177,18 +217,32 @@ export class SetMapOrigenPage {
     };
   }
 
-  camera_position() {
-    this.map.on(GoogleMapsEvent.CAMERA_MOVE_END).subscribe((val) => {
-      let target = val[0].target;
+  camera_position(map) {
+
+    google.maps.event.addListener(map, 'center_changed', () => {
+      // console.log('latitud: ', map.getCenter().lat());
+      // console.log('longitud: ', map.getCenter().lng());
       let latlng = {
-        lat: target.lat,
-        lng: target.lng
+        lat: map.getCenter().lat(),
+        lng: map.getCenter().lng()
       };
       this.geoDecoder(latlng);
       this.varLatLng = latlng;
       this.setMapObject.lat = this.varLatLng.lat;
       this.setMapObject.lng = this.varLatLng.lng;
+
     });
+    // this.map.on(GoogleMapsEvent.CAMERA_MOVE_END).subscribe((val) => {
+    //   let target = val[0].target;
+    //   let latlng = {
+    //     lat: target.lat,
+    //     lng: target.lng
+    //   };
+    //   this.geoDecoder(latlng);
+    //   this.varLatLng = latlng;
+    //   this.setMapObject.lat = this.varLatLng.lat;
+    //   this.setMapObject.lng = this.varLatLng.lng;
+    // });
   }
 
   geoDecoder(latlng) {

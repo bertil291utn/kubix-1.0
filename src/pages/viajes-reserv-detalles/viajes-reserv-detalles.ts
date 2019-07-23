@@ -6,6 +6,7 @@ import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-ap
 import { ViewMapDetallesPage } from '../view-map-detalles/view-map-detalles';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CarPage } from '../car/car';
+import { TitleCasePipe } from '@angular/common';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class ViajesReservDetallesPage {
   preferenciasObjetos;
   loadingCrtlRefresh;
   conductorObject = {
-    foto:null,
+    foto: null,
     primer_nombre: null,
     segundo_nombre: null,
     primer_apellido: null,
@@ -27,9 +28,10 @@ export class ViajesReservDetallesPage {
     celular: null
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public myservices: EnvironmentVarService,
     public viewCtrl: ViewController, private socialSharing: SocialSharing, public apiRestService: RestApiServiceProvider,
-    public loadingCtrl: LoadingController, public modalCtrl: ModalController, private photoViewer: PhotoViewer) {
+    public loadingCtrl: LoadingController, public modalCtrl: ModalController, private photoViewer: PhotoViewer,
+    private titlecasePipe: TitleCasePipe) {
     this.viajedet = navParams.get('datos');
     console.log('viajedet: ', this.viajedet);
     //valor para cambiar el template depndiendo si es condcutor o no 
@@ -54,7 +56,7 @@ export class ViajesReservDetallesPage {
     this.apiRestService.getUsuario(cedula)
       .subscribe((resp) => {
         if (resp.items[0].foto != null)
-        this.conductorObject.foto = 'data:image/png;base64,' + resp.items[0].foto;
+          this.conductorObject.foto = 'data:image/png;base64,' + resp.items[0].foto;
         this.conductorObject.primer_nombre = resp.items[0].primer_nombre;
         this.conductorObject.segundo_nombre = resp.items[0].segundo_nombre;
         this.conductorObject.primer_apellido = resp.items[0].primer_apellido;
@@ -121,30 +123,39 @@ export class ViajesReservDetallesPage {
       });
   }
 
-
-
-
   dismiss() {
     this.viewCtrl.dismiss();
   }
 
-  actionListenerSendWhatsapp(receiver: string, message: string) {
+  public actionListenerSendWhatsapp(receiver: string, message: string) {
     return this.socialSharing.shareViaWhatsAppToReceiver(receiver, message);
   }
 
-  sendWhatsapp(receiver: string) {
-    //anadir nombres y apellidos
-    //traer los datos del usuario  de como esta logeado
-    let user = "Bertil Tandayamo";
-    let message: string = "Buenas tardes " + this.viajedet.conductor.nombre +
-      "\nAacabo de reservar el viaje mediante la aplicacion KUBIX-UTN. Me gustaria saber si puedo viajar" +
+  sendWhatsapp(telefono: string) {
+    let user = this.myservices.userData.primer_nombre + ' ' + this.myservices.userData.segundo_nombre + ' ' +
+      this.myservices.userData.primer_apellido;
+    user = this.titlecaseTransform(user);
+    let conductorName = this.conductorObject.primer_nombre + ' ' +
+      this.conductorObject.segundo_nombre + ' ' +
+      this.conductorObject.primer_apellido;
+    conductorName = this.titlecaseTransform(conductorName);
+    let ruta = '*Origen:* '+this.viajedet.origen.short_name + '\n*Destino:* ' + this.viajedet.destino.short_name;
+    let message: string = "Compa\xF1ero/a " + conductorName +' saludos.'+
+      "\nAcabo de reservar la ruta: \n" + ruta + 
+      "\nmediante la aplicaci\xF3n KUBIX-UTN. Me gustar\xEDa saber si puedo viajar con usted. Muchas gracias" +
       "\n*Atentamente:* " + user;
-    receiver = receiver.replace('0', '593');
+    telefono = telefono.replace('0', '593');
+    this.sendWhatsappAction(telefono, message);
+
+  }
+
+  public sendWhatsappAction(receiver, message) {
     this.actionListenerSendWhatsapp(receiver, message).then((resp) => {
       console.log('aplicacion abierta: ', resp);
     }).catch((e) => {
       console.log('error de envio: ', e);
     });
+
   }
 
   public viewMap(ruta: boolean) {
@@ -157,9 +168,13 @@ export class ViajesReservDetallesPage {
     //'https://www.ruta0.com/pix/una-ruta.jpg'
   }
 
-  goToAuto(reserva: boolean) {
+  public goToAuto(reserva: boolean) {
     let contactModal = this.modalCtrl.create(CarPage, { car: this.viajedet.adicional.cedula, reserva: reserva });
     contactModal.present();
+  }
+
+  public titlecaseTransform(cadena: string) {
+    return this.titlecasePipe.transform(cadena);
   }
 
 }

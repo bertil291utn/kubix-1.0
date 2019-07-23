@@ -130,5 +130,6 @@
     <preference name="FadeSplashScreenDuration" value="400" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="4000" />
+    <preference name="SplashScreenDelay" value="70000" />
+    <preference name="AutoHideSplashScreen" value="false" />
 </widget>

@@ -16,14 +16,14 @@
 </ion-header>
 
 
-<ion-content>
-  <div #map_canvas22 id="map_canvas22">
-    <ion-card>
-      <ion-item>
-        <ion-icon name="map" color="iconos" item-left></ion-icon>
-        {{direccion}}
-      </ion-item>
-    </ion-card>
-    <img src="assets/imgs/marker.png" id="centerMarkerImg">
+<ion-content id="contenido">
+  <div style="position: absolute;" #map_canvas22 id="map_canvas22">
   </div>
+  <ion-card style="position: relative;">
+    <ion-item>
+      <ion-icon name="map" color="iconos" item-left></ion-icon>
+      {{direccion}}
+    </ion-item>
+  </ion-card>
+  <img src="assets/imgs/marker.png" id="centerMarkerImg">
 </ion-content>
