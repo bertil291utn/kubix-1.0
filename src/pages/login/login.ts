@@ -39,46 +39,34 @@ export class LoginPage {
       content: 'Iniciando sesi&oacute;n...'
     });
     loading.present();
-    let userData = { username: this.usuario, password: this.password }
-    this.apiRestService.getLogin(userData).subscribe((resp) => {
+    let userData = { username: this.usuario, password: this.password };//objecto para enviar userdata
+    this.apiRestService.getLogin(userData).subscribe((resp) => { //consulta en el api de la U haber si coinciden las credneciales
       let val = resp.value;
       if (val == 'TRUE')
         val = true;
       else if (val == 'FALSE')
         val = false;
-      //devuelve el api si es cooresto o no
-      //si coinciden credenciales enviar al home caso contrario se aciva la variable error para el template de error
-      //let val=rest.api.verCredenciales(user,pass);s
-      if (val) {
-        this.authService.login(userData, this.usuario).then(() => {
+      if (val) {//si el valor es verdaero ingresa caso con trario da un mensaje de error
+        this.authService.login(userData, this.usuario).then(() => {//api para guardar losd atos en el dispositivo
           this.verificarTabUsuario();
-          this.userInfo();
-          //this.storage.set('userid', this.usuario);
-          // this.myservices.usuarioCedula = this.usuario;
           this.navCtrl.setRoot(HomePage);
         }, err => {
           console.log('Ha ocurrido un error al inciar sesión.');
         });
-
       } else {
         this.presentToastDurationTop('Usuario o contrase\xF1a incorrectos', 2000);
         loading.dismiss();
       }
-
       loading.dismiss();
     });
-    //ingresar en talba usuasriosusuarios si es que no existe
-    //obtener el usuario que arroja el API o solo quitar la letra E A D
-
-    //   //subir cedula de usuario actual a memoria
-    //   this.myservices.usuarioCedula = this.usuario;
-    //   this.navCtrl.setRoot(HomePage);
   }
 
   private verificarTabUsuario() {
     this.apiRestService.verificarUsuarioExists()
       .subscribe((resp) => {
-        console.log('resp: ', resp);
+        if (resp.respuesta == 200)
+          this.userInfo();
+        console.log('resp: verificar ususario ', resp);
       });
   }
 
@@ -91,7 +79,7 @@ export class LoginPage {
         this.myservices.userData.segundo_nombre = resp.items[0].segundo_nombre;
         this.myservices.userData.primer_apellido = resp.items[0].primer_apellido;
         this.myservices.userData.email = resp.items[0].correo_institucional;
-        console.log('userInfoData: ', this.myservices.userData);
+        console.log('userInfo(): ', this.myservices.userData);
         //publicar un evento la respuesta Userdataindo 
         this.event.publish('userInfoData', this.myservices.userData);
       },

@@ -54,7 +54,8 @@ export class ViajesReservDetallesPage {
 
   public getDependencias(cedula: string) {
     this.apiRestService.getDependencias(cedula).subscribe((resp) => {
-      this.conductorObject.dependencias = resp.items[0].tipo_persona;
+      this.conductorObject.dependencias = resp.items[0].tipo_persona + '\n';
+      this.conductorObject.dependencias = this.conductorObject.dependencias + resp.items[0].imparte_clase_en;
       console.log('dependeicas: ', this.conductorObject.dependencias);
     });
 

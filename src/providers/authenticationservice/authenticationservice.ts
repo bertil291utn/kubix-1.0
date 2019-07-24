@@ -23,17 +23,17 @@ export class AuthenticationserviceProvider {
     this.checkToken();
   }
 
-  isAuthenticated() {
+  isAuthenticated() {//retorna el valor aisgnado True or False si esta o no logeado
     return this.authenticationState.value;
   }
 
-
+  //revisa si el token esta presente en el dispositivo
   checkToken() {
     return Promise.all([this.storage.get(TOKEN_KEY), this.storage.get(USER_ID)]).then(values => {
       console.log(values);
       if (values[0]) {
         this.authToken = values[0];
-        this.authenticationState.next(true);
+        this.authenticationState.next(true);//asignar a esta variable el valor se true or false para dar acceso o no 
       }
       if (values[1]) {
         this.myservices.usuarioCedula = values[1];
@@ -41,19 +41,17 @@ export class AuthenticationserviceProvider {
     });
   }
 
-
+  //metodo para cuando hace login 
+  //guarda los datos como eun token temporal y el ususario en session y en memoria del dispositivo
   login(userData, user_id) {
-    console.log('userData.username: ', userData.username);
     userData.username = userData.username.substring(1);//remove first character
     user_id = user_id.substring(1);//remove first character para pasar solo la cedula
     const token = btoa(userData.username + ':' + userData.password);
     this.authToken = token;
     console.log('this is userid : ', user_id);
-    //    this.userId = user_id;
-    this.myservices.usuarioCedula = user_id;
+    this.myservices.usuarioCedula = user_id;//almacenar en la variable global
     return new Promise(resolve => {
       Promise.all([this.storage.set(TOKEN_KEY, token), this.storage.set(USER_ID, user_id)]).then(() => {
-        //console.log(userData, user_id)
         const userInfo = JSON.stringify(userData);
         // Aqui se guardan los datos del usuario
         this.saveSessionStorage(userInfo);

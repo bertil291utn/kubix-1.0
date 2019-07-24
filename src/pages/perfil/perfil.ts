@@ -90,7 +90,9 @@ export class PerfilPage {
 
   public getDependencias() {
     this.apiRestService.getDependencias().subscribe((resp) => {
-      this.myservices.userData.dependencia = resp.items[0].tipo_persona;
+      this.myservices.userData.dependencia = resp.items[0].tipo_persona+'\n';
+      this.myservices.userData.dependencia = this.myservices.userData.dependencia + resp.items[0].imparte_clase_en;
+
       console.log('dependeicas: ', this.myservices.userData.dependencia);
     });
 
