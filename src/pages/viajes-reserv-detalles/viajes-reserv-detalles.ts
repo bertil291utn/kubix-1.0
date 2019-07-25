@@ -7,6 +7,7 @@ import { ViewMapDetallesPage } from '../view-map-detalles/view-map-detalles';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CarPage } from '../car/car';
 import { TitleCasePipe } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class ViajesReservDetallesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public myservices: EnvironmentVarService,
     public viewCtrl: ViewController, private socialSharing: SocialSharing, public apiRestService: RestApiServiceProvider,
     public loadingCtrl: LoadingController, public modalCtrl: ModalController, private photoViewer: PhotoViewer,
-    private titlecasePipe: TitleCasePipe) {
+    private titlecasePipe: TitleCasePipe, private sanitizer: DomSanitizer) {
     this.viajedet = navParams.get('datos');
     console.log('viajedet: ', this.viajedet);
     //valor para cambiar el template depndiendo si es condcutor o no 
@@ -65,14 +66,15 @@ export class ViajesReservDetallesPage {
   private getUserInfo(cedula: string) {
     this.apiRestService.getUsuario(cedula)
       .subscribe((resp) => {
-        if (resp.items[0].foto != null)
-          this.conductorObject.foto = 'data:image/png;base64,' + resp.items[0].foto;
-        this.conductorObject.primer_nombre = resp.items[0].primer_nombre;
-        this.conductorObject.segundo_nombre = resp.items[0].segundo_nombre;
-        this.conductorObject.primer_apellido = resp.items[0].primer_apellido;
-        this.conductorObject.email = resp.items[0].correo_institucional;
-        this.conductorObject.celular = resp.items[0].telefono_movil;
-
+        if (resp.items[0].FOTO != null || undefined) {
+          this.conductorObject.foto = 'data:image/png;base64,' + resp.items[0].FOTO;
+          this.conductorObject.foto = this.sanitizer.bypassSecurityTrustUrl(this.conductorObject.foto)
+        }
+        this.conductorObject.primer_nombre = resp.items[0].PRIMER_NOMBRE;
+        this.conductorObject.segundo_nombre = resp.items[0].SEGUNDO_NOMBRE;
+        this.conductorObject.primer_apellido = resp.items[0].PRIMER_APELLIDO;
+        this.conductorObject.email = resp.items[0].CORREO_INSTITUCIONAL;
+        this.conductorObject.celular = resp.items[0].TELEFONO_MOVIL;
       },
         (error) => {
           console.error(error);
@@ -149,7 +151,7 @@ export class ViajesReservDetallesPage {
       this.conductorObject.segundo_nombre + ' ' +
       this.conductorObject.primer_apellido;
     conductorName = this.titlecaseTransform(conductorName);
-    let ruta = '*Origen:* ' + this.viajedet.origen.short_name + '\n*Destino:* ' + this.viajedet.destino.short_name;
+    let ruta = '*Origen:* ' + this.viajedet.origen.full_name + '\n*Destino:* ' + this.viajedet.destino.full_name;
     let message: string = "Compa\xF1ero/a " + conductorName + ' saludos.' +
       "\nAcabo de reservar la ruta: \n" + ruta +
       "\nmediante la aplicaci\xF3n KUBIX-UTN. Me gustar\xEDa saber si puedo viajar con usted. Muchas gracias" +

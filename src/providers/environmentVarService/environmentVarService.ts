@@ -1,9 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import * as accents from "remove-accents";
+//wqvar accents = require('remove-accents');
 
 declare var html2canvas;
 @Injectable()
 export class EnvironmentVarService {
+
+
   private _solicitud: boolean;
   public get solicitud(): boolean {
     return this._solicitud;
@@ -75,6 +80,10 @@ export class EnvironmentVarService {
   }
 
 
+  constructor(private sanitizer: DomSanitizer) {
+  }
+
+
   public saveMapToBlob(elemMapCanvas) {
     html2canvas(elemMapCanvas, {
       optimized: false,
@@ -88,6 +97,20 @@ export class EnvironmentVarService {
 
   }
 
+
+  public sanitizeUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+
+  public getBase64(sanitizedUrl: any) {
+    return sanitizedUrl['changingThisBreaksApplicationSecurity'].replace('data:image/png;base64,', '');
+  }
+
+
+  public removeaccents(cadena: string) {
+    return accents.remove(cadena);
+  }
 
 
 }

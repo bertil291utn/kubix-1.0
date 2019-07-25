@@ -10,11 +10,6 @@
             {{viajedet.origen.full_name}}
           </ion-label>
         </ion-col>
-        <ion-col text-center>
-          <ion-label>
-            {{viajedet.adicional.hora}}
-          </ion-label>
-        </ion-col>
       </ion-row>
 
       <ion-row>
@@ -26,11 +21,20 @@
             {{viajedet.destino.full_name}}
           </ion-label>
         </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <ion-label>
+            {{viajedet.adicional.hora}}
+          </ion-label>
+        </ion-col>
+
         <ion-col text-center>
           <ion-label>
             {{viajedet.adicional.fecha|titlecase}}
           </ion-label>
         </ion-col>
+
       </ion-row>
     </ion-grid>
   </ion-navbar>
@@ -43,9 +47,9 @@
     <ion-segment-button value="ruta">
       RUTA
     </ion-segment-button>
-    <ion-segment-button value="ubicacion">
+    <!-- <ion-segment-button value="ubicacion">
       PUNTO ENCUENTRO
-    </ion-segment-button>
+    </ion-segment-button> -->
 
     <ion-segment-button value="vehiculo">
       VEHICULO
@@ -70,6 +74,13 @@
           {{viajedet.adicional.descripcion_viaje}}
         </ion-col>
       </ion-row>
+      <br><br>
+      <ion-row>
+        <ion-col><strong>Asientos a disposici&oacute;n:</strong> </ion-col>
+        <ion-col>
+          {{viajedet.adicional.personas}}
+        </ion-col>
+      </ion-row>
     </ion-grid>
 
     <ion-grid id="vehiculo" *ngSwitchCase="'vehiculo'">
@@ -77,8 +88,7 @@
         <br>
         <h4 ion-text text-center>Autom&oacute;vil designado</h4><br>
         <ion-card>
-          <img class="imgbck"
-            [src]="carObject.foto!=null?'data:image/png;base64,' +carObject.foto:'assets/imgs/car_null.png'">
+          <img class="imgbck" [src]="carObject.foto!=null||undefined?carObject.foto:'assets/imgs/car_null.png'">
           <ion-card-content>
             <ion-card-title text-center>{{carObject.placa}}</ion-card-title>
           </ion-card-content>
@@ -116,16 +126,16 @@
       <div style="padding: 0 40px;">
         <ion-card>
           <div style="position: relative;">
-            <img [src]="'data:image/png;base64,' +viajedet.adicional.fotoUbicacion"
-              (click)="viewImage('data:image/png;base64,' +viajedet.adicional.fotoUbicacion)">
-            <!-- <ion-fab right bottom style="right: 4%;">
+            <img src="assets/imgs/ubicacion23.png">
+            <!-- (click)="viewImage('data:image/png;base64,' +viajedet.adicional.fotoUbicacion)"> -->
+            <ion-fab right bottom style="right: 4%;">
               <button ion-fab color="iconos" (click)="viewMap(false)">
                 <ion-icon name="map"></ion-icon>
               </button>
-            </ion-fab> -->
+            </ion-fab>
           </div>
           <ion-card-content>
-            <ion-card-title>Direcci&oacute;n de ubicaci&oacute;n </ion-card-title>
+            <ion-card-title>Ubicaci&oacute;n exacta de salida </ion-card-title>
           </ion-card-content>
           <div style="padding: 0 5% 5% 5%;">
             <ion-chip>
@@ -140,24 +150,45 @@
     <ion-grid id="ruta" *ngSwitchCase="'ruta'">
 
       <div style="padding: 0 40px;">
-        <ion-card>
-          <div style="position: relative;">
-            <img [src]="'data:image/png;base64,' +viajedet.adicional.fotoRuta"
-              (click)="viewImage('data:image/png;base64,' +viajedet.adicional.fotoRuta)">
-            <!-- <ion-fab right bottom style="right: 4%;">
+        <ion-card (click)="viewMap(true)">
+          <!-- <div style="position: relative;">
+            <img src="assets/imgs/ruta23.png">
+            <!-- (click)="viewImage('data:image/png;base64,' +viajedet.adicional.fotoRuta)"> -->
+          <!-- <ion-fab right bottom style="right: 4%;">
               <button ion-fab color="iconos" (click)="viewMap(true)">
                 <ion-icon name="map"></ion-icon>
               </button>
-            </ion-fab> -->
-          </div>
+            </ion-fab>
+          </div> -->
           <ion-card-content>
             <ion-card-title>Lugares de paso </ion-card-title>
           </ion-card-content>
 
-          <div text-center style="padding: 0 5% 5% 5%;">
+          <div style="padding: 0 5% 5% 5%;">
             <ion-chip *ngFor="let lugares of viajedet.lugares" style="margin:2% 2% 0">
               <ion-icon name="pin" color="iconos"></ion-icon>
               <ion-label>{{lugares.short_name}}</ion-label>
+            </ion-chip>
+          </div>
+        </ion-card>
+
+        <ion-card (click)="viewMap(false)">
+          <!-- <div style="position: relative;">
+              <img src="assets/imgs/ubicacion23.png"> -->
+          <!-- (click)="viewImage('data:image/png;base64,' +viajedet.adicional.fotoUbicacion)"> -->
+          <!-- <ion-fab right bottom style="right: 4%;">
+                <button ion-fab color="iconos" (click)="viewMap(false)">
+                  <ion-icon name="map"></ion-icon>
+                </button>
+              </ion-fab>
+            </div> -->
+          <ion-card-content>
+            <ion-card-title>Ubicaci&oacute;n exacta de salida </ion-card-title>
+          </ion-card-content>
+          <div style="padding: 0 5% 5% 5%;">
+            <ion-chip>
+              <ion-icon name="pin" color="iconos"></ion-icon>
+              <ion-label>{{viajedet.puntoEncuentro.full_name}}</ion-label>
             </ion-chip>
           </div>
         </ion-card>

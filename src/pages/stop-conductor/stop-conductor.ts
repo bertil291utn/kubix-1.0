@@ -1,6 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
 import { RutaProvider } from '../../providers/ruta/ruta';
+import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 
 declare var google;
 @Component({
@@ -19,7 +20,8 @@ export class StopConductorPage {
   deleteValue: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
-    private zone: NgZone, public routeCreate: RutaProvider, public toastCtrl: ToastController) {
+    private zone: NgZone, public routeCreate: RutaProvider, public toastCtrl: ToastController,
+    public myservices: EnvironmentVarService) {
     console.log('navParams.data: ', navParams.data);
   }
 
@@ -85,8 +87,9 @@ export class StopConductorPage {
 
   private placeIdToLatLng(item) {
     //obtener lat y lng pasando como argumento un placeid de un lugar, Metodo usado para creaer el waypoint en el map
-    let mainName = item.structured_formatting.main_text;
-    let subName = item.structured_formatting.secondary_text;
+    let mainName = this.myservices.removeaccents(item.structured_formatting.main_text);
+    let subName = this.myservices.removeaccents(item.structured_formatting.secondary_text);
+    let nombreExtenso = this.myservices.removeaccents(item.description);
     let placeid = item.id;
 
     let wayPointsObject = { location: { lat: null, lng: null }, stopover: true };
@@ -98,7 +101,7 @@ export class StopConductorPage {
         wayPointsObject.location.lng = place.geometry.location.lng();
         let lugar = {
           id: this.indexLugares, placeid: placeid, mainName: mainName, subName: subName,
-          nombreExtenso: item.description, waypoints: wayPointsObject
+          nombreExtenso: nombreExtenso, waypoints: wayPointsObject
         };
         let lugarExists = this.lugarExists(placeid);
         if (!lugarExists) {

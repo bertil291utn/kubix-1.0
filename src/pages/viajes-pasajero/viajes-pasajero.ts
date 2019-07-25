@@ -8,6 +8,7 @@ import { RutaProvider } from '../../providers/ruta/ruta';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import * as d3 from "d3-collection";
 import { ThrowStmt } from '@angular/compiler';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class ViajesPasajeroPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams, public loadingCtrl: LoadingController,
     public apiRestService: RestApiServiceProvider, public viajesPublicadoObject: RutaProvider,
-    public dateformat: DatesFormatProvider,
+    public dateformat: DatesFormatProvider, private sanitizer: DomSanitizer,
     public modalCtrl: ModalController) {
 
   }
@@ -43,11 +44,13 @@ export class ViajesPasajeroPage {
     let driverObject = { foto: null, primer_nombre: null, segundo_nombre: null, primer_apellido: null }
     this.apiRestService.getUsuario(cedula)
       .subscribe((resp) => {
-        if (resp.items[0].foto != null)
-          driverObject.foto = 'data:image/png;base64,' + resp.items[0].foto;
-        driverObject.primer_nombre = resp.items[0].primer_nombre;
-        driverObject.segundo_nombre = resp.items[0].segundo_nombre;
-        driverObject.primer_apellido = resp.items[0].primer_apellido;
+        if (resp.items[0].FOTO != null) {
+          driverObject.foto = 'data:image/png;base64,' + resp.items[0].FOTO;
+          driverObject.foto = this.sanitizer.bypassSecurityTrustUrl(driverObject.foto);
+        }
+        driverObject.primer_nombre = resp.items[0].PRIMER_NOMBRE;
+        driverObject.segundo_nombre = resp.items[0].SEGUNDO_NOMBRE;
+        driverObject.primer_apellido = resp.items[0].PRIMER_APELLIDO;
         ruta.adicional.conductor = driverObject;
         //this.viajesPublicadoObject.adicional = this.driverObject;
         if (resp != null)
@@ -65,6 +68,7 @@ export class ViajesPasajeroPage {
     contactModal.onDidDismiss(travel => {
       if (travel != undefined) {
         this.viajesPubObjectArrayToShow = this.searchMatchTravels(travel);
+        console.log('arrya to show: ', this.viajesPubObjectArrayToShow);
         //console.log('data es despues de dismis: ', data);
       }
     });
@@ -89,17 +93,17 @@ export class ViajesPasajeroPage {
         this.viajesPublicadoObject = new RutaProvider();//crear nuevo objeto cada vez qe tenga nuevos viajes
         let adicional = {//dentro de adicional se anadio el codigo viaje
           codigo_viaje: +obj.key,
-          fecha_salida: obj.values[0].fecha_salida,
-          fechastring: obj.values[0].fechastring,
-          descripcion_viaje: obj.values[0].descripcion_viaje,
-          fecha: obj.values[0].fecha,
-          hora: obj.values[0].hora,
-          fotoRuta: obj.values[0].foto_ruta,
-          no_personas: obj.values[0].no_personas,
-          cedula: obj.values[0].cedula,
+          fecha_salida: obj.values[0].FECHA_SALIDA,
+          fechastring: obj.values[0].FECHASTRING,
+          descripcion_viaje: obj.values[0].DESCRIPCION_VIAJE,
+          fecha: obj.values[0].FECHA,
+          hora: obj.values[0].HORA,
+          // fotoRuta: obj.values[0].foto_ruta,
+          no_personas: obj.values[0].LIBRES,
+          cedula: obj.values[0].CEDULA,
           conductor: null
         };
-        this.fechaTitle = obj.values[0].fecha;
+        this.fechaTitle = obj.values[0].FECHA;
         //this.userInfo(adicional.cedula);//llmar
         this.viajesPublicadoObject.adicional = adicional;
         this.setViajesObject(obj.values);//designar si es Origen,destino,ubicacion o un place
@@ -127,7 +131,7 @@ export class ViajesPasajeroPage {
   private setGroup(resp: any) {
     //metodo para agrupar un objeto json
     let groupByCodViaje = d3.nest()
-      .key((d) => { return d.cod_viaje; })
+      .key((d) => { return d.COD_VIAJE; })
       .entries(resp.respuesta);
     //console.log('d3 grouped: ', groupByCodViaje);
     return groupByCodViaje;
@@ -138,20 +142,20 @@ export class ViajesPasajeroPage {
     //metodo para asignar al objeto su Origen,Destino,Ubicacion o Place de acuerdo al campo TIPO 
     for (let obj of ValuesAdicionales) {
       let valueObject = {
-        codigo_geo: obj.codigo_geo,
-        lat: obj.lat,
-        lng: obj.lng,
-        short_name: obj.short_name,
-        full_name: obj.full_name,
-        place_id: obj.place_id,
-        waypoints: { location: { lat: obj.lat, lng: obj.lng }, stopover: true }
+        codigo_geo: obj.CODIGO_GEO,
+        lat: obj.LAT,
+        lng: obj.LNG,
+        short_name: obj.SHORT_NAME,
+        full_name: obj.FULL_NAME,
+        place_id: obj.PLACE_ID,
+        waypoints: { location: { lat: obj.LAT, lng: obj.LNG }, stopover: true }
       };
 
-      if (obj.tipo === 'O')
+      if (obj.TIPO === 'O')
         this.viajesPublicadoObject.origen = valueObject
-      else if (obj.tipo === 'D')
+      else if (obj.TIPO === 'D')
         this.viajesPublicadoObject.destino = valueObject;
-      else if (obj.tipo === 'U')
+      else if (obj.TIPO === 'U')
         this.viajesPublicadoObject.puntoEncuentro = valueObject;
       else
         this.viajesPublicadoObject.lugares = valueObject;

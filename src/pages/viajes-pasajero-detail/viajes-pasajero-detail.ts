@@ -25,6 +25,7 @@ export class ViajesPasajeroDetailPage {
     public alertCtrl: AlertController, private photoViewer: PhotoViewer, public loadingCtrl: LoadingController,
     private app: App) {
     this.viajedet = navParams.get('datos');
+    console.log('viaj det: ', this.viajedet);
     this.fechamsg = navParams.get('fecha');
   }
 
@@ -52,15 +53,20 @@ export class ViajesPasajeroDetailPage {
     if (this.evento)
       this.apiRestService.reservaViaje(this.viajedet.adicional.codigo_viaje).subscribe((resp) => {
         console.log('respuesta reserva viaje: ', resp);
-        if (resp.respuesta == 200) {
-          this.presentToastDurationTop('Su viaje ha sido reservado', 2000);
-          //refresh get viajes reservados
-          this.viewCtrl.dismiss().then(() => {
-            // when this is a modal control
-            this.app.getRootNav().setRoot(ViajesReserPasajeroPage);
-          })
-          this.loadingCrtlRefresh.dismiss();
-        }
+        if (resp.respuesta == 200)
+          if (resp.response == 1) {
+            //this.presentToastDurationTop('Su viaje ha sido reservado', 2000);
+            //refresh get viajes reservados
+            this.viewCtrl.dismiss().then(() => {
+              // when this is a modal control
+              this.app.getRootNav().setRoot(ViajesReserPasajeroPage);
+            })
+            this.loadingCrtlRefresh.dismiss();
+          }
+          else {
+            this.presentToastDurationTop('Usted ya reservo este viaje', 3000);
+            this.loadingCrtlRefresh.dismiss();
+          }
       });
     else {
       this.mensaje = true

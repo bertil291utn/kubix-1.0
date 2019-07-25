@@ -47,11 +47,11 @@ export class ViajesConductorPage {
     this.loadingCrtlRefresh.present();
     //this.horarioObject.fecha = this.fechaISO;
 
-    this.adicionalObject.foto_ruta = this.routeCreate.adicional.foto_ruta;
-    this.adicionalObject.foto_ubicacion = this.routeCreate.adicional.foto_ubicacion;
+    // this.adicionalObject.foto_ruta = this.routeCreate.adicional.foto_ruta;
+    // this.adicionalObject.foto_ubicacion = this.routeCreate.adicional.foto_ubicacion;
 
     this.adicionalObject.fecha = this.fechahoraISO;
-    //this.adicionalObject.personas = this.pasajero;
+    this.adicionalObject.personas = this.pasajero;
     this.adicionalObject.descripcion = this.descripcion;
     this.routeCreate.adicional = this.adicionalObject;
 
@@ -67,9 +67,9 @@ export class ViajesConductorPage {
         console.log('respuesta datos adicionales de ruta: ', resp);
         if (resp.respuesta == 200) {
           //update foto ubicaion 
-          this.apiRestService.updateFotoUbicacion(this.routeCreate.adicional.foto_ubicacion, resp.cod_viaje).subscribe((resp) => {
-            console.log('respuesta update foto ubicacion: ', resp);
-          });
+          // this.apiRestService.updateFotoUbicacion(this.routeCreate.adicional.foto_ubicacion, resp.cod_viaje).subscribe((resp) => {
+          //   console.log('respuesta update foto ubicacion: ', resp);
+          // });
 
           //ORIGEN
           this.apiRestService.insertarLugaresGeoViaje(this.routeCreate.origen, resp.cod_viaje, 'O').subscribe((resp) => {

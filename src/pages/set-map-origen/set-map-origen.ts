@@ -253,9 +253,9 @@ export class SetMapOrigenPage {
         if (status === 'OK') {
           if (results[0]) {
             this.direccion = results[0].formatted_address;
-            this.setMapObject.short_name = this.getShortName(results[0]);
-            this.setMapObject.full_name = this.direccion;
-            this.setMapObject.showfull_name = this.direccion;
+            this.setMapObject.short_name = this.myservices.removeaccents(this.getShortName(results[0]));
+            this.setMapObject.full_name = this.myservices.removeaccents(this.direccion);
+            this.setMapObject.showfull_name = this.myservices.removeaccents(this.direccion);
             console.log('object setmap inicial: ', this.setMapObject);
             //console.log('full results: ', results);
           }

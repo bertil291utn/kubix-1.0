@@ -7,6 +7,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import { FormBuilder, RequiredValidator, Validators } from '@angular/forms';
 import b64toBlob from 'b64-to-blob';
+import { DomSanitizer } from '@angular/platform-browser';
 //var b64toBlob = require('b64-to-blob');
 @Component({
   selector: 'page-perfil',
@@ -34,7 +35,7 @@ export class PerfilPage {
 
 
   constructor(public navCtrl: NavController, public events: Events, private viewCtrl: ViewController,
-    public navParams: NavParams, public apiRestService: RestApiServiceProvider,
+    public navParams: NavParams, public apiRestService: RestApiServiceProvider, private sanitizer: DomSanitizer,
     public myservices: EnvironmentVarService, private zone: NgZone, private fb: FormBuilder,
     public modalCtrl: ModalController, public loadingCtrl: LoadingController,
     private camera: Camera, public alertController: AlertController) {
@@ -47,7 +48,7 @@ export class PerfilPage {
 
   ionViewDidLoad() {
     this.getPreferencesUser();
-    this.getUserInfo();
+    //this.getUserInfo();
     this.getDependencias();
 
     this.conductor = this.myservices.conductor;
@@ -74,13 +75,17 @@ export class PerfilPage {
   private getUserInfo() {
     this.apiRestService.getUsuario()
       .subscribe((resp) => {
-        if (resp.items[0].foto != null)
-          this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].foto;
-        this.myservices.userData.primer_nombre = resp.items[0].primer_nombre;
-        this.myservices.userData.segundo_nombre = resp.items[0].segundo_nombre;
-        this.myservices.userData.primer_apellido = resp.items[0].primer_apellido;
-        this.myservices.userData.email = resp.items[0].correo_institucional;
-        this.myservices.userData.celular = resp.items[0].telefono_movil;
+        if (resp.items[0].FOTO != null || undefined) {
+          this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].FOTO;
+          this.myservices.userData.foto = this.sanitizer.bypassSecurityTrustUrl(this.myservices.userData.foto);
+        }
+        this.myservices.userData.primer_nombre = resp.items[0].PRIMER_NOMBRE;
+        this.myservices.userData.segundo_nombre = resp.items[0].SEGUNDO_NOMBRE;
+        this.myservices.userData.primer_apellido = resp.items[0].PRIMER_APELLIDO;
+        this.myservices.userData.email = resp.items[0].CORREO_INSTITUCIONAL;
+        this.myservices.userData.celular = resp.items[0].TELEFONO_MOVIL;
+
+
 
       },
         (error) => {
@@ -90,7 +95,7 @@ export class PerfilPage {
 
   public getDependencias() {
     this.apiRestService.getDependencias().subscribe((resp) => {
-      this.myservices.userData.dependencia = resp.items[0].tipo_persona+'\n';
+      this.myservices.userData.dependencia = resp.items[0].tipo_persona + '\n';
       this.myservices.userData.dependencia = this.myservices.userData.dependencia + resp.items[0].imparte_clase_en;
 
       console.log('dependeicas: ', this.myservices.userData.dependencia);
@@ -201,10 +206,12 @@ export class PerfilPage {
     this.profileExists = true;
     this.myservices.profileExists = true;
     this.addBoton = false;
-    let cedula = this.myservices.usuarioCedula;
+    //let cedula = this.myservices.usuarioCedula;
     let index = 1;
     for (let obj of this.preferenciasObjetos) {
-      this.apiRestService.updateProfilePreferences(cedula, obj.codigo_preferencia, obj.nivel_edited, this.telefono).subscribe((resp) => {
+      console.log('preferenciasObjetos: ', this.preferenciasObjetos);
+      this.apiRestService.updateProfilePreferences(obj.codigo_preferencia, obj.nivel_edited, this.telefono).subscribe((resp) => {
+
         console.log('resp: ', resp);
         if (index == this.preferenciasObjetos.length) {//para que haga la solicitud al API  una sola vez
           console.log('llamar al refresh');

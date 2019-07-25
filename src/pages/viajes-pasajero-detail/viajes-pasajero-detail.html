@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" name="close" style="font-size: 1.8em;"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-grid style="padding-left: 10%;">
+    <ion-grid>
       <ion-row>
         <ion-col text-right col-1>
           <ion-icon name="pin" color="light" small></ion-icon>
@@ -13,11 +13,6 @@
         <ion-col text-left>
           <ion-label>
             {{viajedet.origen.full_name}}
-          </ion-label>
-        </ion-col>
-        <ion-col text-center>
-          <ion-label>
-            {{viajedet.adicional.hora}}
           </ion-label>
         </ion-col>
       </ion-row>
@@ -28,6 +23,14 @@
         </ion-col>
         <ion-col text-left>
           <ion-label>{{viajedet.destino.full_name}}</ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col text-center>
+          <ion-label>
+            {{viajedet.adicional.hora}}
+          </ion-label>
         </ion-col>
         <ion-col text-center>
           <ion-label>{{viajedet.adicional.fecha|titlecase}}</ion-label>
@@ -52,16 +55,16 @@
   <div [ngSwitch]="detalle">
     <ion-grid id="ruta" *ngSwitchCase="'ruta'">
       <div style="padding: 0 40px;">
-        <ion-card>
-          <div style="position: relative;">
-            <img [src]="'data:image/png;base64,' +viajedet.adicional.fotoRuta"
-              (click)="viewImage('data:image/png;base64,' +viajedet.adicional.fotoRuta)">
-            <ion-fab right bottom style="right: 4%;">
+        <ion-card (click)="viewMap(true)">
+          <!-- <div style="position: relative;">
+            <img src="assets/img/ruta23.png"> -->
+          <!-- (click)="viewImage('data:image/png;base64,' +viajedet.adicional.fotoRuta)"> -->
+          <!-- <ion-fab right bottom style="right: 4%;">
               <button ion-fab color="iconos" (click)="viewMap(true)">
                 <ion-icon name="map"></ion-icon>
               </button>
             </ion-fab>
-          </div>
+          </div> -->
           <ion-card-content>
             <ion-card-title>Lugares de paso </ion-card-title>
           </ion-card-content>

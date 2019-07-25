@@ -42,7 +42,7 @@
   </div>
   <br><br>
   <div id="circular">
-    <img class="imgbck" [src]="myservices.userData.foto!=null?myservices.userData.foto:'assets/imgs/blank-avatar.png'">
+    <img class="imgbck" [src]="myservices.userData.foto!=null||undefined?myservices.userData.foto:'assets/imgs/blank-avatar.png'">
   </div>
 
   <h4 style="margin-bottom: 1%;" ion-text text-center>{{myservices.userData.primer_nombre|titlecase}}

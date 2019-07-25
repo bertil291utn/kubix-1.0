@@ -30,8 +30,8 @@ export class ViajesOrigenDestinoPage {
       this.utnlugarGeoObject.codigo_geo = resp.items[0].codigo_geo;
       this.utnlugarGeoObject.lat = resp.items[0].lat;
       this.utnlugarGeoObject.lng = resp.items[0].lng;
-      this.utnlugarGeoObject.short_name = resp.items[0].short_name;
-      this.utnlugarGeoObject.full_name = resp.items[0].full_name;
+      this.utnlugarGeoObject.short_name = this.myservices.removeaccents(resp.items[0].short_name);
+      this.utnlugarGeoObject.full_name = this.myservices.removeaccents(resp.items[0].full_name);
 
     });
   }

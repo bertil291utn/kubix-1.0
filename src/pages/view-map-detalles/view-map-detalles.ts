@@ -115,7 +115,7 @@ export class ViewMapDetallesPage {
 
     if (!this.navParams.data.ruta) {
       myMapType = 'hybrid';
-      zoom = 22;
+      zoom = 18;
       center = { lat: this.datosMap.puntoEncuentro.lat, lng: this.datosMap.puntoEncuentro.lng }
 
     } else {

@@ -48,9 +48,9 @@ export class ViajesOrigenPage {
         this.casaObject.codigo_geo = resp.items[0].codigo_geo;
         this.casaObject.lat = resp.items[0].lat;
         this.casaObject.lng = resp.items[0].lng;
-        this.casaObject.short_name = resp.items[0].short_name;
+        this.casaObject.short_name = this.myservices.removeaccents(resp.items[0].short_name);
         this.casaObject.full_name = 'Casa';
-        this.casaObject.showfull_name = resp.items[0].full_name;
+        this.casaObject.showfull_name = this.myservices.removeaccents(resp.items[0].full_name);
 
         if (resp != null)
           if (this.loadingControllerSave != undefined)
@@ -129,8 +129,8 @@ export class ViajesOrigenPage {
       , (results, status) => {
         if (status === 'OK') {
           if (results[0]) {
-            this.ubicActualObject.short_name = this.getShortName(results[0]);
-            this.ubicActualObject.showfull_name = results[0].formatted_address;
+            this.ubicActualObject.short_name = this.myservices.removeaccents(this.getShortName(results[0]));
+            this.ubicActualObject.showfull_name = this.myservices.removeaccents(results[0].formatted_address);
           }
         }
       });

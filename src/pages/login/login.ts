@@ -5,6 +5,7 @@ import { EnvironmentVarService } from '../../providers/environmentVarService/env
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import { Storage } from '@ionic/storage';
 import { AuthenticationserviceProvider } from '../../providers/authenticationservice/authenticationservice';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'page-login',
@@ -19,7 +20,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public myservices: EnvironmentVarService, public apiRestService: RestApiServiceProvider,
     private menu: MenuController, private alertCtrl: AlertController, public toastCtrl: ToastController, public event: Events,
     private storage: Storage, private authService: AuthenticationserviceProvider,
-    public loadingController: LoadingController) {
+    public loadingController: LoadingController, private sanitizer: DomSanitizer) {
 
   }
 
@@ -73,12 +74,15 @@ export class LoginPage {
   private userInfo() {
     this.apiRestService.getUsuario()
       .subscribe((resp) => {
-        if (resp.items[0].foto != null)
-          this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].foto;
-        this.myservices.userData.primer_nombre = resp.items[0].primer_nombre;
-        this.myservices.userData.segundo_nombre = resp.items[0].segundo_nombre;
-        this.myservices.userData.primer_apellido = resp.items[0].primer_apellido;
-        this.myservices.userData.email = resp.items[0].correo_institucional;
+        if (resp.items[0].FOTO != null) {
+          this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].FOTO;
+          this.myservices.userData.foto = this.sanitizer.bypassSecurityTrustUrl(this.myservices.userData.foto);
+        }
+        this.myservices.userData.primer_nombre = resp.items[0].PRIMER_NOMBRE;
+        this.myservices.userData.segundo_nombre = resp.items[0].SEGUNDO_NOMBRE;
+        this.myservices.userData.primer_apellido = resp.items[0].PRIMER_APELLIDO;
+        this.myservices.userData.email = resp.items[0].CORREO_INSTITUCIONAL;
+        this.myservices.userData.celular = resp.items[0].TELEFONO_MOVIL;
         console.log('userInfo(): ', this.myservices.userData);
         //publicar un evento la respuesta Userdataindo 
         this.event.publish('userInfoData', this.myservices.userData);

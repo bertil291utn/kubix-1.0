@@ -5,7 +5,7 @@
         <ion-row [hidden]="myservices.userData==undefined">
           <ion-col col-3>
             <div id="circular">
-              <img [src]="myservices.userData.foto!=null?myservices.userData.foto:'assets/imgs/blank-avatar.png'">
+              <img [src]="myservices.userData.foto!=null||undefined?myservices.userData.foto:'assets/imgs/blank-avatar.png'">
             </div>
           </ion-col>
           <ion-col style="padding-top: 5%;">

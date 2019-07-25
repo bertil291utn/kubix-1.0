@@ -4,6 +4,7 @@ import { ViajesReservDetallesPage } from '../viajes-reserv-detalles/viajes-reser
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import { RutaProvider } from '../../providers/ruta/ruta';
 import * as d3 from "d3-collection";
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -49,15 +50,15 @@ export class ViajesReserPasajeroPage {
         this.viajesPublicadoObject = new RutaProvider();//crear nuevo objeto cada vez qe tenga nuevos viajes
         let adicional = {//dentro de adicional se anadio el codigo viaje
           codigo_viaje: +obj.key,
-          codigo_reserva: obj.values[0].cod_reserva,
-          fecha_salida: obj.values[0].fecha_salida,
-          fechastring: obj.values[0].fechastring,
-          descripcion_viaje: obj.values[0].descripcion_viaje,
-          fecha: obj.values[0].fecha,
-          hora: obj.values[0].hora,
-          fotoRuta: obj.values[0].foto_ruta,
-          fotoUbicacion: obj.values[0].foto_ubicacion,
-          cedula: obj.values[0].cedula
+          codigo_reserva: obj.values[0].COD_RESERVA,
+          fecha_salida: obj.values[0].FECHA_SALIDA,
+          fechastring: obj.values[0].FECHASTRING,
+          descripcion_viaje: obj.values[0].DESCRIPCION_VIAJE,
+          fecha: obj.values[0].FECHA,
+          hora: obj.values[0].HORA,
+          // fotoRuta: obj.values[0].foto_ruta,
+          // fotoUbicacion: obj.values[0].foto_ubicacion,
+          cedula: obj.values[0].CEDULA
         };
         this.viajesPublicadoObject.adicional = adicional;
         this.setViajesObject(obj.values);//designar si es Origen,destino,ubicacion o un place
@@ -73,7 +74,7 @@ export class ViajesReserPasajeroPage {
   private setGroup(resp: any) {
     //metodo para agrupar un objeto json
     let groupByCodViaje = d3.nest()
-      .key((d) => { return d.cod_viaje; })
+      .key((d) => { return d.COD_VIAJE; })
       .entries(resp.respuesta);
     //console.log('d3 grouped: ', groupByCodViaje);
     return groupByCodViaje;
@@ -83,20 +84,20 @@ export class ViajesReserPasajeroPage {
     //metodo para asignar al objeto su Origen,Destino,Ubicacion o Place de acuerdo al campo TIPO 
     for (let obj of ValuesAdicionales) {
       let valueObject = {
-        codigo_geo: obj.codigo_geo,
-        lat: obj.lat,
-        lng: obj.lng,
-        short_name: obj.short_name,
-        full_name: obj.full_name,
-        place_id: obj.place_id,
-        waypoints: { location: { lat: obj.lat, lng: obj.lng }, stopover: true }
+        codigo_geo: obj.CODIGO_GEO,
+        lat: obj.LAT,
+        lng: obj.LNG,
+        short_name: obj.SHORT_NAME,
+        full_name: obj.FULL_NAME,
+        place_id: obj.PLACE_ID,
+        waypoints: { location: { lat: obj.LAT, lng: obj.LNG }, stopover: true }
       };
 
-      if (obj.tipo === 'O')
+      if (obj.TIPO === 'O')
         this.viajesPublicadoObject.origen = valueObject
-      else if (obj.tipo === 'D')
+      else if (obj.TIPO === 'D')
         this.viajesPublicadoObject.destino = valueObject;
-      else if (obj.tipo === 'U')
+      else if (obj.TIPO === 'U')
         this.viajesPublicadoObject.puntoEncuentro = valueObject;
       else
         this.viajesPublicadoObject.lugares = valueObject;

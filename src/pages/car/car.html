@@ -54,8 +54,7 @@
         (click)="actionEditButton()" *ngIf="!editarBoton">Editar autom&oacute;vil</button>
     </ion-row><br>
     <ion-card *ngIf="!editarBoton">
-      <img *ngIf="!preview" class="imgbck"
-        [src]="carObject.foto!=null?'data:image/png;base64,' +carObject.foto:'assets/imgs/car_null.png'">
+      <img *ngIf="!preview" class="imgbck" [src]="carObject.foto!=null||undefined?carObject.foto:'assets/imgs/car_null.png'">
       <ion-card-content text-center>
         <ion-card-title>{{carObject.placa}}</ion-card-title>
       </ion-card-content>
@@ -89,10 +88,9 @@
 
 
     <form [formGroup]="contactForm">
-      <img *ngIf="preview" id="imgbck" [src]="previewimg">
+      <img *ngIf="preview" id="imgbck" [src]="previewimg" style="width:100%">
       <ion-row *ngIf="editarBoton">
-        <img *ngIf="!preview" class="imgbck"
-          [src]="carObject.foto!=null?'data:image/png;base64,' +carObject.foto:'assets/imgs/car_null.png'">
+        <img *ngIf="!preview" class="imgbck" [src]="carObject.foto!=null||undefined?carObject.foto:'assets/imgs/car_null.png'">
         <button small ion-button round color="primary" clear id="subtitle" (click)="goToCamera()">Cambiar imagen
           autom&oacute;vil</button>
       </ion-row>
@@ -109,14 +107,14 @@
 
           <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet" [(ngModel)]="valmarca"
             [ngModelOptions]="{standalone: true}">
-            <ion-option *ngFor="let obj of marca" [value]="obj.codigo" (ionSelect)="getMarcaModelo(obj.codigo)">
-              {{obj.nombre}}</ion-option>
+            <ion-option *ngFor="let obj of marca" [value]="obj.CODIGO" (ionSelect)="getMarcaModelo(obj.CODIGO)">
+              {{obj.NOMBRE}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
 
           <ion-select formControlName="modelo" placeholder="Modelo" cancelText="CANCELAR" interface="action-sheet">
-            <ion-option *ngFor="let obj of modelo" [value]="obj.codigo">{{obj.nombre}}</ion-option>
+            <ion-option *ngFor="let obj of modelo" [value]="obj.CODIGO">{{obj.NOMBRE}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
@@ -138,7 +136,7 @@
     <form [formGroup]="contactForm">
       <div *ngIf="addBoton">
         <div *ngIf="preview">
-          <img id="imgbck" [src]="previewimg">
+          <img id="imgbck" [src]="previewimg" style="width:100%">
           <ion-row>
             <button small ion-button round color="primary" clear id="subtitle" (click)="goToCamera()">Cambiar imagen
               autom&oacute;vil</button>
@@ -161,15 +159,15 @@
 
             <ion-select placeholder="Marca" cancelText="CANCELAR" interface="action-sheet">
               <!-- <ion-option value="chevrolet">Chevrolet</ion-option> -->
-              <ion-option *ngFor="let obj of marca" [value]="obj.codigo" (ionSelect)="getMarcaModelo(obj.codigo)">
-                {{obj.nombre}}</ion-option>
+              <ion-option *ngFor="let obj of marca" [value]="obj.CODIGO" (ionSelect)="getMarcaModelo(obj.CODIGO)">
+                {{obj.NOMBRE}}</ion-option>
             </ion-select>
           </ion-item>
           <ion-item>
 
             <ion-select formControlName="modelo" placeholder="Modelo" cancelText="CANCELAR" interface="action-sheet">
               <!-- <ion-option value="s1">S1</ion-option> -->
-              <ion-option *ngFor="let obj of modelo" [value]="obj.codigo">{{obj.nombre}}</ion-option>
+              <ion-option *ngFor="let obj of modelo" [value]="obj.CODIGO">{{obj.NOMBRE}}</ion-option>
             </ion-select>
           </ion-item>
           <ion-item>

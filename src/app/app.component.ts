@@ -17,6 +17,7 @@ import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-s
 import { ViajesConductorPage } from '../pages/viajes-conductor/viajes-conductor';
 import { CarPage } from '../pages/car/car';
 import { AuthenticationserviceProvider } from '../providers/authenticationservice/authenticationservice';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'page-menu',
@@ -24,23 +25,21 @@ import { AuthenticationserviceProvider } from '../providers/authenticationservic
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  //contrasenaExists = true;
   evntRbnTipoPasajero;
   radiobtn;
   conductor: boolean = false;
   rootPage;
   pages: Array<{ title: string, component: any, icono: string }>;
   pages_pas: Array<{ title: string, component: any, icono: string }>;
-  mycar: CarPage;
   loadingCrtlRefresh;
   authenticated;
 
 
   constructor(public platform: Platform, public statusBar: StatusBar, private zone: NgZone, public app: App,
     public splashScreen: SplashScreen, public myservices: EnvironmentVarService, public event: Events,
-    public alertCtrl: AlertController, public apiRestService: RestApiServiceProvider,
+    public alertCtrl: AlertController, public apiRestService: RestApiServiceProvider,private sanitizer: DomSanitizer,
     public menu: MenuController, public loadingCtrl: LoadingController, private authService: AuthenticationserviceProvider) {
-    this.mycar;
+
     this.initializeApp();
     // used for an example of ngFor and navigation
     this.pageslist();
@@ -64,12 +63,16 @@ export class MyApp {
     }
     this.apiRestService.getUsuario()
       .subscribe((resp) => {
-        if (resp.items[0].foto != null)
-          this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].foto;
-        this.myservices.userData.primer_nombre = resp.items[0].primer_nombre;
-        this.myservices.userData.segundo_nombre = resp.items[0].segundo_nombre;
-        this.myservices.userData.primer_apellido = resp.items[0].primer_apellido;
-        this.myservices.userData.email = resp.items[0].correo_institucional;
+        console.log('respuesta get info: ', resp);
+        if (resp.items[0].FOTO != null||undefined) {
+          this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].FOTO;
+          this.myservices.userData.foto = this.sanitizer.bypassSecurityTrustUrl(this.myservices.userData.foto);
+        }
+        this.myservices.userData.primer_nombre = resp.items[0].PRIMER_NOMBRE;
+        this.myservices.userData.segundo_nombre = resp.items[0].SEGUNDO_NOMBRE;
+        this.myservices.userData.primer_apellido = resp.items[0].PRIMER_APELLIDO;
+        this.myservices.userData.email = resp.items[0].CORREO_INSTITUCIONAL;
+        this.myservices.userData.celular = resp.items[0].TELEFONO_MOVIL;
         if (resp != null)
           if (this.loadingCrtlRefresh != null || undefined)
             this.loadingCrtlRefresh.dismiss();
@@ -92,16 +95,7 @@ export class MyApp {
       }
       console.log('Logged', this.authenticated)
     })
-    // if (this.contrasenaExists) {
-    //   this.rootPage = HomePage;
-    //   //devolver cedula guardada
     //   let userId = '1002334827';//1002334827//1002292272
-    //   this.myservices.usuarioCedula = userId;
-    //   this.userInfo();
-    // } else
-    //   //caso contrario se dirige al slide page 
-    //   this.rootPage = SlidesPage;
-    // console.log('this.contrasenaExists: ', this.contrasenaExists)
 
   }
 

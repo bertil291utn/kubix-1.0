@@ -50,15 +50,19 @@ export class DetRutaCPage {
   public getVehiculoInfo() {
 
     this.apiRestService.getVehiculoInfo().subscribe((resp) => {
-      if (resp.items[0].placa != null) {
-        this.carObject.placa = resp.items[0].placa;
-        this.carObject.marca = resp.items[0].marca;
-        this.carObject.modelo = resp.items[0].modelo;
-        this.carObject.color = resp.items[0].color;
-        this.carObject.codigo_marca = resp.items[0].id_marca;
-        this.carObject.codigo_modelo = resp.items[0].id_modelo;
-        this.carObject.codigo_vehiculo = resp.items[0].codigo_vehiculo;
-        this.carObject.foto = resp.items[0].foto;
+      if (resp.items[0].PLACA != null || undefined) {
+
+        this.myservices.carExists = true;
+        this.carObject.placa = resp.items[0].PLACA;
+        this.carObject.marca = resp.items[0].MARCA;
+        this.carObject.modelo = resp.items[0].MODELO;
+        this.carObject.color = resp.items[0].COLOR;
+        this.carObject.codigo_marca = resp.items[0].ID_MARCA;
+        this.carObject.codigo_modelo = resp.items[0].ID_MODELO;
+        this.carObject.codigo_vehiculo = resp.items[0].CODIGO_VEHICULO;
+        if (resp.items[0].FOTO != null || undefined) {
+          this.carObject.foto = this.myservices.sanitizeUrl('data:image/png;base64,' + resp.items[0].FOTO);
+        }
         if (resp != null)
           if (this.loadingCrtlRefresh != undefined)
             this.loadingCrtlRefresh.dismiss();
