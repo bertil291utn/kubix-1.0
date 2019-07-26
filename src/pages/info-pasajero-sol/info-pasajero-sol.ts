@@ -21,26 +21,8 @@ export class InfoPasajeroSolPage {
     public viewCtrl: ViewController,
     private socialSharing: SocialSharing,
     private callNumber: CallNumber) {
-    this.perfil_val = navParams.data.infopasajero;
-    console.log('this.perfil_val: ', this.perfil_val);
-    this.preferenciasObjetos = [{
-      id: 'C',
-      preferencias: this.perfil_val.preferencias.chat,
-      iconos: 'chatboxes',
-      titulo: 'Conversar'
-    },
-    {
-      id: 'M',
-      preferencias: this.perfil_val.preferencias.musica,
-      iconos: 'musical-notes',
-      titulo: 'Escuchar m\u00FAsica'
-    },
-    {
-      id: 'F',
-      preferencias: this.perfil_val.preferencias.fumar,
-      iconos: 'no-smoking',
-      titulo: 'Fumar'
-    }]
+    navParams.data.cedula;
+
   }
 
   ionViewDidLoad() {
@@ -48,7 +30,7 @@ export class InfoPasajeroSolPage {
     console.log('ionViewDidLoad InfoPasajeroSolPage');
   }
 
- 
+
 
   dismiss() {
     this.viewCtrl.dismiss();

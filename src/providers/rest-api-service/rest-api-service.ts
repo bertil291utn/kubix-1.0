@@ -22,10 +22,10 @@ export class RestApiServiceProvider {
 
   //USUARIOS/PERSONAS
 
-  public getUsuario(conductor?: string): Observable<any> {
+  public getUsuario(otherUser?: string): Observable<any> {
     let url;
-    if (conductor != null || undefined)
-      url = 'usuarioinfo/' + conductor;
+    if (otherUser != null || undefined)
+      url = 'usuarioinfo/' + otherUser;
     else
       url = 'usuarioinfo/' + this.myservices.usuarioCedula;
     return this.makeRequestGet(url);
@@ -42,10 +42,10 @@ export class RestApiServiceProvider {
     return this.makeRequestPost(url);
   }
 
-  public getUsuarioPreferences(conductor?: string): Observable<any> {
+  public getUsuarioPreferences(otherUser?: string): Observable<any> {
     let url;
-    if (conductor != null || undefined)
-      url = 'usuariopreferences?cedula=' + conductor;
+    if (otherUser != null || undefined)
+      url = 'usuariopreferences?cedula=' + otherUser;
     else
       url = 'usuariopreferences?cedula=' + this.myservices.usuarioCedula;
     return this.makeRequestGet(url)
@@ -135,53 +135,6 @@ export class RestApiServiceProvider {
     httpHeaders = httpHeaders.append('no_personas', `${data.personas}`);
     return this.makeRequestPost(url, httpHeaders);//anadir nopersonas
   }
-
-  //update fotoUbicacion
-  // public updateFotoUbicacion(foto_ubicacion: any, codigo_viaje: number): Observable<any> {
-  //   let url = this.rutaBasePathUser + 'viajespublicados?codigo_viaje=' + codigo_viaje;
-  //   return this.makeRequestPut(url, false, foto_ubicacion);
-  // }
-
-
-
-  //Publicar Lugares_geo del viaje Origen, destino, Ubicacion, Places
-
-  // public insertarLugaresGeoViaje(data: any, codigo_viaje: number, tipo: string): Observable<any> {
-  //   let url;
-  //   if (tipo == 'U')
-  //     url = this.rutaBasePathUser + 
-  // `publicacion?codigo_viaje=${codigo_viaje}&
-  // latitud=${data.lat}&
-  // longitud=${data.lng}
-  // &short_name=${data.short_name}
-  // &full_name=${data.full_name}
-  // &tipo=${tipo}`;
-  //   else if (tipo == 'P')
-  //     url = this.rutaBasePathUser + 
-  // `publicacion?codigo_viaje=${codigo_viaje}
-  // &latitud=${data.waypoints.location.lat}
-  // &longitud=${data.waypoints.location.lng}
-  // &short_name=${data.mainName}
-  // &full_name=${data.nombreExtenso}
-  // &place_id=${data.placeid}
-  // &tipo=${tipo}`;
-  //   else
-  //     if (data.codigo_geo == null || undefined)
-  //       url = this.rutaBasePathUser + 
-  // `publicacion?codigo_viaje=${codigo_viaje}
-  // &latitud=${data.lat}
-  // &longitud=${data.lng}
-  // &short_name=${data.short_name}
-  // &full_name=${data.showfull_name}
-  // &tipo=${tipo}`;
-  //     else
-  //       url = this.rutaBasePathUser + 
-  // `publicacion?codigo_geo=${data.codigo_geo}
-  // &codigo_viaje=${codigo_viaje}
-  // &tipo=${tipo}`;
-  //   return this.makeRequestPut(url, false);
-  // }
-
 
 
   public insertarLugaresGeoViaje(data: any, codigo_viaje: number, tipo: string): Observable<any> {
@@ -281,14 +234,22 @@ export class RestApiServiceProvider {
 
   //DEPENDECIAS
 
-  public getDependencias(conductor?: string): Observable<any> {
+  public getDependencias(otherPerson?: string): Observable<any> {
     let url;
-    if (conductor != null || undefined)
-      url = `get_info_persona/${conductor}`;
+    if (otherPerson != null || undefined)
+      url = `get_info_persona/${otherPerson}`;
     else
       url = `get_info_persona/${this.myservices.usuarioCedula}`;
     return this.makeRequestGetAlterno(url);
   }
+
+  //get solictudes
+  public getSolcitudesPasajeros(codigo_viaje: number): Observable<any> {
+    // let url = this.rutaBasePathUser + `reserva?cedula=${this.myservices.usuarioCedula}`;
+    let url = `solicitud?cedula=${this.myservices.usuarioCedula}&cod_viaje=${codigo_viaje}`;
+    return this.makeRequestGet(url);
+  }
+
 
 
   // //GET VIAJES PUBLICADOS DETALLES

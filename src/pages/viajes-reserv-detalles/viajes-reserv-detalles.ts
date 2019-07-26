@@ -27,6 +27,7 @@ export class ViajesReservDetallesPage {
     primer_apellido: null,
     email: null,
     celular: null,
+    genero: null,
     dependencias: null
   }
 
@@ -75,6 +76,7 @@ export class ViajesReservDetallesPage {
         this.conductorObject.primer_apellido = resp.items[0].PRIMER_APELLIDO;
         this.conductorObject.email = resp.items[0].CORREO_INSTITUCIONAL;
         this.conductorObject.celular = resp.items[0].TELEFONO_MOVIL;
+        this.conductorObject.genero = resp.items[0].GENERO;
       },
         (error) => {
           console.error(error);
@@ -151,8 +153,12 @@ export class ViajesReservDetallesPage {
       this.conductorObject.segundo_nombre + ' ' +
       this.conductorObject.primer_apellido;
     conductorName = this.titlecaseTransform(conductorName);
-    let ruta = '*Origen:* ' + this.viajedet.origen.full_name + '\n*Destino:* ' + this.viajedet.destino.full_name;
-    let message: string = "Compa\xF1ero/a " + conductorName + ' saludos.' +
+    // {{viajedet.origen.lat==0.3581583?viajedet.origen.short_name:viajedet.origen.full_name}}
+    let origen = this.viajedet.origen.lat == 0.3581583 ? this.viajedet.origen.short_name : this.viajedet.origen.full_name;
+    let destino = this.viajedet.destino.lat == 0.3581583 ? this.viajedet.destino.short_name : this.viajedet.destino.full_name;
+    let ruta = '*Origen:* ' + origen + '\n*Destino:* ' + destino;
+    let apelativo = this.conductorObject.genero == 'M' ? 'Compa\xF1ero' : 'Compa\xF1era';
+    let message: string = apelativo +' '+ conductorName + ' saludos.' +
       "\nAcabo de reservar la ruta: \n" + ruta +
       "\nmediante la aplicaci\xF3n KUBIX-UTN. Me gustar\xEDa saber si puedo viajar con usted. Muchas gracias" +
       "\n*Atentamente:* " + user;

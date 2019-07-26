@@ -57,9 +57,9 @@
     <ion-segment-button value="descripcion">
       DESCRIPCION
     </ion-segment-button>
-    <!-- <ion-segment-button value="solicitud">
+    <ion-segment-button value="solicitud">
       SOLICITUDES
-    </ion-segment-button> -->
+    </ion-segment-button>
   </ion-segment>
 
   <!-- <div #map_canvas2 id="map_canvas2">
@@ -196,31 +196,53 @@
     </ion-grid>
 
 
-
-
-
     <ion-grid id="request" *ngSwitchCase="'solicitud'">
-      <ion-card *ngFor="let item of viajedet.solicitud">
-        <ion-card-content (click)="gotoInfo(item.id-1)">
+      <h3 style="margin-top: 10%;padding: 5%;" *ngIf="items==0" ion-text text-center color="danger">
+        Todav&iacute;a
+        no hay ninguna solicitud de viaje</h3>
+
+      <ion-card [hidden]="items==0" *ngFor="let item of solicitudArray">
+        <ion-card-content>
           <ion-row>
             <ion-col col-4>
               <div id="circular">
-                <img src="{{item.fotografia}}">
+                <img [src]="item.foto!=null||undefined?item.foto:'assets/imgs/blank-avatar.png'">
               </div>
             </ion-col>
             <ion-col>
-              <strong>{{item.nombre}}</strong><br>
-              <strong>{{item.apellido}}</strong> <br>
-              <strong>{{item.genero}}</strong>
+              {{item.primer_nombre|titlecase}} {{item.segundo_nombre|titlecase}}<br>
+              {{item.primer_apellido|titlecase}} <br><br>
+              <strong>G&eacute;nero: </strong>{{item.genero=='M'?'Masculino':'Femenino'}}
             </ion-col>
+            <ion-col text-center>
+              <ion-row>
+                <ion-col><strong style="font-size: 1.3em;">&nbsp;&nbsp;&nbsp;{{item.celular}}</strong>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col (click)="sendWhatsapp(item)">
+                  <ion-icon item-start name="logo-whatsapp" color="iconos" style="font-size: 1.6em;"></ion-icon>
+                  &nbsp;&nbsp;&nbsp;WhatsApp
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col><a [href]="'tel:'+item.celular" style="text-decoration:none;color: black;">
+                    <ion-icon item-start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
+                    &nbsp;&nbsp;&nbsp;Llamar
+                  </a></ion-col>
+              </ion-row>
+            </ion-col><!-- celular -->
+          </ion-row>
+          <br>
+          <ion-row>
+            <ion-col col-4></ion-col>
             <ion-col>
-              <strong>{{item.facultad}}</strong><br>
-              <strong>{{item.carrera}}</strong>
+              {{item.dependencias|titlecase}}
             </ion-col>
           </ion-row>
         </ion-card-content>
 
-        <ion-row id="foot">
+        <!-- <ion-row id="foot">
           <ion-col text-center>
             <button ion-button clear color="iconos" icon-start>
               <ion-icon name='checkmark'></ion-icon>
@@ -233,9 +255,10 @@
               rechazar
             </button>
           </ion-col>
-        </ion-row>
+        </ion-row> -->
       </ion-card>
     </ion-grid>
+
   </div>
 
 </ion-content>

@@ -40,26 +40,27 @@ export class ViajesPasajeroPage {
     this.initVariables();
   }
 
-  private userInfo(cedula: string, ruta) {
+  private async  userInfo(cedula: string, ruta) {
     let driverObject = { foto: null, primer_nombre: null, segundo_nombre: null, primer_apellido: null }
-    this.apiRestService.getUsuario(cedula)
-      .subscribe((resp) => {
-        if (resp.items[0].FOTO != null) {
-          driverObject.foto = 'data:image/png;base64,' + resp.items[0].FOTO;
-          driverObject.foto = this.sanitizer.bypassSecurityTrustUrl(driverObject.foto);
-        }
-        driverObject.primer_nombre = resp.items[0].PRIMER_NOMBRE;
-        driverObject.segundo_nombre = resp.items[0].SEGUNDO_NOMBRE;
-        driverObject.primer_apellido = resp.items[0].PRIMER_APELLIDO;
-        ruta.adicional.conductor = driverObject;
-        //this.viajesPublicadoObject.adicional = this.driverObject;
-        if (resp != null)
-          if (this.loadingCrtlRefresh !== null || undefined)
-            this.loadingCrtlRefresh.dismiss();
-      },
-        (error) => {
-          console.error(error);
-        });
+    let resp = await this.apiRestService.getUsuario(cedula).toPromise();
+    console.log('usuario response: ', resp);
+    //   .subscribe((resp) => {
+    if (resp.items[0].FOTO != null) {
+      driverObject.foto = 'data:image/png;base64,' + resp.items[0].FOTO;
+      driverObject.foto = this.sanitizer.bypassSecurityTrustUrl(driverObject.foto);
+    }
+    driverObject.primer_nombre = resp.items[0].PRIMER_NOMBRE;
+    driverObject.segundo_nombre = resp.items[0].SEGUNDO_NOMBRE;
+    driverObject.primer_apellido = resp.items[0].PRIMER_APELLIDO;
+    ruta.adicional.conductor = driverObject;
+    //this.viajesPublicadoObject.adicional = this.driverObject;
+    if (resp != null)
+      if (this.loadingCrtlRefresh !== null || undefined)
+        this.loadingCrtlRefresh.dismiss();
+
+    //   (error) => {
+    //     console.error(error);
+    //   });
   }
 
   goToSearch() {
@@ -107,21 +108,30 @@ export class ViajesPasajeroPage {
         //this.userInfo(adicional.cedula);//llmar
         this.viajesPublicadoObject.adicional = adicional;
         this.setViajesObject(obj.values);//designar si es Origen,destino,ubicacion o un place
+
       }
       console.log('Object view finishOriginal: ', this.viajesPubObjectArrayOriginal);
-      this.callDriver();//buscar el conductor de cada una d elas rutas
+      this.callDriver();
+      //buscar el conductor de cada una d elas rutas
       console.log('Object view finish toshow: ', this.viajesPubObjectArrayToShow);
     });
+
   }
 
 
-  private callDriver() {
+  public callDriver() {
     for (let obj of this.viajesPubObjectArrayOriginal)
       this.userInfo(obj.adicional.cedula, obj);
+
+    this.firstTravelfeed();
     //@param la ceduladel condcutor para la busqueda, y el la posicion en el cual se va a anadir el objecto conductor
 
     console.log('Object view finishOriginal con condcutor: ', this.viajesPubObjectArrayOriginal);
     //si el array devuelto es mayor a diez entonces cortar a diez par mostrar solo esos diez valores 
+
+  }
+
+  private firstTravelfeed() {
     if (this.viajesPubObjectArrayOriginal.length > 10)
       this.viajesPubObjectArrayToShow = this.viajesPubObjectArrayOriginal.slice(0, 10);
     else
@@ -161,6 +171,7 @@ export class ViajesPasajeroPage {
         this.viajesPublicadoObject.lugares = valueObject;
     }
     this.viajesPubObjectArrayOriginal.push(this.viajesPublicadoObject);//anadir  en un array todos los viajes ya elebaorados
+    console.log('hasta aqui ya tengo las rutas sin el condcutor');
   }
 
 
