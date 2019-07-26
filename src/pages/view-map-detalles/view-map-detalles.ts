@@ -150,10 +150,12 @@ export class ViewMapDetallesPage {
       //ad marker 
       this.addMarker({ lat: this.datosMap.puntoEncuentro.lat, lng: this.datosMap.puntoEncuentro.lng });
 
-    google.maps.event.addListenerOnce(this.map, 'idle', () => {
+    google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
       // do something only the first time the map is loaded
       loading.dismiss();
     });
+
+
   }
 
   private addMarker(location) {

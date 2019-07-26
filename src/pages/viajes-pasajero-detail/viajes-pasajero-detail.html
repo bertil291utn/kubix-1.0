@@ -12,7 +12,7 @@
         </ion-col>
         <ion-col text-left>
           <ion-label>
-            {{viajedet.origen.full_name}}
+            {{viajedet.origen.lat==0.3581583?viajedet.origen.short_name:viajedet.origen.full_name}}
           </ion-label>
         </ion-col>
       </ion-row>
@@ -22,7 +22,9 @@
           <ion-icon name="pin" color="light" small></ion-icon>
         </ion-col>
         <ion-col text-left>
-          <ion-label>{{viajedet.destino.full_name}}</ion-label>
+          <ion-label>
+            {{viajedet.destino.lat==0.3581583?viajedet.destino.short_name:viajedet.destino.full_name}}
+          </ion-label>
         </ion-col>
       </ion-row>
 
@@ -66,7 +68,7 @@
             </ion-fab>
           </div> -->
           <ion-card-content>
-            <ion-card-title>Lugares de paso </ion-card-title>
+            <ion-card-title>Ruta y lugares de paso </ion-card-title>
           </ion-card-content>
 
           <div text-center style="padding: 0 5% 5% 5%;">

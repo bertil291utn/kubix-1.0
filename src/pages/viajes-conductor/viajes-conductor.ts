@@ -57,7 +57,8 @@ export class ViajesConductorPage {
 
     console.log('Dtos para enviar a la BD: ', this.routeCreate);
     if ((this.routeCreate.puntoEncuentro == null || undefined) ||
-      !this.myservices.carExists || (this.descripcion == undefined || null))
+      !this.myservices.carExists || (this.descripcion == undefined || null)
+      || this.routeCreate.puntoEncuentro == null || undefined)
       //alert anada donde a a a recoger al pasajero
       this.enterAlert();
     else {

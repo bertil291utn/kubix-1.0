@@ -64,7 +64,7 @@ export class ViajesPasajeroDetailPage {
             this.loadingCrtlRefresh.dismiss();
           }
           else {
-            this.presentToastDurationTop('Usted ya reservo este viaje', 3000);
+            this.presentToastDurationBottom('Usted ya reservo este viaje', 3000);
             this.loadingCrtlRefresh.dismiss();
           }
       });
@@ -102,10 +102,10 @@ export class ViajesPasajeroDetailPage {
     //'https://www.ruta0.com/pix/una-ruta.jpg'
   }
 
-  presentToastDurationTop(message, duration) {
+  presentToastDurationBottom(message, duration) {
     let toast = this.toastCtrl.create({
       message: message,
-      position: 'top',
+      position: 'bottom',
       duration: duration
     });
     toast.present();

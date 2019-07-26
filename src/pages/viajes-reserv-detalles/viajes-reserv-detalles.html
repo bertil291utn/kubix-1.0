@@ -12,7 +12,7 @@
         </ion-col>
         <ion-col text-left>
           <ion-label>
-            {{viajedet.origen.full_name}}
+            {{viajedet.origen.lat==0.3581583?viajedet.origen.short_name:viajedet.origen.full_name}}
           </ion-label>
         </ion-col>
 
@@ -24,7 +24,7 @@
         </ion-col>
         <ion-col text-left>
           <ion-label>
-            {{viajedet.destino.full_name}}
+            {{viajedet.destino.lat==0.3581583?viajedet.destino.short_name:viajedet.destino.full_name}}
           </ion-label>
         </ion-col>
 
@@ -150,7 +150,8 @@
     <ion-grid *ngSwitchCase="'conductor'">
       <br><br>
       <div id="circular">
-        <img class="imgbck" [src]="conductorObject.foto!=null||undefined?conductorObject.foto:'assets/imgs/blank-avatar.png'">
+        <img class="imgbck"
+          [src]="conductorObject.foto!=null||undefined?conductorObject.foto:'assets/imgs/blank-avatar.png'">
       </div>
 
       <h4 style="margin-bottom: 1%;" ion-text text-center>{{conductorObject.primer_nombre|titlecase}}

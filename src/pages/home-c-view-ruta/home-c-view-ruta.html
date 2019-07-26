@@ -15,7 +15,7 @@
           <ion-item no-lines style="padding-left: 5px;">
             <ion-icon small name="checkmark-circle" color="iconos" item-start></ion-icon>
             <ion-label>
-              {{routeCreate.origen.full_name}}
+              {{routeCreate.origen.lat==0.3581583?routeCreate.origen.short_name:routeCreate.origen.full_name}}
             </ion-label>
           </ion-item>
 
@@ -31,7 +31,7 @@
           <ion-item no-lines style="padding-left: 5px;">
             <ion-icon small name="checkmark-circle" color="iconos" item-start></ion-icon>
             <ion-label>
-              {{routeCreate.destino.full_name}}
+              {{routeCreate.destino.lat==0.3581583?routeCreate.destino.short_name:routeCreate.destino.full_name}}
             </ion-label>
           </ion-item>
         </ion-list>

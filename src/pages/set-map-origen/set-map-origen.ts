@@ -162,12 +162,21 @@ export class SetMapOrigenPage {
 
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-    google.maps.event.addListenerOnce(this.map, 'idle', () => {
-      // do something only the first time the map is loaded
+    google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
+      //this part runs when the mapobject is created and rendered
       loading.dismiss();
       this.camera_position(this.map);
+      google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
+        //this part runs when the mapobject shown for the first time
+
+      });
     });
+
+    // google.maps.event.addListenerOnce(this.map, 'idle', () => {
+    //   // do something only the first time the map is loaded
+    //   loading.dismiss();
+    //   this.camera_position(this.map);
+    // });
 
 
     // const loading = this.loadingCtrl.create();
