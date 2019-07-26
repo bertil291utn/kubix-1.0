@@ -8,59 +8,59 @@
   },
   "installed_plugins": {
     "com-sarriaroman-photoviewer": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-plugin-camera": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-plugin-device": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-plugin-geolocation": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-plugin-googlemaps": {
       "API_KEY_FOR_ANDROID": "AIzaSyBGqSAoZ_NIO3x4ezfKvJDXz2nfW5R9SYY",
       "PLAY_SERVICES_VERSION": "15.0.1",
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-plugin-ionic-webview": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-plugin-nativegeocoder": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-plugin-x-socialsharing": {
       "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-sqlite-storage": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "ionic-plugin-keyboard": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "mx.ferreyra.callnumber": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     }
   },
   "dependent_plugins": {
     "cordova-plugin-file": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-plugin-advanced-http": {
       "OKHTTP_VERSION": "3.10.0",
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "es6-promise-plugin": {
-      "PACKAGE_NAME": "io.ionic.starter"
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     }
   }
 }
