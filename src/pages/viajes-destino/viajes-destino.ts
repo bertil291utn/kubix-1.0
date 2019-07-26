@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
 import { SetHomeDestinoPage } from '../set-home-destino/set-home-destino';
 //import { SetMapDestinoPage } from '../viewMapDetails/viewMapDetails';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
-import { Geolocation } from '@ionic-native/geolocation';
-import { MyLocationOptions, LocationService, MyLocation } from '@ionic-native/google-maps';
+import { MyLocationOptions, LocationService } from '@ionic-native/google-maps';
 
 declare var google;
 
@@ -23,7 +22,7 @@ export class ViajesDestinoPage {
   origen_direccion_api
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private geolocation: Geolocation, public plt: Platform, public loadingCtrl: LoadingController) {
+    public plt: Platform, public loadingCtrl: LoadingController) {
 
   }
 

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ItemSliding, AlertController, LoadingController } from 'ionic-angular';
-import { SetHomePage } from '../set-home_origen/set-home';
+import { NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
 import { MyLocationOptions, LocationService } from '@ionic-native/google-maps';

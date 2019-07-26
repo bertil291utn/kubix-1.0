@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
 
 @Injectable()
 export class DatesFormatProvider {

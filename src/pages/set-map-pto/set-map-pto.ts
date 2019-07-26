@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { GoogleMap, Marker, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from '@ionic-native/google-maps';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { GoogleMap, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
-import { ViajesConductorPage } from '../viajes-conductor/viajes-conductor';
 import html2canvas from 'html2canvas'
 
 declare var google;
@@ -42,9 +40,7 @@ export class SetMapPtoPage {
     html2canvas(element, {
       useCORS: true,
       onrendered: (canvas) => {
-        let img=canvas.toDataURL("image/png").replace('data:image/png;base64,', '')
-        let finalImgSrc= 'data:image/png;base64,' + img
-        
+
       }
     });
 

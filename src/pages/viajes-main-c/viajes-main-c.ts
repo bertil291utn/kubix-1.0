@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ViajesOrigenDestinoPage }from '../viajes-origen-destino/viajes-origen-destino';
+import { NavController, NavParams } from 'ionic-angular';
+import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
 
 
 @Component({

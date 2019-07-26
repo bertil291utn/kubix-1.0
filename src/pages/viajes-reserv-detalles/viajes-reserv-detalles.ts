@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController, ModalController } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
@@ -158,7 +158,7 @@ export class ViajesReservDetallesPage {
     let destino = this.viajedet.destino.lat == 0.3581583 ? this.viajedet.destino.short_name : this.viajedet.destino.full_name;
     let ruta = '*Origen:* ' + origen + '\n*Destino:* ' + destino;
     let apelativo = this.conductorObject.genero == 'M' ? 'Compa\xF1ero' : 'Compa\xF1era';
-    let message: string = apelativo +' '+ conductorName + ' saludos.' +
+    let message: string = apelativo + ' ' + conductorName + ' saludos.' +
       "\nAcabo de reservar la ruta: \n" + ruta +
       "\nmediante la aplicaci\xF3n KUBIX-UTN. Me gustar\xEDa saber si puedo viajar con usted. Muchas gracias" +
       "\n*Atentamente:* " + user;

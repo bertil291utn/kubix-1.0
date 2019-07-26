@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import * as _ from 'lodash';
 import { EnvironmentVarService } from '../environmentVarService/environmentVarService';
 
 @Injectable()
@@ -302,11 +301,11 @@ export class RestApiServiceProvider {
     //   return this.http.put(this.mainBasePath + url, body, { responseType: 'json' });
   }
 
-  private headersHttp() {
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.set('Content-Type', 'application/json');
-    return httpHeaders;
-  }
+  // private headersHttp() {
+  //   const httpHeaders = new HttpHeaders();
+  //   httpHeaders.set('Content-Type', 'application/json');
+  //   return httpHeaders;
+  // }
 
 
 

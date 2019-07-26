@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, LoadingController, AlertController } from 'ionic-angular';
 import { ViajesReservDetallesPage } from '../viajes-reserv-detalles/viajes-reserv-detalles';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import { RutaProvider } from '../../providers/ruta/ruta';
 import * as d3 from "d3-collection";
-import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({

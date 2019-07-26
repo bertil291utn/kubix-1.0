@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController, App, ToastController, LoadingController } from 'ionic-angular';
-import { SetMapPtoPage } from '../set-map-pto/set-map-pto';
+import { NavController, NavParams, AlertController, ModalController, ToastController, LoadingController } from 'ionic-angular';
 import { ViajesPubCPage } from '../viajes-pub-c/viajes-pub-c';
 import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
@@ -25,7 +24,7 @@ export class ViajesConductorPage {
 
   constructor(public navparams: NavParams, public navCtrl: NavController, public routeCreate: RutaProvider,
     public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController,
-    public modalCtrl: ModalController, public myservices: EnvironmentVarService, private app: App,
+    public modalCtrl: ModalController, public myservices: EnvironmentVarService,
     public apiRestService: RestApiServiceProvider, public loadingCtrl: LoadingController) {
 
     // let p = app.getActiveNavs();

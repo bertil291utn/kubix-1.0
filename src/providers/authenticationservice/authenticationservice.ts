@@ -4,7 +4,6 @@ import { Storage } from '@ionic/storage';
 import { EnvironmentVarService } from '../environmentVarService/environmentVarService';
 import { Platform } from 'ionic-angular';
 import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 const TOKEN_KEY = 'auth-tokenkubix';
 const USER_ID = 'user-idkubix';

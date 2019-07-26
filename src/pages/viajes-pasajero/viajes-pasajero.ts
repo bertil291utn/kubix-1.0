@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { DatesFormatProvider } from '../../providers/dates-format/dates-format';
-import { dateDataSortValue } from 'ionic-angular/umd/util/datetime-util';
 import { ViajesPasajeroDetailPage } from '../viajes-pasajero-detail/viajes-pasajero-detail';
 import { searchTravelPasajero } from '../searchTravelPasajero/searchTravelPasajero';
 import { RutaProvider } from '../../providers/ruta/ruta';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import * as d3 from "d3-collection";
-import { ThrowStmt } from '@angular/compiler';
 import { DomSanitizer } from '@angular/platform-browser';
 
 

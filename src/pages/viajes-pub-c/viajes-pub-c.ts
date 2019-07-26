@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController, AlertController } from 'ionic-angular';
 import { DetRutaCPage } from '../det-ruta-c/det-ruta-c';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import { RutaProvider } from '../../providers/ruta/ruta';

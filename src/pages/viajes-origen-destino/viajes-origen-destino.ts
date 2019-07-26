@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
-import { ViajesDestinoPage } from '../viajes-destino/viajes-destino';
 import { RutaProvider } from '../../providers/ruta/ruta';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';

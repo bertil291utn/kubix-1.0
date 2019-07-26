@@ -1,11 +1,11 @@
-import { Component, Injectable } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController, LoadingController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, ViewController, AlertController, LoadingController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { FormBuilder, Validators } from '@angular/forms';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import b64toBlob from 'b64-to-blob';
-import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'page-car',

@@ -1,14 +1,10 @@
-import { Component, NgZone, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController, Events, Content, ViewController, LoadingController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ModalController, AlertController, Events, Content, LoadingController } from 'ionic-angular';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { CarPage } from '../car/car';
-import { ThrowStmt } from '@angular/compiler';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
-import { FormBuilder, RequiredValidator, Validators } from '@angular/forms';
-import b64toBlob from 'b64-to-blob';
 import { DomSanitizer } from '@angular/platform-browser';
-//var b64toBlob = require('b64-to-blob');
+
 @Component({
   selector: 'page-perfil',
   templateUrl: 'perfil.html',
@@ -34,11 +30,11 @@ export class PerfilPage {
   };
 
 
-  constructor(public navCtrl: NavController, public events: Events, private viewCtrl: ViewController,
+  constructor(public navCtrl: NavController, public events: Events,
     public navParams: NavParams, public apiRestService: RestApiServiceProvider, private sanitizer: DomSanitizer,
-    public myservices: EnvironmentVarService, private zone: NgZone, private fb: FormBuilder,
+    public myservices: EnvironmentVarService,
     public modalCtrl: ModalController, public loadingCtrl: LoadingController,
-    private camera: Camera, public alertController: AlertController) {
+    public alertController: AlertController) {
 
     this.perfil_val = this.perfil();
 

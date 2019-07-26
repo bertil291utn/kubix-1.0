@@ -1,21 +1,16 @@
-import { Component, ViewChild, NgZone } from '@angular/core';
-import { Nav, Platform, AlertController, MenuController, Slides, IonicPage, Events, LoadingController, NavController, App } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform, AlertController, MenuController, Events, LoadingController, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { ViajesPubCPage } from '../pages/viajes-pub-c/viajes-pub-c';
 import { EnvironmentVarService } from '../providers/environmentVarService/environmentVarService';
-import { ViajesPasajeroPage } from '../pages/viajes-pasajero/viajes-pasajero';
 import { ViajesReserPasajeroPage } from '../pages/viajes-reser-pasajero/viajes-reser-pasajero';
 import { PerfilPage } from '../pages/perfil/perfil';
-import { CompileMetadataResolver } from '@angular/compiler';
 import { SlidesPage } from '../pages/slides/slides';
 import { LoginPage } from '../pages/login/login';
 import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-service';
-import { ViajesConductorPage } from '../pages/viajes-conductor/viajes-conductor';
-import { CarPage } from '../pages/car/car';
 import { AuthenticationserviceProvider } from '../providers/authenticationservice/authenticationservice';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -35,9 +30,9 @@ export class MyApp {
   authenticated;
 
 
-  constructor(public platform: Platform, public statusBar: StatusBar, private zone: NgZone, public app: App,
+  constructor(public platform: Platform, public statusBar: StatusBar, public app: App,
     public splashScreen: SplashScreen, public myservices: EnvironmentVarService, public event: Events,
-    public alertCtrl: AlertController, public apiRestService: RestApiServiceProvider,private sanitizer: DomSanitizer,
+    public alertCtrl: AlertController, public apiRestService: RestApiServiceProvider, private sanitizer: DomSanitizer,
     public menu: MenuController, public loadingCtrl: LoadingController, private authService: AuthenticationserviceProvider) {
 
     this.initializeApp();
@@ -64,7 +59,7 @@ export class MyApp {
     this.apiRestService.getUsuario()
       .subscribe((resp) => {
         console.log('respuesta get info: ', resp);
-        if (resp.items[0].FOTO != null||undefined) {
+        if (resp.items[0].FOTO != null || undefined) {
           this.myservices.userData.foto = 'data:image/png;base64,' + resp.items[0].FOTO;
           this.myservices.userData.foto = this.sanitizer.bypassSecurityTrustUrl(this.myservices.userData.foto);
         }

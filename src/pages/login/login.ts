@@ -1,9 +1,8 @@
-import { Component, Injectable, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, AlertController, ToastController, Events, LoadingController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, MenuController, AlertController, ToastController, Events, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
-import { Storage } from '@ionic/storage';
 import { AuthenticationserviceProvider } from '../../providers/authenticationservice/authenticationservice';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -19,7 +18,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public myservices: EnvironmentVarService, public apiRestService: RestApiServiceProvider,
     private menu: MenuController, private alertCtrl: AlertController, public toastCtrl: ToastController, public event: Events,
-    private storage: Storage, private authService: AuthenticationserviceProvider,
+    private authService: AuthenticationserviceProvider,
     public loadingController: LoadingController, private sanitizer: DomSanitizer) {
 
   }

@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
 import { RutaProvider } from '../../providers/ruta/ruta';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 
@@ -31,11 +31,11 @@ export class StopConductorPage {
   }
 
 
-  private initValAutocomplete() {
-    //iniciar valores de autcomplete
-    this.GoogleAutocomplete
-    this.autocompleteItems = [];
-  }
+  // private initValAutocomplete() {
+  //   //iniciar valores de autcomplete
+  //   this.GoogleAutocomplete
+  //   this.autocompleteItems = [];
+  // }
 
   //metodo para cuando haga clic en la barra de busqueda
   updateSearchResults() {

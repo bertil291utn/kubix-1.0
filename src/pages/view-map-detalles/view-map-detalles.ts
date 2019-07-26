@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ViewController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ViewController } from 'ionic-angular';
 
 declare var google;
 @Component({
@@ -159,7 +159,7 @@ export class ViewMapDetallesPage {
   }
 
   private addMarker(location) {
-    let marker = new google.maps.Marker({
+    new google.maps.Marker({
       position: location,
       map: this.map
     });

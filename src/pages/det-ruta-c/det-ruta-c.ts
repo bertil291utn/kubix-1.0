@@ -1,6 +1,5 @@
-import { Component, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+import { Component } from '@angular/core';
+import { NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { DomSanitizer } from '@angular/platform-browser';
 import { InfoPasajeroSolPage } from '../info-pasajero-sol/info-pasajero-sol';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
@@ -10,8 +9,6 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { TitleCasePipe } from '@angular/common';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
-
-declare var html2canvas;
 
 @Component({
   selector: 'page-det-ruta-c',
@@ -32,7 +29,7 @@ export class DetRutaCPage {
   constructor(public loadingCtrl: LoadingController, private photoViewer: PhotoViewer, private socialSharing: SocialSharing,
     public myservices: EnvironmentVarService, private titlecasePipe: TitleCasePipe,
     public navCtrl: NavController, public apiRestService: RestApiServiceProvider,
-    public navParams: NavParams, private zone: NgZone,
+    public navParams: NavParams,
     private sanitizer: DomSanitizer,
     public modalCtrl: ModalController) {
 

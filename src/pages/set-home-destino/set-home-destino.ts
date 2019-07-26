@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { GoogleMap, Marker, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from '@ionic-native/google-maps';
+import { NavController, LoadingController } from 'ionic-angular';
+import { GoogleMap, GoogleMapOptions, GoogleMaps, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
-import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
 declare var google;
 
@@ -21,8 +20,7 @@ export class SetHomeDestinoPage {
 
   constructor(private geolocation: Geolocation,
     public loadingCtrl: LoadingController,
-    public nav: NavController,
-    private nativeGeocoder: NativeGeocoder) {
+    public nav: NavController) {
   }
 
   ionViewDidLoad() {

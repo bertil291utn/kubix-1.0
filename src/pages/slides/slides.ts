@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, Nav } from 'ionic-angular';
-import { HomePage } from '../home/home';
+import { NavController, NavParams, Slides } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 
 
@@ -11,7 +10,7 @@ import { LoginPage } from '../login/login';
 })
 export class SlidesPage {
   @ViewChild(Slides) slides: Slides;
- // @ViewChild(Nav) nav: Nav;
+  // @ViewChild(Nav) nav: Nav;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -20,7 +19,7 @@ export class SlidesPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SlidesPage');
   }
-  
+
 
   reachedEnd() {
 

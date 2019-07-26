@@ -1,8 +1,8 @@
-import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { RutaProvider } from '../../providers/ruta/ruta';
 
-declare var google;
+
 @Component({
   selector: 'page-searchTravelPasajero',
   templateUrl: 'searchTravelPasajero.html',
@@ -18,7 +18,7 @@ export class searchTravelPasajero {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, public routeCreate: RutaProvider,
-    private zone: NgZone, public toastCtrl: ToastController
+    public toastCtrl: ToastController
   ) {
 
 

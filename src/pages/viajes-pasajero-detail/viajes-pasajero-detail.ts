@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController, App, ModalController, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, AlertController, App, ModalController, ToastController, LoadingController } from 'ionic-angular';
 import { ViajesReserPasajeroPage } from '../viajes-reser-pasajero/viajes-reser-pasajero';
 import { ViewMapDetallesPage } from '../view-map-detalles/view-map-detalles';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
@@ -76,22 +76,22 @@ export class ViajesPasajeroDetailPage {
     //guarda vije reservado en base de datos 
   }
 
-  private createAlert() {
-    const alert = this.alertCtrl.create({
-      title: 'Informaci&oacute;n',
-      message: 'Su viaje est&aacute; en modo espera. El conductor designado aprobar&aacute; su solicitud ',
-      buttons: [{
-        text: 'Aceptar',
-        handler: () => {
-          this.viewCtrl.dismiss().then(() => {
-            // when this is a modal control
-            this.app.getRootNav().setRoot(ViajesReserPasajeroPage);
-          })
-        }
-      }]
-    })
-    alert.present();
-  }
+  // private createAlert() {
+  //   const alert = this.alertCtrl.create({
+  //     title: 'Informaci&oacute;n',
+  //     message: 'Su viaje est&aacute; en modo espera. El conductor designado aprobar&aacute; su solicitud ',
+  //     buttons: [{
+  //       text: 'Aceptar',
+  //       handler: () => {
+  //         this.viewCtrl.dismiss().then(() => {
+  //           // when this is a modal control
+  //           this.app.getRootNav().setRoot(ViajesReserPasajeroPage);
+  //         })
+  //       }
+  //     }]
+  //   })
+  //   alert.present();
+  // }
 
   dismiss() {
     this.viewCtrl.dismiss();

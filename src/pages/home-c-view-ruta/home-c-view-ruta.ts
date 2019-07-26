@@ -1,15 +1,10 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ModalController, ToastController, Platform, ItemSliding, AlertController } from 'ionic-angular';
-import { ViajesDestinoPage } from '../viajes-destino/viajes-destino';
+import { NavController, NavParams, LoadingController, ModalController, ToastController, Platform, AlertController } from 'ionic-angular';
 import { ViajesOrigenPage } from '../viajes-origen/viajes-origen';
-import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
 import { ViajesConductorPage } from '../viajes-conductor/viajes-conductor';
-import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { RutaProvider } from '../../providers/ruta/ruta';
-import { searchTravelPasajero } from "../searchTravelPasajero/searchTravelPasajero";
 import { StopConductorPage } from '../stop-conductor/stop-conductor';
-import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 
 declare var google;
 declare var html2canvas;
@@ -30,7 +25,7 @@ export class HomeCViewRutaPage {
   center;
 
 
-  constructor(private myEnvironment: EnvironmentVarService, public toastCtrl: ToastController,
+  constructor(public toastCtrl: ToastController,
     public loadingCtrl: LoadingController, public platform: Platform,
     public nav: NavController, public modalCtrl: ModalController,
     public navparams: NavParams, private zone: NgZone, public alertCtrl: AlertController,
