@@ -8,7 +8,6 @@ import { EnvironmentVarService } from '../../providers/environmentVarService/env
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 
 declare var google;
-declare var html2canvas;
 @Component({
   selector: 'page-set-map-origen',
   templateUrl: 'set-map-origen.html',
@@ -322,21 +321,25 @@ export class SetMapOrigenPage {
 
     //this ubicacion viene cunado el conductor establece punto de encuentro viaje-conductor page 
     if (this.ubicacion) {
-      let elem = document.getElementById('map_canvas22');
-      html2canvas(elem, {
-        optimized: false,
-        allowTaint: false,
-        useCORS: true,
-        onrendered: (canvas) => {
-          canvas.toBlob((blob) => {
-            this.routeCreate.adicional.foto_ubicacion = blob;
-            let data = { ubicacionObject: this.setMapObject };
-            if (blob != null || undefined)
-              loading.dismiss();
-            this.viewCtrl.dismiss(data);
-          })
-        }
-      })
+      // let elem = document.getElementById('map_canvas22');
+      // html2canvas(elem, {
+      //   optimized: false,
+      //   allowTaint: false,
+      //   useCORS: true,
+      //   onrendered: (canvas) => {
+      //     canvas.toBlob((blob) => {
+      //       this.routeCreate.adicional.foto_ubicacion = blob;
+      //let data = { ubicacionObject: this.setMapObject };
+      //       if (blob != null || undefined)
+      //         loading.dismiss();
+      //       this.viewCtrl.dismiss(data);
+      //     })
+      //   }
+      // })
+
+      let data = { ubicacionObject: this.setMapObject };
+      loading.dismiss();
+      this.viewCtrl.dismiss(data);
 
     }
 

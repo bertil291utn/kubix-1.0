@@ -46,7 +46,7 @@
     </ion-row>
   </div>
 
-  <div *ngIf="myservices.carExists" style="padding: 0 40px;">
+  <div *ngIf="myservices.carExists&&myservices.carExists!=undefined" style="padding: 0 40px;">
     <br>
     <h4 ion-text text-center>Autom&oacute;vil designado</h4>
     <ion-row [hidden]="navParams.data.reserva">
@@ -127,7 +127,7 @@
     </form>
   </div>
 
-  <div *ngIf="!myservices.carExists" ion-text text-center>
+  <div *ngIf="!myservices.carExists&&myservices.carExists!=undefined" ion-text text-center>
     <div *ngIf="!addBoton">
       <ion-icon name="add-circle" class="camara" (click)="addBoton=true;"></ion-icon>
       <ion-label style="color:#c4bdbb;font-size: 3.1vw;">A&ntilde;adir datos de su autom&oacute;vil

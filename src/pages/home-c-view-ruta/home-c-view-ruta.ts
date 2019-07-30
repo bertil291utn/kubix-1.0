@@ -7,7 +7,6 @@ import { RutaProvider } from '../../providers/ruta/ruta';
 import { StopConductorPage } from '../stop-conductor/stop-conductor';
 
 declare var google;
-declare var html2canvas;
 
 
 @Component({
@@ -172,7 +171,7 @@ export class HomeCViewRutaPage {
       }
     });
     this.calculateAndDisplayRoute();//traer wayspoitn desde route
-    google.maps.event.addListenerOnce(this.map, 'idle', () => {
+    google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
       // this.center = this.map.getCenter();
       // do something only the first time the map is loaded
       loading.dismiss();
@@ -216,17 +215,17 @@ export class HomeCViewRutaPage {
   }
 
   goToAceptar() {
-    let elem = document.getElementById('map_canvas');
-    html2canvas(elem, {
-      optimized: false,
-      allowTaint: false,
-      useCORS: true,
-      onrendered: (canvas) => {
-        canvas.toBlob((blob) => {
-          this.routeCreate.adicional = { foto_ruta: blob, foto_ubicacion: null };
-        })
-      }
-    })
+    // let elem = document.getElementById('map_canvas');
+    // html2canvas(elem, {
+    //   optimized: false,
+    //   allowTaint: false,
+    //   useCORS: true,
+    //   onrendered: (canvas) => {
+    //     canvas.toBlob((blob) => {
+    //       this.routeCreate.adicional = { foto_ruta: blob, foto_ubicacion: null };
+    //     })
+    //   }
+    // })
 
     console.log('origen: ', this.routeCreate.origen, 'destino: ', this.routeCreate.destino, 'lugares: ', this.routeCreate.lugares);
     this.nav.push(ViajesConductorPage);

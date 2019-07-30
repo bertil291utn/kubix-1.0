@@ -128,6 +128,16 @@ export class ViajesConductorPage {
     toast.present();
   }
 
+
+  presentToastDurationBottom(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: 'bottom',
+      duration: duration
+    });
+    toast.present();
+  }
+
   private enterAlert() {
     const alert = this.alertCtrl.create({
       title: 'Datos incompletos',
@@ -147,8 +157,10 @@ export class ViajesConductorPage {
   goToMap() {
     let contactModal = this.modalCtrl.create(SetMapOrigenPage, { ubicacion: true });
     contactModal.onDidDismiss(data => {
-      if (data != undefined)
+      if (data != undefined) {
         this.routeCreate.puntoEncuentro = data.ubicacionObject;
+        this.presentToastDurationBottom('Punto de encuentro a\xF1adido', 2000);
+      }
       console.log('this.ubicacionObject: ', data)
     });
     contactModal.present();

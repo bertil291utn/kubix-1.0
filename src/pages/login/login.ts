@@ -39,13 +39,18 @@ export class LoginPage {
       content: 'Iniciando sesi&oacute;n...'
     });
     loading.present();
+    //si la primera lera es minuscula , tiene que transofrma a mayuscual para que el login sea correcto
+    let firstLetterUsuario = this.usuario.charAt(0);
+    if (firstLetterUsuario == firstLetterUsuario.toLowerCase()) {
+      let tailUsuario = this.usuario.substring(1);
+      firstLetterUsuario = firstLetterUsuario.toUpperCase();
+      this.usuario = firstLetterUsuario + tailUsuario;
+    }
+
     let userData = { username: this.usuario, password: this.password };//objecto para enviar userdata
     this.apiRestService.getLogin(userData).subscribe((resp) => { //consulta en el api de la U haber si coinciden las credneciales
       let val = resp.value;
-      if (val == 'TRUE')
-        val = true;
-      else if (val == 'FALSE')
-        val = false;
+      if (val == 'TRUE') val = true; else if (val == 'FALSE') val = false;
       if (val) {//si el valor es verdaero ingresa caso con trario da un mensaje de error
         this.authService.login(userData, this.usuario).then(() => {//api para guardar losd atos en el dispositivo
           this.verificarTabUsuario();

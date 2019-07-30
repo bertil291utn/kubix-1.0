@@ -22,7 +22,6 @@ export class DetRutaCPage {
     placa: null, foto: null, marca: null, modelo: null,
     color: null, codigo_marca: null, codigo_modelo: null, codigo_vehiculo: null
   };
-  loadingCrtlRefresh;
   solicitudArray;
   items;
 
@@ -34,9 +33,6 @@ export class DetRutaCPage {
     public modalCtrl: ModalController) {
 
     this.viajedet = navParams.get('datos')
-    console.log('this,vijedet ', this.viajedet);
-    //console.log('viajesPublicados: ', navParams.data.viajes);
-    console.log(this.viajedet)
   }
 
 
@@ -55,13 +51,10 @@ export class DetRutaCPage {
     let solicitudObject;
     //let cedulasArray = [];
     let resp = await this.apiRestService.getSolcitudesPasajeros(codigo_viaje).toPromise();
+    this.items = resp.items.length;
     for (let obj of resp.items) {
-      //cedulasArray.push(obj.cedula);
-
-      // for (let obj of cedulasArray) {
       let resp = await this.apiRestService.getUsuario(obj.cedula).toPromise();
       let foto: any;
-      this.items = resp.items.length;
       if (resp.items[0].FOTO != null || undefined) {
         foto = 'data:image/png;base64,' + resp.items[0].FOTO;
         foto = this.sanitizer.bypassSecurityTrustUrl(foto);
@@ -75,8 +68,6 @@ export class DetRutaCPage {
         celular: resp.items[0].TELEFONO_MOVIL,
         dependencias: await this.getDependencias(obj.cedula)
       };
-
-
       console.log('this.getDependencias(obj.cedula): ', await this.getDependencias(obj.cedula));
       this.solicitudArray.push(solicitudObject);
     }
@@ -93,10 +84,10 @@ export class DetRutaCPage {
 
 
   public getVehiculoInfo() {
-
+    let loadingCrtlRefresh = this.loadingCtrl.create();
+    loadingCrtlRefresh.present();
     this.apiRestService.getVehiculoInfo().subscribe((resp) => {
       if (resp.items[0].PLACA != null || undefined) {
-
         this.myservices.carExists = true;
         this.carObject.placa = resp.items[0].PLACA;
         this.carObject.marca = resp.items[0].MARCA;
@@ -108,11 +99,13 @@ export class DetRutaCPage {
         if (resp.items[0].FOTO != null || undefined) {
           this.carObject.foto = this.myservices.sanitizeUrl('data:image/png;base64,' + resp.items[0].FOTO);
         }
-        if (resp != null)
-          if (this.loadingCrtlRefresh != undefined)
-            this.loadingCrtlRefresh.dismiss();
-      }
+      } else
+        this.myservices.carExists = false;
+
+      if (loadingCrtlRefresh != null || undefined)
+        loadingCrtlRefresh.dismiss();
     });
+    this.myservices.carExists = undefined;
   }
 
   public viewMap(ruta: boolean) {
@@ -132,9 +125,7 @@ export class DetRutaCPage {
   }
 
 
-  sendWhatsapp(personaSol: any) {
-
-
+  public sendWhatsapp(personaSol: any) {
     let apelativo = personaSol.genero == 'M' ? 'Compa\xF1ero' : 'Compa\xF1era';
     let solicitanteName = personaSol.primer_nombre + ' ' +
       personaSol.segundo_nombre + ' ' +

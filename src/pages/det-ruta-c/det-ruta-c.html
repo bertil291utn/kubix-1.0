@@ -220,17 +220,23 @@
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col (click)="sendWhatsapp(item)">
+                <ion-col text-right><a [href]="'tel:'+item.celular" style="text-decoration:none;color: black;">
+                    <ion-icon item-start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
+                    <!-- &nbsp;&nbsp;&nbsp;Llamar -->
+                  </a></ion-col>
+                <ion-col col-1></ion-col>
+                <ion-col text-left (click)="sendWhatsapp(item)">
                   <ion-icon item-start name="logo-whatsapp" color="iconos" style="font-size: 1.6em;"></ion-icon>
-                  &nbsp;&nbsp;&nbsp;WhatsApp
+                  <!-- &nbsp;&nbsp;&nbsp;WhatsApp -->
                 </ion-col>
               </ion-row>
-              <ion-row>
+
+              <!-- <ion-row>
                 <ion-col><a [href]="'tel:'+item.celular" style="text-decoration:none;color: black;">
                     <ion-icon item-start name="call" color="iconos" style="font-size: 1.6em;"></ion-icon>
                     &nbsp;&nbsp;&nbsp;Llamar
                   </a></ion-col>
-              </ion-row>
+              </ion-row> -->
             </ion-col><!-- celular -->
           </ion-row>
           <br>

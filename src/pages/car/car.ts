@@ -69,7 +69,6 @@ export class CarPage {
     this.myservices.carExists = false;
     this.apiRestService.getVehiculoInfo(conductor).subscribe((resp) => {
       if (resp.items[0].PLACA != null || undefined) {
-
         this.myservices.carExists = true;
         this.carObject.placa = resp.items[0].PLACA;
         this.carObject.marca = resp.items[0].MARCA;
@@ -81,10 +80,12 @@ export class CarPage {
         if (resp.items[0].FOTO != null || undefined) {
           this.carObject.foto = this.myservices.sanitizeUrl('data:image/png;base64,' + resp.items[0].FOTO);
         }
-      }
+      } else
+        this.myservices.carExists = false;
       if (this.loadingControllerSave != undefined)
         this.loadingControllerSave.dismiss();
     });
+    this.myservices.carExists = undefined;
   }
 
   private getMarcaModelo(modelo?: number) {
