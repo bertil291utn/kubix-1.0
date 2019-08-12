@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { SetMapOrigenPage } from '../set-map-origen/set-map-origen';
 import { HomeCViewRutaPage } from '../home-c-view-ruta/home-c-view-ruta';
-import { MyLocationOptions, LocationService } from '@ionic-native/google-maps';
 import { RutaProvider } from '../../providers/ruta/ruta';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { Geolocation } from '@ionic-native/geolocation';
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
 
 declare var google;
 
@@ -26,19 +26,38 @@ export class ViajesOrigenPage {
 
   constructor(public navCtrl: NavController, public myservices: EnvironmentVarService, private geolocation: Geolocation,
     public navParams: NavParams, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
-    public modalCtrl: ModalController, public apiRestService: RestApiServiceProvider,
-    public routeCreate: RutaProvider) {
+    public modalCtrl: ModalController, public apiRestService: RestApiServiceProvider, private locationAccuracy: LocationAccuracy,
+    public routeCreate: RutaProvider, public toastCtrl: ToastController) {
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajesOrigenPage');
+    this.reviewGPSEnabled();
     this.casaInfo();
-    this.ActionGetLocation();
-    this.latLngDir();
   }
 
+  private reviewGPSEnabled() {
 
+    this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+      if (canRequest) {
+        // the accuracy option will be ignored by iOS
+        this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+          () => {
+            console.log('Request successful');
+            this.ActionGetLocation();
+            this.latLngDir();
+          },
+          error => {
+            console.log('Error requesting location permissions', error);
+            this.navCtrl.pop();
+            this.presentToastDurationBottom('Debe activar su GPS', 2000)
+          }
+        );
+      }
+
+    });
+  }
 
   private casaInfo() {
     //llamar api rest  buscando casa de la persona y la direccion
@@ -70,6 +89,16 @@ export class ViajesOrigenPage {
     if (this.ubicacionActualLatLng != null || undefined)
       this.loadingControllerSave.dismiss();
     console.log('ubicacionActualLatLng: ', this.ubicacionActualLatLng);
+  }
+
+
+  presentToastDurationBottom(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: 'bottom',
+      duration: duration
+    });
+    toast.present();
   }
 
 
@@ -143,7 +172,6 @@ export class ViajesOrigenPage {
     // const rta = await LocationService.getMyLocation(option);
     const rta = await this.geolocation.getCurrentPosition();
     let latLng = { lat: rta.coords.latitude, lng: rta.coords.longitude };
-    console.log('rta: ', rta);
     return latLng
   }
 

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController, AlertController, ToastController, Events, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, MenuController, AlertController, ToastController, Events, LoadingController, Platform } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import { AuthenticationserviceProvider } from '../../providers/authenticationservice/authenticationservice';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NetworkProvider } from '../../providers/network/network';
+import { Network } from '@ionic-native/network';
 
 @Component({
   selector: 'page-login',
@@ -13,12 +15,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class LoginPage {
   usuario: string;
   password: string;
-
-
+  toastInternet;
+  loadingCrtlRefresh;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public myservices: EnvironmentVarService, public apiRestService: RestApiServiceProvider,
     private menu: MenuController, private alertCtrl: AlertController, public toastCtrl: ToastController, public event: Events,
-    private authService: AuthenticationserviceProvider,
+    private authService: AuthenticationserviceProvider, public networkProvider: NetworkProvider, public platform: Platform,
+    public events: Events, public network: Network,
     public loadingController: LoadingController, private sanitizer: DomSanitizer) {
 
   }
@@ -27,12 +30,56 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
     //disable enable menu lateral
     this.menu.swipeEnable(false);
+    this.networkReviewEnabled();
   }
 
   ionViewWillLeave() {
     //habiitar cuando saga de este page  enable menu lateral
     this.menu.swipeEnable(true);
   }
+
+  public networkReviewEnabled() {
+
+    if (!navigator.onLine) {
+      this.loadingCrtlRefresh = this.loadingController.create();
+      this.loadingCrtlRefresh.present();
+      this.presentToastStaticTop('Comprueba tu conexion y vuelve a intentarlo');
+    } else {
+      this.presentToastDurationTop('Aplicacion en linea ', 2000);
+    }
+
+    this.platform.ready().then(() => {
+      this.networkProvider.initializeNetworkEvents();
+      // Online event
+      this.events.subscribe('network:online', () => {
+        this.presentToastDurationTop('Aplicacion en linea ', 2000);
+        this.toastInternet.dismiss();
+        if (this.loadingCrtlRefresh != null || undefined)
+          this.loadingCrtlRefresh.dismiss();
+        // alert('network:offline ==> ' + this.network.type);
+      });
+
+      // Offline event
+      this.events.subscribe('network:offline', () => {
+        this.loadingCrtlRefresh = this.loadingController.create();
+        this.loadingCrtlRefresh.present();
+        this.presentToastStaticTop('Comprueba tu conexion y vuelve a intentarlo');
+        // alert('network:online ==> ' + this.network.type);
+      });
+
+    });
+  }
+
+
+  presentToastStaticTop(message) {
+    this.toastInternet = this.toastCtrl.create({
+      message: message,
+      position: 'top'
+    });
+    this.toastInternet.present();
+  }
+
+
 
   public async signIn() {
     const loading = await this.loadingController.create({

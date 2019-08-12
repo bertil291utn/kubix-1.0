@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { LoadingController, NavController } from 'ionic-angular';
+import { LoadingController, NavController, Events, Platform, ToastController } from 'ionic-angular';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { ViajesPasajeroPage } from '../viajes-pasajero/viajes-pasajero';
 import { ViajesOrigenDestinoPage } from '../viajes-origen-destino/viajes-origen-destino';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
+import { NetworkProvider } from '../../providers/network/network';
+import { Network } from '@ionic-native/network';
 
 @Component({
   selector: 'page-home',
@@ -15,7 +17,10 @@ export class HomePage {
   varInterval;
 
   constructor(
-    public myservices: EnvironmentVarService,
+    public myservices: EnvironmentVarService, public platform: Platform,
+    public events: Events, public toastCtrl: ToastController,
+    public network: Network,
+    public networkProvider: NetworkProvider,
     public loadingCtrl: LoadingController, public apiRestService: RestApiServiceProvider,
     public nav: NavController) {
     //this.pasajero = myservices.pasajero;
@@ -23,6 +28,7 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+
     console.log('auto Exists: ', this.myservices.carExists);
     //revisar en la base de datos si existe o no el campo de automovil  y el campo perfil(telfono e informacion personal)
     this.myservices.profileExists = true;//siempre verdadero 
@@ -46,7 +52,6 @@ export class HomePage {
     //pararla funcion de busqueda el momento que haya dejado el page
     clearInterval(this.varInterval);
   }
-
 
 
 

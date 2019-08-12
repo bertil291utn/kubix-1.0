@@ -50,7 +50,9 @@ import { TitleCasePipe } from '@angular/common';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { AuthenticationserviceProvider } from '../providers/authenticationservice/authenticationservice';
 import { AuthguardProvider } from '../providers/authguard/authguard';
-
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
+import { Network } from '@ionic-native/network';
+import { NetworkProvider } from '../providers/network/network';
 
 
 
@@ -89,7 +91,7 @@ import { AuthguardProvider } from '../providers/authguard/authguard';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot({name: '__kubixdb'})
+    IonicStorageModule.forRoot({ name: '__kubixdb' })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -133,13 +135,16 @@ import { AuthguardProvider } from '../providers/authguard/authguard';
     CallNumber,
     PhotoViewer,
     TitleCasePipe,
+    LocationAccuracy,
+    Network,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     EnvironmentVarService,
     DatesFormatProvider,
     RutaProvider,
     RestApiServiceProvider,
     AuthenticationserviceProvider,
-    AuthguardProvider
+    AuthguardProvider,
+    NetworkProvider
   ]
 })
 export class AppModule { }

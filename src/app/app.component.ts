@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController, MenuController, Events, LoadingController, App } from 'ionic-angular';
+import { Nav, Platform, AlertController, MenuController, Events, LoadingController, App, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -13,6 +13,8 @@ import { LoginPage } from '../pages/login/login';
 import { RestApiServiceProvider } from '../providers/rest-api-service/rest-api-service';
 import { AuthenticationserviceProvider } from '../providers/authenticationservice/authenticationservice';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Network } from '@ionic-native/network';
+import { NetworkProvider } from '../providers/network/network';
 
 @Component({
   selector: 'page-menu',
@@ -28,14 +30,18 @@ export class MyApp {
   pages_pas: Array<{ title: string, component: any, icono: string }>;
   loadingCrtlRefresh;
   authenticated;
-
+  public onlineOffline: boolean = navigator.onLine;
+  toastInternet;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public app: App,
     public splashScreen: SplashScreen, public myservices: EnvironmentVarService, public event: Events,
     public alertCtrl: AlertController, public apiRestService: RestApiServiceProvider, private sanitizer: DomSanitizer,
-    public menu: MenuController, public loadingCtrl: LoadingController, private authService: AuthenticationserviceProvider) {
+    public menu: MenuController, public loadingCtrl: LoadingController, private authService: AuthenticationserviceProvider,
+    public events: Events, public toastCtrl: ToastController, public networkProvider: NetworkProvider,
+    public network: Network) {
 
     this.initializeApp();
+
     // used for an example of ngFor and navigation
     this.pageslist();
     this.valConductorPasajero();
@@ -50,12 +56,65 @@ export class MyApp {
     });
   }
 
+  public networkReviewEnabled() {
 
-  private userInfo() {
-    if (this.authenticated) {
+
+    if (!navigator.onLine) {
       this.loadingCrtlRefresh = this.loadingCtrl.create();
       this.loadingCrtlRefresh.present();
+      this.presentToastStaticTop('Comprueba tu conexion y vuelve a intentarlo');
+    } else {
+      this.presentToastDurationTop('Aplicacion en linea ', 2000);
+      this.userInfo();
+
     }
+
+    this.platform.ready().then(() => {
+      this.networkProvider.initializeNetworkEvents();
+      // Online event
+      this.events.subscribe('network:online', () => {
+        this.presentToastDurationTop('Aplicacion en linea ', 2000);
+        this.userInfo();
+        this.toastInternet.dismiss();
+        // alert('network:offline ==> ' + this.network.type);
+      });
+
+      // Offline event
+      this.events.subscribe('network:offline', () => {
+        this.loadingCrtlRefresh = this.loadingCtrl.create();
+        this.loadingCrtlRefresh.present();
+        this.presentToastStaticTop('Comprueba tu conexion y vuelve a intentarlo');
+        // alert('network:online ==> ' + this.network.type);
+      });
+
+    });
+  }
+
+
+  presentToastDurationTop(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      position: 'top',
+      duration: duration
+    });
+    toast.present();
+  }
+
+
+  presentToastStaticTop(message) {
+    this.toastInternet = this.toastCtrl.create({
+      message: message,
+      position: 'top'
+    });
+    this.toastInternet.present();
+  }
+
+
+  private userInfo() {
+    // if (this.authenticated) {
+    //   this.loadingCrtlRefresh = this.loadingCtrl.create();
+    //   this.loadingCrtlRefresh.present();
+    // }
     this.apiRestService.getUsuario()
       .subscribe((resp) => {
         console.log('respuesta get info: ', resp);
@@ -86,7 +145,8 @@ export class MyApp {
         this.rootPage = SlidesPage;
       else {
         this.rootPage = HomePage;
-        this.userInfo();
+        //this.userInfo();
+        this.networkReviewEnabled();
       }
       console.log('Logged', this.authenticated)
     })

@@ -45,6 +45,9 @@
     },
     "cordova-plugin-request-location-accuracy": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     }
   },
   "dependent_plugins": {

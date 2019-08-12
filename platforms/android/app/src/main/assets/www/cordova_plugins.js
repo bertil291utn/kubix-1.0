@@ -584,6 +584,23 @@ module.exports = [
     "clobbers": [
       "cordova.plugins.locationAccuracy"
     ]
+  },
+  {
+    "id": "cordova-plugin-network-information.network",
+    "file": "plugins/cordova-plugin-network-information/www/network.js",
+    "pluginId": "cordova-plugin-network-information",
+    "clobbers": [
+      "navigator.connection",
+      "navigator.network.connection"
+    ]
+  },
+  {
+    "id": "cordova-plugin-network-information.Connection",
+    "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+    "pluginId": "cordova-plugin-network-information",
+    "clobbers": [
+      "Connection"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -605,7 +622,8 @@ module.exports.metadata =
   "cordova-sqlite-storage": "3.2.0",
   "ionic-plugin-keyboard": "2.2.1",
   "mx.ferreyra.callnumber": "0.0.2",
-  "cordova-plugin-request-location-accuracy": "2.3.0"
+  "cordova-plugin-request-location-accuracy": "2.3.0",
+  "cordova-plugin-network-information": "2.0.2"
 };
 // BOTTOM OF METADATA
 });
