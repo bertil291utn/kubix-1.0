@@ -247,6 +247,10 @@
             {
               "xml": "<preference name=\"android-minSdkVersion\" value=\"19\" />",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"RequestLocationAccuracy\"><param name=\"android-package\" value=\"cordova.plugin.RequestLocationAccuracy\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -305,6 +309,10 @@
       "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
+    },
+    "cordova-plugin-request-location-accuracy": {
+      "PLAY_SERVICES_LOCATION_VERSION": "16.+",
       "PACKAGE_NAME": "utn.edu.ec.kubix"
     }
   },
@@ -886,6 +894,14 @@
       "clobbers": [
         "call"
       ]
+    },
+    {
+      "id": "cordova-plugin-request-location-accuracy.RequestLocationAccuracy",
+      "file": "plugins/cordova-plugin-request-location-accuracy/www/android/RequestLocationAccuracy.js",
+      "pluginId": "cordova-plugin-request-location-accuracy",
+      "clobbers": [
+        "cordova.plugins.locationAccuracy"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -904,6 +920,7 @@
     "cordova-plugin-x-socialsharing": "5.4.4",
     "cordova-sqlite-storage": "3.2.0",
     "ionic-plugin-keyboard": "2.2.1",
-    "mx.ferreyra.callnumber": "0.0.2"
+    "mx.ferreyra.callnumber": "0.0.2",
+    "cordova-plugin-request-location-accuracy": "2.3.0"
   }
 }

@@ -576,6 +576,14 @@ module.exports = [
     "clobbers": [
       "call"
     ]
+  },
+  {
+    "id": "cordova-plugin-request-location-accuracy.RequestLocationAccuracy",
+    "file": "plugins/cordova-plugin-request-location-accuracy/www/android/RequestLocationAccuracy.js",
+    "pluginId": "cordova-plugin-request-location-accuracy",
+    "clobbers": [
+      "cordova.plugins.locationAccuracy"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -596,7 +604,8 @@ module.exports.metadata =
   "cordova-plugin-x-socialsharing": "5.4.4",
   "cordova-sqlite-storage": "3.2.0",
   "ionic-plugin-keyboard": "2.2.1",
-  "mx.ferreyra.callnumber": "0.0.2"
+  "mx.ferreyra.callnumber": "0.0.2",
+  "cordova-plugin-request-location-accuracy": "2.3.0"
 };
 // BOTTOM OF METADATA
 });

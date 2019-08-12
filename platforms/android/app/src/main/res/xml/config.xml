@@ -88,7 +88,10 @@
     <feature name="CallNumber">
         <param name="android-package" value="mx.ferreyra.callnumber.CFCallNumber" />
     </feature>
-    <name>Kubix UTN</name>
+    <feature name="RequestLocationAccuracy">
+        <param name="android-package" value="cordova.plugin.RequestLocationAccuracy" />
+    </feature>
+    <name>kubix UTN</name>
     <description>Una aplicacion de transporte y movilidad para la comunidad universitaria</description>
     <author email="batandayamol@utn.edu.ec" href="https://github.com/bertil291utn">Garage Development Team</author>
     <content src="index.html" />

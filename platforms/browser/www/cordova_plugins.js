@@ -434,7 +434,8 @@ module.exports.metadata =
     "cordova-plugin-camera": "4.0.3",
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-x-socialsharing": "5.4.4",
-    "mx.ferreyra.callnumber": "0.0.2"
+    "mx.ferreyra.callnumber": "0.0.2",
+    "cordova-plugin-request-location-accuracy": "2.3.0"
 }
 // BOTTOM OF METADATA
 });

@@ -79,7 +79,6 @@ export class ViajesPasajeroPage {
     this.loadingCrtlRefresh = this.loadingCtrl.create();
     this.loadingCrtlRefresh.present();
     this.apiRestService.getViajesDiarios().subscribe((resp) => {
-      this.respuesta = 0;
       this.respuesta = resp.respuesta.length;
       if (this.respuesta == 0)
         this.loadingCrtlRefresh.dismiss();

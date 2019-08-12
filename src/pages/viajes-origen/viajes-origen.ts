@@ -6,6 +6,7 @@ import { MyLocationOptions, LocationService } from '@ionic-native/google-maps';
 import { RutaProvider } from '../../providers/ruta/ruta';
 import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-api-service';
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
+import { Geolocation } from '@ionic-native/geolocation';
 
 declare var google;
 
@@ -23,7 +24,7 @@ export class ViajesOrigenPage {
   ubicActualObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null, showfull_name: null };
 
 
-  constructor(public navCtrl: NavController, public myservices: EnvironmentVarService,
+  constructor(public navCtrl: NavController, public myservices: EnvironmentVarService, private geolocation: Geolocation,
     public navParams: NavParams, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
     public modalCtrl: ModalController, public apiRestService: RestApiServiceProvider,
     public routeCreate: RutaProvider) {
@@ -136,13 +137,14 @@ export class ViajesOrigenPage {
   }
 
   private async getLocation() {
-    let option: MyLocationOptions = {
-      enableHighAccuracy: true
-    }
-    const rta = await LocationService.getMyLocation(option);
-    //const rta = await this.geolocation.getCurrentPosition();
-
-    return rta.latLng
+    // let option: MyLocationOptions = {
+    //   enableHighAccuracy: true
+    // }
+    // const rta = await LocationService.getMyLocation(option);
+    const rta = await this.geolocation.getCurrentPosition();
+    let latLng = { lat: rta.coords.latitude, lng: rta.coords.longitude };
+    console.log('rta: ', rta);
+    return latLng
   }
 
 

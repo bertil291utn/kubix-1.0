@@ -49,6 +49,10 @@
     },
     "mx.ferreyra.callnumber": {
       "PACKAGE_NAME": "utn.edu.ec.kubix"
+    },
+    "cordova-plugin-request-location-accuracy": {
+      "PLAY_SERVICES_LOCATION_VERSION": "16.+",
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     }
   },
   "dependent_plugins": {
