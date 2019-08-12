@@ -58,13 +58,12 @@ export class MyApp {
 
   public networkReviewEnabled() {
 
-
     if (!navigator.onLine) {
       this.loadingCrtlRefresh = this.loadingCtrl.create();
       this.loadingCrtlRefresh.present();
-      this.presentToastStaticTop('Comprueba tu conexion y vuelve a intentarlo');
+      this.presentToastStaticTop('Comprueba tu conexi\xF3n y vuelve a intentarlo');
     } else {
-      this.presentToastDurationTop('Aplicacion en linea ', 2000);
+      this.presentToastDurationTop('Aplicaci\xF3n en l\xEDnea', 1000);
       this.userInfo();
 
     }
@@ -73,7 +72,7 @@ export class MyApp {
       this.networkProvider.initializeNetworkEvents();
       // Online event
       this.events.subscribe('network:online', () => {
-        this.presentToastDurationTop('Aplicacion en linea ', 2000);
+        this.presentToastDurationTop('Aplicaci\xF3n en l\xEDnea', 1000);
         this.userInfo();
         this.toastInternet.dismiss();
         // alert('network:offline ==> ' + this.network.type);
@@ -83,7 +82,7 @@ export class MyApp {
       this.events.subscribe('network:offline', () => {
         this.loadingCrtlRefresh = this.loadingCtrl.create();
         this.loadingCrtlRefresh.present();
-        this.presentToastStaticTop('Comprueba tu conexion y vuelve a intentarlo');
+        this.presentToastStaticTop('Comprueba tu conexi\xF3n y vuelve a intentarlo');
         // alert('network:online ==> ' + this.network.type);
       });
 
@@ -260,7 +259,10 @@ export class MyApp {
     this.authService.logOut().then(() => {
       loadingCrtlRefresh.dismiss();
       this.returnFalseStateRbn();
+      this.events.unsubscribe('network:offline');
+      this.events.unsubscribe('network:online');
       this.nav.setRoot(LoginPage);
+
 
       //this.app.getActiveNav().setRoot(LoginPage);
       //this.rootPage = LoginPage;

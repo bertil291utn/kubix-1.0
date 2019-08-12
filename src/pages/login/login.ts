@@ -43,16 +43,16 @@ export class LoginPage {
     if (!navigator.onLine) {
       this.loadingCrtlRefresh = this.loadingController.create();
       this.loadingCrtlRefresh.present();
-      this.presentToastStaticTop('Comprueba tu conexion y vuelve a intentarlo');
+      this.presentToastStaticTop('Comprueba tu conexi\xF3n y vuelve a intentarlo');
     } else {
-      this.presentToastDurationTop('Aplicacion en linea ', 2000);
+      this.presentToastDurationTop('Aplicaci\xF3n en l\xEDnea', 1000);
     }
 
     this.platform.ready().then(() => {
       this.networkProvider.initializeNetworkEvents();
       // Online event
       this.events.subscribe('network:online', () => {
-        this.presentToastDurationTop('Aplicacion en linea ', 2000);
+        this.presentToastDurationTop('Aplicaci\xF3n en l\xEDnea', 1000);
         this.toastInternet.dismiss();
         if (this.loadingCrtlRefresh != null || undefined)
           this.loadingCrtlRefresh.dismiss();
@@ -63,7 +63,7 @@ export class LoginPage {
       this.events.subscribe('network:offline', () => {
         this.loadingCrtlRefresh = this.loadingController.create();
         this.loadingCrtlRefresh.present();
-        this.presentToastStaticTop('Comprueba tu conexion y vuelve a intentarlo');
+        this.presentToastStaticTop('Comprueba tu conexi\xF3n y vuelve a intentarlo');
         // alert('network:online ==> ' + this.network.type);
       });
 
@@ -82,35 +82,40 @@ export class LoginPage {
 
 
   public async signIn() {
-    const loading = await this.loadingController.create({
-      content: 'Iniciando sesi&oacute;n...'
-    });
-    loading.present();
-    //si la primera lera es minuscula , tiene que transofrma a mayuscual para que el login sea correcto
-    let firstLetterUsuario = this.usuario.charAt(0);
-    if (firstLetterUsuario == firstLetterUsuario.toLowerCase()) {
-      let tailUsuario = this.usuario.substring(1);
-      firstLetterUsuario = firstLetterUsuario.toUpperCase();
-      this.usuario = firstLetterUsuario + tailUsuario;
-    }
-
-    let userData = { username: this.usuario, password: this.password };//objecto para enviar userdata
-    this.apiRestService.getLogin(userData).subscribe((resp) => { //consulta en el api de la U haber si coinciden las credneciales
-      let val = resp.value;
-      if (val == 'TRUE') val = true; else if (val == 'FALSE') val = false;
-      if (val) {//si el valor es verdaero ingresa caso con trario da un mensaje de error
-        this.authService.login(userData, this.usuario).then(() => {//api para guardar losd atos en el dispositivo
-          this.verificarTabUsuario();
-          this.navCtrl.setRoot(HomePage);
-        }, err => {
-          console.log('Ha ocurrido un error al inciar sesión.');
-        });
-      } else {
-        this.presentToastDurationTop('Usuario o contrase\xF1a incorrectos', 2000);
-        loading.dismiss();
+    let notVacios = ((this.usuario != undefined && this.usuario != '') &&
+      (this.password != undefined && this.password != ''));
+    if (notVacios && this.usuario.length == 11) {
+      const loading = await this.loadingController.create({
+        content: 'Iniciando sesi&oacute;n...'
+      });
+      loading.present();
+      //si la primera lera es minuscula , tiene que transofrma a mayuscual para que el login sea correcto
+      let firstLetterUsuario = this.usuario.charAt(0);
+      if (firstLetterUsuario == firstLetterUsuario.toLowerCase()) {
+        let tailUsuario = this.usuario.substring(1);
+        firstLetterUsuario = firstLetterUsuario.toUpperCase();
+        this.usuario = firstLetterUsuario + tailUsuario;
       }
-      loading.dismiss();
-    });
+
+      let userData = { username: this.usuario, password: this.password };//objecto para enviar userdata
+      this.apiRestService.getLogin(userData).subscribe((resp) => { //consulta en el api de la U haber si coinciden las credneciales
+        let val = resp.value;
+        if (val == 'TRUE') val = true; else if (val == 'FALSE') val = false;
+        if (val) {//si el valor es verdaero ingresa caso con trario da un mensaje de error
+          this.authService.login(userData, this.usuario).then(() => {//api para guardar losd atos en el dispositivo
+            this.verificarTabUsuario();
+            this.navCtrl.setRoot(HomePage);
+          }, err => {
+            console.log('Ha ocurrido un error al inciar sesión.');
+          });
+        } else {
+          this.presentToastDurationTop('Usuario o contrase\xF1a incorrectos', 1000);
+          loading.dismiss();
+        }
+        loading.dismiss();
+      });
+    } else
+      this.presentToastDurationTop('Ingrese usuario y contrase\xF1a', 1000);
   }
 
   private verificarTabUsuario() {
