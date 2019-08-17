@@ -123,6 +123,10 @@
             {
               "xml": "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"Permissions\"><param name=\"android-package\" value=\"com.android.plugins.Permissions\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -320,6 +324,9 @@
       "PACKAGE_NAME": "utn.edu.ec.kubix"
     },
     "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
+    },
+    "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "utn.edu.ec.kubix"
     }
   },
@@ -926,6 +933,14 @@
       "clobbers": [
         "Connection"
       ]
+    },
+    {
+      "id": "cordova-plugin-android-permissions.Permissions",
+      "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
+      "pluginId": "cordova-plugin-android-permissions",
+      "clobbers": [
+        "cordova.plugins.permissions"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -946,6 +961,7 @@
     "ionic-plugin-keyboard": "2.2.1",
     "mx.ferreyra.callnumber": "0.0.2",
     "cordova-plugin-request-location-accuracy": "2.3.0",
-    "cordova-plugin-network-information": "2.0.2"
+    "cordova-plugin-network-information": "2.0.2",
+    "cordova-plugin-android-permissions": "1.0.0"
   }
 }

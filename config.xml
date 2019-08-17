@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="utn.edu.ec.kubix" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="utn.edu.ec.kubix" version="0.0.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>kubix UTN</name>
     <description>Una aplicacion de transporte y movilidad para la comunidad universitaria</description>
     <author email="batandayamol@utn.edu.ec" href="https://github.com/bertil291utn">Garage Development Team</author>
@@ -102,10 +102,11 @@
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <plugin name="com-sarriaroman-photoviewer" spec="1.2.4" />
     <plugin name="cordova-sqlite-storage" spec="3.2.0" />
-    <engine name="browser" spec="5.0.4" />
-    <engine name="android" spec="~7.1.4" />
     <plugin name="cordova-plugin-request-location-accuracy" spec="2.3.0">
         <variable name="PLAY_SERVICES_LOCATION_VERSION" value="16.+" />
     </plugin>
     <plugin name="cordova-plugin-network-information" spec="2.0.2" />
+    <engine name="browser" spec="5.0.4" />
+    <engine name="android" spec="^7.1.4" />
+    <plugin name="cordova-plugin-android-permissions" spec="1.0.0" />
 </widget>

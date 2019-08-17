@@ -56,6 +56,9 @@
     },
     "cordova-plugin-network-information": {
       "PACKAGE_NAME": "utn.edu.ec.kubix"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "utn.edu.ec.kubix"
     }
   },
   "dependent_plugins": {

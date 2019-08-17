@@ -33,6 +33,7 @@ export class ViajesOrigenPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajesOrigenPage');
+    this.ActionGetLocation();
     this.reviewGPSEnabled();
     this.casaInfo();
   }
@@ -89,6 +90,7 @@ export class ViajesOrigenPage {
     if (this.ubicacionActualLatLng != null || undefined)
       this.loadingControllerSave.dismiss();
     console.log('ubicacionActualLatLng: ', this.ubicacionActualLatLng);
+    
   }
 
 
