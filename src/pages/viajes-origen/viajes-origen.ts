@@ -7,6 +7,7 @@ import { RestApiServiceProvider } from '../../providers/rest-api-service/rest-ap
 import { EnvironmentVarService } from '../../providers/environmentVarService/environmentVarService';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 declare var google;
 
@@ -18,7 +19,7 @@ export class ViajesOrigenPage {
 
   casa: boolean;
   ubicacionActualLatLng;
-  loadingControllerSave;
+  loadingControllerCasa;
   //enviar el showfullname no el full name
   casaObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null, showfull_name: null };
   ubicActualObject = { codigo_geo: null, lat: null, lng: null, short_name: null, full_name: null, showfull_name: null };
@@ -27,40 +28,74 @@ export class ViajesOrigenPage {
   constructor(public navCtrl: NavController, public myservices: EnvironmentVarService, private geolocation: Geolocation,
     public navParams: NavParams, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
     public modalCtrl: ModalController, public apiRestService: RestApiServiceProvider, private locationAccuracy: LocationAccuracy,
-    public routeCreate: RutaProvider, public toastCtrl: ToastController) {
+    public routeCreate: RutaProvider, public toastCtrl: ToastController, private androidPermissions: AndroidPermissions) {
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajesOrigenPage');
-    this.ActionGetLocation();
-    this.reviewGPSEnabled();
+    this.checkGPSPermission();
     this.casaInfo();
   }
 
-  private reviewGPSEnabled() {
-
-    this.locationAccuracy.canRequest().then((canRequest: boolean) => {
-      if (canRequest) {
-        // the accuracy option will be ignored by iOS
-        this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
-          () => {
-            console.log('Request successful');
-            this.ActionGetLocation();
-            this.latLngDir();
-          },
-          error => {
-            console.log('Error requesting location permissions', error);
-            this.navCtrl.pop();
-            this.presentToastDurationBottom('Debe activar su GPS', 2000)
-          }
-        );
+  private checkGPSPermission() {
+    //si el check permission es primera vez cuando incia la aplicacion o para segunda revision cuando se presiona deny
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
+      result => {
+        if (result.hasPermission) {
+          //If having permission show 'Turn On GPS' dialogue
+          this.askToTurnOnGPS();//tiene permiso por lo tanto ya no vuelve a preguntar
+        } else
+          //If not having permission ask for permission
+          this.requestGPSPermission();
+      },
+      err => {
+        alert(err);
       }
-
-    });
+    );
   }
 
+
+  private requestGPSPermission() {
+    //Show 'GPS Permission Request' dialogue
+    this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
+      .then(
+        () => {
+          // call method to turn on GPS
+          this.askToTurnOnGPS();//no se sabe si tiene permiso o no por lo que se debe volver a revisar
+        }
+      );
+  }
+
+  private askToTurnOnGPS() {
+
+    //revisar otra vez si la aplicacion tiene permsisos. Este caos sirve en caos de que haya puesto deny en la activacion de permisos de localizacion e aaplicacion 
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
+      result => {
+        if (result.hasPermission) {
+          this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+            () => {
+              // When GPS Turned ON call method to get Accurate location coordinates
+              this.ActionGetLocation();
+            },
+            error => {
+              this.navCtrl.pop();
+              this.presentToastDurationBottom('Debe activar su GPS', 2000);
+            }
+          );
+        } else {
+          this.navCtrl.pop();
+          this.presentToastDurationBottom('Debe activar los permisos de ubicaci\xF3n', 2000);
+        }
+      });
+  }
+
+
   private casaInfo() {
+    if (this.loadingControllerCasa == null || undefined) {
+      this.loadingControllerCasa = this.loadingCtrl.create();
+      this.loadingControllerCasa.present();
+    }
     //llamar api rest  buscando casa de la persona y la direccion
     this.casa = true;
     this.apiRestService.getCasaInfo().subscribe((resp) => {
@@ -73,11 +108,14 @@ export class ViajesOrigenPage {
         this.casaObject.showfull_name = this.myservices.removeaccents(resp.items[0].full_name);
 
         if (resp != null)
-          if (this.loadingControllerSave != undefined)
-            this.loadingControllerSave.dismiss();
+          if (this.loadingControllerCasa != undefined) {
+            this.loadingControllerCasa.dismiss();
+            console.log('loading casa dismiss: ' + this.loadingControllerCasa);
+          }
       } else {
         this.casa = false;
-        this.loadingControllerSave.dismiss();
+        this.loadingControllerCasa.dismiss();
+        console.log('loading casa dismiss: ' + this.loadingControllerCasa);
       }
     });
 
@@ -86,11 +124,12 @@ export class ViajesOrigenPage {
 
 
   async ActionGetLocation() {
+    const loadingControllerUbicacion = this.loadingCtrl.create();
+    loadingControllerUbicacion.present();
     this.ubicacionActualLatLng = await this.getLocation();
+    this.getDireccion(this.ubicacionActualLatLng);
     if (this.ubicacionActualLatLng != null || undefined)
-      this.loadingControllerSave.dismiss();
-    console.log('ubicacionActualLatLng: ', this.ubicacionActualLatLng);
-    
+      loadingControllerUbicacion.dismiss();
   }
 
 
@@ -134,8 +173,8 @@ export class ViajesOrigenPage {
 
     contactModal.onDidDismiss(data => {
       if (data != null || undefined) {
-        this.loadingControllerSave = this.loadingCtrl.create();
-        this.loadingControllerSave.present();
+        this.loadingControllerCasa = this.loadingCtrl.create();
+        this.loadingControllerCasa.present();
         console.log('data return modal es: ', data);
         if (data.update) {
           console.log('hacer refresh de casa info');
@@ -148,10 +187,7 @@ export class ViajesOrigenPage {
   }
 
   async latLngDir() {
-    this.loadingControllerSave = this.loadingCtrl.create();
-    this.loadingControllerSave.present();
     this.getDireccion(await this.getLocation());
-    //this.ubicacionActualLatLng = await this.getLocation();
   }
 
   getDireccion(latlng) {
@@ -207,4 +243,4 @@ export class ViajesOrigenPage {
 
 
 
-}
+}//end class

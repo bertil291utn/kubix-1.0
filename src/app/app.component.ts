@@ -57,14 +57,14 @@ export class MyApp {
   }
 
   public networkReviewEnabled() {
-
+    const loadingCrtlNetwork = this.loadingCtrl.create();
     if (!navigator.onLine) {
-      this.loadingCrtlRefresh = this.loadingCtrl.create();
-      this.loadingCrtlRefresh.present();
+      loadingCrtlNetwork.present();
       this.presentToastStaticTop('Comprueba tu conexi\xF3n y vuelve a intentarlo');
     } else {
       this.presentToastDurationTop('Aplicaci\xF3n en l\xEDnea', 1000);
       this.userInfo();
+      loadingCrtlNetwork.dismiss();
 
     }
 
@@ -75,13 +75,13 @@ export class MyApp {
         this.presentToastDurationTop('Aplicaci\xF3n en l\xEDnea', 1000);
         this.userInfo();
         this.toastInternet.dismiss();
+        loadingCrtlNetwork.dismiss();
         // alert('network:offline ==> ' + this.network.type);
       });
 
       // Offline event
       this.events.subscribe('network:offline', () => {
-        this.loadingCrtlRefresh = this.loadingCtrl.create();
-        this.loadingCrtlRefresh.present();
+        loadingCrtlNetwork.present();
         this.presentToastStaticTop('Comprueba tu conexi\xF3n y vuelve a intentarlo');
         // alert('network:online ==> ' + this.network.type);
       });
@@ -114,6 +114,8 @@ export class MyApp {
     //   this.loadingCrtlRefresh = this.loadingCtrl.create();
     //   this.loadingCrtlRefresh.present();
     // }
+    const loadingCrtUserInfo = this.loadingCtrl.create();
+    loadingCrtUserInfo.present();
     this.apiRestService.getUsuario()
       .subscribe((resp) => {
         console.log('respuesta get info: ', resp);
@@ -127,8 +129,8 @@ export class MyApp {
         this.myservices.userData.email = resp.items[0].CORREO_INSTITUCIONAL;
         this.myservices.userData.celular = resp.items[0].TELEFONO_MOVIL;
         if (resp != null)
-          if (this.loadingCrtlRefresh != null || undefined)
-            this.loadingCrtlRefresh.dismiss();
+          if (loadingCrtUserInfo != null || undefined)
+            loadingCrtUserInfo.dismiss();
       },
         (error) => {
           console.error(error);
@@ -233,6 +235,7 @@ export class MyApp {
   }
 
 
+
   private rdbnReturn() {
     if (this.evntRbnTipoPasajero)
       this.radiobtn = false;
@@ -253,7 +256,7 @@ export class MyApp {
   }
 
 
-  public logOut() {
+  private ActionLogOut() {
     let loadingCrtlRefresh = this.loadingCtrl.create();
     loadingCrtlRefresh.present();
     this.authService.logOut().then(() => {
@@ -262,13 +265,26 @@ export class MyApp {
       this.events.unsubscribe('network:offline');
       this.events.unsubscribe('network:online');
       this.nav.setRoot(LoginPage);
-
-
-      //this.app.getActiveNav().setRoot(LoginPage);
-      //this.rootPage = LoginPage;
       console.log('log out :autenticated ', this.authenticated);
-
     });
+  }
+
+  public logOut() {
+    const alert = this.alertCtrl.create({
+      message: '¿Est&aacute; seguro de cerrar sesi&oacute;n?',
+      buttons: [{
+        text: 'Si',
+        handler: () => {
+          this.ActionLogOut();
+        }
+      },
+      {
+        text: 'No',
+        role: 'cancel'
+      }],
+      enableBackdropDismiss: false
+    })
+    alert.present();
   }
 
   private returnFalseStateRbn() {

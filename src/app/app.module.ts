@@ -53,7 +53,7 @@ import { AuthguardProvider } from '../providers/authguard/authguard';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import { Network } from '@ionic-native/network';
 import { NetworkProvider } from '../providers/network/network';
-
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 
 @NgModule({
@@ -137,6 +137,7 @@ import { NetworkProvider } from '../providers/network/network';
     TitleCasePipe,
     LocationAccuracy,
     Network,
+    AndroidPermissions,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     EnvironmentVarService,
     DatesFormatProvider,
