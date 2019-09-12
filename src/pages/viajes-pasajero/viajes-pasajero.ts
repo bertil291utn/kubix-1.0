@@ -82,9 +82,7 @@ export class ViajesPasajeroPage {
       this.respuesta = resp.respuesta.length;
       if (this.respuesta == 0)
         this.loadingCrtlRefresh.dismiss();
-      console.log('respuesta getviajes diaris: ', resp);
       let groupByCodViaje = this.setGroup(resp);
-      console.log('agrupado respuesta: ', groupByCodViaje);
       this.viajesPubObjectArrayToShow = []//array para almacenar los valores si es q hay mas de 10 solo los diez primeros
       this.viajesPubObjectArrayOriginal = [];//array para almacenar todos los valores que trae el api
       for (let obj of groupByCodViaje) {
