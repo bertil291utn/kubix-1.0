@@ -1,1 +1,62 @@
-### :point_right: This starter repo has moved to the [ionic-team/starters](https://github.com/ionic-team/starters/tree/master/ionic-angular/official/sidemenu) repo! :point_left:
+# Mobile application
+
+> Android mobile application developed for T&eacute;cnica del Norte University.
+
+![image](https://user-images.githubusercontent.com/24902525/76780102-7a13a400-677a-11ea-9c6c-03b0a8fbeb90.png)
+
+This application allows us to shared cars to travel among the college community.
+
+## Built With
+
+- Ionic 3.9.2
+- SaSS 
+- Oracle Apex
+
+
+## Getting Started
+
+Clone the repository then 
+```
+npm i
+ionic s
+```
+### Prerequisites
+
+Node JS v.9
+Java 
+Android Studio
+
+### Install
+Install Ionic 3.9.2
+```
+npm install -g ionic@3.9.2
+```
+To deploy the application please write the localserver
+```
+ionic s
+```
+It wil show in your browser
+
+But if you want to try in your phone (Android)🤖
+First you have connect your device or have a emulated device in your machine.
+```
+ionic cordova run android
+```
+
+## Authors
+
+👤 **Bertil Tandayamo**
+
+- Github: [@bertil291utn](https://github.com/bertil291utn)
+- Twitter: [@btandayamo](https://twitter.com/batandayamo)
+- Linkedin: [Bertil Tandayamo](http://bit.ly/bertil_linkedin)
+
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## Acknowledgments
+
+- Hat tip to anyone whose code was used
+- Inspiration
+- etc
