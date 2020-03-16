@@ -3,8 +3,10 @@
 > Android mobile application developed for T&eacute;cnica del Norte University.
 
 ![image](https://user-images.githubusercontent.com/24902525/76780102-7a13a400-677a-11ea-9c6c-03b0a8fbeb90.png)
+![image](https://user-images.githubusercontent.com/24902525/76780458-12aa2400-677b-11ea-9fc4-194ec3b583e7.png)
+![image](https://user-images.githubusercontent.com/24902525/76780480-1ccc2280-677b-11ea-82f9-5917e0fefced.png)
 
-This application allows us to shared cars to travel among the college community.
+This application allows an kind a shared car option to travel among the college community.
 
 ## Built With
 
@@ -12,14 +14,6 @@ This application allows us to shared cars to travel among the college community.
 - SaSS 
 - Oracle Apex
 
-
-## Getting Started
-
-Clone the repository then 
-```
-npm i
-ionic s
-```
 ### Prerequisites
 
 Node JS v.9
@@ -31,6 +25,14 @@ Install Ionic 3.9.2
 ```
 npm install -g ionic@3.9.2
 ```
+Clone this repo
+
+Install all npm dependencies
+```
+npm install
+```
+### Deploy
+
 To deploy the application please write the localserver
 ```
 ionic s
