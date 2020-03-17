@@ -14,9 +14,9 @@ This application allows an kind a shared car option to travel among the college 
 
 ### Prerequisites
 
-Node JS v.9
-Java 
-Android Studio
+- Node JS v.9
+- Java 
+- Android Studio
 
 ### Install
 Install Ionic 3.9.2
