@@ -4,8 +4,6 @@
 
 <img src="https://user-images.githubusercontent.com/24902525/76780102-7a13a400-677a-11ea-9c6c-03b0a8fbeb90.png" alt="image" width="400" /><img src="https://user-images.githubusercontent.com/24902525/76780102-7a13a400-677a-11ea-9c6c-03b0a8fbeb90.png" alt="image" width="400" /><img src="https://user-images.githubusercontent.com/24902525/76780480-1ccc2280-677b-11ea-82f9-5917e0fefced.png" alt="image" width="400" />
 
-This application allows an kind a shared car option to travel among the college community.
-
 ## Built With
 
 - Ionic 3.9.2
@@ -35,10 +33,10 @@ To deploy the application please write the localserver
 ```
 ionic s
 ```
-It wil show in your browser
+It will show in your browser
 
 But if you want to try in your phone (Android)🤖
-First you have connect your device or have a emulated device in your machine.
+First, you have connected your device or have an emulated device in your machine.
 ```
 ionic cordova run android
 ```
@@ -53,7 +51,7 @@ ionic cordova run android
 
 ## Show your support
 
-Give a ⭐️ if you like this project!
+Hit the ⭐️ button if you like this project!
 
 ## Acknowledgments
 
