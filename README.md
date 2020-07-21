@@ -29,14 +29,14 @@ npm install
 ```
 ### Deploy
 
-To deploy the application please write the localserver
+To deploy the application please write the local server
 ```
 ionic s
 ```
 It will show in your browser
 
 But if you want to try in your phone (Android)🤖
-First, you have connected your device or have an emulated device in your machine.
+First, you have connected your device or have means of simulated Android on your computer.
 ```
 ionic cordova run android
 ```
